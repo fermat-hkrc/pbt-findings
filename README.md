@@ -27,3 +27,4 @@
 
 ### Rust: Kuasar (from Huawei Cloud)
 - Project: https://github.com/thanhtoantnt/kuasar
+- Bug #1: https://github.com/kuasar-io/kuasar/issues/244
