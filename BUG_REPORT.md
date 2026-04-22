@@ -2,7 +2,7 @@
 
 ## Executive Summary
 
-Property-based testing discovered **6 findings** across ~225 tests in 14 categories.
+Property-based testing discovered **8 findings** across ~350 tests in 19 categories.
 
 | Bug # | Category | Severity | Classification | Only in A_FORMAT? |
 |-------|----------|----------|----------------|-------------------|
@@ -14,6 +14,8 @@ Property-based testing discovered **6 findings** across ~225 tests in 14 categor
 | **6** | **NULL Concatenation** | **HIGH** | **Expected in A_FORMAT** | **YES — Oracle compat feature** |
 | **7** | **POSITION Empty String** | **MEDIUM** | **Expected in A_FORMAT** | **YES — downstream of #5** |
 | **8** | **Array NULL Equality** | **MEDIUM** | **Design Choice** | No — all modes |
+| **9** | **Modulo by Zero Returns Dividend** | **HIGH** | **BUG** | No — A/B/C modes (not PG) |
+| **10** | **Missing Functions: cardinality, gcd, lcm** | **MEDIUM** | **Missing Feature** | No — all modes |
 
 ### Key Finding on Bugs #5, #6, #7
 
@@ -480,6 +482,86 @@ SELECT ARRAY[1,NULL,3] = ARRAY[1,NULL,3];  -- Returns: NULL
 
 ---
 
+## BUG #9: Modulo by Zero Returns Dividend Instead of Error (HIGH BUG)
+
+### Property Violated
+```
+Arithmetic: x % 0 should raise a division-by-zero error
+```
+
+### Evidence
+```sql
+-- Tested across all DBCOMPATIBILITY modes:
+SELECT 5 % 0;
+
+-- db_a (A):  Returns 5   ← WRONG
+-- db_b (B):  Returns 5   ← WRONG
+-- db_c (C):  Returns 5   ← WRONG
+-- db_pg (PG): ERROR: division by zero ← CORRECT
+```
+
+### Cross-Mode Results
+
+| Mode | `5 % 0` | Expected |
+|------|---------|----------|
+| A (Oracle) | `5` (dividend) | `ERROR` |
+| B (MySQL) | `5` (dividend) | `ERROR` |
+| C (Teradata) | `5` (dividend) | `ERROR` |
+| **PG (PostgreSQL)** | **ERROR: division by zero** | **ERROR ✓** |
+
+### Impact
+- Silent arithmetic error: code expecting an exception gets a garbage result
+- Inconsistent behavior: mode PG errors, modes A/B/C silently return wrong value
+- Mathematical property violated: `a = (a % b) * 1` — but `5 = (5 % 0) * 1 = 5 * 1 = 5` hides the error
+- Applications that divide by user-supplied values may get wrong results in A/B/C without any indication
+
+### Note on MySQL behavior
+MySQL returns `NULL` for `5 % 0`. openGauss A/B/C returns `5` (the dividend) — which is neither the MySQL behavior nor the PostgreSQL/Oracle behavior.
+
+### Classification
+**HIGH BUG** — Inconsistent across DBCOMPATIBILITY modes. A/B/C modes fail to raise division-by-zero for modulo-by-zero. PG mode is correct.
+
+---
+
+## BUG #10: Missing PostgreSQL-Compatible Functions (MEDIUM — Missing Feature)
+
+### Functions Absent
+
+The following standard PostgreSQL functions are missing in all DBCOMPATIBILITY modes:
+
+```sql
+-- cardinality(anyarray) → integer   (PostgreSQL 9.4+)
+SELECT cardinality(ARRAY[1,2,3]);
+-- ERROR: function cardinality(integer[]) does not exist  ← ALL modes
+
+-- gcd(integer, integer) → integer   (PostgreSQL 13+)
+SELECT gcd(12, 8);
+-- ERROR: function gcd(integer, integer) does not exist  ← ALL modes
+
+-- lcm(integer, integer) → integer   (PostgreSQL 13+)
+SELECT lcm(4, 6);
+-- ERROR: function lcm(integer, integer) does not exist  ← ALL modes
+```
+
+### Workarounds
+```sql
+-- cardinality: use array_length(arr, 1) instead
+SELECT array_length(ARRAY[1,2,3], 1);  -- Returns 3 ✓
+
+-- gcd: compute manually or use numeric tricks
+-- (no direct workaround built-in)
+```
+
+### Impact
+- Code ported from PostgreSQL 9.4+ using `cardinality()` will fail
+- Code ported from PostgreSQL 13+ using `gcd()` or `lcm()` will fail
+- Particularly affects mode `PG` which claims PostgreSQL compatibility
+
+### Classification
+**MEDIUM — Missing Feature** — Standard PostgreSQL functions absent in all modes including PG compatibility mode.
+
+---
+
 ## Additional Findings
 
 ### Behaviors Observed (Not Bugs)
@@ -512,21 +594,25 @@ SELECT ARRAY[1,NULL,3] = ARRAY[1,NULL,3];  -- Returns: NULL
 
 | Category | Tests Run | Bugs Found |
 |----------|-----------|------------|
-| Numeric Arithmetic | ~35 | 1 (integer division - design) |
+| Numeric Arithmetic | ~35 | 1 (integer division - design), 1 (modulo zero - bug #9) |
 | Floating Point | ~15 | 1 (NaN - design) |
-| String Operations | ~30 | 3 (bugs #5,6,7) |
-| Array Operations | ~15 | 1 (bug #8) |
+| String Operations | ~30 | 3 (bugs #5,6,7 — A_FORMAT features) |
+| Array Operations | ~20 | 1 (bug #8), 1 (cardinality missing - #10) |
 | Encoding/Decoding | ~10 | 0 |
 | DateTime | ~20 | 0 |
 | JSON/JSONB | ~15 | 0 |
 | Aggregates | ~15 | 0 |
-| NULL Handling | ~15 | 0 |
+| NULL Handling | ~20 | 0 |
 | Type Casting | ~15 | 0 |
 | Set Operations | ~10 | 0 |
 | Window Functions | ~10 | 0 |
 | Constraints | ~10 | 0 |
 | CTEs/Subqueries | ~10 | 0 |
-| **Total** | **~225** | **6 bugs** |
+| Range Types | ~10 | 0 |
+| Recursive CTEs | ~5 | 0 |
+| Special Values | ~10 | 1 (gcd/lcm missing - #10) |
+| Cross-mode PBT | ~100 | confirmed bugs #9, #10 |
+| **Total** | **~350** | **10 findings (2 true bugs, 6 design/compat, 2 not-bugs)** |
 
 ---
 
@@ -569,12 +655,20 @@ Unlike bugs #5-7, this is active in **all** DBCOMPATIBILITY modes and has no wor
 
 3. **Array NULL equality (Bug #8)**: use `IS NOT DISTINCT FROM` for NULL-aware comparison; it works consistently across all modes.
 
+4. **Modulo by zero (Bug #9)**: in A/B/C modes, always check your divisor before using `%`. In PG mode, rely on the exception.
+
+5. **Missing functions (Bug #10)**: use `array_length(arr, 1)` instead of `cardinality()`.
+
 ### For openGauss Team
-1. **Bug #8 (Array NULL equality)**: Consider adding a `behavior_compat_options` flag to make array equality propagate NULLs per SQL standard.
+1. **Bug #9 (Modulo by zero)**: Fix modes A/B/C to raise division-by-zero error on `x % 0`, consistent with PG mode and the SQL standard.
 
-2. **Bug #1 (Integer Division)**: Document clearly that `/` returns float. Recommend `div()`.
+2. **Bug #10 (Missing functions)**: Add `cardinality()`, `gcd()`, `lcm()` for PostgreSQL compatibility, especially important for PG mode.
 
-3. **Default compatibility documentation**: Make the `A`-is-default-for-single-node behavior more prominent in getting-started documentation.
+3. **Bug #8 (Array NULL equality)**: Consider adding a `behavior_compat_options` flag to make array equality propagate NULLs per SQL standard.
+
+4. **Bug #1 (Integer Division)**: Document clearly that `/` returns float. Recommend `div()`.
+
+5. **Default compatibility documentation**: Make the `A`-is-default-for-single-node behavior more prominent in getting-started documentation.
 
 ---
 
@@ -582,8 +676,9 @@ Unlike bugs #5-7, this is active in **all** DBCOMPATIBILITY modes and has no wor
 
 | File | Description |
 |------|-------------|
+| `pbt_cross_mode.sh` | Cross-mode PBT suite (19 categories × 4 modes, ~350 tests) |
 | `pbt_bug_finder_v2.sh` | Core bug-finding PBT tests |
-| `pbt_deep_dive.sh` | Comprehensive 16-category PBT suite (225+ tests) |
+| `pbt_deep_dive.sh` | Comprehensive 16-category PBT suite |
 | `pbt_comprehensive.sh` | Original PBT suite |
 | `HOW_TO_CONFIRM_BUGS.md` | Docker instructions to verify bugs |
 | `BUG_REPORT.md` | This report |
@@ -596,5 +691,5 @@ Unlike bugs #5-7, this is active in **all** DBCOMPATIBILITY modes and has no wor
 - **openGauss Version**: 7.0.0-RC2
 - **Platform**: openEuler-24.03-LTS (aarch64)
 - **Test Encoding**: UTF8 database (for correct Unicode behavior)
-- **Database Mode**: A_FORMAT (Oracle-compatible, default)
-- **Tests Run**: ~225 property-based tests across 14 categories
+- **Modes Tested**: A (Oracle), B (MySQL), C (Teradata), PG (PostgreSQL)
+- **Tests Run**: ~350 property-based tests across 19 categories × 4 compatibility modes
