@@ -19,7 +19,7 @@
 
 ### Rust: Claude C Compiler
 - Project: https://github.com/thanhtoantnt/claudes-c-compiler
-- Bugs found: https://github.com/thanhtoantnt/claudes-c-compiler/blob/main/bug_report.md
+- 5 Bugs found: https://github.com/thanhtoantnt/claudes-c-compiler/blob/main/bug_report.md
 
 ### Go: OpenGemini (from Huawei Cloud)
 - Project: https://github.com/thanhtoantnt/openGemini
