@@ -18,6 +18,7 @@
 
 ## Go: OpenGemini (from Huawei Cloud)
 - Project: https://github.com/thanhtoantnt/openGemini
+- Bug #1: https://github.com/openGemini/openGemini/issues/940
 
 ## Rust: Kuasar (from Huawei Cloud)
 - Project: https://github.com/thanhtoantnt/kuasar
