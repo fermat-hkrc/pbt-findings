@@ -515,6 +515,57 @@ SELECT 5 % 0;
 - Mathematical property violated: `a = (a % b) * 1` — but `5 = (5 % 0) * 1 = 5 * 1 = 5` hides the error
 - Applications that divide by user-supplied values may get wrong results in A/B/C without any indication
 
+### Root Cause: Source Code
+
+All five modulo functions (`int1mod`, `int2mod`, `int4mod`, `int8mod`, `numeric_mod`) contain the same conditional logic: only `PG_FORMAT` mode raises a division-by-zero error. All other modes silently return the dividend.
+
+**`int4mod`** — `src/common/backend/utils/adt/int.cpp:1086-1096`
+```cpp
+if (unlikely(arg2 == 0)) {
+    if (DB_IS_CMPT(PG_FORMAT)) {
+        /* zero is not allowed to be divisor if compatible with PG */
+        ereport(ERROR, (errcode(ERRCODE_DIVISION_BY_ZERO), errmsg("division by zero")));
+        PG_RETURN_NULL();
+    }
+    /* zero is allowed to be divisor */
+    PG_RETURN_INT32(arg1);   // ← returns dividend!
+}
+```
+
+**`int2mod`** — `src/common/backend/utils/adt/int.cpp:1116-1126` — identical pattern
+
+**`int8mod`** — `src/common/backend/utils/adt/int8.cpp:593-603` — identical pattern
+
+**`int1mod`** — `src/common/backend/utils/adt/int.cpp:1809-1818` — identical pattern
+
+**`numeric_mod`** — `src/common/backend/utils/adt/numeric.cpp:2556-2568`
+```cpp
+if (0 == cmp_var(&arg2, &const_zero)) {
+    if (DB_IS_CMPT(PG_FORMAT)) {
+        ereport(ERROR, (errcode(ERRCODE_DIVISION_BY_ZERO), errmsg("division by zero")));
+        PG_RETURN_NULL();
+    }
+    PG_RETURN_NUMERIC(num1);  // ← returns dividend!
+}
+```
+
+### Inconsistency with Division Functions
+
+The **division** functions (`int4div`, `int2div`, `int1div`, etc.) do **NOT** have this format-dependent behavior — they **always** raise `ERRCODE_DIVISION_BY_ZERO` regardless of compatibility mode. Only the modulo functions have this conditional, making the behavior inconsistent even within the same mode.
+
+### Why This Is a Bug (Not a Design Choice)
+
+None of the target databases return the **dividend** for modulo-by-zero — the openGauss A/B/C behavior matches none of them:
+
+| Target Database | `5 MOD 0` Behavior |
+|----------------|-------------------|
+| **Oracle** (A_FORMAT target) | `ORA-01476: divisor is equal to zero` |
+| **MySQL** (B_FORMAT target) | Returns `NULL` |
+| **Teradata** (C_FORMAT target) | `2616: Invalid character data` |
+| **PostgreSQL** (PG_FORMAT target) | `ERROR: division by zero` |
+
+openGauss A/B/C returns `5` (the dividend) — a behavior that matches **none** of the target databases.
+
 ### Note on MySQL behavior
 MySQL returns `NULL` for `5 % 0`. openGauss A/B/C returns `5` (the dividend) — which is neither the MySQL behavior nor the PostgreSQL/Oracle behavior.
 
@@ -635,11 +686,32 @@ varlena.cpp:929:  → textcat(): NULL arg treated as '' in A_FORMAT
 ### Bug #8: Independent Design in array_eq_inner (All Modes)
 
 ```
-arrayfuncs.cpp:4018:  "We consider two NULLs equal"
-arrayfuncs.cpp:4021:  if (isnull1 && isnull2) continue;  ← NULL==NULL = TRUE in ALL modes
+arrayfuncs.cpp:4018: "We consider two NULLs equal"
+arrayfuncs.cpp:4021: if (isnull1 && isnull2) continue; ← NULL==NULL = TRUE in ALL modes
 ```
 
 Unlike bugs #5-7, this is active in **all** DBCOMPATIBILITY modes and has no workaround flag.
+
+### Bug #9: DB_IS_CMPT(PG_FORMAT) Gate in Modulo Functions (A/B/C Modes)
+
+All five modulo functions have an identical `DB_IS_CMPT(PG_FORMAT)` gate that **only** raises a division-by-zero error in PG mode. In A/B/C modes, the dividend is silently returned.
+
+```
+int.cpp:1086-1096   int4mod:  if (DB_IS_CMPT(PG_FORMAT)) ereport(ERROR) else PG_RETURN_INT32(arg1)
+int.cpp:1116-1126   int2mod:  if (DB_IS_CMPT(PG_FORMAT)) ereport(ERROR) else PG_RETURN_INT16(arg1)
+int.cpp:1809-1818   int1mod:  if (DB_IS_CMPT(PG_FORMAT)) ereport(ERROR) else PG_RETURN_UINT8(arg1)
+int8.cpp:593-603    int8mod:  if (DB_IS_CMPT(PG_FORMAT)) ereport(ERROR) else PG_RETURN_INT64(arg1)
+numeric.cpp:2556-2568 numeric_mod: if (DB_IS_CMPT(PG_FORMAT)) ereport(ERROR) else PG_RETURN_NUMERIC(num1)
+```
+
+**Key inconsistency**: The **division** functions (`int4div`, `int2div`, `int1div`) always raise `ERRCODE_DIVISION_BY_ZERO` — they have **no** `DB_IS_CMPT` gate. Only modulo functions have this conditional.
+
+**Wrong behavior for each target database**:
+- Oracle (A_FORMAT target): raises `ORA-01476`, not returns dividend
+- MySQL (B_FORMAT target): returns `NULL`, not dividend
+- Teradata (C_FORMAT target): raises error, not returns dividend
+
+The code comment says *"zero is allowed to be divisor"* but this is incorrect — none of the target databases allow this.
 
 ---
 
