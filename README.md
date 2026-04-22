@@ -28,3 +28,4 @@
 ### Rust: Kuasar (from Huawei Cloud)
 - Project: https://github.com/thanhtoantnt/kuasar
 - Bug #1: https://github.com/kuasar-io/kuasar/issues/244
+- Bug #2: https://github.com/kuasar-io/kuasar/issues/245
