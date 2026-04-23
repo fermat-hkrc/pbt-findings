@@ -56,24 +56,36 @@ How to go from a codebase to confirmed bugs using property-based testing.
 
 ---
 
-## Choosing an Oracle Approach
+## Step 0: Choose an Oracle Approach
 
-The **oracle** is how a test decides whether an output is correct. Choose before writing anything.
+**This is the first decision you make — before selecting targets, before writing any code.**
+
+The **oracle** is how a test decides whether an output is correct. Your choice determines the entire shape of the work that follows: how you score targets, what kind of generators you build, and what properties you test.
+
+**Approach A — Property-Based Oracle:**
 
 ```
-┌──────────────────────────────┐   ┌──────────────────────────────┐
-│       Approach A             │   │       Approach B             │
-│   Property-Based Oracle      │   │   Reference Model Oracle     │
-│                              │   │                              │
-│  generator                   │   │  generator                   │
-│      │                       │   │      │                       │
-│      ▼                       │   │      ▼                       │
-│  function(input)             │   │  real_impl(op)               │
-│      │                       │   │      │      ref_model(op)    │
-│      ▼                       │   │      │           │           │
-│  assert property holds       │   │      └─── assert equal ──────┘
-│  (round-trip, invariant...)  │   │                              │
-└──────────────────────────────┘   └──────────────────────────────┘
+generator
+    │
+    ▼
+function(input)
+    │
+    ▼
+assert property holds
+(round-trip, invariant, negative, ...)
+```
+
+**Approach B — Reference Model Oracle:**
+
+```
+generator
+    │
+    ▼
+real_impl(op) ──► actual output / state
+ref_model(op) ──► expected output / state
+    │
+    ▼
+assert actual == expected
 ```
 
 | | Approach A | Approach B |
@@ -82,8 +94,25 @@ The **oracle** is how a test decides whether an output is correct. Choose before
 | **Catches** | Crashes, data loss, invariant violations, round-trip failures | Silent wrong output, illegal state transitions, use-after-clear |
 | **Misses** | Silent state violations | Bugs in the model itself |
 | **Oracle is** | A logical property expressed in code | A simplified correct reimplementation of the state machine |
+| **Extra work** | None — oracle is the test itself | Must build and validate the reference model first |
 
-> **When in doubt, use Approach A.** Use Approach B when the target has an explicit lifecycle and you suspect silent wrong output that plain properties would not catch.
+### Decision rule
+
+```
+Does the target have an explicit lifecycle?
+(init / update / final / deinit, or an explicit state enum)
+         │
+         ├── NO  ──►  Use Approach A
+         │
+         └── YES ──►  Do you suspect silent wrong output
+                      (not just crashes) that plain properties
+                      would miss?
+                              │
+                              ├── NO  ──►  Use Approach A
+                              └── YES ──►  Use Approach B
+```
+
+> **When in doubt, start with Approach A.** It finds real bugs with less setup. Upgrade to Approach B only when you have evidence that silent state violations are the risk.
 
 ---
 
@@ -132,18 +161,26 @@ For each target, answer these before writing any test:
 Before writing any code, map out states and transitions on paper:
 
 ```
-         op_init            op_update
-            │                   │
-            ▼                   ▼
-  IDLE ──► READY ──────────► ACTIVE ──┐
-                │               │     │ op_update
-                │ op_final       │◄────┘
-                └───────────────►│
-                              DONE ──op_init──► READY
-                                 │
-                              op_deinit
-                                 │
-                               DEAD
+         ┌─────────────────────────────────────────────────┐
+         │                                                 │
+         │  op_init                                        │ op_init
+         ▼                                                 │
+    ┌─────────┐  op_init  ┌─────────┐  op_update  ┌────────┴──┐
+    │  IDLE   │──────────►│  READY  │────────────►│  ACTIVE   │
+    └─────────┘           └────┬────┘             └─────┬─────┘
+                               │                        │
+                               │ op_final               │ op_final
+                               │                        │
+                               ▼                        │
+                          ┌─────────┐◄──────────────────┘
+                          │  DONE   │
+                          └────┬────┘
+                               │
+                               │ op_deinit
+                               ▼
+                          ┌─────────┐
+                          │  DEAD   │
+                          └─────────┘
 ```
 
 Then encode as plain data + transition functions, each returning `(new_state, expected_return_code)` without calling the real implementation.
@@ -377,6 +414,7 @@ Framework reports a failing example
 
 | Step | Approach A | Approach B |
 |------|-----------|-----------|
+| **0. Choose Oracle** | Use when target is a pure function, transformer, or validator | Use when target has explicit init/update/final/deinit lifecycle |
 | **1. Understand** | Identify invariants from docs and existing tests | Draw the state machine; encode as a model |
 | **2. Build** | Single-input generators; 8 property types | Operation-sequence generators; state-match property |
 | **3. Run** | Three-step triage on every failure | Three-step triage; test wrapper and internal layers separately |
