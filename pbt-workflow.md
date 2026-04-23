@@ -1,470 +1,432 @@
----
-name: building-property-based-tests
-description: Use when writing property-based tests for any codebase using Hypothesis, QuickCheck, or similar frameworks — covers target selection, strategy design, invariant discovery, and bug triage
----
+# PBT Workflow: A Visual Guide
 
-# Building Property-Based Tests: A Practical Workflow
-
-## Overview
-
-Property-based testing (PBT) generates thousands of random inputs to find bugs that hand-written tests miss. This workflow covers the full cycle: **select targets → design strategies → write properties → find bugs → confirm → report**.
-
-## When to Use
-
-- Complex functions with many input combinations
-- Data transformation/validation/parsing code
-- Pure or nearly-pure functions
-- Code with no existing tests
-- Before refactoring critical modules
-
-## When NOT to Use
-
-- Simple CRUD operations with obvious behavior
-- UI rendering code
-- Code that depends heavily on external services you can't mock
-- One-line wrapper functions
+How to go from a codebase to confirmed bugs using property-based testing.
 
 ---
 
-## Phase 1: Target Selection (30 min)
+## The Big Picture
 
-### Target Scoring Matrix
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                    The PBT Process                                   │
+│                                                                     │
+│   Codebase                                                          │
+│      │                                                              │
+│      ▼                                                              │
+│  ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐     │
+│  │ Phase 1  │───►│ Phase 2  │───►│ Phase 3  │───►│ Phase 4  │     │
+│  │  Select  │    │  Setup   │    │Strategies│    │Properties│     │
+│  │ Targets  │    │   Env    │    │  Design  │    │Discovery │     │
+│  └──────────┘    └──────────┘    └──────────┘    └──────────┘     │
+│                                                         │           │
+│                                                         ▼           │
+│  ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐     │
+│  │ Phase 8  │◄───│ Phase 7  │◄───│ Phase 6  │◄───│ Phase 5  │     │
+│  │  Stop    │    │  Confirm │    │  Run &   │    │  Write   │     │
+│  │          │    │  & Report│    │  Iterate │    │  Tests   │     │
+│  └──────────┘    └──────────┘    └──────────┘    └──────────┘     │
+│                                                                     │
+│                         Confirmed Bugs                              │
+└─────────────────────────────────────────────────────────────────────┘
+```
 
-Rate each candidate module on these criteria (1-5 each):
+---
 
-| Criterion | What to look for |
-|-----------|-----------------|
-| **Purity** | Functions take data in, return data out. No DB/network. |
-| **Complexity** | Branching logic, type dispatch, string manipulation |
-| **Untested** | No existing test coverage |
-| **Bug surface** | Type conversions, parsing, escaping, edge cases |
-| **Dependency simplicity** | Can be imported without 10+ transitive deps |
+## Phase 1: Target Selection
 
-**Score >= 15**: Excellent PBT target.  
-**Score 10-14**: Good target, needs some mocking.  
-**Score < 10**: Skip or test indirectly.
+Not every function is worth testing with PBT. Score your candidates first.
 
-### Where to Look
+### Scoring Matrix
 
-1. **Data converters/serializers** — type coercion, format translation
-2. **Validators** — boundary conditions, invalid input handling
-3. **Parsers** — string manipulation, escaping, encoding
-4. **Graph algorithms** — cycle detection, connectivity, traversal
-5. **Template engines** — variable substitution, expression evaluation
-6. **Version/string utilities** — parsing, comparison, formatting
-7. **Configuration builders** — parameter aggregation, default handling
+Rate each function 1–5 on each criterion. Maximum score: 25.
 
-### Quick Scan for Potential Bugs
+```
+                          Score
+Criterion              1          3          5
+─────────────────────────────────────────────────────────
+Purity           Has I/O     Some I/O    Pure function
+                 and state               (data in/out)
 
-Before writing tests, read the source for these patterns:
+Complexity       Trivial     Some         Heavy
+                 (1 branch)  branching    branching,
+                             logic        type dispatch
 
-| Pattern | Bug likelihood |
-|---------|---------------|
-| `ast.literal_eval()` with string replacement | HIGH — corrupts substrings |
-| Bare `except:` or `except Exception:` | HIGH — swallows real errors |
-| `str.replace()` for parsing/transforming | HIGH — corrupts overlapping matches |
-| `dict[key]` without `.get()` or `KeyError` | MEDIUM — crashes on missing keys |
-| `int()` / `float()` without error handling | MEDIUM — crashes on non-numeric |
-| Manual string concatenation across lines | MEDIUM — continuation bugs |
-| Iterating and mutating same collection | MEDIUM — concurrent modification |
-| `.pop()` inside iteration over same dict | LOW (if `list()` snapshot used) |
+Untested         Full test   Partial      No tests
+                 coverage    coverage     at all
+
+Bug surface      No risky    Some type    Parsing,
+                 patterns    coercion     escaping,
+                                          regex, eval
+
+Dependency       10+ deps    A few deps   Imports
+simplicity       to mock                  cleanly
+```
+
+```
+Score ≥ 15  ──►  Excellent PBT target. Start here.
+Score 10–14 ──►  Good target. May need some mocking.
+Score  < 10 ──►  Skip or test indirectly.
+```
+
+### Where to Find Good Targets
+
+```
+High value targets                    Lower value targets
+──────────────────────────────        ──────────────────────────────
+✓ Data converters / serializers       ✗ Simple CRUD (save/load)
+✓ Validators and normalizers          ✗ UI rendering
+✓ Parsers (string, encoding)          ✗ One-line wrappers
+✓ Security guards (regex, denylist)   ✗ Functions calling live services
+✓ Template engines                    ✗ Functions with no branching
+✓ Version/string utilities
+✓ Configuration builders
+```
 
 ---
 
 ## Phase 2: Test Environment Setup
 
-### The Import Problem
+Real packages have deep dependency trees. Loading the target often pulls in the entire framework. The setup phase isolates the code under test from those dependencies.
 
-Real codebases have deep dependency chains. Your test conftest needs to handle this.
+```
+Without setup:                        With stubs + direct loading:
 
-**Pattern: Direct Module Loading** (most reliable)
-
-```python
-# conftest.py
-import importlib.util, pathlib, sys, types
-
-def _load_directly(module_name, file_path):
-    """Load module bypassing __init__.py"""
-    spec = importlib.util.spec_from_file_location(module_name, file_path)
-    mod = importlib.util.module_from_spec(spec)
-    sys.modules[module_name] = mod
-    spec.loader.exec_module(mod)
-    return mod
-
-# 1. Build stubs for external framework packages
-# 2. Register stubs in sys.modules
-# 3. Load your target module directly with _load_directly()
+  import mymodule                       _load_directly("mymodule", path)
+       │                                     │
+       └── __init__.py                        ├── bypasses __init__.py
+                │                            │
+                └── framework               ├── stubs registered first
+                          │                 │   in sys.modules
+                          └── DB/network    │
+                                   │        └── module loads cleanly ✓
+                                   └── FAILS ✗
 ```
 
-**Why this works:** Package `__init__.py` files often import everything transitively. Direct loading bypasses this entirely.
-
-**Key lesson:** Never put test files inside the package directory being tested. Python loads `__init__.py` before conftest runs. Put tests in a separate `tests/` tree.
-
-### Stub Building Pattern
-
-```python
-# For each external package your module imports:
-_oj = types.ModuleType("openjiuwen")
-_oj_logging = types.ModuleType("openjiuwen.core.common.logging")
-_oj_logging.logger = logging.getLogger("stub")
-sys.modules["openjiuwen.core.common.logging"] = _oj_logging
-# ... register all needed submodules
-```
-
-**Rule of thumb:** Read the target module's imports first, stub exactly what's needed.
+**Rules:**
+- Read the target's imports first. Stub exactly what's needed — not more.
+- Never put test files inside the package directory. Use a separate `tests/` tree.
 
 ---
 
 ## Phase 3: Strategy Design
 
-### Strategy Types by Input Domain
+A **strategy** defines how Hypothesis generates inputs. The goal is to generate inputs that are realistic — matching what the function actually receives in production.
 
-| Input Type | Strategy | Example |
-|------------|----------|---------|
-| Node IDs | `st.text(alphabet=hex_chars, min_size=4, max_size=8)` | Unique, URL-safe |
-| Type enums | `st.sampled_from(list(MyEnum))` | Valid enum values |
-| Graph topology | `@st.composite` with explicit construction | Guaranteed acyclic |
-| JSON-like data | `st.recursive()` or `st.fixed_dictionaries()` | Nested structures |
-| Free text | `st.text(min_size=0, max_size=100)` | Human-readable |
-| Numbers with bounds | `st.integers(min_value=0, max_value=99)` | Avoid overflow |
+### Strategy Complexity Levels
 
-### Composite Strategy Pattern
-
-For complex domain objects, use `@st.composite`:
-
-```python
-@st.composite
-def st_valid_graph(draw):
-    """Generate a valid DAG guaranteed to satisfy invariants."""
-    # Use draw() to make choices
-    node_count = draw(st.integers(min_value=2, max_value=8))
-    
-    # Build invariants into the strategy
-    nodes = [make_start(), make_end()]
-    for i in range(node_count - 2):
-        nodes.append(make_node(draw(st_node_id)))
-    
-    # Construct edges that maintain acyclicity
-    edges = []
-    for i in range(1, len(nodes)):
-        src = draw(st.integers(0, i - 1))
-        edges.append(Edge(source=nodes[src], target=nodes[i]))
-    
-    return Graph(nodes=nodes, edges=edges)
-```
-
-**Critical rule:** Strategy output should ALWAYS satisfy the preconditions of the code under test. Invalid inputs go in separate "negative" strategies.
-
-### Strategy Composition Levels
-
-Start simple, add complexity:
+Start at Level 1. Only escalate when simpler strategies stop finding bugs.
 
 ```
-Level 1: Linear chains    (easiest, catches basic crashes)
-Level 2: Diamond shapes   (branching/merging)
-Level 3: Mixed patterns   (switch + merge + loop)
-Level 4: Random DAGs      (adversarial, finds edge cases)
-Level 5: Invalid inputs   (negative tests, validation)
+Level 1: Simple scalars
+─────────────────────────────────────────────────────────────
+Individual values: text, integers, booleans, sampled from enum
+
+         │  catches: basic crashes, missing type guards
+         ▼
+
+Level 2: Composite domain objects
+─────────────────────────────────────────────────────────────
+Objects built from multiple fields, all satisfying preconditions
+
+         │  catches: structural bugs, missing field handling
+         ▼
+
+Level 3: Boundary values
+─────────────────────────────────────────────────────────────
+Empty, very long, unicode edge cases, whitespace-only
+
+         │  catches: off-by-one errors, buffer issues
+         ▼
+
+Level 4: Adversarial inputs
+─────────────────────────────────────────────────────────────
+Characters or patterns the code is supposed to handle or reject
+
+         │  catches: injection bugs, encoding issues
+         ▼
+
+Level 5: Invalid inputs (negative tests)
+─────────────────────────────────────────────────────────────
+Wrong types, missing fields, out-of-range values
+
+         │  catches: missing validation, wrong error handling
 ```
 
-Run each level separately — simpler strategies find simpler bugs faster.
+### The Soundness Principle
+
+```
+Soundness:    only generate inputs the function was designed to receive.
+Completeness: cover all inputs the function can receive.
+
+When they conflict ──► PREFER SOUNDNESS
+
+Unsound strategy ──► false alarms (test design errors, not bugs)
+Sound strategy   ──► real bugs
+```
 
 ---
 
 ## Phase 4: Property Discovery
 
-### The Property Taxonomy
+Ask these questions about each function to find testable properties:
 
-Properties fall into these categories. For each target function, try to write at least one from each:
-
-#### 1. **Never Crashes** (the most basic property)
-
-```python
-@given(input=st_valid_input())
-def test_never_crashes(input):
-    try:
-        result = function(input)
-        assert result is not None or result is None  # just checking it returns
-    except ExpectedException:
-        pass  # acceptable
+```
+┌─────────────────────────────────────────────────────────────────┐
+│              Property Discovery Questions                        │
+│                                                                 │
+│  "Can I undo this operation?"          ──►  Round-Trip          │
+│  "Does doing it twice change anything?"──►  Idempotency         │
+│  "What must ALWAYS be true?"           ──►  Invariant           │
+│  "If I change input this way, how      ──►  Metamorphic         │
+│   does output change?"                                          │
+│  "Do these two functions agree?"       ──►  Consistency         │
+│  "What shape must the output have?"    ──►  Output Structure    │
+│  "What inputs must always be rejected?"──►  Negative/Denylist   │
+│  "Does it always return, never crash?" ──►  Never Crashes       │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
-#### 2. **Round-Trip** (encode then decode = identity)
+### Property Power Spectrum
 
-```python
-@given(data=st_data())
-def test_round_trip(data):
-    encoded = encode(data)
-    decoded = decode(encoded)
-    assert decoded == data
+```
+Bug-finding power:  HIGH ──────────────────────────────────► LOW
+
+Round-Trip  Idempotency  Invariant  Metamorphic  Structure  Never Crashes
+    │            │           │          │            │           │
+    ▼            ▼           ▼          ▼            ▼           ▼
+ encode       f(f(x))    output     f(x) vs     result      no
+ decode       == f(x)    always     f(g(x))     has shape   exception
+ == original             satisfies  related
+                         rule
 ```
 
-#### 3. **Output Structure** (result has expected shape)
-
-```python
-@given(input=st_valid_input())
-def test_output_has_required_fields(input):
-    result = convert(input)
-    assert "id" in result
-    assert isinstance(result["items"], list)
-```
-
-#### 4. **Idempotency** (applying twice = applying once)
-
-```python
-@given(input=st_valid_input())
-def test_idempotent(input):
-    result1 = transform(input)
-    result2 = transform(result1)  # apply to output
-    assert result1 == result2
-```
-
-#### 5. **Invariants** (something that must ALWAYS be true)
-
-```python
-@given(graph=st_valid_graph())
-def test_all_targets_valid(graph):
-    result = convert(graph)
-    valid_ids = {n.id for n in result.nodes}
-    for edge in result.edges:
-        assert edge.target in valid_ids
-```
-
-#### 6. **Ordering/Comparison** (for sorting, version comparison)
-
-```python
-@given(a=st_version(), b=st_version())
-def test_antisymmetry(a, b):
-    assert compare(a, b) != compare(b, a) or a == b
-```
-
-#### 7. **Negative** (invalid input always fails correctly)
-
-```python
-@given(bad_input=st_invalid_input())
-def test_rejects_invalid(bad_input):
-    with pytest.raises(ValueError):
-        validate(bad_input)
-```
-
-### Property Discovery Questions
-
-For each function, ask:
-
-| Question | Property Type |
-|----------|---------------|
-| "What must ALWAYS be true about the output?" | Invariant |
-| "Can I undo this operation?" | Round-trip |
-| "What should NEVER happen?" | Never Crashes / Negative |
-| "Does doing it twice change anything?" | Idempotency |
-| "What shape must the output have?" | Output Structure |
-| "How should it compare to other values?" | Ordering |
+Only test properties the code explicitly claims. Evidence comes from docstrings, type annotations, comments, and existing tests. Do not invent properties — invented properties produce false alarms.
 
 ---
 
 ## Phase 5: Writing Tests
 
-### Test Organization Pattern
+### File Layout
 
 ```
 tests/
-  target_module/
-    conftest.py              # Stubs + env setup
-    test_properties.py       # PBT tests
-    test_bug_confirmations.py # Unit tests confirming specific bugs
+├── unit/
+│   ├── properties/
+│   │   ├── conftest.py                  ← stubs + module loading
+│   │   ├── test_properties_<module>.py  ← one file per source module
+│   │   └── ...
+│   └── test_confirmed_bugs.py           ← plain pytest, one class per bug
+└── ...
 ```
 
-### Class Structure
+### Structure
 
-Group tests by property type or function under test:
+- One `@given` test per property
+- Strategies defined once at the top, reused across tests
+- Keep property tests separate from bug confirmation tests
 
-```python
-class TestFunctionNameProperties:
-    """Properties for function_name."""
-    
-    @given(input=st_strategy())
-    @settings(max_examples=100)
-    def test_never_crashes(self, input):
-        ...
-    
-    @given(input=st_strategy())
-    @settings(max_examples=100)
-    def test_output_structure(self, input):
-        ...
+### `max_examples` Guide
+
+```
+Scenario                    Recommended minimum
+────────────────────────────────────────────────
+Core invariants             200–500
+(idempotency, round-trip)
+
+Structural checks           100–200
+(output shape, type)
+
+Slow functions              50–100  (add deadline=None)
+
+Negative / denylist         200+
 ```
 
-### Settings Guide
-
-| Scenario | max_examples | deadline | suppress_health_check |
-|----------|-------------|----------|----------------------|
-| Pure functions | 200-500 | None | [too_slow] |
-| Slightly slow | 100-200 | None | [too_slow] |
-| Network/IO (mocked) | 50-100 | 5000ms | [too_slow] |
-| Complex strategies | 50-100 | 10000ms | [too_slow] |
-| Termination tests | 30-50 | 5000ms | [too_slow] |
-
-### Handling `assume()`
-
-Use `assume()` to skip inputs that don't meet preconditions:
-
-```python
-@given(items=st.lists(st_items()))
-def test_no_duplicates_in_output(items):
-    assume(len(items) == len({i.id for i in items}))  # skip if input has dupes
-    result = process(items)
-    ...
-```
-
-**Warning:** If >50% of generated inputs are filtered by `assume()`, your strategy is wrong. Fix the strategy instead.
+Never go below 100 for properties you care about. Hypothesis's value comes from volume.
 
 ---
 
 ## Phase 6: Running and Iterating
 
-### The PBT Feedback Loop
+### The Feedback Loop
 
 ```
-Run tests → ALL PASS
-    ↓
-Add more aggressive strategies / edge cases
-    ↓
-Run tests → FAILURE FOUND
-    ↓
-Analyze: Is this a real bug or a test assumption error?
-    ↓
-If real bug: Write confirmation unit test, document
-If test error: Fix test assumption, continue
-    ↓
-Add more strategies targeting the area around the bug
-    ↓
-Repeat until diminishing returns
+                    ┌─────────────────────────────────┐
+                    │            Run tests             │
+                    └────────────────┬────────────────┘
+                                     │
+                     ┌───────────────▼───────────────┐
+                     │         All tests pass?        │
+                     └──────────┬────────────┬────────┘
+                                │            │
+                               YES           NO
+                                │            │
+                    ┌───────────▼──┐   ┌─────▼───────────────────┐
+                    │ Are properties│   │  Hypothesis found a      │
+                    │ meaningful?   │   │  failing example         │
+                    └──────┬────┬───┘   └──────────┬──────────────┘
+                           │    │                  │
+                          YES   NO                 ▼
+                           │    │      ┌───────────────────────┐
+                           │  Strengthen  Three-step triage    │
+                           │  properties └──────────┬──────────┘
+                           │             and strategies        │
+                           │                        │
+                           │            ┌───────────▼──────────┐
+                           │            │      Real bug?        │
+                           │            └────┬──────────┬───────┘
+                           │                 │          │
+                           │                YES         NO
+                           │                 │          │
+                           │     ┌───────────▼─┐  ┌────▼──────────────┐
+                           │     │ Confirm bug │  │ Fix strategy or   │
+                           │     │ document it │  │ property, rerun   │
+                           │     └─────────────┘  └───────────────────┘
+                           │
+                    ┌──────▼──────────────────────┐
+                    │  Stop when checklist is done │
+                    └─────────────────────────────┘
 ```
 
-### Interpreting Failures
+### Three-Step Bug Triage
 
-| Failure Pattern | What it means |
-|----------------|---------------|
-| Crashes on empty input | Missing null/empty check |
-| Crashes on large input | Resource limit or infinite loop |
-| Output corruption on specific chars | Encoding/escaping bug |
-| Fails only with many examples | Edge case in combinatorics |
-| Fails with `deadline` exceeded | Performance issue or infinite loop |
-| `assume()` filters too much | Strategy doesn't match real inputs |
+Every failure must pass all three steps before being called a bug.
 
-### Bug vs Test Error Checklist
-
-When a test fails, check:
-
-1. **Is the test assumption correct?** Did I misunderstand the function's contract?
-2. **Is the strategy generating valid inputs?** Are preconditions satisfied?
-3. **Is this a real bug in the code?** Does it violate documented behavior?
-4. **What's the minimal reproducing case?** Hypothesis provides this — save it.
+```
+┌──────────────────────────────────────────────────────────────┐
+│  Step 1: REPRODUCIBILITY                                      │
+│                                                              │
+│  Can you reproduce it with a fixed input (not Hypothesis)?   │
+│  Use the minimal case Hypothesis reported.                   │
+│                                                              │
+│  FAILS → investigate test setup                              │
+│  PASSES → go to Step 2                                       │
+└──────────────────────────────┬───────────────────────────────┘
+                               │
+                               ▼
+┌──────────────────────────────────────────────────────────────┐
+│  Step 2: LEGITIMACY                                           │
+│                                                              │
+│  • Is this a realistic input (not a precondition violation)? │
+│  • Do callers always validate before reaching this function? │
+│  • Does an existing test assert this behavior?  ◄── critical │
+│    (If yes: intentional design, not a bug.)                  │
+│                                                              │
+│  FAILS → false alarm. Fix strategy or property.              │
+│  PASSES → go to Step 3                                       │
+└──────────────────────────────┬───────────────────────────────┘
+                               │
+                               ▼
+┌──────────────────────────────────────────────────────────────┐
+│  Step 3: IMPACT                                               │
+│                                                              │
+│  • Would this affect real users?                             │
+│  • Does it violate documented behavior or a security rule?   │
+│  • Trace all callers — is this code path reachable?          │
+│                                                              │
+│  LOW → log as cosmetic, move on                              │
+│  MEDIUM / HIGH → confirmed bug, document and report          │
+└──────────────────────────────────────────────────────────────┘
+```
 
 ---
 
 ## Phase 7: Bug Confirmation and Reporting
 
-### Confirmation Pattern
+### Confirmation Steps
 
-For each suspected bug:
-
-1. **Extract the minimal case** from Hypothesis output
-2. **Write a standalone unit test** that reproduces it without Hypothesis
-3. **Verify the bug exists** by running the unit test
-4. **Document with clear before/after**
-
-```python
-# In test_bug_confirmations.py
-
-def test_bug_4_literal_eval_corrupts_falsehood():
-    """BUG: naive true/false replacement corrupts strings containing these substrings."""
-    content = '{"word": "falsehood"}'
-    bv = BaseValue(type="constant", content=content, schema={"type": "object"})
-    result = base_value_convert(bv)
-    assert result == {"word": "falsehood"}, (
-        f"BUG: got {result!r} — naive string replacement corrupted the data"
-    )
+```
+Hypothesis reports a failing example
+             │
+             ▼
+Step 1: Extract the minimal case
+        Write a standalone script to reproduce it without Hypothesis
+             │
+             ▼
+Step 2: Write a named confirmation test
+        One class per bug in test_confirmed_bugs.py
+        Document root cause and proposed fix in the docstring
+             │
+             ▼
+Step 3: Run the confirmation test — it must FAIL
+        A passing confirmation test means the bug wasn't reproduced correctly
+             │
+             ▼
+Step 4: Write the bug report
 ```
 
-### Report Template
+### Bug Report Structure
 
-```markdown
-## Bug: [Title]
+```
+## Bug: [Short descriptive title]
 
-**Severity:** HIGH/MEDIUM/LOW
-**File:** path/to/file.py:line_number
-**Function:** function_name()
+Severity:  HIGH / MEDIUM / LOW
+Type:      Logic | Crash | Contract
+File:      path/to/file.py:line_number
+Function:  function_name()
 
-### Root Cause
-[1-2 sentences explaining the bug]
+Root Cause   — 1–2 sentences naming the exact mechanism
+Impact       — what breaks in production
+Reproduction — minimal input that triggers it
+Expected vs Actual — table showing the discrepancy
+Fix          — exact code change needed
+Confirmed By — test class and method that reproduces it
+```
 
-### Impact
-[What breaks in production]
+**Bug types:**
+- **Logic** — wrong result, violated property, silent data loss
+- **Crash** — valid input causes unhandled exception
+- **Contract** — behavior differs from documented contract
 
-### Reproduction
-[Minimal input that triggers the bug]
+---
 
-### Expected vs Actual
-| Input | Expected | Actual |
-|-------|----------|--------|
-| ... | ... | ... |
+## Phase 8: When to Stop
 
-### Fix
-[Specific code change needed]
+```
+Completeness checklist
+──────────────────────────────────────────────────────────────────
 
-### Confirmed By
-[List of test functions that reproduce this]
+  Functions
+  □ All pure functions tested with max_examples ≥ 100
+  □ All branches and variants exercised
+
+  Input coverage
+  □ Empty / null / missing inputs covered
+  □ Boundary values (minimum, maximum, off-by-one)
+  □ Edge cases relevant to the function's domain
+
+  Property coverage
+  □ At least one round-trip or idempotency property per transformer
+  □ At least one rejection property per security validator
+  □ Negative tests for all documented error conditions
+
+  Quality
+  □ Branch coverage > 70% on tested functions
+  □ Every failure triaged with the three-step process
+  □ Each property rules out wrong implementations
+    (verify: replace function body with stub — does the test fail?)
 ```
 
 ---
 
-## Phase 8: Escalation Strategy
+## Quick Reference
 
-### When to Stop Testing a Module
-
-Stop when you've checked all these boxes:
-
-- [ ] All pure functions tested with `max_examples >= 100`
-- [ ] All enum/variant branches exercised
-- [ ] Null/empty/missing input cases covered
-- [ ] Boundary values tested (0, max, off-by-one)
-- [ ] String edge cases (unicode, empty, very long, special chars)
-- [ ] Concurrent/multi-input scenarios tested
-- [ ] Negative tests for invalid inputs
-- [ ] At least one round-trip or idempotency property tested
-
-### Common Mistakes
-
-| Mistake | Fix |
-|---------|-----|
-| Testing only happy path | Add negative strategies |
-| Too many `assume()` filters | Fix strategy to generate valid inputs |
-| Not testing `None`/empty | Add `st.none()`, `st.just("")` |
-| Ignoring error paths | Test that correct exceptions are raised |
-| Tests pass but find nothing | Make strategies more adversarial |
-| Finding test bugs not code bugs | Verify assumptions before declaring a bug |
-
----
-
-## Real Results Reference
-
-From a production workflow engine codebase:
-
-| Module | Lines | Tests | Bugs Found | Time |
-|--------|-------|-------|------------|------|
-| DSL converter | ~3000 | 958-line test file | 2 (type mismatch, not-implemented-called) | 3 hrs |
-| Graph adapter | 361 | 75 tests | 0 (well-implemented) | 2 hrs |
-| Convertor components | 500 | 79 tests | 1 HIGH (string corruption), 1 MEDIUM (data loss) | 1.5 hrs |
-| **Total** | | **~210+ tests** | **3 confirmed bugs** | **~6.5 hrs** |
-
-### Bugs Found by Type
-
-| Bug | Detection Property | Strategy |
-|-----|-------------------|----------|
-| workflow_version type mismatch | Never crashes on valid input | Valid workflow generation |
-| PLUGIN node not called | Known bug confirmation | Targeted unit test |
-| true/false string corruption | Output structure invariant | Strings containing "true"/"false" |
-
-### Key Insight
-
-The most valuable property is **"never corrupts data"** — test that functions preserve information you care about, not just that they don't crash. The string corruption bug was found by checking that output values matched input values for specific string patterns, not by checking for crashes.
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  PBT Workflow at a Glance                                       │
+│                                                                 │
+│  1. SELECT   Score candidates on purity, complexity, coverage   │
+│  2. SETUP    Isolate the target with stubs and direct loading   │
+│  3. STRATEGY Start simple (scalars), escalate to complex        │
+│  4. DISCOVER Ask the 8 property questions for each function     │
+│  5. WRITE    One @given test per property, max_examples ≥ 100   │
+│  6. RUN      Triage every failure with the 3-step process       │
+│  7. CONFIRM  Standalone test + bug report for each real bug     │
+│  8. STOP     When the completeness checklist is satisfied       │
+│                                                                 │
+│  Golden rules:                                                  │
+│  • Read existing tests before declaring any failure a bug       │
+│  • Prefer soundness over completeness in strategies             │
+│  • Only test properties the code explicitly claims              │
+│  • The most valuable property: "never corrupts data"            │
+└─────────────────────────────────────────────────────────────────┘
+```
