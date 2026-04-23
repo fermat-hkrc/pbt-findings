@@ -25,6 +25,10 @@
 - Project: https://gitcode.com/thanhtoantnt/agent-studio
 - Bug #1: https://gitcode.com/openJiuwen/agent-studio/issues/815
 
+## Python: JiuwenClaw
+- Project: https://gitcode.com/thanhtoantnt/jiuwenclaw/
+- Bug #1: https://gitcode.com/openJiuwen/jiuwenclaw/issues/394
+
 ### Rust: Claude C Compiler
 - Project: https://github.com/thanhtoantnt/claudes-c-compiler
 - 5 Bugs found: https://github.com/thanhtoantnt/claudes-c-compiler/blob/main/bug_report.md
