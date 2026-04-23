@@ -6,6 +6,10 @@
 ## Frameworks for languages
 - Github Repo: https://github.com/jmid/pbt-frameworks
 
+### PBT at other companies
+- Anthropic (Claude Code): [blog](https://red.anthropic.com/2026/property-based-testing/) and [website](https://mmaaz-git.github.io/agentic-pbt-site/)
+- AWS Spec-Driven IDE Kiro: https://kiro.dev/docs/specs/correctness/
+
 ## Findings
 
 ### C++: openHiTLS
