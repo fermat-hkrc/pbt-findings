@@ -1,359 +1,384 @@
-# PBT Workflow
+# Property-Based Testing Workflow
 
 How to go from a codebase to confirmed bugs using property-based testing.
+
+> This workflow is language-agnostic. Apply the same steps whether you are using Hypothesis (Python), QuickCheck (Haskell/Erlang), fast-check (JavaScript), PropTest (Rust), jqwik (Java), or any other PBT framework.
 
 ---
 
 ## The Big Picture
 
 ```
-                              ┌─────────────┐
-                              │   Codebase  │
-                              └──────┬──────┘
-                                     │
-          ┌──────────────────────────▼──────────────────────────┐
-          │                   UNDERSTAND                         │
-          │  Phase 1: Select Targets                            │
-          │  Phase 2: Setup Test Environment                    │
-          └──────────────────────────┬──────────────────────────┘
-                                     │
-          ┌──────────────────────────▼──────────────────────────┐
-          │                     BUILD                            │
-          │  Phase 3: Design Strategies                         │
-          │  Phase 4: Discover Properties                       │
-          │  Phase 5: Write Tests                               │
-          └──────────────────────────┬──────────────────────────┘
-                                     │
-          ┌──────────────────────────▼──────────────────────────┐
-          │                      RUN                             │
-          │  Phase 6: Run & Iterate                             │
-          │  Phase 7: Confirm & Report Bugs                     │
-          │  Phase 8: Stop when checklist is done               │
-          └──────────────────────────┬──────────────────────────┘
-                                     │
-                              ┌──────▼──────┐
-                              │  Confirmed  │
-                              │    Bugs     │
-                              └─────────────┘
+                    ┌─────────────┐
+                    │   Codebase  │
+                    └──────┬──────┘
+                           │
+            ┌──────────────▼──────────────┐
+            │        1. UNDERSTAND        │
+            │  Select targets.            │
+            │  Read what the code claims. │
+            └──────────────┬──────────────┘
+                           │
+                    Choose oracle
+                           │
+             ┌─────────────┴─────────────┐
+             ▼                           ▼
+    ┌─────────────────┐       ┌─────────────────┐
+    │   Approach A    │       │   Approach B    │
+    │  Property-Based │       │ Reference Model │
+    │     Oracle      │       │     Oracle      │
+    └────────┬────────┘       └────────┬────────┘
+             └─────────────┬───────────┘
+                           │
+            ┌──────────────▼──────────────┐
+            │          2. BUILD           │
+            │  Design generators.         │
+            │  Discover properties.       │
+            │  Write tests.               │
+            └──────────────┬──────────────┘
+                           │
+            ┌──────────────▼──────────────┐
+            │           3. RUN            │
+            │  Execute, triage failures,  │
+            │  confirm bugs, stop.        │
+            └──────────────┬──────────────┘
+                           │
+                    ┌──────▼──────┐
+                    │  Confirmed  │
+                    │    Bugs     │
+                    └─────────────┘
 ```
 
 ---
 
-## Phase 1: Target Selection
+## Choosing an Oracle Approach
 
-Not every function is worth testing with PBT. Score your candidates first.
+The **oracle** is how a test decides whether an output is correct. Choose before writing anything.
 
-### Scoring Matrix
+```
+┌──────────────────────────────┐   ┌──────────────────────────────┐
+│       Approach A             │   │       Approach B             │
+│   Property-Based Oracle      │   │   Reference Model Oracle     │
+│                              │   │                              │
+│  generator                   │   │  generator                   │
+│      │                       │   │      │                       │
+│      ▼                       │   │      ▼                       │
+│  function(input)             │   │  real_impl(op)               │
+│      │                       │   │      │      ref_model(op)    │
+│      ▼                       │   │      │           │           │
+│  assert property holds       │   │      └─── assert equal ──────┘
+│  (round-trip, invariant...)  │   │                              │
+└──────────────────────────────┘   └──────────────────────────────┘
+```
 
-Rate each function 1–5 on each criterion. Maximum score: 25.
+| | Approach A | Approach B |
+|--|-----------|-----------|
+| **Best for** | Pure functions, data transformers, validators, parsers | Stateful APIs with explicit lifecycles (init / update / final / deinit) |
+| **Catches** | Crashes, data loss, invariant violations, round-trip failures | Silent wrong output, illegal state transitions, use-after-clear |
+| **Misses** | Silent state violations | Bugs in the model itself |
+| **Oracle is** | A logical property expressed in code | A simplified correct reimplementation of the state machine |
+
+> **When in doubt, use Approach A.** Use Approach B when the target has an explicit lifecycle and you suspect silent wrong output that plain properties would not catch.
+
+---
+
+## Step 1: Understand
+
+**Goal:** Know what to test, what the code claims, and which oracle approach fits.
+
+### 1a. Select Targets
+
+Score candidates 1–5 on each criterion (max 25):
 
 | Criterion | Score 1 | Score 3 | Score 5 |
 |-----------|---------|---------|---------|
-| **Purity** | Has I/O and state | Some I/O | Pure function (data in/out) |
-| **Complexity** | Trivial (1 branch) | Some branching logic | Heavy branching, type dispatch |
-| **Untested** | Full test coverage | Partial coverage | No tests at all |
-| **Bug surface** | No risky patterns | Some type coercion | Parsing, escaping, regex, eval |
-| **Dependency simplicity** | 10+ deps to mock | A few deps | Imports cleanly |
+| **Purity / State** | Has I/O and mutable state | Some I/O | Pure function or clean state machine |
+| **Complexity** | Trivial (1 branch) | Some branching | Heavy branching, type dispatch |
+| **Untested** | Full coverage | Partial | No tests at all |
+| **Bug surface** | No risky patterns | Some type coercion | Parsing, escaping, regex, lifecycle ops |
+| **Testability** | Many deps to isolate | A few deps | Isolates cleanly |
 
 ```
-Score >= 15  →  Excellent PBT target. Start here.
-Score 10–14  →  Good target. May need some mocking.
-Score  < 10  →  Skip or test indirectly.
+Score >= 15  →  Excellent target
+Score 10–14  →  Good target
+Score  < 10  →  Skip or test indirectly
 ```
 
-### Where to Find Good Targets
-
-| Good targets | Poor targets |
-|-------------|-------------|
-| Data converters / serializers | Simple CRUD (save/load) |
-| Validators and normalizers | UI rendering |
-| Parsers (string, encoding) | One-line wrappers |
-| Security guards (regex, denylist) | Functions calling live services |
-| Template engines | Functions with no branching |
-| Version/string utilities | |
+| Good targets for Approach A | Good targets for Approach B |
+|----------------------------|------------------------------|
+| Data converters / serializers | Cryptographic primitives (MAC, cipher, RNG) |
+| Validators and normalizers | Protocol or session state machines |
+| Parsers (string, encoding) | Resource lifecycle (open / read / write / close) |
+| Security guards (regex, denylist) | Any API with explicit init / deinit |
 | Configuration builders | |
 
----
+### 1b. Understand What the Code Claims
 
-## Phase 2: Test Environment Setup
+For each target, answer these before writing any test:
 
-Real packages have deep dependency trees. Loading the target often pulls in the entire framework. The setup phase isolates the code under test from those dependencies.
+1. **What does it claim to do?** Read documentation, type signatures, and comments.
+2. **Who calls it?** Callers often impose implicit preconditions — inputs callers never pass produce false alarms.
+3. **Do existing tests document expected behavior?** An existing test asserting X means X is intentional, not a bug.
+4. **What does it normalize or transform?** These constrain how generators must be built.
+5. **Does it have a lifecycle?** If yes, draw the state machine → consider Approach B.
 
-**Without setup:**
+### 1c. Draw the State Machine (Approach B only)
 
-```
-import mymodule
-    │
-    └── __init__.py
-            │
-            └── framework
-                    │
-                    └── DB / network
-                              │
-                              └── FAILS ✗ (no DB in test env)
-```
-
-**With stubs + direct loading:**
+Before writing any code, map out states and transitions on paper:
 
 ```
-load_directly("mymodule", path)
-    │
-    ├── stubs registered in sys.modules first
-    │       (framework.db, framework.net, ...)
-    │
-    ├── bypasses __init__.py entirely
-    │
-    └── module loads cleanly ✓
+         op_init            op_update
+            │                   │
+            ▼                   ▼
+  IDLE ──► READY ──────────► ACTIVE ──┐
+                │               │     │ op_update
+                │ op_final       │◄────┘
+                └───────────────►│
+                              DONE ──op_init──► READY
+                                 │
+                              op_deinit
+                                 │
+                               DEAD
 ```
 
-**Rules:**
-- Read the target's imports first. Stub exactly what's needed — not more.
-- Never put test files inside the package directory. Use a separate `tests/` tree.
+Then encode as plain data + transition functions, each returning `(new_state, expected_return_code)` without calling the real implementation.
+
+> **Golden rule for Approach B:** if an existing test asserts a behavior, the model must agree with it.
 
 ---
 
-## Phase 3: Strategy Design
+## Step 2: Build
 
-A **strategy** defines how Hypothesis generates inputs. The goal is to generate inputs that are realistic — matching what the function actually receives in production.
+**Goal:** Design generators and write tests against the chosen oracle.
 
-### Strategy Complexity Levels
+### 2a. Design Generators
 
-Start at Level 1. Only escalate when simpler strategies stop finding bugs.
-
-| Level | Input Type | What it catches |
-|-------|-----------|-----------------|
-| **1** | Simple scalars — text, integers, booleans, enum values | Basic crashes, missing type guards |
-| **2** | Composite domain objects — multiple fields satisfying preconditions | Structural bugs, missing field handling |
-| **3** | Boundary values — empty, very long, unicode, whitespace-only | Off-by-one errors, buffer issues |
-| **4** | Adversarial inputs — characters the code is supposed to handle or reject | Injection bugs, encoding issues |
-| **5** | Invalid inputs — wrong types, missing fields, out-of-range values | Missing validation, wrong error handling |
-
-### The Soundness Principle
-
-> **Soundness:** only generate inputs the function was designed to receive.
-> **Completeness:** cover all inputs the function can receive.
-
-When they conflict → **prefer soundness.**
-
-- Unsound strategy → false alarms (test design errors, not real bugs)
-- Sound strategy → real bugs
-
----
-
-## Phase 4: Property Discovery
-
-Ask these questions about each function to find testable properties:
-
-| Question | Property Type |
-|----------|--------------|
-| "Can I undo this operation?" | Round-Trip |
-| "Does doing it twice change anything?" | Idempotency |
-| "What must ALWAYS be true about the output?" | Invariant |
-| "If I change the input this way, how does output change?" | Metamorphic |
-| "Do these two functions agree on classification?" | Consistency |
-| "What shape must the output have?" | Output Structure |
-| "What inputs must always be rejected?" | Negative / Denylist |
-| "Does it always return without crashing?" | Never Crashes |
-
-### Property Power Spectrum
-
-From highest to lowest bug-finding power:
+A **generator** defines how the framework produces inputs. It must be *sound*.
 
 ```
-HIGH                                                        LOW
- │                                                           │
- ▼                                                           ▼
-Round-Trip → Idempotency → Invariant → Metamorphic → Structure → Never Crashes
+Soundness:    only generate inputs the function was designed to receive
+Completeness: cover all inputs the function can receive
 
-Round-Trip:   encode → decode → must equal original
-Idempotency:  f(f(x)) == f(x)
-Invariant:    output always satisfies a rule
-Metamorphic:  f(x) and f(g(x)) are related in a known way
-Structure:    result has the expected shape
-Never Crashes: no unhandled exception raised
+             When they conflict → PREFER SOUNDNESS
+
+  Unsound generator ──► false alarms
+  Sound generator   ──► real bugs
 ```
 
-> Only test properties the code explicitly claims. Evidence comes from docstrings, type annotations, comments, and existing tests. Invented properties produce false alarms.
+Start simple and escalate only when simpler generators stop finding bugs.
 
----
-
-## Phase 5: Writing Tests
-
-### File Layout
+**Approach A — single inputs:**
 
 ```
-tests/
-├── unit/
-│   ├── properties/
-│   │   ├── conftest.py                   ← stubs + module loading
-│   │   ├── test_properties_<module>.py   ← one file per source module
-│   │   └── ...
-│   └── test_confirmed_bugs.py            ← plain pytest, one class per bug
-└── ...
+Level 1: Simple scalars          ──► crashes, missing type guards
+    │
+    ▼
+Level 2: Composite objects       ──► structural bugs, missing fields
+    │
+    ▼
+Level 3: Boundary values         ──► off-by-one, edge cases
+    │
+    ▼
+Level 4: Adversarial inputs      ──► injection, encoding issues
+    │
+    ▼
+Level 5: Invalid inputs          ──► missing validation
 ```
 
-### Structure
+**Approach B — operation sequences:**
 
-- One `@given` test per property
-- Strategies defined once at the top, reused across tests
-- Keep property tests separate from bug confirmation tests
+```
+Level 1: Valid sequences (happy path)       ──► basic state violations
+    │
+    ▼
+Level 2: Random valid sequences             ──► illegal transitions
+    │
+    ▼
+Level 3: Sequences with injected failures   ──► error recovery paths
+    │
+    ▼
+Level 4: Boundary values                    ──► off-by-one, overflow
+    │
+    ▼
+Level 5: Post-lifecycle operations          ──► use-after-clear bugs
+```
 
-### `max_examples` Guide
+### 2b. Discover Properties
 
-| Scenario | Recommended minimum |
-|----------|-------------------|
-| Core invariants (idempotency, round-trip) | 200–500 |
-| Structural checks (output shape, type) | 100–200 |
-| Slow functions | 50–100 (add `deadline=None`) |
+**Approach A** — ask these for each target:
+
+```
+"Can I undo this?"              ──►  Round-Trip        (highest power)
+"Twice = once?"                 ──►  Idempotency
+"Output always satisfies X?"    ──►  Invariant
+"f(x) relates to f(g(x))?"      ──►  Metamorphic
+"Two functions agree?"          ──►  Consistency
+"Output has expected shape?"    ──►  Output Structure
+"Invalid input always rejected?"──►  Negative / Denylist
+"Always returns, never throws?" ──►  Never Crashes     (lowest power)
+```
+
+**Approach B** — the primary property is always:
+
+```
+┌──────────────────────────────────────────────────────┐
+│  For every operation sequence:                        │
+│                                                      │
+│  impl(op).return_code  ==  model(op).return_code     │
+│  impl(op).state_after  ==  model(op).state_after     │
+└──────────────────────────────────────────────────────┘
+```
+
+Then add: Equivalence, Independence, Causality, Invariants.
+
+> Only test properties the code explicitly claims. Invented properties produce false alarms.
+
+### 2c. Write the Tests
+
+- One test per property
+- Generators defined once, reused across tests
+- Property tests and bug confirmation tests in separate files
+
+| Scenario | Recommended minimum samples |
+|----------|-----------------------------|
+| Core invariants (round-trip, idempotency, state match) | 200–500 |
+| Structural checks | 100–200 |
+| Slow functions | 50–100 |
 | Negative / denylist | 200+ |
 
-> Never go below 100 for properties you care about. Hypothesis's value comes from volume.
-
 ---
 
-## Phase 6: Running and Iterating
+## Step 3: Run
 
-### The Feedback Loop
+**Goal:** Execute tests, triage every failure honestly, confirm real bugs, and know when to stop.
 
-```
-Run tests
-    │
-    ├── ALL PASS
-    │       │
-    │       └── Are properties meaningful?
-    │               │
-    │               ├── YES → Stop when checklist is done
-    │               │
-    │               └── NO  → Strengthen properties and strategies → Run again
-    │
-    └── FAILURE FOUND
-            │
-            └── Apply three-step triage
-                    │
-                    ├── Real bug confirmed
-                    │       └── Document and write confirmation test
-                    │
-                    └── False alarm / test error
-                            └── Fix strategy or property → Run again
-```
-
-### Three-Step Bug Triage
-
-Every failure must pass all three steps before being called a bug.
-
-**Step 1 — Reproducibility**
-
-Can you reproduce it with a fixed input (not Hypothesis)? Use the minimal case Hypothesis reported.
-
-- Fails to reproduce → investigate test setup
-- Reproduces reliably → go to Step 2
-
-**Step 2 — Legitimacy**
-
-- Is this a realistic input (not a precondition violation)?
-- Do callers always validate before reaching this function?
-- **Does an existing test assert this behavior?** ← most critical — if yes, it is intentional design, not a bug.
-
-- Fails legitimacy → false alarm. Fix strategy or property.
-- Passes → go to Step 3
-
-**Step 3 — Impact**
-
-- Would this affect real users?
-- Does it violate documented behavior or a security rule?
-- Trace all callers — is this code path actually reachable?
-
-- LOW → log as cosmetic, move on
-- MEDIUM / HIGH → confirmed bug, document and report
-
----
-
-## Phase 7: Bug Confirmation and Reporting
-
-### Confirmation Steps
+### 3a. The Feedback Loop
 
 ```
-Hypothesis reports a failing example
-             │
-             ▼
-Step 1: Extract the minimal case
-        Write a standalone script to reproduce it without Hypothesis
-             │
-             ▼
-Step 2: Write a named confirmation test
-        One class per bug in test_confirmed_bugs.py
-        Document root cause and proposed fix in the docstring
-             │
-             ▼
-Step 3: Run the confirmation test — it must FAIL
-        A passing test means the bug was not reproduced correctly
-             │
-             ▼
-Step 4: Write the bug report
+                    ┌───────────┐
+                    │ Run tests │
+                    └─────┬─────┘
+                          │
+           ┌──────────────┴──────────────┐
+           ▼                             ▼
+     ALL PASS                     FAILURE FOUND
+           │                             │
+           ▼                             ▼
+  Are properties                  Three-step triage
+  meaningful?                           │
+           │                   ┌────────┴─────────┐
+      ┌────┴────┐               ▼                  ▼
+      YES       NO           Real bug         False alarm
+      │         │               │                  │
+      ▼         ▼               ▼                  ▼
+   Proceed   Strengthen    Confirm &          Fix generator
+   to stop   and run       report             or property
+   criteria  again                            and run again
 ```
 
-### Bug Report Structure
+### 3b. Three-Step Bug Triage
+
+```
+┌─────────────────────────────────────────────────────┐
+│  Step 1 — REPRODUCIBILITY                           │
+│                                                     │
+│  Reproduce with a fixed input, without the          │
+│  framework. Use the minimal case it reported.       │
+│                                                     │
+│  Fails   ──►  investigate setup                     │
+│  Passes  ──►  go to Step 2                          │
+└──────────────────────┬──────────────────────────────┘
+                       │
+                       ▼
+┌─────────────────────────────────────────────────────┐
+│  Step 2 — LEGITIMACY                                │
+│                                                     │
+│  • Realistic input, not a precondition violation?   │
+│  • Callers always validate before here?             │
+│  • Existing test asserts this behavior?  ◄ critical │
+│    (If yes → intentional design, not a bug)         │
+│                                                     │
+│  Fails   ──►  false alarm, fix generator            │
+│  Passes  ──►  go to Step 3                          │
+└──────────────────────┬──────────────────────────────┘
+                       │
+                       ▼
+┌─────────────────────────────────────────────────────┐
+│  Step 3 — IMPACT                                    │
+│                                                     │
+│  • Affects real users?                              │
+│  • Violates documented behavior or security rule?   │
+│  • Code path reachable in production?               │
+│                                                     │
+│  LOW     ──►  log as cosmetic                       │
+│  MEDIUM / HIGH  ──►  confirmed bug, report it       │
+└─────────────────────────────────────────────────────┘
+```
+
+### 3c. Confirming and Reporting a Bug
+
+```
+Framework reports a failing example
+             │
+             ▼
+   Extract the minimal case
+   Reproduce without the framework
+             │
+             ▼
+   Write a named confirmation test
+   ── it must FAIL when run ──
+             │
+             ▼
+      Write the bug report
+```
+
+**Bug report fields:**
 
 | Field | Content |
 |-------|---------|
 | **Title** | Short descriptive summary |
 | **Severity** | HIGH / MEDIUM / LOW |
 | **Type** | Logic / Crash / Contract |
-| **File** | `path/to/file.py:line_number` |
-| **Root Cause** | 1–2 sentences naming the exact mechanism |
+| **Location** | File and line |
+| **Root Cause** | 1–2 sentences — exact mechanism |
 | **Impact** | What breaks in production |
-| **Reproduction** | Minimal input that triggers the bug |
+| **Reproduction** | Minimal input or sequence that triggers the bug |
 | **Expected vs Actual** | Table showing the discrepancy |
-| **Fix** | Exact code change needed |
-| **Confirmed By** | Test class and method that reproduces it |
+| **Fix** | Code change needed |
+| **Confirmed By** | Test name that reproduces it |
 
-**Bug types:**
-- **Logic** — wrong result, violated property, silent data loss
-- **Crash** — valid input causes unhandled exception
-- **Contract** — behavior differs from documented contract
+### 3d. When to Stop
 
----
-
-## Phase 8: When to Stop
-
-### Completeness Checklist
-
-**Functions**
-- [ ] All pure functions tested with `max_examples >= 100`
+**Both approaches**
+- [ ] All selected targets tested with sufficient sample count
 - [ ] All branches and variants exercised
-
-**Input coverage**
-- [ ] Empty / null / missing inputs covered
-- [ ] Boundary values (minimum, maximum, off-by-one)
-- [ ] Edge cases relevant to the function's domain
-
-**Property coverage**
-- [ ] At least one round-trip or idempotency property per transformer
-- [ ] At least one rejection property per security validator
-- [ ] Negative tests for all documented error conditions
-
-**Quality**
-- [ ] Branch coverage > 70% on tested functions
+- [ ] Empty / null / boundary / edge case inputs covered
 - [ ] Every failure triaged with the three-step process
-- [ ] Each property rules out wrong implementations *(verify: replace the function body with a stub — does the test still fail?)*
+- [ ] Each property rules out wrong implementations *(stub the function — does the test fail?)*
+- [ ] Branch coverage > 70% on tested functions
+
+**Approach A only**
+- [ ] At least one round-trip or idempotency property per data transformer
+- [ ] At least one rejection property per security validator
+
+**Approach B only**
+- [ ] All state transitions covered (valid and invalid)
+- [ ] Post-lifecycle operations tested (use after deinit, etc.)
+- [ ] State match and output match verified after every operation type
 
 ---
 
 ## Quick Reference
 
-| Step | Action |
-|------|--------|
-| **1. Select** | Score candidates on purity, complexity, and coverage |
-| **2. Setup** | Isolate the target with stubs and direct module loading |
-| **3. Strategy** | Start simple (scalars), escalate through levels 1→5 |
-| **4. Discover** | Ask the 8 property questions for each function |
-| **5. Write** | One `@given` test per property, `max_examples >= 100` |
-| **6. Run** | Triage every failure with the 3-step process |
-| **7. Confirm** | Standalone test + bug report for each real bug |
-| **8. Stop** | When the completeness checklist is satisfied |
+| Step | Approach A | Approach B |
+|------|-----------|-----------|
+| **1. Understand** | Identify invariants from docs and existing tests | Draw the state machine; encode as a model |
+| **2. Build** | Single-input generators; 8 property types | Operation-sequence generators; state-match property |
+| **3. Run** | Three-step triage on every failure | Three-step triage; test wrapper and internal layers separately |
 
 **Golden rules:**
 - Read existing tests before declaring any failure a bug
-- Prefer soundness over completeness in strategies
+- Prefer soundness over completeness in generators
 - Only test properties the code explicitly claims
-- The most valuable property: "never corrupts data"
+- The most dangerous bugs produce no error — they produce wrong output silently
+- The most valuable property: "never corrupts data, never produces silent wrong output"
