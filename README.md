@@ -32,6 +32,7 @@
 - Bug #2: https://github.com/kuasar-io/kuasar/issues/245
 
 ### openGauss
+- Bug #1: https://gitcode.com/opengauss/openGauss-server/issues/8127
 - Findings: [openGauss_findings](./openGauss_findings.md)
 
 ## Huawei Open-sourced projects
