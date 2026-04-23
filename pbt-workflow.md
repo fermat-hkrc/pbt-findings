@@ -2,8 +2,6 @@
 
 How to go from a codebase to confirmed bugs using property-based testing.
 
-> This workflow is language-agnostic. Apply the same steps whether you are using Hypothesis (Python), QuickCheck (Haskell/Erlang), fast-check (JavaScript), PropTest (Rust), jqwik (Java), or any other PBT framework.
-
 ---
 
 ## The Big Picture
