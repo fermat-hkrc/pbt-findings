@@ -12,12 +12,11 @@ How to go from a codebase to confirmed bugs using property-based testing.
                     └──────┬──────┘
                            │
             ┌──────────────▼──────────────┐
-            │        1. UNDERSTAND        │
-            │  Select targets.            │
-            │  Read what the code claims. │
+            │       0. CHOOSE ORACLE      │
+            │                             │
+            │  Pick your approach FIRST.  │
+            │  Everything else follows.   │
             └──────────────┬──────────────┘
-                           │
-                    Choose oracle
                            │
              ┌─────────────┴─────────────┐
              ▼                           ▼
@@ -27,6 +26,14 @@ How to go from a codebase to confirmed bugs using property-based testing.
     │     Oracle      │       │     Oracle      │
     └────────┬────────┘       └────────┬────────┘
              └─────────────┬───────────┘
+                           │
+            ┌──────────────▼──────────────┐
+            │        1. UNDERSTAND        │
+            │  Select targets.            │
+            │  Read what the code claims. │
+            │  (A: identify invariants)   │
+            │  (B: draw state machine)    │
+            └──────────────┬──────────────┘
                            │
             ┌──────────────▼──────────────┐
             │          2. BUILD           │
