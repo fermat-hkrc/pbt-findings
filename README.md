@@ -26,6 +26,8 @@
 ### Python: openJiuwen agent-studio
 - Project: https://gitcode.com/thanhtoantnt/agent-studio
 - Bug #1: https://gitcode.com/openJiuwen/agent-studio/issues/815
+- Bug #2: https://gitcode.com/openJiuwen/agent-studio/issues/821
+- Bug #3: https://gitcode.com/openJiuwen/agent-studio/issues/822
 
 ## Python: JiuwenClaw
 - Project: https://gitcode.com/thanhtoantnt/jiuwenclaw/
