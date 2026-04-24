@@ -16,6 +16,8 @@
 - Project: https://github.com/thanhtoantnt/openHiTLS
 - Bug #1 (fixed): https://gitcode.com/openHiTLS/openhitls/issues/149
 - Bug #2 (fixed): https://gitcode.com/openHiTLS/openhitls/issues/148
+- Bug #3 (confirmed): https://gitcode.com/openHiTLS/openhitls/issues/156
+- Bug #4 (confirmed): https://gitcode.com/openHiTLS/openhitls/issues/157
 
 ### TypeScript: openClaw
 - Project: https://github.com/thanhtoantnt/openclaw
