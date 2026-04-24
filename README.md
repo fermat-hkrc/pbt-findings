@@ -37,6 +37,10 @@
 - Project: https://github.com/thanhtoantnt/claudes-c-compiler
 - 5 Bugs found: https://github.com/thanhtoantnt/claudes-c-compiler/blob/main/bug_report.md
 
+### C++: canjie_compiler
+- Project: https://gitcode.com/thanhtoantnt/cangjie_compiler/tree/pbt_rapidcheck
+- Bug #1: https://gitcode.com/Cangjie/cangjie_compiler/issues/856
+
 ### Go: OpenGemini (from Huawei Cloud)
 - Project: https://github.com/thanhtoantnt/openGemini
 - Bug #1: https://github.com/openGemini/openGemini/issues/940
