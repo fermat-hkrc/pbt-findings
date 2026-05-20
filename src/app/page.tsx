@@ -1,0 +1,223 @@
+import Link from "next/link";
+import { getAllIssues, getStats } from "@/lib/content";
+
+function StatusBadge({ status }: { status: string }) {
+  const colors: Record<string, string> = {
+    CONFIRMED_REAL: "bg-green-500/20 text-green-400 border-green-500/30",
+    CONFIRMED_FIXED: "bg-blue-500/20 text-blue-400 border-blue-500/30",
+    SUBMITTED: "bg-amber-500/20 text-amber-400 border-amber-500/30",
+    PENDING: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30",
+    NEEDS_REVIEW: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
+    FALSE_POSITIVE: "bg-gray-500/20 text-gray-400 border-gray-500/30",
+    CODE_QUALITY: "bg-purple-500/20 text-purple-400 border-purple-500/30",
+  };
+  const labels: Record<string, string> = {
+    CONFIRMED_REAL: "Confirmed",
+    CONFIRMED_FIXED: "Fixed",
+    SUBMITTED: "Submitted",
+    PENDING: "Pending",
+    NEEDS_REVIEW: "Review",
+    FALSE_POSITIVE: "FP",
+    CODE_QUALITY: "Quality",
+  };
+  return (
+    <span
+      className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium border ${colors[status] || "bg-gray-500/20 text-gray-400 border-gray-500/30"}`}
+    >
+      {labels[status] || status}
+    </span>
+  );
+}
+
+function SeverityBadge({ severity }: { severity?: string }) {
+  if (!severity) return null;
+  const colors: Record<string, string> = {
+    CRITICAL: "bg-red-500/20 text-red-400 border-red-500/30",
+    HIGH: "bg-orange-500/20 text-orange-400 border-orange-500/30",
+    MEDIUM: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
+    LOW: "bg-blue-500/20 text-blue-400 border-blue-500/30",
+  };
+  return (
+    <span
+      className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium border ${colors[severity] || "bg-gray-500/20 text-gray-400 border-gray-500/30"}`}
+    >
+      {severity}
+    </span>
+  );
+}
+
+export default function DashboardPage() {
+  const stats = getStats();
+  const issues = getAllIssues();
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold text-white mb-2">
+          PBT Findings Dashboard
+        </h1>
+        <p className="text-[#a3a3a3]">
+          Bugs and vulnerabilities discovered through Property-Based Testing
+          across OpenHarmony, HiTLS, Kuasar, and AI projects.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+        <StatCard label="Total PBT Bugs" value={stats.total} />
+        <StatCard
+          label="Confirmed / Fixed"
+          value={stats.confirmed}
+          accent="text-green-400"
+          href="/confirmed"
+        />
+        <StatCard
+          label="Submitted"
+          value={stats.submitted}
+          accent="text-amber-400"
+        />
+        <StatCard
+          label="Target Repos"
+          value={stats.repos}
+          accent="text-purple-400"
+        />
+      </div>
+
+      {/* Severity Breakdown */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+        {Object.entries(stats.bySeverity).sort().map(([sev, count]) => (
+          <SeverityStatCard key={sev} severity={sev} count={count} />
+        ))}
+      </div>
+
+      {/* Issues List */}
+      <div className="bg-[#141414] border border-[#262626] rounded-lg overflow-hidden">
+        <div className="px-6 py-4 border-b border-[#262626] flex items-center justify-between">
+          <h2 className="text-lg font-semibold text-white">PBT Issues</h2>
+          <Link
+            href="/issues"
+            className="text-sm text-blue-400 hover:text-blue-300"
+          >
+            View all &rarr;
+          </Link>
+        </div>
+        <div className="divide-y divide-[#1e1e1e]">
+          {issues.length === 0 ? (
+            <div className="px-6 py-12 text-center text-[#737373]">
+              No PBT issues found.
+            </div>
+          ) : (
+            issues.map((issue) => (
+              <div
+                key={issue.id}
+                className="px-6 py-5 hover:bg-[#1a1a1a] transition-colors"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div className="min-w-0 flex-1">
+                    {/* Title row */}
+                    <div className="flex items-center gap-2 mb-2 flex-wrap">
+                      <StatusBadge status={issue.status} />
+                      <SeverityBadge severity={issue.severity} />
+                      <Link
+                        href={`/issues/${issue.id}`}
+                        className="text-[15px] font-medium text-white hover:text-blue-300 transition-colors"
+                      >
+                        {issue.title}
+                      </Link>
+                    </div>
+                    {/* CWE */}
+                    {issue.cwe && (
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-xs font-mono px-1.5 py-0.5 rounded bg-[#1a1a2e] text-blue-400 border border-blue-500/20">
+                        {issue.cwe}
+                        {issue.cwe_name && ` — ${issue.cwe_name}`}
+                      </span>
+                    </div>
+                    )}
+                    {/* Meta row */}
+                    <div className="flex items-center gap-4 text-xs text-[#737373]">
+                      <span className="font-mono">{issue.id}</span>
+                      <span>{issue.repo}</span>
+                      <span>{issue.date}</span>
+                      {issue.author && (
+                        <span>by {issue.author}</span>
+                      )}
+                    </div>
+                  </div>
+                  {/* Right side: Issue links */}
+                  <div className="shrink-0 flex items-center gap-2">
+                    {issue.has_poc && (
+                      <Link
+                        href={`/issues/${issue.id}#poc-验证`}
+                        className="inline-flex items-center gap-1 text-xs font-medium px-1.5 py-0.5 rounded bg-green-500/15 text-green-400 border border-green-500/30 hover:bg-green-500/25 transition-colors"
+                      >
+                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                        </svg>
+                        PoC
+                      </Link>
+                    )}
+                    {issue.issue_url && (
+                      <a
+                        href={issue.issue_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-xs font-medium px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-400 border border-amber-500/30 hover:bg-amber-500/25 transition-colors"
+                      >
+                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                        Issue
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function StatCard({
+  label,
+  value,
+  accent,
+  href,
+}: {
+  label: string;
+  value: number;
+  accent?: string;
+  href?: string;
+}) {
+  const content = (
+    <div className={`bg-[#141414] border border-[#262626] rounded-lg p-5 ${href ? "hover:border-[#404040] transition-colors cursor-pointer" : ""}`}>
+      <span className="text-sm text-[#a3a3a3]">{label}</span>
+      <div className={`text-3xl font-bold mt-1 ${accent || "text-white"}`}>
+        {value}
+      </div>
+    </div>
+  );
+  if (href) {
+    return <Link href={href}>{content}</Link>;
+  }
+  return content;
+}
+
+function SeverityStatCard({ severity, count }: { severity: string; count: number }) {
+  const colors: Record<string, string> = {
+    CRITICAL: "text-red-400",
+    HIGH: "text-orange-400",
+    MEDIUM: "text-yellow-400",
+    LOW: "text-blue-400",
+  };
+  return (
+    <div className="bg-[#141414] border border-[#262626] rounded-lg p-4 text-center">
+      <div className={`text-2xl font-bold ${colors[severity] || "text-white"}`}>
+        {count}
+      </div>
+      <div className="text-[#737373] text-xs mt-1">{severity}</div>
+    </div>
+  );
+}

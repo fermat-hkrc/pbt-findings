@@ -1,59 +1,93 @@
-# Summary about agentic property-based testing
+# PBT Findings
 
-## Property-based testing skills
-- [Skills](https://github.com/fermat-hkrc/pbt-skills)
+A live dashboard tracking bugs and vulnerabilities discovered through **Property-Based Testing** across OpenHarmony, HiTLS, Kuasar, and AI projects.
 
-## Frameworks for languages
-- Github Repo: https://github.com/jmid/pbt-frameworks
+**Live site:** https://fermat-hkrc.github.io/pbt-findings/
 
-### PBT at other companies
-- Anthropic (Claude Code): [blog](https://red.anthropic.com/2026/property-based-testing/) and [website](https://mmaaz-git.github.io/agentic-pbt-site/)
-- AWS Spec-Driven IDE Kiro: https://kiro.dev/docs/specs/correctness/
+## What is this?
 
-## Findings
+This site catalogs bugs found by applying property-based testing (PBT) to open-source codebases. Each finding includes:
 
-### C++: openHiTLS
-- Project: https://github.com/thanhtoantnt/openHiTLS
-- Bug #1 (fixed): https://gitcode.com/openHiTLS/openhitls/issues/149
-- Bug #2 (fixed): https://gitcode.com/openHiTLS/openhitls/issues/148
-- Bug #3 (confirmed): https://gitcode.com/openHiTLS/openhitls/issues/156
-- Bug #4 (confirmed): https://gitcode.com/openHiTLS/openhitls/issues/157
+- **CWE classification** and severity
+- **Vulnerable code** with trace
+- **Trigger conditions** and impact analysis
+- **Suggested fixes**
+- **Upstream issue links** and status tracking
 
-### TypeScript: openClaw
-- Project: https://github.com/thanhtoantnt/openclaw
-- Bug #1: https://github.com/openclaw/openclaw/issues/64036
+## Tech Stack
 
-### Python: openJiuwen agent-studio
-- Project: https://gitcode.com/thanhtoantnt/agent-studio
-- Bug #1 (confirmed): https://gitcode.com/openJiuwen/agent-studio/issues/815
-- Bug #2: https://gitcode.com/openJiuwen/agent-studio/issues/821
-- Bug #3: https://gitcode.com/openJiuwen/agent-studio/issues/822
+- **Next.js 16** (static export via `next build`)
+- **Tailwind CSS v4** for styling
+- **gray-matter** for Markdown frontmatter parsing
+- **react-markdown** with rehype/remark plugins for issue rendering
+- **GitHub Pages** for deployment
 
-## Python: JiuwenClaw
-- Project: https://gitcode.com/thanhtoantnt/jiuwenclaw/
-- Bug #1: https://gitcode.com/openJiuwen/jiuwenclaw/issues/394
+## Project Structure
 
-### Rust: Claude C Compiler
-- Project: https://github.com/thanhtoantnt/claudes-c-compiler
-- 5 Bugs found: https://github.com/thanhtoantnt/claudes-c-compiler/blob/main/bug_report.md
+```
+content/
+  issues/          # PBT-*.md — bug reports with frontmatter
+  pocs/            # Proof-of-concept files per issue (optional)
+src/
+  app/             # Next.js App Router pages
+  components/      # React components (issues list, content, PoC viewer)
+  lib/             # content.ts — issue loading/parsing
+docs/              # Background documentation
+```
 
-### C++: canjie_compiler
-- Project: https://gitcode.com/thanhtoantnt/cangjie_compiler/tree/pbt_rapidcheck
-- Bug #1: https://gitcode.com/Cangjie/cangjie_compiler/issues/856
+## Issue Format
 
-### Go: OpenGemini (from Huawei Cloud)
-- Project: https://github.com/thanhtoantnt/openGemini
-- Bug #1: https://github.com/openGemini/openGemini/issues/940
+Each issue is a Markdown file in `content/issues/` with frontmatter:
 
-### Rust: Kuasar (from Huawei Cloud)
-- Project: https://github.com/thanhtoantnt/kuasar
-- Bug #1: https://github.com/kuasar-io/kuasar/issues/244
-- Bug #2: https://github.com/kuasar-io/kuasar/issues/245
+```yaml
+---
+id: PBT-OH-2026-DEVMGR-002
+date: "2026-05-18"
+repo: distributedhardware_device_manager
+repo_url: https://gitcode.com/openharmony/distributedhardware_device_manager
+title: "Description of the bug"
+cwe: CWE-20
+cwe_name: Improper Input Validation
+severity: MEDIUM
+status: SUBMITTED         # CONFIRMED_REAL | CONFIRMED_FIXED | SUBMITTED | PENDING
+issue_url: https://...
+affected_version: "*"
+component: module_name
+file_paths:
+  - path/to/vulnerable/file.c
+author: finder_name
+---
 
-### openGauss
-- Bug #1: https://gitcode.com/opengauss/openGauss-server/issues/8127
-- Findings: [openGauss_findings](./openGauss_findings.md)
+## Summary
+...
+## Vulnerable Code
+...
+## Suggested Fix
+...
+```
 
-## Huawei Open-sourced projects
-- Link: https://www.huawei.com/en/open-source/projects
+## Development
 
+```bash
+npm install
+npm run dev        # http://localhost:3000
+npm run build      # static export to ./out
+```
+
+## Adding a New Finding
+
+1. Create `content/issues/PBT-<PROJECT>-2026-<CATEGORY>-<NNN>.md` with frontmatter
+2. Optionally add PoC files under `content/pocs/<issue-id>/`
+3. Run `npm run validate` to check frontmatter
+4. Push to `main` — GitHub Actions deploys automatically
+
+## Documentation
+
+- [Introduction to Property-Based Testing](docs/intro-to-pbt.md)
+- [PBT Workflow Guide](docs/pbt-workflow.md)
+- [openGauss Findings](docs/openGauss_findings.md)
+
+## Related
+
+- [Fermat Review Board](https://fermat-hkrc.github.io/Fermat-Review-Board/) — full vulnerability tracking dashboard (PBT + static analysis)
+- [PBT Skills](https://github.com/fermat-hkrc/pbt-skills) — testing skills and strategies
