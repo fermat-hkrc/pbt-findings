@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "PBT Findings — Property-Based Testing Bug Tracker",
   description:
-    "Security vulnerabilities and bugs discovered through Property-Based Testing across OpenHarmony, HiTLS, Kuasar, and AI projects.",
+    "Security vulnerabilities and bugs discovered through Property-Based Testing.",
 };
 
 export default function RootLayout({

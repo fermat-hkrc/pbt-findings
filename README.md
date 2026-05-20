@@ -1,6 +1,6 @@
 # PBT Findings
 
-A live dashboard tracking bugs and vulnerabilities discovered through **Property-Based Testing** across OpenHarmony, HiTLS, Kuasar, and AI projects.
+A live dashboard tracking bugs and vulnerabilities discovered through **Property-Based Testing**.
 
 **Live site:** https://fermat-hkrc.github.io/pbt-findings/
 

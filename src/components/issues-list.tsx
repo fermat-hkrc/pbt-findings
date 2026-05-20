@@ -82,7 +82,7 @@ export default function IssuesListClient({
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-white mb-2">All PBT Issues</h1>
         <p className="text-sm text-[#a3a3a3]">
-          {issues.length} bugs found through Property-Based Testing across all scanned repositories
+          {issues.length} bugs found through Property-Based Testing
         </p>
       </div>
 

@@ -57,8 +57,7 @@ export default function DashboardPage() {
           PBT Findings Dashboard
         </h1>
         <p className="text-[#a3a3a3]">
-          Bugs and vulnerabilities discovered through Property-Based Testing
-          across OpenHarmony, HiTLS, Kuasar, and AI projects.
+          Bugs and vulnerabilities discovered through Property-Based Testing.
         </p>
       </div>
 
@@ -80,13 +79,6 @@ export default function DashboardPage() {
           value={stats.repos}
           accent="text-purple-400"
         />
-      </div>
-
-      {/* Severity Breakdown */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-        {Object.entries(stats.bySeverity).sort().map(([sev, count]) => (
-          <SeverityStatCard key={sev} severity={sev} count={count} />
-        ))}
       </div>
 
       {/* Issues List */}
@@ -203,21 +195,4 @@ function StatCard({
     return <Link href={href}>{content}</Link>;
   }
   return content;
-}
-
-function SeverityStatCard({ severity, count }: { severity: string; count: number }) {
-  const colors: Record<string, string> = {
-    CRITICAL: "text-red-400",
-    HIGH: "text-orange-400",
-    MEDIUM: "text-yellow-400",
-    LOW: "text-blue-400",
-  };
-  return (
-    <div className="bg-[#141414] border border-[#262626] rounded-lg p-4 text-center">
-      <div className={`text-2xl font-bold ${colors[severity] || "text-white"}`}>
-        {count}
-      </div>
-      <div className="text-[#737373] text-xs mt-1">{severity}</div>
-    </div>
-  );
 }
