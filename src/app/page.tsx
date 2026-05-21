@@ -75,7 +75,7 @@ export default function DashboardPage() {
           accent="text-amber-400"
         />
         <StatCard
-          label="Target Repos"
+          label="Repositories"
           value={stats.repos}
           accent="text-purple-400"
         />

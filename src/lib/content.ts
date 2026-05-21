@@ -155,7 +155,9 @@ export function getStats(): Stats {
     confirmed: issues.filter(
       (i) => i.status === "CONFIRMED_REAL" || i.status === "CONFIRMED_FIXED"
     ).length,
-    submitted: issues.filter((i) => i.status === "SUBMITTED").length,
+    submitted: issues.filter(
+      (i) => i.status === "SUBMITTED" || i.status === "CONFIRMED_REAL" || i.status === "CONFIRMED_FIXED"
+    ).length,
     repos: Object.keys(byRepo).length,
     byCwe,
     byStatus,
