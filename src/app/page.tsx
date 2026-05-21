@@ -79,6 +79,7 @@ export default function DashboardPage() {
           label="Unconfirmed"
           value={stats.unconfirmed}
           accent="text-amber-400"
+          href="/unconfirmed"
         />
         <StatCard
           label="Repositories"

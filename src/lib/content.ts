@@ -124,6 +124,13 @@ export function getFixedIssues(): IssueMeta[] {
   return issues.filter((i) => i.status === "CONFIRMED_FIXED");
 }
 
+export function getUnconfirmedIssues(): IssueMeta[] {
+  const issues = getAllIssues();
+  return issues.filter(
+    (i) => i.status !== "CONFIRMED_REAL" && i.status !== "CONFIRMED_FIXED"
+  );
+}
+
 export interface Stats {
   total: number;
   confirmed: number;
