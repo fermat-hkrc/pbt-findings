@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getConfirmedIssues } from "@/lib/content";
+import { getFixedIssues } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Confirmed Issues — PBT Findings",
-  description: "PBT findings confirmed by upstream maintainers.",
+  title: "Fixed Issues — PBT Findings",
+  description: "PBT findings fixed by upstream maintainers.",
 };
 
 function StatusBadge({ status }: { status: string }) {
   const colors: Record<string, string> = {
-    CONFIRMED_REAL: "bg-green-500/20 text-green-400 border-green-500/30",
+    CONFIRMED_FIXED: "bg-blue-500/20 text-blue-400 border-blue-500/30",
   };
   const labels: Record<string, string> = {
-    CONFIRMED_REAL: "Confirmed",
+    CONFIRMED_FIXED: "Fixed",
   };
   return (
     <span
@@ -40,9 +40,8 @@ function SeverityBadge({ severity }: { severity?: string }) {
   );
 }
 
-export default function ConfirmedPage() {
-  const confirmed = getConfirmedIssues();
-  const confirmedCount = confirmed.length;
+export default function FixedPage() {
+  const fixed = getFixedIssues();
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -52,23 +51,23 @@ export default function ConfirmedPage() {
             Dashboard
           </Link>
           <span>/</span>
-          <span className="text-[#a3a3a3]">Confirmed Issues</span>
+          <span className="text-[#a3a3a3]">Fixed Issues</span>
         </div>
         <h1 className="text-2xl font-bold text-white mb-2">
-          Confirmed Issues
+          Fixed Issues
         </h1>
         <p className="text-[#a3a3a3]">
-          {confirmedCount} confirmed findings.
+          {fixed.length} findings fixed by upstream maintainers.
         </p>
       </div>
 
       <div className="bg-[#141414] border border-[#262626] rounded-lg overflow-hidden divide-y divide-[#1e1e1e]">
-        {confirmed.length === 0 ? (
+        {fixed.length === 0 ? (
           <div className="px-6 py-12 text-center text-[#737373]">
-            No confirmed issues yet.
+            No fixed issues yet.
           </div>
         ) : (
-          confirmed.map((issue) => (
+          fixed.map((issue) => (
             <div
               key={issue.id}
               className="px-6 py-5 hover:bg-[#1a1a1a] transition-colors"

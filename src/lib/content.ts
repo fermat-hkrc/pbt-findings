@@ -116,9 +116,12 @@ export function getVerifiedPocIssues(): IssueMeta[] {
 
 export function getConfirmedIssues(): IssueMeta[] {
   const issues = getAllIssues();
-  return issues.filter(
-    (i) => i.status === "CONFIRMED_REAL" || i.status === "CONFIRMED_FIXED"
-  );
+  return issues.filter((i) => i.status === "CONFIRMED_REAL");
+}
+
+export function getFixedIssues(): IssueMeta[] {
+  const issues = getAllIssues();
+  return issues.filter((i) => i.status === "CONFIRMED_FIXED");
 }
 
 export interface Stats {
