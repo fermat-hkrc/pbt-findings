@@ -59,7 +59,7 @@ export default function ConfirmedPage() {
           Confirmed Issues
         </h1>
         <p className="text-[#a3a3a3]">
-          {confirmed.length} findings confirmed or fixed by upstream maintainers.
+          {confirmed.filter((i) => i.status === "CONFIRMED_REAL").length} confirmed, {confirmed.filter((i) => i.status === "CONFIRMED_FIXED").length} fixed by upstream maintainers.
         </p>
       </div>
 

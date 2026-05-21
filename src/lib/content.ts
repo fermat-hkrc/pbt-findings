@@ -124,6 +124,7 @@ export function getConfirmedIssues(): IssueMeta[] {
 export interface Stats {
   total: number;
   confirmed: number;
+  fixed: number;
   unconfirmed: number;
   repos: number;
   byCwe: Record<string, number>;
@@ -150,14 +151,14 @@ export function getStats(): Stats {
     bySeverity[sev] = (bySeverity[sev] || 0) + 1;
   }
 
+  const confirmed = issues.filter((i) => i.status === "CONFIRMED_REAL").length;
+  const fixed = issues.filter((i) => i.status === "CONFIRMED_FIXED").length;
+
   return {
     total: issues.length,
-    confirmed: issues.filter(
-      (i) => i.status === "CONFIRMED_REAL" || i.status === "CONFIRMED_FIXED"
-    ).length,
-    unconfirmed: issues.length - issues.filter(
-      (i) => i.status === "CONFIRMED_REAL" || i.status === "CONFIRMED_FIXED"
-    ).length,
+    confirmed,
+    fixed,
+    unconfirmed: issues.length - confirmed - fixed,
     repos: Object.keys(byRepo).length,
     byCwe,
     byStatus,

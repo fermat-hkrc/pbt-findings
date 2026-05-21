@@ -64,9 +64,15 @@ export default function DashboardPage() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
         <StatCard label="Total PBT Findings" value={stats.total} />
         <StatCard
-          label="Confirmed / Fixed"
+          label="Confirmed"
           value={stats.confirmed}
           accent="text-green-400"
+          href="/confirmed"
+        />
+        <StatCard
+          label="Fixed"
+          value={stats.fixed}
+          accent="text-blue-400"
           href="/confirmed"
         />
         <StatCard
