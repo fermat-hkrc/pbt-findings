@@ -62,7 +62,7 @@ export default function DashboardPage() {
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-        <StatCard label="Total PBT Bugs" value={stats.total} />
+        <StatCard label="Total PBT Findings" value={stats.total} />
         <StatCard
           label="Confirmed / Fixed"
           value={stats.confirmed}
@@ -70,8 +70,8 @@ export default function DashboardPage() {
           href="/confirmed"
         />
         <StatCard
-          label="Submitted"
-          value={stats.submitted}
+          label="Unconfirmed"
+          value={stats.unconfirmed}
           accent="text-amber-400"
         />
         <StatCard
