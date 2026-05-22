@@ -115,6 +115,12 @@ export default async function IssueDetailPage({
               <div className="text-white font-mono text-sm">{issue.meta.component}</div>
             </div>
           )}
+          {issue.meta.language && (
+            <div className="bg-[#141414] border border-[#262626] rounded-lg p-3">
+              <div className="text-[#737373] text-xs mb-1">Language</div>
+              <div className="text-white font-mono text-sm">{issue.meta.language}</div>
+            </div>
+          )}
           {issue.meta.affected_version && (
             <div className="bg-[#141414] border border-[#262626] rounded-lg p-3">
               <div className="text-[#737373] text-xs mb-1">Affected Version</div>
