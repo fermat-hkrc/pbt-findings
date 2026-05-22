@@ -7,6 +7,24 @@ export const metadata: Metadata = {
   description: "PBT findings fixed by upstream maintainers.",
 };
 
+function LanguageBadge({ language }: { language: string }) {
+  const colors: Record<string, string> = {
+    Python: "bg-blue-500/20 text-blue-300 border-blue-500/30",
+    Rust: "bg-orange-500/20 text-orange-300 border-orange-500/30",
+    "C++": "bg-cyan-500/20 text-cyan-300 border-cyan-500/30",
+    TypeScript: "bg-sky-500/20 text-sky-300 border-sky-500/30",
+  };
+  return (
+    <span
+      className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium border ${
+        colors[language] ?? "bg-gray-500/20 text-gray-400 border-gray-500/30"
+      }`}
+    >
+      {language}
+    </span>
+  );
+}
+
 function StatusBadge({ status }: { status: string }) {
   const colors: Record<string, string> = {
     CONFIRMED_FIXED: "bg-blue-500/20 text-blue-400 border-blue-500/30",
@@ -66,12 +84,15 @@ export default function FixedPage() {
                       {issue.title}
                     </Link>
                   </div>
-                  {issue.cwe && (
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="text-xs font-mono px-1.5 py-0.5 rounded bg-[#1a1a2e] text-blue-400 border border-blue-500/20">
-                        {issue.cwe}
-                        {issue.cwe_name && ` — ${issue.cwe_name}`}
-                      </span>
+                  {(issue.cwe || issue.language) && (
+                    <div className="flex items-center gap-2 mb-2 flex-wrap">
+                      {issue.cwe && (
+                        <span className="text-xs font-mono px-1.5 py-0.5 rounded bg-[#1a1a2e] text-blue-400 border border-blue-500/20">
+                          {issue.cwe}
+                          {issue.cwe_name && ` — ${issue.cwe_name}`}
+                        </span>
+                      )}
+                      {issue.language && <LanguageBadge language={issue.language} />}
                     </div>
                   )}
                   <div className="flex items-center gap-4 text-xs text-[#737373]">
