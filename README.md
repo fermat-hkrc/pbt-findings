@@ -26,7 +26,7 @@ This site catalogs bugs found by applying property-based testing (PBT) to open-s
 
 ```
 content/
-  issues/          # PBT-*.md — bug reports with frontmatter
+  issues/          # <PROJECT>-*.md — bug reports with frontmatter
   pocs/            # Proof-of-concept files per issue (optional)
 src/
   app/             # Next.js App Router pages
@@ -41,7 +41,7 @@ Each issue is a Markdown file in `content/issues/` with frontmatter:
 
 ```yaml
 ---
-id: PBT-OH-2026-DEVMGR-002
+id: OH-2026-DEVMGR-002
 date: "2026-05-18"
 repo: distributedhardware_device_manager
 repo_url: https://gitcode.com/openharmony/distributedhardware_device_manager
@@ -76,7 +76,7 @@ npm run build      # static export to ./out
 
 ## Adding a New Finding
 
-1. Create `content/issues/PBT-<PROJECT>-2026-<CATEGORY>-<NNN>.md` with frontmatter
+1. Create `content/issues/<PROJECT>-2026-<CATEGORY>-<NNN>.md` with frontmatter
 2. Optionally add PoC files under `content/pocs/<issue-id>/`
 3. Run `npm run validate` to check frontmatter
 4. Push to `main` — GitHub Actions deploys automatically

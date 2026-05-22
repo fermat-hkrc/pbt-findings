@@ -1,5 +1,5 @@
 ---
-id: PBT-OPENCLAW-2026-CHUNK-001
+id: OPENCLAW-2026-CHUNK-001
 date: "2026-04-10"
 repo: openclaw
 repo_url: https://github.com/openclaw/openclaw
