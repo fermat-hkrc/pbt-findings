@@ -29,23 +29,6 @@ function StatusBadge({ status }: { status: string }) {
   );
 }
 
-function SeverityBadge({ severity }: { severity?: string }) {
-  if (!severity) return null;
-  const colors: Record<string, string> = {
-    CRITICAL: "bg-red-500/20 text-red-400 border-red-500/30",
-    HIGH: "bg-orange-500/20 text-orange-400 border-orange-500/30",
-    MEDIUM: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
-    LOW: "bg-blue-500/20 text-blue-400 border-blue-500/30",
-  };
-  return (
-    <span
-      className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium border ${colors[severity] || "bg-gray-500/20 text-gray-400 border-gray-500/30"}`}
-    >
-      {severity}
-    </span>
-  );
-}
-
 export default function DashboardPage() {
   const stats = getStats();
   const issues = getAllIssues();
@@ -88,7 +71,6 @@ export default function DashboardPage() {
         />
       </div>
 
-      {/* Issues List */}
       <div className="bg-[#141414] border border-[#262626] rounded-lg overflow-hidden">
         <div className="px-6 py-4 border-b border-[#262626] flex items-center justify-between">
           <h2 className="text-lg font-semibold text-white">PBT Issues</h2>
@@ -112,10 +94,8 @@ export default function DashboardPage() {
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0 flex-1">
-                    {/* Title row */}
                     <div className="flex items-center gap-2 mb-2 flex-wrap">
                       <StatusBadge status={issue.status} />
-                      <SeverityBadge severity={issue.severity} />
                       <Link
                         href={`/issues/${issue.id}`}
                         className="text-[15px] font-medium text-white hover:text-blue-300 transition-colors"
@@ -123,26 +103,21 @@ export default function DashboardPage() {
                         {issue.title}
                       </Link>
                     </div>
-                    {/* CWE */}
                     {issue.cwe && (
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="text-xs font-mono px-1.5 py-0.5 rounded bg-[#1a1a2e] text-blue-400 border border-blue-500/20">
-                        {issue.cwe}
-                        {issue.cwe_name && ` — ${issue.cwe_name}`}
-                      </span>
-                    </div>
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="text-xs font-mono px-1.5 py-0.5 rounded bg-[#1a1a2e] text-blue-400 border border-blue-500/20">
+                          {issue.cwe}
+                          {issue.cwe_name && ` — ${issue.cwe_name}`}
+                        </span>
+                      </div>
                     )}
-                    {/* Meta row */}
                     <div className="flex items-center gap-4 text-xs text-[#737373]">
                       <span className="font-mono">{issue.id}</span>
                       <span>{issue.repo}</span>
                       <span>{issue.date}</span>
-                      {issue.author && (
-                        <span>by {issue.author}</span>
-                      )}
+                      {issue.author && <span>by {issue.author}</span>}
                     </div>
                   </div>
-                  {/* Right side: Issue links */}
                   <div className="shrink-0 flex items-center gap-2">
                     {issue.has_poc && (
                       <Link

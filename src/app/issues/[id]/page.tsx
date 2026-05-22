@@ -38,23 +38,6 @@ function StatusBadge({ status }: { status: string }) {
   );
 }
 
-function SeverityBadge({ severity }: { severity?: string }) {
-  if (!severity) return null;
-  const colors: Record<string, string> = {
-    CRITICAL: "bg-red-500/20 text-red-400 border-red-500/30",
-    HIGH: "bg-orange-500/20 text-orange-400 border-orange-500/30",
-    MEDIUM: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
-    LOW: "bg-blue-500/20 text-blue-400 border-blue-500/30",
-  };
-  return (
-    <span
-      className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium border ${colors[severity] || "bg-gray-500/20 text-gray-400 border-gray-500/30"}`}
-    >
-      {severity}
-    </span>
-  );
-}
-
 export default async function IssueDetailPage({
   params,
 }: {
@@ -66,7 +49,6 @@ export default async function IssueDetailPage({
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Breadcrumb */}
       <div className="flex items-center gap-2 text-sm text-[#737373] mb-6">
         <Link href="/" className="hover:text-white">
           Dashboard
@@ -79,23 +61,20 @@ export default async function IssueDetailPage({
         <span className="text-[#a3a3a3]">{issue.meta.id}</span>
       </div>
 
-      {/* Header */}
       <div className="mb-8">
         <div className="flex flex-wrap items-center gap-2 mb-3">
           <StatusBadge status={issue.meta.status} />
-          <SeverityBadge severity={issue.meta.severity} />
           {issue.meta.cwe && (
-          <span className="text-xs font-mono text-blue-400 bg-[#1a1a2e] px-2 py-0.5 rounded border border-blue-500/20">
-            {issue.meta.cwe}
-            {issue.meta.cwe_name && ` — ${issue.meta.cwe_name}`}
-          </span>
+            <span className="text-xs font-mono text-blue-400 bg-[#1a1a2e] px-2 py-0.5 rounded border border-blue-500/20">
+              {issue.meta.cwe}
+              {issue.meta.cwe_name && ` — ${issue.meta.cwe_name}`}
+            </span>
           )}
         </div>
         <h1 className="text-xl font-bold text-white mb-4">
           {issue.meta.title}
         </h1>
 
-        {/* Upstream Issue Link */}
         {issue.meta.issue_url && (
           <a
             href={issue.meta.issue_url}
@@ -107,11 +86,10 @@ export default async function IssueDetailPage({
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
             <span className="text-sm font-medium">View Upstream Issue</span>
-            <span className="text-xs text-blue-400/70">{issue.meta.issue_url.replace(/https?:\/\//, '')}</span>
+            <span className="text-xs text-blue-400/70">{issue.meta.issue_url.replace(/https?:\/\//, "")}</span>
           </a>
         )}
 
-        {/* Meta grid */}
         <div className="grid grid-cols-2 gap-3 text-sm">
           {issue.meta.repo && (
             <div className="bg-[#141414] border border-[#262626] rounded-lg p-3">
@@ -145,7 +123,6 @@ export default async function IssueDetailPage({
           )}
         </div>
 
-        {/* File paths */}
         {issue.meta.file_paths && issue.meta.file_paths.length > 0 && (
           <div className="mt-3 bg-[#141414] border border-[#262626] rounded-lg p-3">
             <div className="text-[#737373] text-xs mb-2">Affected Files</div>
@@ -160,12 +137,10 @@ export default async function IssueDetailPage({
         )}
       </div>
 
-      {/* Content */}
       <div className="mb-8">
         <IssueContent content={issue.content} />
       </div>
 
-      {/* PoC */}
       {issue.poc && <PocViewer poc={issue.poc} />}
     </div>
   );

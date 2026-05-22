@@ -32,23 +32,6 @@ function StatusBadge({ status }: { status: string }) {
   );
 }
 
-function SeverityBadge({ severity }: { severity?: string }) {
-  if (!severity) return null;
-  const colors: Record<string, string> = {
-    CRITICAL: "bg-red-500/20 text-red-400 border-red-500/30",
-    HIGH: "bg-orange-500/20 text-orange-400 border-orange-500/30",
-    MEDIUM: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
-    LOW: "bg-blue-500/20 text-blue-400 border-blue-500/30",
-  };
-  return (
-    <span
-      className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium border ${colors[severity] || "bg-gray-500/20 text-gray-400 border-gray-500/30"}`}
-    >
-      {severity}
-    </span>
-  );
-}
-
 export default function IssuesListClient({
   issues,
 }: {
@@ -56,10 +39,8 @@ export default function IssuesListClient({
 }) {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
-  const [severityFilter, setSeverityFilter] = useState("");
 
   const statuses = [...new Set(issues.map((i) => i.status))];
-  const severities = [...new Set(issues.filter(i => i.severity).map((i) => i.severity!))];
 
   const filtered = issues.filter((issue) => {
     if (search) {
@@ -73,7 +54,6 @@ export default function IssuesListClient({
       if (!match) return false;
     }
     if (statusFilter && issue.status !== statusFilter) return false;
-    if (severityFilter && issue.severity !== severityFilter) return false;
     return true;
   });
 
@@ -86,7 +66,6 @@ export default function IssuesListClient({
         </p>
       </div>
 
-      {/* Filters */}
       <div className="flex flex-wrap gap-3 mb-6">
         <input
           type="text"
@@ -107,21 +86,8 @@ export default function IssuesListClient({
             </option>
           ))}
         </select>
-        <select
-          value={severityFilter}
-          onChange={(e) => setSeverityFilter(e.target.value)}
-          className="bg-[#141414] border border-[#262626] rounded-md px-3 py-1.5 text-sm text-white focus:outline-none focus:border-blue-500"
-        >
-          <option value="">All Severities</option>
-          {severities.map((s) => (
-            <option key={s} value={s}>
-              {s}
-            </option>
-          ))}
-        </select>
       </div>
 
-      {/* Issues List */}
       <div className="bg-[#141414] border border-[#262626] rounded-lg overflow-hidden divide-y divide-[#1e1e1e]">
         {filtered.length === 0 ? (
           <div className="px-6 py-12 text-center text-[#737373]">
@@ -137,7 +103,6 @@ export default function IssuesListClient({
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2 mb-2 flex-wrap">
                     <StatusBadge status={issue.status} />
-                    <SeverityBadge severity={issue.severity} />
                     <Link
                       href={`/issues/${issue.id}`}
                       className="text-[15px] font-medium text-white hover:text-blue-300 transition-colors"
@@ -146,20 +111,18 @@ export default function IssuesListClient({
                     </Link>
                   </div>
                   {issue.cwe && (
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-xs font-mono px-1.5 py-0.5 rounded bg-[#1a1a2e] text-blue-400 border border-blue-500/20">
-                      {issue.cwe}
-                      {issue.cwe_name && ` — ${issue.cwe_name}`}
-                    </span>
-                  </div>
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-xs font-mono px-1.5 py-0.5 rounded bg-[#1a1a2e] text-blue-400 border border-blue-500/20">
+                        {issue.cwe}
+                        {issue.cwe_name && ` — ${issue.cwe_name}`}
+                      </span>
+                    </div>
                   )}
                   <div className="flex items-center gap-4 text-xs text-[#737373]">
                     <span className="font-mono">{issue.id}</span>
                     <span>{issue.repo}</span>
                     <span>{issue.date}</span>
-                    {issue.author && (
-                      <span>by {issue.author}</span>
-                    )}
+                    {issue.author && <span>by {issue.author}</span>}
                   </div>
                 </div>
                 <div className="shrink-0 flex items-center gap-2">
