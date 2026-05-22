@@ -21,6 +21,7 @@ export interface IssueMeta {
   file_paths?: string[];
   author?: string;
   has_poc?: boolean;
+  language?: string;
 }
 
 export interface Issue {
