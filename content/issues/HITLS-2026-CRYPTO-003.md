@@ -14,6 +14,7 @@ component: hmac
 file_paths:
   - crypto/hmac/src/hmac.c
 author: Toan
+language: C++
 ---
 
 ## Summary

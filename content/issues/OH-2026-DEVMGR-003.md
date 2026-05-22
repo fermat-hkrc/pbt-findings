@@ -14,6 +14,7 @@ component: dm_random
 file_paths:
   - utils/src/dm_random.cpp
 author: Toan
+language: C++
 ---
 
 ## Summary

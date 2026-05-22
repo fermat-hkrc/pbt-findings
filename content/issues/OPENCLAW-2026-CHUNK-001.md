@@ -14,6 +14,7 @@ component: text-chunking
 file_paths:
   - src/shared/text-chunking.ts
 author: Toan
+language: TypeScript
 ---
 
 ## Summary

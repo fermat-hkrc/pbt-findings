@@ -14,6 +14,7 @@ component: crypto
 file_paths:
   - include/crypto/crypt_eal_cipher.h
 author: Toan
+language: C++
 ---
 
 ## Summary

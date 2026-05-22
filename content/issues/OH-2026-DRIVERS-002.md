@@ -15,6 +15,7 @@ file_paths:
   - services/src/sensor_service_impl.c
   - interfaces/kits/native/include/sensor_agent_type.h
 author: Toan
+language: C++
 ---
 
 ## Summary
