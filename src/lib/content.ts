@@ -35,12 +35,18 @@ export interface PocData {
   output?: string;
 }
 
+const HIDDEN_STATUSES = new Set(["PENDING"]);
+
 export function getAllIssueIds(): string[] {
   if (!fs.existsSync(issuesDirectory)) return [];
   return fs
     .readdirSync(issuesDirectory)
     .filter((f) => f.endsWith(".md"))
-    .map((f) => f.replace(/\.md$/, ""));
+    .map((f) => f.replace(/\.md$/, ""))
+    .filter((id) => {
+      const meta = getIssueMeta(id);
+      return meta !== null && !HIDDEN_STATUSES.has(meta.status);
+    });
 }
 
 export function getAllIssues(): IssueMeta[] {
