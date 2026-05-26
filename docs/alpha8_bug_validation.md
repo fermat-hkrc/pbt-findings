@@ -1,12 +1,12 @@
 # ALPHA_8 Size Mismatch Bug Validation
 
-**Status:** ✅ CONFIRMED
+**Status:** ✅ CONFIRMED (Corrected Analysis)
 
 Validated. The ALPHA_8 size mismatch bug is confirmed:
 
 ## Bug Summary
 
-**Severity:** 🔴 HIGH - Heap buffer overflow
+**Severity:** 🟡 MEDIUM - Functional failure (NOT a buffer overflow)
 
 **Root Cause:** API contract split — no single source of truth for ALPHA_8 sizing.
 
@@ -130,13 +130,15 @@ IMG_CREATE_CREATE_ASYNC_WORK(env, status, "ReadPixelsToBuffer",
     }, ReadPixelsToBufferComplete, asyncContext, asyncContext->work);
 ```
 
-**Attack flow:**
+**Actual behavior:**
 1. JavaScript calls `readPixelsToBuffer()` on ALPHA_8 auxiliary picture with width=133, height=124
 2. Line 839 allocates: `133 * 124 * 1 = 16,492 bytes` (naive)
-3. Line 842 calls `ReadPixels()` which writes: `136 * 124 = 16,864 bytes` (canonical)
-4. **Heap buffer overflow: 372 bytes written beyond allocation**
+3. Line 842 calls `ReadPixels(16492, buffer)`
+4. `ReadPixels()` checks: `if (bufferSize < pixelsSize_)` where `pixelsSize_ = 16,864`
+5. Check fails: `16,492 < 16,864` → **Returns ERR_IMAGE_INVALID_PARAMETER**
+6. **No overflow occurs** - the function fails with an error instead
 
-### 5. ReadPixels writes canonical size
+### 5. ReadPixels has bounds check that prevents overflow
 
 **File:** `frameworks/innerkitsimpl/picture/auxiliary_picture.cpp`  
 **Location:** Lines 98-103
@@ -152,8 +154,8 @@ uint32_t AuxiliaryPicture::ReadPixels(const uint64_t &bufferSize, uint8_t *dst)
 }
 ```
 
-**File:** `frameworks/innerkitsimpl/pixelmap/src/pixel_map.cpp`  
-**Location:** Lines 2033-2060
+**File:** `frameworks/innerkitsimpl/common/src/pixel_map.cpp`  
+**Location:** Lines 2033-2075
 
 ```cpp
 uint32_t PixelMap::ReadPixels(const uint64_t &bufferSize, uint8_t *dst)
@@ -167,30 +169,36 @@ uint32_t PixelMap::ReadPixels(const uint64_t &bufferSize, uint8_t *dst)
         IMAGE_LOGE("read pixels by buffer current PixelMap data is null, isUnMap %{public}d.", isUnMap_);
         return ERR_IMAGE_READ_PIXELMAP_FAILED;
     }
-    // Line 2045 - Checks against pixelsSize_ (canonical size from GetByteCount)
+    // Line 2045 - CRITICAL BOUNDS CHECK - prevents overflow
     if (bufferSize < static_cast<uint64_t>(pixelsSize_)) {
         IMAGE_LOGE("read pixels by buffer input dst buffer(%{public}llu) < current pixelmap size(%{public}u).",
             static_cast<unsigned long long>(bufferSize), pixelsSize_);
-        return ERR_IMAGE_INVALID_PARAMETER;
+        return ERR_IMAGE_INVALID_PARAMETER;  // ← Returns error, no overflow
     }
-    // Lines 2047-2060 - Copies pixelsSize_ bytes via memcpy_s
-    // If buffer undersized → heap overflow
+    // Lines 2050-2075 - Only reached if buffer is large enough
     if (IsYUV(imageInfo_.pixelFormat)) {
-        uint64_t tmpSize = 0;
-        int readSize = MAX_READ_COUNT;
-        while (tmpSize < bufferSize) {
-            if (tmpSize + MAX_READ_COUNT > bufferSize) {
-                readSize = (int)(bufferSize - tmpSize);
-            }
-            errno_t ret = memcpy_s(dst + tmpSize, readSize, data_ + tmpSize, readSize);
+        // ... YUV copy logic ...
+    } else {
+        // Copy the actual pixel data without padding bytes
+        for (int i = 0; i < imageInfo_.size.height; ++i) {
+            errno_t ret = memcpy_s(dst, rowDataSize_, data_ + i * rowStride_, rowDataSize_);
             if (ret != 0) {
                 IMAGE_LOGE("read pixels by buffer memcpy the pixelmap data to dst fail, error:%{public}d", ret);
                 return ERR_IMAGE_READ_PIXELMAP_FAILED;
             }
-            // ... continues copying ...
+            dst += rowDataSize_; // Move the destination buffer pointer to the next row
+        }
+    }
+    return SUCCESS;
+}
 ```
 
-**Note:** The check at line 2045 compares `bufferSize < pixelsSize_`, but the caller passes the undersized buffer as `bufferSize`, so the check passes. The actual overflow happens during the memcpy loop.
+**Key finding:** The check at line 2045 **prevents the overflow**. When the caller passes an undersized buffer:
+- `bufferSize` = 16,492 (naive allocation)
+- `pixelsSize_` = 16,864 (canonical size stored in PixelMap)
+- Check: `16,492 < 16,864` → **TRUE**
+- Returns `ERR_IMAGE_INVALID_PARAMETER` immediately
+- **No memcpy occurs, no overflow happens**
 
 ### 6. Property-based test detected it
 
@@ -256,28 +264,32 @@ int run_imageutils_tests() {
 
 ## Impact Assessment
 
-### Severity: 🔴 HIGH
+### Severity: 🟡 MEDIUM (Corrected from HIGH)
 
-1. **Heap buffer overflow** — undersized allocation written by production NAPI path
-2. **No bounds check in callers** — naive formula used directly for `new[]` allocation
-3. **Affects JS NAPI boundary** — any JavaScript app using `PixelFormat.ALPHA_8` with width not divisible by 4
-4. **Silent at small widths** (w=9, delta=69B), **catastrophic at large widths** (w=133, delta=372B)
-5. **Exploitable** — attacker-controlled width/height from JavaScript
+**This is NOT a security vulnerability. It is a functional bug.**
+
+1. **Functional failure** — `readPixelsToBuffer()` incorrectly fails for valid ALPHA_8 images
+2. **Affects JS NAPI boundary** — any JavaScript app using `PixelFormat.ALPHA_8` with width not divisible by 4
+3. **User-visible error** — API returns `ERR_IMAGE_INVALID_PARAMETER` when it should succeed
+4. **No data corruption** — bounds check prevents any memory safety issue
+5. **Not exploitable** — no security impact, just broken functionality
 
 ### Affected Code Paths
 
-**Confirmed vulnerable:**
+**Confirmed affected:**
 - `frameworks/kits/js/common/auxiliary_picture_napi.cpp:839` — AuxiliaryPicture NAPI binding
 
-**Potentially vulnerable (same pattern):**
-- `frameworks/innerkitsimpl/converter/src/pixel_convert.cpp` — uses naive sizing pattern
+**Potentially affected (same pattern):**
+- `frameworks/innerkitsimpl/converter/src/pixel_convert.cpp` — may use naive sizing pattern
 
-### Attack Scenario
+### Failure Scenario
 
 ```javascript
-// JavaScript attacker code
+// JavaScript code that fails incorrectly
 const auxiliaryPicture = ...; // ALPHA_8 format, width=133, height=124
-auxiliaryPicture.readPixelsToBuffer(); // Triggers heap overflow
+const result = await auxiliaryPicture.readPixelsToBuffer();
+// Returns error: ERR_IMAGE_INVALID_PARAMETER
+// Expected: Should succeed and return pixel data
 ```
 
 ## Root Cause Analysis
@@ -338,6 +350,11 @@ case PixelFormat::ALPHA_8:
 
 ## Conclusion
 
-The bug is **real, exploitable, and affects production code**. The property-based test successfully detected a critical heap buffer overflow that would have been missed by traditional unit tests.
+The bug is **real and affects production code**, but it is **NOT a security vulnerability**. The property-based test successfully detected a size mismatch that causes functional failures, not buffer overflows.
 
-**Recommendation:** Apply Option 2 (fix all naive callers) immediately as a security patch.
+**Original bug report claimed:** Heap buffer overflow  
+**Actual bug:** Functional failure due to undersized buffer allocation causing `ReadPixels()` to return an error
+
+The bounds check at `pixel_map.cpp:2045` prevents any memory safety issue. The real problem is that the NAPI binding uses the wrong formula to calculate buffer size, causing legitimate operations to fail.
+
+**Recommendation:** Apply Option 2 (fix all naive callers) as a **correctness fix**, not a security patch. Priority should be MEDIUM, not HIGH.
