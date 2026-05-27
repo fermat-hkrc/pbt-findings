@@ -123,12 +123,9 @@ export function getVerifiedPocIssues(): IssueMeta[] {
 
 export function getConfirmedIssues(): IssueMeta[] {
   const issues = getAllIssues();
-  return issues.filter((i) => i.status === "CONFIRMED_REAL");
-}
-
-export function getFixedIssues(): IssueMeta[] {
-  const issues = getAllIssues();
-  return issues.filter((i) => i.status === "CONFIRMED_FIXED");
+  return issues.filter(
+    (i) => i.status === "CONFIRMED_REAL" || i.status === "CONFIRMED_FIXED"
+  );
 }
 
 export function getUnconfirmedIssues(): IssueMeta[] {
@@ -168,14 +165,15 @@ export function getStats(): Stats {
     bySeverity[sev] = (bySeverity[sev] || 0) + 1;
   }
 
-  const confirmed = issues.filter((i) => i.status === "CONFIRMED_REAL").length;
-  const fixed = issues.filter((i) => i.status === "CONFIRMED_FIXED").length;
+  const confirmed = issues.filter(
+    (i) => i.status === "CONFIRMED_REAL" || i.status === "CONFIRMED_FIXED"
+  ).length;
 
   return {
     total: issues.length,
     confirmed,
-    fixed,
-    unconfirmed: issues.length - confirmed - fixed,
+    fixed: 0,
+    unconfirmed: issues.length - confirmed,
     repos: Object.keys(byRepo).length,
     byCwe,
     byStatus,
