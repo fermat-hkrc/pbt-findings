@@ -1,13 +1,13 @@
 ---
 id: HITLS-2026-MEMLEAK-001
-date: "2026-05-22"
+date: "2026-03-30"
 repo: openHiTLS
 repo_url: https://gitcode.com/openHiTLS/openhitls
 title: "[Bug]: Memory leak in ConstructUserPsk when identity allocation fails"
 cwe: CWE-401
 cwe_name: Missing Release of Memory after Effective Lifetime
 severity: MEDIUM
-status: SUBMITTED
+status: CONFIRMED_FIXED
 issue_url: https://gitcode.com/openHiTLS/openhitls/issues/145
 affected_version: "*"
 component: handshake
