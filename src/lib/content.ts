@@ -22,6 +22,7 @@ export interface IssueMeta {
   author?: string;
   has_poc?: boolean;
   language?: string;
+  internal_issue_id?: string;
 }
 
 export interface Issue {

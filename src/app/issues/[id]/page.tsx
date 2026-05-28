@@ -129,6 +129,12 @@ export default async function IssueDetailPage({
               <div className="text-white font-mono text-sm">{issue.meta.affected_version}</div>
             </div>
           )}
+          {!issue.meta.issue_url && issue.meta.internal_issue_id && (
+            <div className="bg-[#141414] border border-[#262626] rounded-lg p-3">
+              <div className="text-[#737373] text-xs mb-1">Internal Issue ID</div>
+              <div className="text-white font-mono text-sm">{issue.meta.internal_issue_id}</div>
+            </div>
+          )}
         </div>
 
         {issue.meta.file_paths && issue.meta.file_paths.length > 0 && (
