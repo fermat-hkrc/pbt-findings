@@ -173,11 +173,19 @@ export function getStats(): Stats {
     (i) => i.status === "CONFIRMED_REAL" || i.status === "CONFIRMED_FIXED"
   ).length;
 
+  const unconfirmed = issues.filter(
+    (i) =>
+      i.status !== "CONFIRMED_REAL" &&
+      i.status !== "CONFIRMED_FIXED" &&
+      i.status !== "CLOSED" &&
+      i.status !== "PENDING"
+  ).length;
+
   return {
     total: issues.length,
     confirmed,
     fixed: 0,
-    unconfirmed: issues.length - confirmed,
+    unconfirmed,
     repos: Object.keys(byRepo).length,
     byCwe,
     byStatus,
