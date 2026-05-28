@@ -7,7 +7,7 @@ title: "SetModeImpl accepts any int32_t mode value — missing range validation 
 cwe: CWE-20
 cwe_name: Improper Input Validation
 severity: MEDIUM
-status: SUBMITTED
+status: CLOSED
 issue_url: https://gitcode.com/openharmony/sensors_sensor_lite/issues/32
 affected_version: "*"
 component: sensor_service

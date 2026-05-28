@@ -14,6 +14,7 @@ function StatusBadge({ status }: { status: string }) {
   const colors: Record<string, string> = {
     CONFIRMED_REAL: "bg-green-500/20 text-green-400 border-green-500/30",
     CONFIRMED_FIXED: "bg-blue-500/20 text-blue-400 border-blue-500/30",
+    CLOSED: "bg-red-500/20 text-red-400 border-red-500/30",
     SUBMITTED: "bg-amber-500/20 text-amber-400 border-amber-500/30",
     PENDING: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30",
     NEEDS_REVIEW: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
@@ -23,6 +24,7 @@ function StatusBadge({ status }: { status: string }) {
   const labels: Record<string, string> = {
     CONFIRMED_REAL: "Confirmed",
     CONFIRMED_FIXED: "Fixed",
+    CLOSED: "Closed",
     SUBMITTED: "Submitted",
     PENDING: "Pending",
     NEEDS_REVIEW: "Review",

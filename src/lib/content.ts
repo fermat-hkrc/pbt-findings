@@ -125,13 +125,16 @@ export function getConfirmedIssues(): IssueMeta[] {
   const issues = getAllIssues();
   return issues.filter(
     (i) => i.status === "CONFIRMED_REAL" || i.status === "CONFIRMED_FIXED"
-  );
+  ).filter((i) => i.status !== "CLOSED");
 }
 
 export function getUnconfirmedIssues(): IssueMeta[] {
   const issues = getAllIssues();
   return issues.filter(
-    (i) => i.status !== "CONFIRMED_REAL" && i.status !== "CONFIRMED_FIXED"
+    (i) =>
+      i.status !== "CONFIRMED_REAL" &&
+      i.status !== "CONFIRMED_FIXED" &&
+      i.status !== "CLOSED"
   );
 }
 
