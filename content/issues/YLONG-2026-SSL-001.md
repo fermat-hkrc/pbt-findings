@@ -1,6 +1,6 @@
 ---
 id: YLONG-2026-SSL-001
-date: "2026-05-22"
+date: "2026-05-28"
 repo: commonlibrary_rust_ylong_http
 repo_url: https://gitcode.com/openharmony/commonlibrary_rust_ylong_http
 title: "[Bug]: Certificate pinning bypass via wrong pointer in verify_pinned_pubkey"
