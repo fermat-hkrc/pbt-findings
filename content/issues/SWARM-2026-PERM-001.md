@@ -1,6 +1,6 @@
 ---
 id: SWARM-2026-PERM-001
-date: "2026-05-22"
+date: "2026-04-23"
 repo: jiuwenswarm
 repo_url: https://gitcode.com/openJiuwen/jiuwenswarm
 title: "[Bug]: match_wildcard trailing newline bypasses $ anchor in permission pattern guard"
