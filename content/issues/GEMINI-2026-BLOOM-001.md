@@ -1,6 +1,6 @@
 ---
 id: GEMINI-2026-BLOOM-001
-date: "2026-05-22"
+date: "2026-04-22"
 repo: openGemini
 repo_url: https://github.com/openGemini/openGemini
 title: "[Bug]: DefaultOneHitBloomFilter panics with slice bounds out of range on undersized buffer"
