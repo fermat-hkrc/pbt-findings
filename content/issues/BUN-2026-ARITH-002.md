@@ -7,9 +7,9 @@ title: "[Bug]: LinearFifo::ordered_remove_item uses wrong wrap length — panics
 cwe: CWE-682
 cwe_name: Incorrect Calculation
 severity: MEDIUM
-status: SUBMITTED
+status: CONFIRMED_FIXED
 issue_url: https://github.com/oven-sh/bun/issues/31563
-affected_version: "unknown"
+affected_version: "fixed in main (~May 14, 2026)"
 component: collections
 file_paths:
   - src/collections/linear_fifo.rs
