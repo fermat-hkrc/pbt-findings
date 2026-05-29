@@ -9,7 +9,7 @@ cwe_name: Incorrect Calculation
 severity: MEDIUM
 status: CONFIRMED_FIXED
 issue_url: https://github.com/oven-sh/bun/issues/31563
-affected_version: "fixed in main (~May 14, 2026)"
+affected_version: "unknown"
 component: collections
 file_paths:
   - src/collections/linear_fifo.rs
