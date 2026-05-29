@@ -36,7 +36,7 @@ export interface PocData {
   output?: string;
 }
 
-const HIDDEN_STATUSES = new Set(["PENDING"]);
+const HIDDEN_STATUSES = new Set(["PENDING", "CLOSED"]);
 
 export function getAllIssueIds(): string[] {
   if (!fs.existsSync(issuesDirectory)) return [];
