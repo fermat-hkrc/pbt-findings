@@ -1,6 +1,6 @@
 ---
 id: HERMES-2026-DEDUP-001
-date: "2026-05-31"
+date: "2026-06-01"
 repo: hermes-webui
 repo_url: https://github.com/nesquena/hermes-webui
 title: "[Bug]: merge_session_messages_append_only fails to deduplicate legacy state messages"
