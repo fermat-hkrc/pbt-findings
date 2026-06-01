@@ -11,6 +11,7 @@ status: CONFIRMED_FIXED
 issue_url: https://gitcode.com/openharmony/distributedhardware_device_manager/issues/2440
 affected_version: "5.0+"
 component: dm_random
+internal_issue_id: DTS2026052713376
 file_paths:
   - utils/src/dm_random.cpp
 author: Toan
