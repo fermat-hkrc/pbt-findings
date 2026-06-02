@@ -7,7 +7,7 @@ title: "[Bug]: BabyVec::extend_from_slice / append / prepend_from lack u32 overf
 cwe: CWE-190
 cwe_name: Integer Overflow or Wraparound
 severity: LOW
-status: SUBMITTED
+status: PENDING
 issue_url: https://github.com/oven-sh/bun/issues/31555
 affected_version: "b69085e"
 component: bun_alloc
