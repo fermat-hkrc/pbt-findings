@@ -146,10 +146,9 @@ export default function IssuesListClient({
                   )}
                   <div className="flex items-center gap-4 text-xs text-[#737373]">
                     <span className="font-mono">{issue.id}</span>
-                    <span>{issue.repo}</span>
-                    {issue.stars !== undefined && (
-                      <span className="text-[#a3a3a3]">{formatStars(issue.stars)}</span>
-                    )}
+                    <span>{issue.repo}{issue.stars !== undefined && (
+                      <span className="ml-1.5 text-[#a3a3a3]">· {formatStars(issue.stars)}</span>
+                    )}</span>
                     <span>{issue.date}</span>
                     {issue.author && <span>by {issue.author}</span>}
                   </div>
