@@ -11,6 +11,7 @@ status: CONFIRMED_REAL
 issue_url: https://github.com/kuasar-io/kuasar/issues/244
 affected_version: "*"
 component: vmm/sandbox
+stars: 1424
 file_paths:
   - vmm/sandbox/src/client.rs
 author: Toan
