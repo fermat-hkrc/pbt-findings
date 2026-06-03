@@ -11,6 +11,7 @@ status: PENDING
 issue_url: https://github.com/oven-sh/bun/issues/31555
 affected_version: "b69085e"
 component: bun_alloc
+stars: 92745
 file_paths:
   - src/bun_alloc/baby_vec.rs
 author: Toan

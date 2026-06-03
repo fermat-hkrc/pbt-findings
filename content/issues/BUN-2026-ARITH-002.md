@@ -11,6 +11,7 @@ status: CONFIRMED_FIXED
 issue_url: https://github.com/oven-sh/bun/issues/31563
 affected_version: "unknown"
 component: collections
+stars: 92745
 file_paths:
   - src/collections/linear_fifo.rs
 author: Toan
