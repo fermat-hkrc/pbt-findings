@@ -11,6 +11,7 @@ status: SUBMITTED
 issue_url: https://gitcode.com/openJiuwen/agent-studio/issues/877
 affected_version: "*"
 component: switch
+stars: 2631
 file_paths:
   - backend/openjiuwen_studio/core/manager/convertor/components/switch.py
 author: Toan
