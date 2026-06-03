@@ -7,7 +7,7 @@ title: "[Bug]: merge_session_messages_append_only fails to deduplicate legacy st
 cwe: CWE-1024
 cwe_name: Comparison Using Incorrect Factors
 severity: MEDIUM
-status: SUBMITTED
+status: CONFIRMED_FIXED
 issue_url: https://github.com/nesquena/hermes-webui/issues/3346
 affected_version: "*"
 component: session-merge
