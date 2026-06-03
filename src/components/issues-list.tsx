@@ -150,7 +150,7 @@ export default function IssuesListClient({
                       <span className="ml-1.5 text-[#a3a3a3]">· {formatStars(issue.stars)}</span>
                     )}</span>
                     <span>{issue.date}</span>
-                    {issue.author && <span>by {issue.author}</span>}
+
                   </div>
                 </div>
                 <div className="shrink-0 flex items-center gap-2">

@@ -109,7 +109,7 @@ export default function UnconfirmedPage() {
                     <span className="font-mono">{issue.id}</span>
                     <span>{issue.repo}</span>
                     <span>{issue.date}</span>
-                    {issue.author && <span>by {issue.author}</span>}
+
                   </div>
                 </div>
                 <div className="shrink-0 flex items-center gap-2">
