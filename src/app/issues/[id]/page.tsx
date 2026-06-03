@@ -102,6 +102,9 @@ export default async function IssueDetailPage({
                     {issue.meta.repo}
                   </a>
                 ) : issue.meta.repo}
+                {issue.meta.stars !== undefined && (
+                  <span className="ml-1.5 text-[#a3a3a3] font-normal">· {(issue.meta.stars / 1000).toFixed(1)}k</span>
+                )}
               </div>
             </div>
           )}
