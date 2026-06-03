@@ -11,6 +11,7 @@ status: CONFIRMED_FIXED
 issue_url: https://github.com/nesquena/hermes-webui/issues/3346
 affected_version: "*"
 component: session-merge
+stars: 12431
 file_paths:
   - api/models.py
 author: Toan

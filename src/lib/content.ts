@@ -23,6 +23,7 @@ export interface IssueMeta {
   has_poc?: boolean;
   language?: string;
   internal_issue_id?: string;
+  stars?: number;
 }
 
 export interface Issue {
