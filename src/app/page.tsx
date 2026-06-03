@@ -130,7 +130,7 @@ export default function DashboardPage() {
                     )}
                     <div className="flex items-center gap-4 text-xs text-[#737373]">
                       <span className="font-mono">{issue.id}</span>
-                      <span>{issue.repo}</span>
+                      <span>{issue.repo}{issue.stars !== undefined && <span className="ml-1.5 text-[#a3a3a3]">· {(issue.stars / 1000).toFixed(1)}k</span>}</span>
                       <span>{issue.date}</span>
                       {issue.author && <span>by {issue.author}</span>}
                     </div>
