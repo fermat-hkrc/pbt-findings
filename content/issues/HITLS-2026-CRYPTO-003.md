@@ -11,6 +11,7 @@ status: CONFIRMED_REAL
 issue_url: https://gitcode.com/openHiTLS/openhitls/issues/156
 affected_version: "*"
 component: hmac
+stars: 1102
 file_paths:
   - crypto/hmac/src/hmac.c
 author: Toan

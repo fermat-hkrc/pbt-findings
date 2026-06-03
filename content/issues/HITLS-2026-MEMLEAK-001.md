@@ -11,6 +11,7 @@ status: CONFIRMED_FIXED
 issue_url: https://gitcode.com/openHiTLS/openhitls/issues/145
 affected_version: "*"
 component: handshake
+stars: 1102
 file_paths:
   - tls/handshake/send/src/send_client_hello.c
 author: Toan

@@ -11,6 +11,7 @@ status: CONFIRMED_FIXED
 issue_url: https://gitcode.com/openHiTLS/openhitls/issues/149
 affected_version: "*"
 component: crypto
+stars: 1102
 file_paths:
   - include/crypto/crypt_eal_cipher.h
 author: Toan
