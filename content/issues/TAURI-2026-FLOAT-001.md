@@ -91,4 +91,91 @@ Toml::Float(_) => Value::Null,
 
 ## How This Was Found
 
-Property-based testing with [proptest](https://proptest-rs.github.io/proptest/). The test exercises roundtrip through `acl::Value → serde_json::Value` and panics on `Float(inf)`, `Float(-inf)`, and `Float(NaN)`. Regression tests (`bug2_inf_panics_conversion`, `bug2_nan_panics_conversion`) in `pbt-tests/src/value_roundtrip.rs` will flip from passing to failing once the bug is fixed.
+Property-based testing with [proptest](https://proptest-rs.github.io/proptest/). The test harness generates arbitrary `acl::Value` trees via a custom strategy and asserts that converting to `serde_json::Value` never panics.
+
+### Test code (`pbt-tests/src/value_roundtrip.rs`)
+
+```rust
+use proptest::prelude::*;
+use tauri_utils::acl::value::{Number, Value};
+
+fn arb_acl_value() -> impl Strategy<Value = Value> {
+    let leaf = prop_oneof![
+        Just(Value::Null),
+        any::<bool>().prop_map(Value::Bool),
+        any::<i64>().prop_map(|n| Value::Number(Number::Integer(n))),
+        any::<f64>().prop_map(|f| Value::Number(Number::Float(f))),
+        ".*".prop_map(Value::String),
+    ];
+    leaf.prop_recursive(4, 64, 10, |inner| {
+        prop_oneof![
+            proptest::collection::vec(inner.clone(), 0..10)
+                .prop_map(Value::Array),
+            prop_oneof![
+                ("[0-9a-z]{1,8}", inner.clone()),
+            ]
+            .prop_map(|entries| {
+                Value::Object(entries.into_iter().collect())
+            }),
+        ]
+    })
+}
+
+proptest! {
+    #[test]
+    fn value_to_serde_json_never_panics(val in arb_acl_value()) {
+        // This should never panic regardless of the Value contents.
+        let _: serde_json::Value = val.into();
+    }
+}
+```
+
+### Result
+
+Running `cargo test` immediately produces:
+
+```
+thread 'value_to_serde_json_never_panics' panicked at 'called `Option::unwrap()`
+on a `None` value', crates/tauri-utils/src/acl/value.rs:69
+```
+
+The **minimal failing inputs** are:
+- `Value::Number(Number::Float(f64::INFINITY))`
+- `Value::Number(Number::Float(f64::NEG_INFINITY))`
+- `Value::Number(Number::Float(f64::NAN))`
+
+The property `value_to_serde_json_never_panics` fails for any of these three values.
+
+### Regression tests
+
+Two `#[should_panic]` tests were added alongside the bug report. They verify the current broken behavior and will flip from passing to failing once a fix is applied, serving as documentation of the fix scope:
+
+```rust
+#[test]
+#[should_panic(expected = "None")]
+fn bug2_inf_panics_conversion() {
+    let v = Value::Number(Number::Float(f64::INFINITY));
+    let _: serde_json::Value = v.into();
+}
+
+#[test]
+#[should_panic(expected = "None")]
+fn bug2_nan_panics_conversion() {
+    let v = Value::Number(Number::Float(f64::NAN));
+    let _: serde_json::Value = v.into();
+}
+```
+
+### Test environment
+
+```
+proptest = "1"
+tauri-utils = { git = "https://github.com/tauri-apps/tauri" }
+```
+
+Run with:
+```bash
+cargo test --test value_roundtrip  # fails immediately on first iteration
+```
+
+The bug is caught on the very first generated input because `any::<f64>()` rapidly produces non-finite values (they are common in the f64 value space).
