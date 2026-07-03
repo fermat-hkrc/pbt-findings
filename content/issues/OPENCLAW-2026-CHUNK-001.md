@@ -7,7 +7,7 @@ title: "[Bug]: chunkTextByBreakResolver final chunk has trailing whitespace"
 cwe: CWE-20
 cwe_name: Improper Input Validation
 severity: MEDIUM
-status: SUBMITTED
+status: PENDING
 issue_url: https://github.com/openclaw/openclaw/issues/64036
 affected_version: "*"
 component: text-chunking
