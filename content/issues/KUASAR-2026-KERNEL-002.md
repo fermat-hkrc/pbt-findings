@@ -7,7 +7,7 @@ title: "checked_compute_delta intermediate sum overflows i64 — clock synchroni
 cwe: CWE-190
 cwe_name: Integer Overflow or Wraparound
 severity: HIGH
-status: PENDING
+status: CONFIRMED_REAL
 issue_url: https://github.com/kuasar-io/kuasar/issues/244
 affected_version: "*"
 component: vmm/sandbox
