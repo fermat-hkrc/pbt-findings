@@ -65,7 +65,7 @@ export default function ConfirmedPage() {
         </h1>
         <p className="text-[#a3a3a3]">
           {issues.length} issues confirmed by upstream maintainers
-          ({confirmed.length} confirmed, {fixed.length} fixed)
+          ({fixed.length} fixed{confirmed.length > 0 && `, ${confirmed.length} awaiting fix`})
         </p>
       </div>
 
