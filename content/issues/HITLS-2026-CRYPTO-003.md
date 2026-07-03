@@ -7,7 +7,7 @@ title: "[Bug]: Any operation (Update, Reinit, Final) succeeds silently after Dei
 cwe: CWE-459
 cwe_name: Incomplete Cleanup
 severity: HIGH
-status: CONFIRMED_REAL
+status: PENDING
 issue_url: https://gitcode.com/openHiTLS/openhitls/issues/156
 affected_version: "*"
 component: hmac
