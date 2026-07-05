@@ -7,7 +7,7 @@ title: "[Bug]: DefaultOneHitBloomFilter panics with slice bounds out of range on
 cwe: CWE-129
 cwe_name: Improper Validation of Array Index
 severity: MEDIUM
-status: SUBMITTED
+status: CONFIRMED_FIXED
 issue_url: https://github.com/openGemini/openGemini/issues/940
 affected_version: "*"
 component: bloomfilter
