@@ -14,6 +14,7 @@ export default function DtsIssuesPage() {
       issues={issues}
       title="DTS Issues"
       description={`${issues.length} issues tracked with internal DTS tickets`}
+      preferDts
     />
   );
 }
