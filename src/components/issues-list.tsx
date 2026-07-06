@@ -57,8 +57,12 @@ function formatStars(n: number): string {
 
 export default function IssuesListClient({
   issues,
+  title = "All PBT Issues",
+  description = `${issues.length} bugs found through Property-Based Testing`,
 }: {
   issues: IssueMeta[];
+  title?: string;
+  description?: string;
 }) {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
@@ -73,7 +77,8 @@ export default function IssuesListClient({
         issue.id.toLowerCase().includes(q) ||
         issue.repo.toLowerCase().includes(q) ||
         (issue.cwe || "").toLowerCase().includes(q) ||
-        (issue.cwe_name || "").toLowerCase().includes(q);
+        (issue.cwe_name || "").toLowerCase().includes(q) ||
+        (issue.internal_issue_id || "").toLowerCase().includes(q);
       if (!match) return false;
     }
     if (statusFilter && issue.status !== statusFilter) return false;
@@ -83,10 +88,8 @@ export default function IssuesListClient({
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-white mb-2">All PBT Issues</h1>
-        <p className="text-sm text-[#a3a3a3]">
-          {issues.length} bugs found through Property-Based Testing
-        </p>
+        <h1 className="text-2xl font-bold text-white mb-2">{title}</h1>
+        <p className="text-sm text-[#a3a3a3]">{description}</p>
       </div>
 
       <div className="flex flex-wrap gap-3 mb-6">

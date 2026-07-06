@@ -130,6 +130,10 @@ export function getConfirmedIssues(): IssueMeta[] {
   ).filter((i) => i.status !== "CLOSED");
 }
 
+export function getDtsIssues(): IssueMeta[] {
+  return getAllIssues().filter((i) => i.internal_issue_id?.startsWith("DTS"));
+}
+
 export function getUnconfirmedIssues(): IssueMeta[] {
   const issues = getAllIssues();
   return issues.filter(
