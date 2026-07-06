@@ -7,7 +7,7 @@ title: "[Bug]: match_wildcard trailing newline bypasses $ anchor in permission p
 cwe: CWE-625
 cwe_name: Permissive Regular Expression
 severity: MEDIUM
-status: SUBMITTED
+status: CLOSED
 issue_url: https://gitcode.com/openJiuwen/jiuwenswarm/issues/394
 affected_version: "*"
 component: permissions
