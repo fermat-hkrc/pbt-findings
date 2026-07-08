@@ -51,11 +51,28 @@ export function getAllIssueIds(): string[] {
     });
 }
 
+function getDtsIndex(internalIssueId?: string): number {
+  if (!internalIssueId) return -1;
+  const match = internalIssueId.match(/(\d{5})$/);
+  return match ? Number.parseInt(match[1], 10) : -1;
+}
+
+function compareIssues(a: IssueMeta, b: IssueMeta): number {
+  const byDate = b.date.localeCompare(a.date);
+  if (byDate !== 0) return byDate;
+
+  const aDts = getDtsIndex(a.internal_issue_id);
+  const bDts = getDtsIndex(b.internal_issue_id);
+  if (aDts !== bDts) return bDts - aDts;
+
+  return b.id.localeCompare(a.id);
+}
+
 export function getAllIssues(): IssueMeta[] {
   return getAllIssueIds()
     .map((id) => getIssueMeta(id))
     .filter((m): m is IssueMeta => m !== null)
-    .sort((a, b) => b.date.localeCompare(a.date));
+    .sort(compareIssues);
 }
 
 export function getIssueMeta(id: string): IssueMeta | null {
