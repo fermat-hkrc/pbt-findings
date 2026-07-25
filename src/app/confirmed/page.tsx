@@ -172,7 +172,7 @@ function Section({
                     Issue
                   </a>
                 )}
-                {!issue.issue_url && issue.internal_issue_id && (
+                {issue.internal_issue_id && (
                   <span className="inline-flex items-center gap-1 text-xs font-medium px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-400 border border-amber-500/30">
                     <svg
                       className="w-3 h-3"
