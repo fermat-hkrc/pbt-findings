@@ -7,7 +7,7 @@ title: "[Bug]: Panic on inf/-inf/NaN floats when converting acl::Value to serde_
 cwe: CWE-248
 cwe_name: Uncaught Exception
 severity: MEDIUM
-status: SUBMITTED
+status: PENDING
 issue_url: https://github.com/tauri-apps/tauri/issues/15477
 affected_version: "*"
 component: tauri-utils
