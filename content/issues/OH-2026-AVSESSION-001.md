@@ -2,7 +2,7 @@
 id: OH-2026-AVSESSION-001
 date: "2026-07-07"
 repo: multimedia_av_session
-repo_url: https://gitee.com/openharmony/multimedia_av_session
+repo_url: https://gitcode.com/openharmony/multimedia_av_session
 title: "[Bug]: GetAnonyTitle crashes (SEGV) on all-continuation-byte media titles via empty-vector OOB read"
 cwe: CWE-787
 cwe_name: Out-of-bounds Read
