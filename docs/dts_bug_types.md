@@ -1,6 +1,6 @@
 # DTS Tickets by Bug Type
 
-Categorization of [`content/issues/`](../content/issues/) findings that carry a Huawei **DTS** ticket (`internal_issue_id`), grouped by **bug type** (failure mode), not by component.
+Categorization of [`content/issues/`](../content/issues/) findings that carry a **DTS** ticket (`internal_issue_id`), grouped by **bug type** (failure mode), not by component.
 
 - **DTS-linked issues**: **52** of 81 total findings
 - **Status**: all listed tickets are `CONFIRMED_FIXED`
