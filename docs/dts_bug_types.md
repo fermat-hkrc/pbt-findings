@@ -2,7 +2,7 @@
 
 Categorization of [`content/issues/`](../content/issues/) findings that carry a **DTS** ticket (`internal_issue_id`), grouped by **bug type** (failure mode), not by component.
 
-- **DTS-linked issues**: **52** of 81 total findings
+- **DTS tickets**: **52**
 - **Status**: all listed tickets are `CONFIRMED_FIXED`
 - **Severity**: HIGH=14, MEDIUM=36, LOW=2
 - **Generated**: 2026-08-14
@@ -489,8 +489,7 @@ Masking/redaction fails; secrets or addresses reach logs.
 
 ## Notes
 
-- Only issues with a non-empty `internal_issue_id` (DTS ticket) are included.
+- Scope is DTS-submitted bugs only (`internal_issue_id`).
 - Bug types are derived primarily from CWE, refined by title/symptom. Each ticket maps to one primary type.
 - Local write-ups: [`content/issues/`](../content/issues/).
-- Findings without DTS (public GitHub/GitCode only) are omitted here.
 
