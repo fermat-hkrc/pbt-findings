@@ -2,6 +2,9 @@
 
 How often PBT-filed **DTS** tickets were accepted as real bugs versus closed as non-issues, broken down by project.
 
+- **Precision:** **87.0%** (47 FIXED / 54 decided)
+- **False-positive rate:** **13.0%** (7 NON-ISSUE)
+
 Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS tickets are omitted — their outcome (bug vs non-issue) is not yet known.
 
 ## Scope and definitions
