@@ -43,6 +43,33 @@ Categorization of [`content/issues/`](../content/issues/) findings that carry a 
 | Input Validation | 7 |
 | Security | 4 |
 
+### By module
+
+| Module | Count | HIGH | MEDIUM | LOW |
+|--------|------:|-----:|-------:|----:|
+| `graphic_graphic_2d` | 8 | 2 | 5 | 1 |
+| `arkui_ace_engine` | 7 | 4 | 3 | 0 |
+| `multimedia_camera_framework` | 6 | 0 | 5 | 1 |
+| `communication_netmanager_base` | 5 | 2 | 3 | 0 |
+| `arkcompiler_runtime_core` | 4 | 0 | 4 | 0 |
+| `multimedia_image_framework` | 4 | 1 | 3 | 0 |
+| `ability_ability_runtime` | 2 | 0 | 2 | 0 |
+| `distributeddatamgr_pasteboard` | 2 | 1 | 1 | 0 |
+| `multimedia_av_codec` | 2 | 0 | 2 | 0 |
+| `commonlibrary_rust_ylong_http` | 1 | 1 | 0 | 0 |
+| `communication_wifi` | 1 | 0 | 1 | 0 |
+| `distributeddatamgr_datamgr_service` | 1 | 0 | 1 | 0 |
+| `distributedhardware_device_manager` | 1 | 1 | 0 | 0 |
+| `distributedhardware_distributed_hardware_fwk` | 1 | 0 | 1 | 0 |
+| `filemanagement_dfs_service` | 1 | 0 | 1 | 0 |
+| `filemanagement_storage_service` | 1 | 0 | 1 | 0 |
+| `multimedia_av_session` | 1 | 1 | 0 | 0 |
+| `multimedia_media_foundation` | 1 | 1 | 0 | 0 |
+| `multimedia_media_library` | 1 | 0 | 1 | 0 |
+| `multimedia_player_framework` | 1 | 0 | 1 | 0 |
+| `window_window_manager` | 1 | 0 | 1 | 0 |
+| **Total** | **52** | **14** | **36** | **2** |
+
 ## DTS index
 
 | DTS | Issue ID | Bug type | Severity | Repo |
