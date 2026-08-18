@@ -46,7 +46,7 @@ Categorization of [`content/issues/`](../content/issues/) findings that carry a 
 
 ### By module
 
-Count is this catalog (`CONFIRMED_FIXED` write-ups). **Precision** is `FIXED / (FIXED + NON-ISSUE)` from [`finding_precision_by_project.md`](finding_precision_by_project.md); `—` if that project is not in the decided inventory.
+Count is this catalog (`CONFIRMED_FIXED` write-ups). **Precision** is `FIXED / (FIXED + NON-ISSUE)` from [`finding_precision_by_project.md`](finding_precision_by_project.md). `ylong_http` and `distributed_hardware_fwk` are 100% (1 FIXED / 0 NON-ISSUE write-ups here; not in that decided inventory).
 
 | Module | Count | HIGH | MEDIUM | LOW | Precision |
 |--------|------:|-----:|-------:|----:|----------:|
@@ -59,11 +59,11 @@ Count is this catalog (`CONFIRMED_FIXED` write-ups). **Precision** is `FIXED / (
 | `ability_ability_runtime` | 2 | 0 | 2 | 0 | 100% |
 | `distributeddatamgr_pasteboard` | 2 | 1 | 1 | 0 | 100% |
 | `multimedia_av_codec` | 2 | 0 | 2 | 0 | 100% |
-| `commonlibrary_rust_ylong_http` | 1 | 1 | 0 | 0 | — |
+| `commonlibrary_rust_ylong_http` | 1 | 1 | 0 | 0 | 100% |
 | `communication_wifi` | 1 | 0 | 1 | 0 | 100% |
 | `distributeddatamgr_datamgr_service` | 1 | 0 | 1 | 0 | 100% |
 | `distributedhardware_device_manager` | 1 | 1 | 0 | 0 | 100% |
-| `distributedhardware_distributed_hardware_fwk` | 1 | 0 | 1 | 0 | — |
+| `distributedhardware_distributed_hardware_fwk` | 1 | 0 | 1 | 0 | 100% |
 | `filemanagement_dfs_service` | 1 | 0 | 1 | 0 | 100% |
 | `filemanagement_storage_service` | 1 | 0 | 1 | 0 | 100% |
 | `multimedia_av_session` | 1 | 1 | 0 | 0 | 50% |
