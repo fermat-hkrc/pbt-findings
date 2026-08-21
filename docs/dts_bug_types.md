@@ -2,25 +2,25 @@
 
 Categorization of [`content/issues/`](../content/issues/) findings that carry a **DTS** ticket (`internal_issue_id`), grouped by **bug type** (failure mode), not by component.
 
-- **DTS tickets**: **59**
+- **DTS tickets**: **66**
 - **Status**: all listed tickets are `CONFIRMED_FIXED`
-- **Severity**: HIGH=15, MEDIUM=42, LOW=2
-- **Precision** (decided DTS): **88.1%** (59 FIXED / 67 decided) — [`finding_precision_by_project.md`](finding_precision_by_project.md)
-- **Generated**: 2026-08-18
+- **Severity**: HIGH=15, MEDIUM=49, LOW=2
+- **Precision** (decided DTS): **89.2%** (66 FIXED / 74 decided) — [`finding_precision_by_project.md`](finding_precision_by_project.md)
+- **Generated**: 2026-08-21
 
 ## Overview
 
 | Bug type | Count | HIGH | MEDIUM | LOW |
 |----------|------:|-----:|-------:|----:|
-| [Arithmetic — Integer Overflow / Underflow](#arithmetic-integer-overflow-underflow) | 9 | 1 | 8 | 0 |
-| [Arithmetic — Incorrect Calculation](#arithmetic-incorrect-calculation) | 10 | 3 | 6 | 1 |
+| [Arithmetic — Integer Overflow / Underflow](#arithmetic-integer-overflow-underflow) | 11 | 1 | 10 | 0 |
+| [Arithmetic — Incorrect Calculation](#arithmetic-incorrect-calculation) | 14 | 3 | 10 | 1 |
 | [Arithmetic — Divide by Zero](#arithmetic-divide-by-zero) | 3 | 1 | 2 | 0 |
 | [Arithmetic — Off-by-One](#arithmetic-off-by-one) | 3 | 1 | 2 | 0 |
 | [Memory Safety — Buffer / OOB Access](#memory-safety-buffer-oob-access) | 7 | 1 | 6 | 0 |
 | [Memory Safety — Null Pointer Dereference](#memory-safety-null-pointer-dereference) | 1 | 1 | 0 | 0 |
 | [Memory Safety — Double Free](#memory-safety-double-free) | 1 | 0 | 1 | 0 |
 | [Control Flow — Infinite Loop / Hang](#control-flow-infinite-loop-hang) | 3 | 0 | 3 | 0 |
-| [Logic — Incorrect Control Flow](#logic-incorrect-control-flow) | 5 | 2 | 3 | 0 |
+| [Logic — Incorrect Control Flow](#logic-incorrect-control-flow) | 6 | 2 | 4 | 0 |
 | [Logic — Incorrect Operator / Predicate](#logic-incorrect-operator-predicate) | 1 | 1 | 0 | 0 |
 | [Logic — Unchecked Return Value](#logic-unchecked-return-value) | 1 | 0 | 1 | 0 |
 | [Undefined Behavior](#undefined-behavior) | 2 | 1 | 1 | 0 |
@@ -32,15 +32,15 @@ Categorization of [`content/issues/`](../content/issues/) findings that carry a 
 | [Security — Authorization / Access Control](#security-authorization-access-control) | 3 | 1 | 2 | 0 |
 | [Security — Certificate Validation](#security-certificate-validation) | 1 | 1 | 0 | 0 |
 | [Security — Information Leakage](#security-information-leakage) | 1 | 0 | 1 | 0 |
-| **Total** | **59** | **15** | **42** | **2** |
+| **Total** | **66** | **15** | **49** | **2** |
 
 ### By family
 
 | Family | Count |
 |--------|------:|
-| Arithmetic & Numeric Bugs | 25 |
+| Arithmetic & Numeric Bugs | 31 |
 | Memory Safety | 9 |
-| Control Flow & Logic | 13 |
+| Control Flow & Logic | 14 |
 | Input Validation | 7 |
 | Security | 5 |
 
@@ -50,16 +50,16 @@ Count is this catalog (`CONFIRMED_FIXED` write-ups). **Precision** is `FIXED / (
 
 | Module | Count | HIGH | MEDIUM | LOW | Precision |
 |--------|------:|-----:|-------:|----:|----------:|
+| `multimedia_image_framework` | 9 | 1 | 8 | 0 | 100% |
 | `graphic_graphic_2d` | 8 | 2 | 5 | 1 | 100% |
 | `arkui_ace_engine` | 7 | 4 | 3 | 0 | 88% |
 | `communication_netmanager_base` | 7 | 2 | 5 | 0 | 78% |
 | `multimedia_camera_framework` | 6 | 0 | 5 | 1 | 100% |
+| `arkcompiler_runtime_core` | 5 | 0 | 5 | 0 | 100% |
 | `ability_ability_runtime` | 4 | 0 | 4 | 0 | 100% |
-| `arkcompiler_runtime_core` | 4 | 0 | 4 | 0 | 100% |
-| `multimedia_image_framework` | 4 | 1 | 3 | 0 | 100% |
+| `multimedia_av_codec` | 3 | 0 | 3 | 0 | 100% |
 | `distributeddatamgr_pasteboard` | 2 | 1 | 1 | 0 | 100% |
 | `distributedhardware_device_manager` | 2 | 2 | 0 | 0 | 100% |
-| `multimedia_av_codec` | 2 | 0 | 2 | 0 | 100% |
 | `multimedia_player_framework` | 2 | 0 | 2 | 0 | 100% |
 | `window_window_manager` | 2 | 0 | 2 | 0 | 100% |
 | `commonlibrary_rust_ylong_http` | 1 | 1 | 0 | 0 | 100% |
@@ -71,7 +71,7 @@ Count is this catalog (`CONFIRMED_FIXED` write-ups). **Precision** is `FIXED / (
 | `multimedia_av_session` | 1 | 1 | 0 | 0 | 50% |
 | `multimedia_media_foundation` | 1 | 1 | 0 | 0 | 25% |
 | `multimedia_media_library` | 1 | 0 | 1 | 0 | 100% |
-| **Total** | **59** | **15** | **42** | **2** | **88%** |
+| **Total** | **66** | **15** | **49** | **2** | **89%** |
 
 ## DTS index
 
@@ -124,8 +124,10 @@ Count is this catalog (`CONFIRMED_FIXED` write-ups). **Precision** is `FIXED / (
 | `DTS2026072750511` | [OH-2026-NET-004](../content/issues/OH-2026-NET-004.md) | Control Flow — Infinite Loop / Hang | MEDIUM | `communication_netmanager_base` |
 | `DTS2026072921166` | [OH-2026-WM-002](../content/issues/OH-2026-WM-002.md) | Arithmetic — Integer Overflow / Underflow | MEDIUM | `window_window_manager` |
 | `DTS2026072935286` | [OH-2026-AVCODEC-002](../content/issues/OH-2026-AVCODEC-002.md) | Arithmetic — Off-by-One | MEDIUM | `multimedia_av_codec` |
+| `DTS2026073013382` | [OH-2026-IMG-009](../content/issues/OH-2026-IMG-009.md) | Arithmetic — Integer Overflow / Underflow | MEDIUM | `multimedia_image_framework` |
 | `DTS2026073015200` | [OH-2026-IMG-003](../content/issues/OH-2026-IMG-003.md) | Logic — Incorrect Operator / Predicate | HIGH | `multimedia_image_framework` |
 | `DTS2026073020799` | [OH-2026-DEVMGR-004](../content/issues/OH-2026-DEVMGR-004.md) | Arithmetic — Integer Overflow / Underflow | HIGH | `distributedhardware_device_manager` |
+| `DTS2026073112258` | [ARK-2026-STR-001](../content/issues/ARK-2026-STR-001.md) | Logic — Incorrect Control Flow | MEDIUM | `arkcompiler_runtime_core` |
 | `DTS2026073129863` | [OH-2026-GFX-006](../content/issues/OH-2026-GFX-006.md) | Logic — Incorrect Control Flow | MEDIUM | `graphic_graphic_2d` |
 | `DTS2026073173354` | [OH-2026-ABILITY-004](../content/issues/OH-2026-ABILITY-004.md) | Security — Authorization / Access Control | MEDIUM | `ability_ability_runtime` |
 | `DTS2026080528903` | [OH-2026-GFX-007](../content/issues/OH-2026-GFX-007.md) | Arithmetic — Off-by-One | MEDIUM | `graphic_graphic_2d` |
@@ -136,6 +138,11 @@ Count is this catalog (`CONFIRMED_FIXED` write-ups). **Precision** is `FIXED / (
 | `DTS2026081135903` | [OH-2026-NET-007](../content/issues/OH-2026-NET-007.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `communication_netmanager_base` |
 | `DTS2026081136698` | [OH-2026-NET-006](../content/issues/OH-2026-NET-006.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `communication_netmanager_base` |
 | `DTS2026081318473` | [OH-2026-PLAYER-002](../content/issues/OH-2026-PLAYER-002.md) | Arithmetic — Incorrect Calculation | MEDIUM | `multimedia_player_framework` |
+| `DTS2026081413702` | [OH-2026-IMG-008](../content/issues/OH-2026-IMG-008.md) | Arithmetic — Incorrect Calculation | MEDIUM | `multimedia_image_framework` |
+| `DTS2026081417372` | [OH-2026-IMG-010](../content/issues/OH-2026-IMG-010.md) | Arithmetic — Incorrect Calculation | MEDIUM | `multimedia_image_framework` |
+| `DTS2026081421810` | [OH-2026-IMG-007](../content/issues/OH-2026-IMG-007.md) | Arithmetic — Integer Overflow / Underflow | MEDIUM | `multimedia_image_framework` |
+| `DTS2026081424330` | [OH-2026-IMG-006](../content/issues/OH-2026-IMG-006.md) | Arithmetic — Incorrect Calculation | MEDIUM | `multimedia_image_framework` |
+| `DTS2026081713997` | [OH-2026-AVCODEC-003](../content/issues/OH-2026-AVCODEC-003.md) | Arithmetic — Incorrect Calculation | MEDIUM | `multimedia_av_codec` |
 
 ## Arithmetic & Numeric Bugs
 
@@ -153,7 +160,9 @@ Wraparound from overflow/underflow produces wrong bounds, IDs, or ranges (often 
 | `DTS2026072438492` | [OH-2026-IMG-002](../content/issues/OH-2026-IMG-002.md) | MEDIUM | CWE-190 (Integer Overflow or Wraparound) | `frameworks/innerkitsimpl/converter/src/post_proc.cpp` · `multimedia_image_framework` | PostProc::GetCropValue accepts OOB crops when top+height / left+width overflows int32 |
 | `DTS2026072454808` | [OH-2026-MEDIALIB-001](../content/issues/OH-2026-MEDIALIB-001.md) | MEDIUM | CWE-191 (Integer Underflow (Wrap or Wraparound)) | `common/utils/src/media_uri_utils.cpp` · `multimedia_media_library` | GetFileIdStr returns bucket name on bucket-only URI (npos+1 wrap) |
 | `DTS2026072921166` | [OH-2026-WM-002](../content/issues/OH-2026-WM-002.md) | MEDIUM | CWE-191 (Integer Underflow (Wrap or Wraparound)) | `wmserver/src/window_layout_policy_cascade.cpp` · `window_window_manager` | ComputeRectByAspectRatio cascade decor strip uint32 underflow |
+| `DTS2026073013382` | [OH-2026-IMG-009](../content/issues/OH-2026-IMG-009.md) | MEDIUM | CWE-190 (Integer Overflow or Wraparound) | `frameworks/innerkitsimpl/converter/src/pixel_convert.cpp` · `multimedia_image_framework` | IsValidRowStride int32 overflow accepts impossible stride (width*bpp wrap) |
 | `DTS2026073020799` | [OH-2026-DEVMGR-004](../content/issues/OH-2026-DEVMGR-004.md) | HIGH | CWE-190 (Integer Overflow or Wraparound) | `utils/src/dm_random.cpp` · `distributedhardware_device_manager` | GenerateRandNum invalid uniform_int_distribution(1, 0xFFFFFFFF) → SIGSEGV |
+| `DTS2026081421810` | [OH-2026-IMG-007](../content/issues/OH-2026-IMG-007.md) | MEDIUM | CWE-190 (Integer Overflow or Wraparound) | `frameworks/innerkitsimpl/utils/src/pixel_yuv_utils.cpp` · `multimedia_image_framework` | PixelYuvUtils::IsLegalAxis rejects every legal negative translate (INT32_MAX - offset wrap) |
 
 <details><summary>Summaries</summary>
 
@@ -165,7 +174,9 @@ Wraparound from overflow/underflow produces wrong bounds, IDs, or ranges (often 
 - **OH-2026-IMG-002** (`DTS2026072438492`): `PostProc::GetCropValue` classifies a crop with bare `int32_t` adds `top + height` and `left + width`. When the mathematical sum exceeds `INT32_MAX`, the sum wraps (signed overflow is UB; common compilers wrap) and often compares `<= siz...
 - **OH-2026-MEDIALIB-001** (`DTS2026072454808`): `MediaUriUtils::GetFileIdStr` extracts the file-id segment with `tmp.substr(tmp.find_first_of('/') + 1)`. When the post-prefix remainder has **no** `/` (bucket-only URI `file://media/<bucket>`), `find_first_of` returns `npos`; `npos + 1`...
 - **OH-2026-WM-002** (`DTS2026072921166`): `ComputeRectByAspectRatio` strips the decor frame with bare `uint32_t -=`. A request smaller than `WINDOW_FRAME_WIDTH` (5) underflows and the cascade layout uses a wrapped size.
+- **OH-2026-IMG-009** (`DTS2026073013382`): `PixelConvert::IsValidRowStride` multiplies `width * bpp` as `int32`. Overflow (e.g. RGBA_F16 `width=INT32_MAX/8+1`) wraps negative, so `rowStride=1` is accepted. Sibling `pixel_map.cpp` already uses `int64_t`.
 - **OH-2026-DEVMGR-004** (`DTS2026073020799`): `GenerateRandNum` builds `uniform_int_distribution<>(1, 0xFFFFFFFF)`. Default type is `int`; `0xFFFFFFFF` is **-1** → invalid range `[1, -1]` → SIGSEGV.
+- **OH-2026-IMG-007** (`DTS2026081421810`): `IsLegalAxis` guards `size + offset` with `size > INT32_MAX - offset`. Negative offset wraps the subtract; every legal YUV translate-shrink is rejected before the `[1, MAX_DIMENSION]` check.
 
 </details>
 
@@ -185,6 +196,10 @@ Wrong formula, operand, rounding, or matrix/color/geometry math that breaks inva
 | `DTS2026081126994` | [OH-2026-IMG-005](../content/issues/OH-2026-IMG-005.md) | MEDIUM | CWE-682 (Incorrect Calculation) | `frameworks/innerkitsimpl/converter/src/matrix.cpp` · `multimedia_image_framework` | Matrix::SetConcat multiplies translations in scale/translate fast path |
 | `DTS2026080530843` | [OH-2026-GFX-008](../content/issues/OH-2026-GFX-008.md) | LOW | CWE-682 (Incorrect Calculation) | `rosen/modules/2d_graphics/include/utils/sampling_options.h` · `graphic_graphic_2d` | CubicResampler::Dump writes cubicCoffB into the cubicCoffC field |
 | `DTS2026081318473` | [OH-2026-PLAYER-002](../content/issues/OH-2026-PLAYER-002.md) | MEDIUM | CWE-682 (Incorrect Calculation) | `services/utils/media_utils.cpp` · `multimedia_player_framework` | TransRecorderStatus muxer map missing START + duplicate STOP key |
+| `DTS2026081413702` | [OH-2026-IMG-008](../content/issues/OH-2026-IMG-008.md) | MEDIUM | CWE-682 (Incorrect Calculation) | `frameworks/innerkitsimpl/converter/include/pixel_convert.h` · `multimedia_image_framework` | HalfToUint32 little-/big-endian arms are swapped (byte-swaps every live half channel) |
+| `DTS2026081417372` | [OH-2026-IMG-010](../content/issues/OH-2026-IMG-010.md) | MEDIUM | CWE-682 (Incorrect Calculation) | `frameworks/innerkitsimpl/converter/include/pixel_convert.h` · `multimedia_image_framework` | FloatToHalf maps 0.0f to Half 2.0 (0x4000) — unsigned underflow in rebase subtract |
+| `DTS2026081424330` | [OH-2026-IMG-006](../content/issues/OH-2026-IMG-006.md) | MEDIUM | CWE-682 (Incorrect Calculation) | `frameworks/innerkitsimpl/converter/include/pixel_convert.h` · `multimedia_image_framework` | HalfToFloat maps half +0 (0x0000) to 2^-15 instead of 0.0f |
+| `DTS2026081713997` | [OH-2026-AVCODEC-003](../content/issues/OH-2026-AVCODEC-003.md) | MEDIUM | CWE-682 (Incorrect Calculation) | `services/media_engine/plugins/source/http_source/hls/hls_tags.cpp` · `multimedia_av_codec` | ValuesListTag::ParseAttributes TITLE includes the leading comma |
 
 <details><summary>Summaries</summary>
 
@@ -198,6 +213,10 @@ Wrong formula, operand, rounding, or matrix/color/geometry math that breaks inva
 - **OH-2026-IMG-005** (`DTS2026081126994`): `Matrix::SetConcat` scale/translate fast path (no rotate/skew) composes translation as `tx1*tx2+tx1` instead of `sx1*tx2+tx1`. Full rotate path in the same function uses correct `MulAddMul`. Wrong composed geometry (e.g. scale then trans...
 - **OH-2026-GFX-008** (`DTS2026080530843`): `CubicResampler::Dump` formats both labeled fields from `cubicCoffB` — copy-paste wrong operand — so the `cubicCoffC:` slot always shows B. Debug/trace string only; no crash, no filter math. Sampling itself uses real fields (`GetCubicCof...
 - **OH-2026-PLAYER-002** (`DTS2026081318473`): `TransRecorderStatus` map keys `ERROR_MUXER_STOP_FAILED` to `MSERR_MUXER_START_FAILED` (copy-paste), then a second STOP→STOP row that `unordered_map` ignores. START muxer errors never map; STOP reports as START.
+- **OH-2026-IMG-008** (`DTS2026081413702`): `HalfToUint32` LE/BE ternary arms are swapped. Live LE path builds `(lo<<8)|hi` — byte-swaps every half. Channel `1.0` (`0x3C00`) becomes `0`; sibling `HalfTranslate` already loads LE correctly.
+- **OH-2026-IMG-010** (`DTS2026081417372`): `FloatToHalf` rebase subtract `(magnitude >> 13) - 0x1C000` underflows on ±0.0f → low 16 bits `0x4000` (half +2.0) instead of `0x0000`. Pure black / transparent alpha encode as 2.0.
+- **OH-2026-IMG-006** (`DTS2026081424330`): `HalfToFloat` applies normals-only exponent rebase `((mag << 13) + 0x38000000)` to every input. Half ±0 magnitude is 0 → invents `0x38000000` = `2^-15` instead of `0.0f`.
+- **OH-2026-AVCODEC-003** (`DTS2026081713997`): `ValuesListTag::ParseAttributes` splits HLS `#EXTINF:duration,title`. DURATION uses `substr(0, pos)` (excludes comma); TITLE uses `substr(pos)` (includes comma) → every titled segment TITLE starts with `,`.
 
 </details>
 
@@ -324,6 +343,7 @@ Wrong branch, sentinel, or iterator selection that returns success/identity inco
 | `DTS2026071544397` | [OH-2026-ABILITY-001](../content/issues/OH-2026-ABILITY-001.md) | MEDIUM | CWE-754 (Improper Check or Handling of Exceptional Conditions) | `frameworks/native/ability/native/ability_runtime/js_ui_ability.cpp` · `ability_ability_runtime` | Stage-model .abc path builder unguarded erase(rfind('.')) crashes app on extensionless srcEntrance |
 | `DTS2026073129863` | [OH-2026-GFX-006](../content/issues/OH-2026-GFX-006.md) | MEDIUM | CWE-670 (Always-Incorrect Control Flow Implementation) | `rosen/modules/2d_graphics/src/drawing/config/DrawingConfig.cpp` · `graphic_graphic_2d` | UpdateDrawingProperties permanent no-op (enum vs string list size) |
 | `DTS2026081128460` | [OH-2026-IMG-004](../content/issues/OH-2026-IMG-004.md) | MEDIUM | CWE-670 (Always-Incorrect Control Flow Implementation) | `frameworks/innerkitsimpl/utils/src/image_utils.cpp` · `multimedia_image_framework` | GetValidAlphaTypeByFormat missing RGBA_U16 case returns UNKNOWN |
+| `DTS2026073112258` | [ARK-2026-STR-001](../content/issues/ARK-2026-STR-001.md) | MEDIUM | CWE-680 (Integer Overflow to Buffer Overflow) | `panda_guard/util/string_util.cpp` · `arkcompiler_runtime_core` | RemoveSlashFromBothEnds("/") empty pop_back() (UB / corrupt size) |
 
 <details><summary>Summaries</summary>
 
@@ -332,6 +352,7 @@ Wrong branch, sentinel, or iterator selection that returns success/identity inco
 - **OH-2026-ABILITY-001** (`DTS2026071544397`): The Stage-model `.abc` path builder constructs the compiled-arkts path from the HAP's module name and `srcEntrance`, then strips the source extension by calling `srcPath.erase(srcPath.rfind("."))`. There is **no `npos` guard**. When the ...
 - **OH-2026-GFX-006** (`DTS2026073129863`): `DrawingConfig::UpdateDrawingProperties` compares `DrawingDisableFlag::COUNT` (42) to `gDrawingDisableFlagStr.size()` (41) and early-returns on mismatch — so **no** `drawing.disable*` param is ever applied and all flags stay `false`. The...
 - **OH-2026-IMG-004** (`DTS2026081128460`): `ImageUtils::GetValidAlphaTypeByFormat` normalizes alpha type for RGBA-like formats by falling through a `break` group and returning the caller’s `dstType`. `RGBA_F16` is in that group; **`RGBA_U16` is missing** and hits `default` → `IMA...
+- **ARK-2026-STR-001** (`DTS2026073112258`): `RemoveSlashFromBothEnds` strips `/pattern/` delimiters. Guard `!empty() && front=='/' && back=='/'` passes for a single `"/"` (same char). `erase()` empties then `pop_back()` on empty → UB; libstdc++ `size()` underflows to ~7.2e16.
 
 </details>
 
@@ -509,9 +530,9 @@ Masking/redaction fails; secrets or addresses reach logs.
 
 | CWE | Name | Count |
 |-----|------|------:|
-| CWE-682 | Incorrect Calculation | 10 |
+| CWE-682 | Incorrect Calculation | 14 |
+| CWE-190 | Integer Overflow or Wraparound | 7 |
 | CWE-125 | Out-of-bounds Read | 5 |
-| CWE-190 | Integer Overflow or Wraparound | 5 |
 | CWE-670 | Always-Incorrect Control Flow Implementation | 4 |
 | CWE-191 | Integer Underflow (Wrap or Wraparound) | 4 |
 | CWE-369 | Divide By Zero | 3 |
@@ -533,6 +554,7 @@ Masking/redaction fails; secrets or addresses reach logs.
 | CWE-459 | Incomplete Cleanup | 1 |
 | CWE-476 | NULL Pointer Dereference | 1 |
 | CWE-480 | Use of Incorrect Operator | 1 |
+| CWE-680 | Integer Overflow to Buffer Overflow | 1 |
 | CWE-754 | Improper Check or Handling of Exceptional Conditions | 1 |
 | CWE-787 | Out-of-bounds Write | 1 |
 | CWE-787 | Out-of-bounds Read | 1 |
