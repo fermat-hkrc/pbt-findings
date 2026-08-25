@@ -1,6 +1,6 @@
 # DTS Tickets by Bug Type
 
-Categorization of [`content/issues/`](../content/issues/) findings that carry a **DTS** ticket (`internal_issue_id`), grouped by **bug type** (failure mode), not by component.
+Categorization of [`content/issues/`](../content/issues/) findings that carry a **DTS** ticket (`internal_issue_id`), grouped by **bug type** (failure mode). A second axis — **detecting property (oracle)** — records which pi-pbt property found each ticket.
 
 - **DTS tickets**: **73**
 - **Status**: all listed tickets are `CONFIRMED_FIXED`
@@ -34,15 +34,23 @@ Categorization of [`content/issues/`](../content/issues/) findings that carry a 
 | [Security — Information Leakage](#security-information-leakage) | 1 | 0 | 1 | 0 |
 | **Total** | **73** | **15** | **56** | **2** |
 
-### By family
+### By detecting property
 
-| Family | Count |
-|--------|------:|
-| Arithmetic & Numeric Bugs | 32 |
-| Memory Safety | 15 |
-| Control Flow & Logic | 14 |
-| Input Validation | 7 |
-| Security | 5 |
+Oracle taxonomy from [pi-pbt `docs/oracles.md`](https://github.com/fermat-hkrc/pbt-agent/blob/main/docs/oracles.md). Each ticket is tagged with the **strongest property that actually failed** (from the write-up / cloned harness), not the CWE symptom.
+
+| Property (oracle) | Count | HIGH | MEDIUM | LOW |
+|----------|------:|-----:|-------:|----:|
+| [State Machine](#state-machine) | 2 | 1 | 0 | 1 |
+| [Differential](#differential) | 19 | 0 | 19 | 0 |
+| [Algebraic — Round-trip](#algebraic--round-trip) | 3 | 2 | 1 | 0 |
+| [Algebraic — Metamorphic](#algebraic--metamorphic) | 3 | 1 | 2 | 0 |
+| [Algebraic — Invariant](#algebraic--invariant) | 27 | 7 | 19 | 1 |
+| [Negative / Error Contract](#negative--error-contract) | 5 | 0 | 5 | 0 |
+| [Reference](#reference) | 5 | 1 | 4 | 0 |
+| [Crash-Only](#crash-only) | 9 | 3 | 6 | 0 |
+| **Total** | **73** | **15** | **56** | **2** |
+
+Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Idempotence ≻ Metamorphic ≻ Invariant ≻ Negative/Error) ≻ Reference ≻ Crash-Only. **Idempotence: 0** in this set.
 
 ### By module
 
@@ -76,81 +84,230 @@ Count is this catalog (`CONFIRMED_FIXED` write-ups). **Precision** is `FIXED / (
 
 ## DTS index
 
-| DTS | Issue ID | Bug type | Severity | Repo |
-|-----|----------|----------|----------|------|
-| `DTS2026050963138` | [OH-2026-NET-003](../content/issues/OH-2026-NET-003.md) | Security — Authorization / Access Control | HIGH | `communication_netmanager_base` |
-| `DTS2026052810677` | [YLONG-2026-SSL-001](../content/issues/YLONG-2026-SSL-001.md) | Security — Certificate Validation | HIGH | `commonlibrary_rust_ylong_http` |
-| `DTS2026052974442` | [OH-2026-DEVMGR-003](../content/issues/OH-2026-DEVMGR-003.md) | Arithmetic — Off-by-One | HIGH | `distributedhardware_device_manager` |
-| `DTS2026060814531` | [OH-2026-DHFWK-001](../content/issues/OH-2026-DHFWK-001.md) | Arithmetic — Integer Overflow / Underflow | MEDIUM | `distributedhardware_distributed_hardware_fwk` |
-| `DTS2026061256925` | [OH-2026-ARKUI-001](../content/issues/OH-2026-ARKUI-001.md) | Arithmetic — Incorrect Calculation | MEDIUM | `arkui_ace_engine` |
-| `DTS2026061512035` | [OH-2026-ARKUI-002](../content/issues/OH-2026-ARKUI-002.md) | Logic — Incorrect Control Flow | HIGH | `arkui_ace_engine` |
-| `DTS2026062427183` | [OH-2026-ARKUI-003](../content/issues/OH-2026-ARKUI-003.md) | Arithmetic — Incorrect Calculation | MEDIUM | `arkui_ace_engine` |
-| `DTS2026062427889` | [OH-2026-ARKUI-004](../content/issues/OH-2026-ARKUI-004.md) | Logic — Incorrect Control Flow | HIGH | `arkui_ace_engine` |
-| `DTS2026062430430` | [OH-2026-GFX-001](../content/issues/OH-2026-GFX-001.md) | Arithmetic — Incorrect Calculation | HIGH | `graphic_graphic_2d` |
-| `DTS2026062516469` | [OH-2026-GFX-003](../content/issues/OH-2026-GFX-003.md) | Arithmetic — Incorrect Calculation | MEDIUM | `graphic_graphic_2d` |
-| `DTS2026062701168` | [OH-2026-GFX-002](../content/issues/OH-2026-GFX-002.md) | Arithmetic — Incorrect Calculation | HIGH | `graphic_graphic_2d` |
-| `DTS2026062915131` | [ARK-2026-INT-002](../content/issues/ARK-2026-INT-002.md) | Arithmetic — Integer Overflow / Underflow | MEDIUM | `arkcompiler_runtime_core` |
-| `DTS2026062916398` | [ARK-2026-INT-001](../content/issues/ARK-2026-INT-001.md) | Arithmetic — Integer Overflow / Underflow | MEDIUM | `arkcompiler_runtime_core` |
-| `DTS2026062926934` | [OH-2026-NET-001](../content/issues/OH-2026-NET-001.md) | Security — Information Leakage | MEDIUM | `communication_netmanager_base` |
-| `DTS2026070238028` | [OH-2026-CAM-001](../content/issues/OH-2026-CAM-001.md) | Input Validation — Improper Checks | LOW | `multimedia_camera_framework` |
-| `DTS2026070318488` | [OH-2026-ARKUI-005](../content/issues/OH-2026-ARKUI-005.md) | Arithmetic — Incorrect Calculation | HIGH | `arkui_ace_engine` |
-| `DTS2026070722498` | [OH-2026-AVSESSION-001](../content/issues/OH-2026-AVSESSION-001.md) | Memory Safety — Buffer / OOB Access | HIGH | `multimedia_av_session` |
-| `DTS2026070856858` | [OH-2026-ARKUI-006](../content/issues/OH-2026-ARKUI-006.md) | Undefined Behavior | MEDIUM | `arkui_ace_engine` |
-| `DTS2026070856960` | [OH-2026-NET-002](../content/issues/OH-2026-NET-002.md) | Undefined Behavior | HIGH | `communication_netmanager_base` |
-| `DTS2026071303295` | [OH-2026-CAM-006](../content/issues/OH-2026-CAM-006.md) | Input Validation — Uncaught Exception / Crash on Bad Input | MEDIUM | `multimedia_camera_framework` |
-| `DTS2026071309672` | [OH-2026-MF-001](../content/issues/OH-2026-MF-001.md) | Memory Safety — Null Pointer Dereference | HIGH | `multimedia_media_foundation` |
-| `DTS2026071411883` | [OH-2026-CAM-003](../content/issues/OH-2026-CAM-003.md) | Input Validation — Uncaught Exception / Crash on Bad Input | MEDIUM | `multimedia_camera_framework` |
-| `DTS2026071412383` | [OH-2026-PB-001](../content/issues/OH-2026-PB-001.md) | Security — Authorization / Access Control | MEDIUM | `distributeddatamgr_pasteboard` |
-| `DTS2026071428596` | [OH-2026-CAM-002](../content/issues/OH-2026-CAM-002.md) | Arithmetic — Divide by Zero | MEDIUM | `multimedia_camera_framework` |
-| `DTS2026071430826` | [OH-2026-GFX-004](../content/issues/OH-2026-GFX-004.md) | Arithmetic — Incorrect Calculation | MEDIUM | `graphic_graphic_2d` |
-| `DTS2026071433052` | [ARK-2026-LOOP-001](../content/issues/ARK-2026-LOOP-001.md) | Control Flow — Infinite Loop / Hang | MEDIUM | `arkcompiler_runtime_core` |
-| `DTS2026071544397` | [OH-2026-ABILITY-001](../content/issues/OH-2026-ABILITY-001.md) | Logic — Incorrect Control Flow | MEDIUM | `ability_ability_runtime` |
-| `DTS2026071806709` | [OH-2026-WIFI-001](../content/issues/OH-2026-WIFI-001.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `communication_wifi` |
-| `DTS2026071807957` | [ARK-2026-BUF-001](../content/issues/ARK-2026-BUF-001.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `arkcompiler_runtime_core` |
-| `DTS2026071809730` | [OH-2026-ABILITY-002](../content/issues/OH-2026-ABILITY-002.md) | Input Validation — Improper Checks | MEDIUM | `ability_ability_runtime` |
-| `DTS2026072000001` | [OH-2026-PB-002](../content/issues/OH-2026-PB-002.md) | State / Lifecycle — Incomplete Cleanup or Stuck State | HIGH | `distributeddatamgr_pasteboard` |
-| `DTS2026072011242` | [OH-2026-CAM-004](../content/issues/OH-2026-CAM-004.md) | Arithmetic — Divide by Zero | MEDIUM | `multimedia_camera_framework` |
-| `DTS2026072223098` | [OH-2026-DATAMGR-001](../content/issues/OH-2026-DATAMGR-001.md) | Input Validation — Path Traversal | MEDIUM | `distributeddatamgr_datamgr_service` |
-| `DTS2026072325132` | [OH-2026-ARKUI-007](../content/issues/OH-2026-ARKUI-007.md) | Arithmetic — Divide by Zero | HIGH | `arkui_ace_engine` |
-| `DTS2026072326318` | [OH-2026-DFS-001](../content/issues/OH-2026-DFS-001.md) | Logic — Unchecked Return Value | MEDIUM | `filemanagement_dfs_service` |
-| `DTS2026072335866` | [OH-2026-STORAGE-001](../content/issues/OH-2026-STORAGE-001.md) | Input Validation — Improper Checks | MEDIUM | `filemanagement_storage_service` |
-| `DTS2026072347788` | [OH-2026-WM-001](../content/issues/OH-2026-WM-001.md) | Arithmetic — Integer Overflow / Underflow | MEDIUM | `window_window_manager` |
-| `DTS2026072438019` | [OH-2026-AVCODEC-001](../content/issues/OH-2026-AVCODEC-001.md) | Arithmetic — Integer Overflow / Underflow | MEDIUM | `multimedia_av_codec` |
-| `DTS2026072438492` | [OH-2026-IMG-002](../content/issues/OH-2026-IMG-002.md) | Arithmetic — Integer Overflow / Underflow | MEDIUM | `multimedia_image_framework` |
-| `DTS2026072454808` | [OH-2026-MEDIALIB-001](../content/issues/OH-2026-MEDIALIB-001.md) | Arithmetic — Integer Overflow / Underflow | MEDIUM | `multimedia_media_library` |
-| `DTS2026072457284` | [OH-2026-PLAYER-001](../content/issues/OH-2026-PLAYER-001.md) | Memory Safety — Double Free | MEDIUM | `multimedia_player_framework` |
-| `DTS2026072513315` | [OH-2026-GFX-005](../content/issues/OH-2026-GFX-005.md) | Input Validation — Encoding / Unicode | MEDIUM | `graphic_graphic_2d` |
-| `DTS2026072514260` | [OH-2026-ABILITY-003](../content/issues/OH-2026-ABILITY-003.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `ability_ability_runtime` |
-| `DTS2026072717921` | [OH-2026-CAM-005](../content/issues/OH-2026-CAM-005.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `multimedia_camera_framework` |
-| `DTS2026072750511` | [OH-2026-NET-004](../content/issues/OH-2026-NET-004.md) | Control Flow — Infinite Loop / Hang | MEDIUM | `communication_netmanager_base` |
-| `DTS2026072921166` | [OH-2026-WM-002](../content/issues/OH-2026-WM-002.md) | Arithmetic — Integer Overflow / Underflow | MEDIUM | `window_window_manager` |
-| `DTS2026072935286` | [OH-2026-AVCODEC-002](../content/issues/OH-2026-AVCODEC-002.md) | Arithmetic — Off-by-One | MEDIUM | `multimedia_av_codec` |
-| `DTS2026073013382` | [OH-2026-IMG-009](../content/issues/OH-2026-IMG-009.md) | Arithmetic — Integer Overflow / Underflow | MEDIUM | `multimedia_image_framework` |
-| `DTS2026073015200` | [OH-2026-IMG-003](../content/issues/OH-2026-IMG-003.md) | Logic — Incorrect Operator / Predicate | HIGH | `multimedia_image_framework` |
-| `DTS2026073020799` | [OH-2026-DEVMGR-004](../content/issues/OH-2026-DEVMGR-004.md) | Arithmetic — Integer Overflow / Underflow | HIGH | `distributedhardware_device_manager` |
-| `DTS2026073112258` | [ARK-2026-STR-001](../content/issues/ARK-2026-STR-001.md) | Logic — Incorrect Control Flow | MEDIUM | `arkcompiler_runtime_core` |
-| `DTS2026073116282` | [OH-2026-ARKUI-008](../content/issues/OH-2026-ARKUI-008.md) | Arithmetic — Incorrect Calculation | MEDIUM | `arkui_ace_engine` |
-| `DTS2026073129863` | [OH-2026-GFX-006](../content/issues/OH-2026-GFX-006.md) | Logic — Incorrect Control Flow | MEDIUM | `graphic_graphic_2d` |
-| `DTS2026073173354` | [OH-2026-ABILITY-004](../content/issues/OH-2026-ABILITY-004.md) | Security — Authorization / Access Control | MEDIUM | `ability_ability_runtime` |
-| `DTS2026080528903` | [OH-2026-GFX-007](../content/issues/OH-2026-GFX-007.md) | Arithmetic — Off-by-One | MEDIUM | `graphic_graphic_2d` |
-| `DTS2026080530843` | [OH-2026-GFX-008](../content/issues/OH-2026-GFX-008.md) | Arithmetic — Incorrect Calculation | LOW | `graphic_graphic_2d` |
-| `DTS2026080608464` | [OH-2026-NET-005](../content/issues/OH-2026-NET-005.md) | Control Flow — Infinite Loop / Hang | MEDIUM | `communication_netmanager_base` |
-| `DTS2026080813420` | [OH-2026-CAM-007](../content/issues/OH-2026-CAM-007.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `multimedia_camera_framework` |
-| `DTS2026080813622` | [OH-2026-CAM-008](../content/issues/OH-2026-CAM-008.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `multimedia_camera_framework` |
-| `DTS2026080813794` | [OH-2026-CAM-009](../content/issues/OH-2026-CAM-009.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `multimedia_camera_framework` |
-| `DTS2026080813827` | [OH-2026-CAM-010](../content/issues/OH-2026-CAM-010.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `multimedia_camera_framework` |
-| `DTS2026080813868` | [OH-2026-CAM-011](../content/issues/OH-2026-CAM-011.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `multimedia_camera_framework` |
-| `DTS2026081126994` | [OH-2026-IMG-005](../content/issues/OH-2026-IMG-005.md) | Arithmetic — Incorrect Calculation | MEDIUM | `multimedia_image_framework` |
-| `DTS2026081128460` | [OH-2026-IMG-004](../content/issues/OH-2026-IMG-004.md) | Logic — Incorrect Control Flow | MEDIUM | `multimedia_image_framework` |
-| `DTS2026081135903` | [OH-2026-NET-007](../content/issues/OH-2026-NET-007.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `communication_netmanager_base` |
-| `DTS2026081136698` | [OH-2026-NET-006](../content/issues/OH-2026-NET-006.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `communication_netmanager_base` |
-| `DTS2026081318473` | [OH-2026-PLAYER-002](../content/issues/OH-2026-PLAYER-002.md) | Arithmetic — Incorrect Calculation | MEDIUM | `multimedia_player_framework` |
-| `DTS2026081413702` | [OH-2026-IMG-008](../content/issues/OH-2026-IMG-008.md) | Arithmetic — Incorrect Calculation | MEDIUM | `multimedia_image_framework` |
-| `DTS2026081417372` | [OH-2026-IMG-010](../content/issues/OH-2026-IMG-010.md) | Arithmetic — Incorrect Calculation | MEDIUM | `multimedia_image_framework` |
-| `DTS2026081421810` | [OH-2026-IMG-007](../content/issues/OH-2026-IMG-007.md) | Arithmetic — Integer Overflow / Underflow | MEDIUM | `multimedia_image_framework` |
-| `DTS2026081424330` | [OH-2026-IMG-006](../content/issues/OH-2026-IMG-006.md) | Arithmetic — Incorrect Calculation | MEDIUM | `multimedia_image_framework` |
-| `DTS2026081713997` | [OH-2026-AVCODEC-003](../content/issues/OH-2026-AVCODEC-003.md) | Arithmetic — Incorrect Calculation | MEDIUM | `multimedia_av_codec` |
-| `DTS2026082023118` | [OH-2026-DSOFTBUS-001](../content/issues/OH-2026-DSOFTBUS-001.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `communication_dsoftbus` |
+| DTS | Issue ID | Bug type | Property | Severity | Repo |
+|-----|----------|----------|----------|----------|------|
+| `DTS2026050963138` | [OH-2026-NET-003](../content/issues/OH-2026-NET-003.md) | Security — Authorization / Access Control | Algebraic — Invariant | HIGH | `communication_netmanager_base` |
+| `DTS2026052810677` | [YLONG-2026-SSL-001](../content/issues/YLONG-2026-SSL-001.md) | Security — Certificate Validation | Reference | HIGH | `commonlibrary_rust_ylong_http` |
+| `DTS2026052974442` | [OH-2026-DEVMGR-003](../content/issues/OH-2026-DEVMGR-003.md) | Arithmetic — Off-by-One | Algebraic — Invariant | HIGH | `distributedhardware_device_manager` |
+| `DTS2026060814531` | [OH-2026-DHFWK-001](../content/issues/OH-2026-DHFWK-001.md) | Arithmetic — Integer Overflow / Underflow | Algebraic — Invariant | MEDIUM | `distributedhardware_distributed_hardware_fwk` |
+| `DTS2026061256925` | [OH-2026-ARKUI-001](../content/issues/OH-2026-ARKUI-001.md) | Arithmetic — Incorrect Calculation | Algebraic — Invariant | MEDIUM | `arkui_ace_engine` |
+| `DTS2026061512035` | [OH-2026-ARKUI-002](../content/issues/OH-2026-ARKUI-002.md) | Logic — Incorrect Control Flow | Algebraic — Invariant | HIGH | `arkui_ace_engine` |
+| `DTS2026062427183` | [OH-2026-ARKUI-003](../content/issues/OH-2026-ARKUI-003.md) | Arithmetic — Incorrect Calculation | Algebraic — Round-trip | MEDIUM | `arkui_ace_engine` |
+| `DTS2026062427889` | [OH-2026-ARKUI-004](../content/issues/OH-2026-ARKUI-004.md) | Logic — Incorrect Control Flow | Algebraic — Invariant | HIGH | `arkui_ace_engine` |
+| `DTS2026062430430` | [OH-2026-GFX-001](../content/issues/OH-2026-GFX-001.md) | Arithmetic — Incorrect Calculation | Algebraic — Metamorphic | HIGH | `graphic_graphic_2d` |
+| `DTS2026062516469` | [OH-2026-GFX-003](../content/issues/OH-2026-GFX-003.md) | Arithmetic — Incorrect Calculation | Reference | MEDIUM | `graphic_graphic_2d` |
+| `DTS2026062701168` | [OH-2026-GFX-002](../content/issues/OH-2026-GFX-002.md) | Arithmetic — Incorrect Calculation | Algebraic — Round-trip | HIGH | `graphic_graphic_2d` |
+| `DTS2026062915131` | [ARK-2026-INT-002](../content/issues/ARK-2026-INT-002.md) | Arithmetic — Integer Overflow / Underflow | Algebraic — Invariant | MEDIUM | `arkcompiler_runtime_core` |
+| `DTS2026062916398` | [ARK-2026-INT-001](../content/issues/ARK-2026-INT-001.md) | Arithmetic — Integer Overflow / Underflow | Differential | MEDIUM | `arkcompiler_runtime_core` |
+| `DTS2026062926934` | [OH-2026-NET-001](../content/issues/OH-2026-NET-001.md) | Security — Information Leakage | Algebraic — Invariant | MEDIUM | `communication_netmanager_base` |
+| `DTS2026070238028` | [OH-2026-CAM-001](../content/issues/OH-2026-CAM-001.md) | Input Validation — Improper Checks | State Machine | LOW | `multimedia_camera_framework` |
+| `DTS2026070318488` | [OH-2026-ARKUI-005](../content/issues/OH-2026-ARKUI-005.md) | Arithmetic — Incorrect Calculation | Algebraic — Invariant | HIGH | `arkui_ace_engine` |
+| `DTS2026070722498` | [OH-2026-AVSESSION-001](../content/issues/OH-2026-AVSESSION-001.md) | Memory Safety — Buffer / OOB Access | Crash-Only | HIGH | `multimedia_av_session` |
+| `DTS2026070856858` | [OH-2026-ARKUI-006](../content/issues/OH-2026-ARKUI-006.md) | Undefined Behavior | Algebraic — Invariant | MEDIUM | `arkui_ace_engine` |
+| `DTS2026070856960` | [OH-2026-NET-002](../content/issues/OH-2026-NET-002.md) | Undefined Behavior | Algebraic — Invariant | HIGH | `communication_netmanager_base` |
+| `DTS2026071303295` | [OH-2026-CAM-006](../content/issues/OH-2026-CAM-006.md) | Input Validation — Uncaught Exception / Crash on Bad Input | Differential | MEDIUM | `multimedia_camera_framework` |
+| `DTS2026071309672` | [OH-2026-MF-001](../content/issues/OH-2026-MF-001.md) | Memory Safety — Null Pointer Dereference | Crash-Only | HIGH | `multimedia_media_foundation` |
+| `DTS2026071411883` | [OH-2026-CAM-003](../content/issues/OH-2026-CAM-003.md) | Input Validation — Uncaught Exception / Crash on Bad Input | Differential | MEDIUM | `multimedia_camera_framework` |
+| `DTS2026071412383` | [OH-2026-PB-001](../content/issues/OH-2026-PB-001.md) | Security — Authorization / Access Control | Differential | MEDIUM | `distributeddatamgr_pasteboard` |
+| `DTS2026071428596` | [OH-2026-CAM-002](../content/issues/OH-2026-CAM-002.md) | Arithmetic — Divide by Zero | Negative / Error Contract | MEDIUM | `multimedia_camera_framework` |
+| `DTS2026071430826` | [OH-2026-GFX-004](../content/issues/OH-2026-GFX-004.md) | Arithmetic — Incorrect Calculation | Algebraic — Metamorphic | MEDIUM | `graphic_graphic_2d` |
+| `DTS2026071433052` | [ARK-2026-LOOP-001](../content/issues/ARK-2026-LOOP-001.md) | Control Flow — Infinite Loop / Hang | Algebraic — Invariant | MEDIUM | `arkcompiler_runtime_core` |
+| `DTS2026071544397` | [OH-2026-ABILITY-001](../content/issues/OH-2026-ABILITY-001.md) | Logic — Incorrect Control Flow | Crash-Only | MEDIUM | `ability_ability_runtime` |
+| `DTS2026071806709` | [OH-2026-WIFI-001](../content/issues/OH-2026-WIFI-001.md) | Memory Safety — Buffer / OOB Access | Crash-Only | MEDIUM | `communication_wifi` |
+| `DTS2026071807957` | [ARK-2026-BUF-001](../content/issues/ARK-2026-BUF-001.md) | Memory Safety — Buffer / OOB Access | Algebraic — Invariant | MEDIUM | `arkcompiler_runtime_core` |
+| `DTS2026071809730` | [OH-2026-ABILITY-002](../content/issues/OH-2026-ABILITY-002.md) | Input Validation — Improper Checks | Negative / Error Contract | MEDIUM | `ability_ability_runtime` |
+| `DTS2026072000001` | [OH-2026-PB-002](../content/issues/OH-2026-PB-002.md) | State / Lifecycle — Incomplete Cleanup or Stuck State | State Machine | HIGH | `distributeddatamgr_pasteboard` |
+| `DTS2026072011242` | [OH-2026-CAM-004](../content/issues/OH-2026-CAM-004.md) | Arithmetic — Divide by Zero | Algebraic — Invariant | MEDIUM | `multimedia_camera_framework` |
+| `DTS2026072223098` | [OH-2026-DATAMGR-001](../content/issues/OH-2026-DATAMGR-001.md) | Input Validation — Path Traversal | Negative / Error Contract | MEDIUM | `distributeddatamgr_datamgr_service` |
+| `DTS2026072325132` | [OH-2026-ARKUI-007](../content/issues/OH-2026-ARKUI-007.md) | Arithmetic — Divide by Zero | Algebraic — Invariant | HIGH | `arkui_ace_engine` |
+| `DTS2026072326318` | [OH-2026-DFS-001](../content/issues/OH-2026-DFS-001.md) | Logic — Unchecked Return Value | Differential | MEDIUM | `filemanagement_dfs_service` |
+| `DTS2026072335866` | [OH-2026-STORAGE-001](../content/issues/OH-2026-STORAGE-001.md) | Input Validation — Improper Checks | Negative / Error Contract | MEDIUM | `filemanagement_storage_service` |
+| `DTS2026072347788` | [OH-2026-WM-001](../content/issues/OH-2026-WM-001.md) | Arithmetic — Integer Overflow / Underflow | Differential | MEDIUM | `window_window_manager` |
+| `DTS2026072438019` | [OH-2026-AVCODEC-001](../content/issues/OH-2026-AVCODEC-001.md) | Arithmetic — Integer Overflow / Underflow | Differential | MEDIUM | `multimedia_av_codec` |
+| `DTS2026072438492` | [OH-2026-IMG-002](../content/issues/OH-2026-IMG-002.md) | Arithmetic — Integer Overflow / Underflow | Algebraic — Invariant | MEDIUM | `multimedia_image_framework` |
+| `DTS2026072454808` | [OH-2026-MEDIALIB-001](../content/issues/OH-2026-MEDIALIB-001.md) | Arithmetic — Integer Overflow / Underflow | Algebraic — Invariant | MEDIUM | `multimedia_media_library` |
+| `DTS2026072457284` | [OH-2026-PLAYER-001](../content/issues/OH-2026-PLAYER-001.md) | Memory Safety — Double Free | Crash-Only | MEDIUM | `multimedia_player_framework` |
+| `DTS2026072513315` | [OH-2026-GFX-005](../content/issues/OH-2026-GFX-005.md) | Input Validation — Encoding / Unicode | Reference | MEDIUM | `graphic_graphic_2d` |
+| `DTS2026072514260` | [OH-2026-ABILITY-003](../content/issues/OH-2026-ABILITY-003.md) | Memory Safety — Buffer / OOB Access | Crash-Only | MEDIUM | `ability_ability_runtime` |
+| `DTS2026072717921` | [OH-2026-CAM-005](../content/issues/OH-2026-CAM-005.md) | Memory Safety — Buffer / OOB Access | Crash-Only | MEDIUM | `multimedia_camera_framework` |
+| `DTS2026072750511` | [OH-2026-NET-004](../content/issues/OH-2026-NET-004.md) | Control Flow — Infinite Loop / Hang | Algebraic — Invariant | MEDIUM | `communication_netmanager_base` |
+| `DTS2026072921166` | [OH-2026-WM-002](../content/issues/OH-2026-WM-002.md) | Arithmetic — Integer Overflow / Underflow | Differential | MEDIUM | `window_window_manager` |
+| `DTS2026072935286` | [OH-2026-AVCODEC-002](../content/issues/OH-2026-AVCODEC-002.md) | Arithmetic — Off-by-One | Negative / Error Contract | MEDIUM | `multimedia_av_codec` |
+| `DTS2026073013382` | [OH-2026-IMG-009](../content/issues/OH-2026-IMG-009.md) | Arithmetic — Integer Overflow / Underflow | Algebraic — Invariant | MEDIUM | `multimedia_image_framework` |
+| `DTS2026073015200` | [OH-2026-IMG-003](../content/issues/OH-2026-IMG-003.md) | Logic — Incorrect Operator / Predicate | Algebraic — Round-trip | HIGH | `multimedia_image_framework` |
+| `DTS2026073020799` | [OH-2026-DEVMGR-004](../content/issues/OH-2026-DEVMGR-004.md) | Arithmetic — Integer Overflow / Underflow | Crash-Only | HIGH | `distributedhardware_device_manager` |
+| `DTS2026073112258` | [ARK-2026-STR-001](../content/issues/ARK-2026-STR-001.md) | Logic — Incorrect Control Flow | Algebraic — Invariant | MEDIUM | `arkcompiler_runtime_core` |
+| `DTS2026073116282` | [OH-2026-ARKUI-008](../content/issues/OH-2026-ARKUI-008.md) | Arithmetic — Incorrect Calculation | Algebraic — Invariant | MEDIUM | `arkui_ace_engine` |
+| `DTS2026073129863` | [OH-2026-GFX-006](../content/issues/OH-2026-GFX-006.md) | Logic — Incorrect Control Flow | Algebraic — Invariant | MEDIUM | `graphic_graphic_2d` |
+| `DTS2026073173354` | [OH-2026-ABILITY-004](../content/issues/OH-2026-ABILITY-004.md) | Security — Authorization / Access Control | Differential | MEDIUM | `ability_ability_runtime` |
+| `DTS2026080528903` | [OH-2026-GFX-007](../content/issues/OH-2026-GFX-007.md) | Arithmetic — Off-by-One | Algebraic — Invariant | MEDIUM | `graphic_graphic_2d` |
+| `DTS2026080530843` | [OH-2026-GFX-008](../content/issues/OH-2026-GFX-008.md) | Arithmetic — Incorrect Calculation | Algebraic — Invariant | LOW | `graphic_graphic_2d` |
+| `DTS2026080608464` | [OH-2026-NET-005](../content/issues/OH-2026-NET-005.md) | Control Flow — Infinite Loop / Hang | Algebraic — Invariant | MEDIUM | `communication_netmanager_base` |
+| `DTS2026080813420` | [OH-2026-CAM-007](../content/issues/OH-2026-CAM-007.md) | Memory Safety — Buffer / OOB Access | Crash-Only | MEDIUM | `multimedia_camera_framework` |
+| `DTS2026080813622` | [OH-2026-CAM-008](../content/issues/OH-2026-CAM-008.md) | Memory Safety — Buffer / OOB Access | Differential | MEDIUM | `multimedia_camera_framework` |
+| `DTS2026080813794` | [OH-2026-CAM-009](../content/issues/OH-2026-CAM-009.md) | Memory Safety — Buffer / OOB Access | Differential | MEDIUM | `multimedia_camera_framework` |
+| `DTS2026080813827` | [OH-2026-CAM-010](../content/issues/OH-2026-CAM-010.md) | Memory Safety — Buffer / OOB Access | Algebraic — Invariant | MEDIUM | `multimedia_camera_framework` |
+| `DTS2026080813868` | [OH-2026-CAM-011](../content/issues/OH-2026-CAM-011.md) | Memory Safety — Buffer / OOB Access | Algebraic — Invariant | MEDIUM | `multimedia_camera_framework` |
+| `DTS2026081126994` | [OH-2026-IMG-005](../content/issues/OH-2026-IMG-005.md) | Arithmetic — Incorrect Calculation | Differential | MEDIUM | `multimedia_image_framework` |
+| `DTS2026081128460` | [OH-2026-IMG-004](../content/issues/OH-2026-IMG-004.md) | Logic — Incorrect Control Flow | Differential | MEDIUM | `multimedia_image_framework` |
+| `DTS2026081135903` | [OH-2026-NET-007](../content/issues/OH-2026-NET-007.md) | Memory Safety — Buffer / OOB Access | Differential | MEDIUM | `communication_netmanager_base` |
+| `DTS2026081136698` | [OH-2026-NET-006](../content/issues/OH-2026-NET-006.md) | Memory Safety — Buffer / OOB Access | Differential | MEDIUM | `communication_netmanager_base` |
+| `DTS2026081318473` | [OH-2026-PLAYER-002](../content/issues/OH-2026-PLAYER-002.md) | Arithmetic — Incorrect Calculation | Algebraic — Metamorphic | MEDIUM | `multimedia_player_framework` |
+| `DTS2026081413702` | [OH-2026-IMG-008](../content/issues/OH-2026-IMG-008.md) | Arithmetic — Incorrect Calculation | Differential | MEDIUM | `multimedia_image_framework` |
+| `DTS2026081417372` | [OH-2026-IMG-010](../content/issues/OH-2026-IMG-010.md) | Arithmetic — Incorrect Calculation | Reference | MEDIUM | `multimedia_image_framework` |
+| `DTS2026081421810` | [OH-2026-IMG-007](../content/issues/OH-2026-IMG-007.md) | Arithmetic — Integer Overflow / Underflow | Differential | MEDIUM | `multimedia_image_framework` |
+| `DTS2026081424330` | [OH-2026-IMG-006](../content/issues/OH-2026-IMG-006.md) | Arithmetic — Incorrect Calculation | Reference | MEDIUM | `multimedia_image_framework` |
+| `DTS2026081713997` | [OH-2026-AVCODEC-003](../content/issues/OH-2026-AVCODEC-003.md) | Arithmetic — Incorrect Calculation | Differential | MEDIUM | `multimedia_av_codec` |
+| `DTS2026082023118` | [OH-2026-DSOFTBUS-001](../content/issues/OH-2026-DSOFTBUS-001.md) | Memory Safety — Buffer / OOB Access | Differential | MEDIUM | `communication_dsoftbus` |
+
+## Detecting property (oracle)
+
+How the bug was found. Taxonomy and strength order follow pi-pbt (`pbt-oracles`). Failure-mode (CWE) grouping is unchanged below.
+
+<a id="state-machine"></a>
+
+### State Machine
+
+Operation sequences vs an independent model (lifecycle / collection).
+
+| DTS | ID | Severity | Failing property |
+|-----|----|----------|------------------|
+| `DTS2026070238028` | [OH-2026-CAM-001](../content/issues/OH-2026-CAM-001.md) | LOW | FixedSizeList ≡ bounded FIFO model across add/remove |
+| `DTS2026072000001` | [OH-2026-PB-002](../content/issues/OH-2026-PB-002.md) | HIGH | any worker stop (incl. timeout) clears isRunning |
+
+<a id="differential"></a>
+
+### Differential
+
+Candidate vs a same-job sibling or independent implementation of the same contract.
+
+| DTS | ID | Severity | Failing property |
+|-----|----|----------|------------------|
+| `DTS2026062916398` | [ARK-2026-INT-001](../content/issues/ARK-2026-INT-001.md) | MEDIUM | NumToStr(n) == std::to_string(n) for all int32 |
+| `DTS2026071303295` | [OH-2026-CAM-006](../content/issues/OH-2026-CAM-006.md) | MEDIUM | IsDoubleRegex accept ⇒ caller std::stoi does not throw |
+| `DTS2026071411883` | [OH-2026-CAM-003](../content/issues/OH-2026-CAM-003.md) | MEDIUM | isIntegerRegex accept ⇒ std::stoi does not throw |
+| `DTS2026071412383` | [OH-2026-PB-001](../content/issues/OH-2026-PB-001.md) | MEDIUM | export URI only when per-record grant is set (sibling include rule) |
+| `DTS2026072326318` | [OH-2026-DFS-001](../content/issues/OH-2026-DFS-001.md) | MEDIUM | item ReadFromParcel failure rejects, as Marshalling sibling does |
+| `DTS2026072347788` | [OH-2026-WM-001](../content/issues/OH-2026-WM-001.md) | MEDIUM | aspect-ratio check agrees with widened uint oracle |
+| `DTS2026072438019` | [OH-2026-AVCODEC-001](../content/issues/OH-2026-AVCODEC-001.md) | MEDIUM | byterange end agrees with widened (secure) add |
+| `DTS2026072921166` | [OH-2026-WM-002](../content/issues/OH-2026-WM-002.md) | MEDIUM | cascade decor strip agrees with widened uint oracle |
+| `DTS2026073173354` | [OH-2026-ABILITY-004](../content/issues/OH-2026-ABILITY-004.md) | MEDIUM | prefix match ≡ slash-boundary membership oracle |
+| `DTS2026080813622` | [OH-2026-CAM-008](../content/issues/OH-2026-CAM-008.md) | MEDIUM | GetZoomRatioRange bound ≡ GetRAWZoomRatioRange sibling |
+| `DTS2026080813794` | [OH-2026-CAM-009](../content/issues/OH-2026-CAM-009.md) | MEDIUM | moon FOV look-ahead ≡ sketch spec-FOV sibling bound |
+| `DTS2026081126994` | [OH-2026-IMG-005](../content/issues/OH-2026-IMG-005.md) | MEDIUM | scale/translate concat ≡ MulAddMul / rotate-path sibling |
+| `DTS2026081128460` | [OH-2026-IMG-004](../content/issues/OH-2026-IMG-004.md) | MEDIUM | RGBA_U16 alpha type matches RGBA_F16 sibling group |
+| `DTS2026081135903` | [OH-2026-NET-007](../content/issues/OH-2026-NET-007.md) | MEDIUM | CheckIpv6InNet prefix bound ≡ fixed CheckIpv4InNet sibling |
+| `DTS2026081136698` | [OH-2026-NET-006](../content/issues/OH-2026-NET-006.md) | MEDIUM | IPv6 GetNetworkAddress prefix bound ≡ IPv4 sibling insert reject |
+| `DTS2026081413702` | [OH-2026-IMG-008](../content/issues/OH-2026-IMG-008.md) | MEDIUM | HalfToUint32 LE/BE matches sibling assemble + HalfToFloat |
+| `DTS2026081421810` | [OH-2026-IMG-007](../content/issues/OH-2026-IMG-007.md) | MEDIUM | IsLegalAxis agrees with int64 widened oracle |
+| `DTS2026081713997` | [OH-2026-AVCODEC-003](../content/issues/OH-2026-AVCODEC-003.md) | MEDIUM | TITLE excludes the comma, same as DURATION sibling |
+| `DTS2026082023118` | [OH-2026-DSOFTBUS-001](../content/issues/OH-2026-DSOFTBUS-001.md) | MEDIUM | ConnectGroup size guard ≡ P2pConnectGroup sibling (size ≥ MODE) |
+
+<a id="algebraic--round-trip"></a>
+
+### Algebraic — Round-trip
+
+`f⁻¹(f(x)) = x` (or Get/Set, encode/decode identity).
+
+| DTS | ID | Severity | Failing property |
+|-----|----|----------|------------------|
+| `DTS2026062427183` | [OH-2026-ARKUI-003](../content/issues/OH-2026-ARKUI-003.md) | MEDIUM | Get(SetEntry(row,col,v)) == v |
+| `DTS2026062701168` | [OH-2026-GFX-002](../content/issues/OH-2026-GFX-002.md) | HIGH | FromBgraInt(AsBgraInt(c)) == c |
+| `DTS2026073015200` | [OH-2026-IMG-003](../content/issues/OH-2026-IMG-003.md) | HIGH | axis translate maps points and invert negates |
+
+<a id="algebraic--metamorphic"></a>
+
+### Algebraic — Metamorphic
+
+A source-grounded input transform implies a relation on outputs (`a+b==b+a`, name symmetry, `p*=s` vs `p*s`).
+
+| DTS | ID | Severity | Failing property |
+|-----|----|----------|------------------|
+| `DTS2026062430430` | [OH-2026-GFX-001](../content/issues/OH-2026-GFX-001.md) | HIGH | Point3 addition is commutative: a+b == b+a |
+| `DTS2026071430826` | [OH-2026-GFX-004](../content/issues/OH-2026-GFX-004.md) | MEDIUM | (p*s).xyz == p.xyz*s; p/=s agrees with p/s |
+| `DTS2026081318473` | [OH-2026-PLAYER-002](../content/issues/OH-2026-PLAYER-002.md) | MEDIUM | muxer START/STOP map names match encoder-family symmetry |
+
+<a id="algebraic--invariant"></a>
+
+### Algebraic — Invariant
+
+`P(f(x))` holds for all generated x (finite, in-range, terminates, structural).
+
+| DTS | ID | Severity | Failing property |
+|-----|----|----------|------------------|
+| `DTS2026050963138` | [OH-2026-NET-003](../content/issues/OH-2026-NET-003.md) | HIGH | match_loopback is true only for loopback endpoints |
+| `DTS2026052974442` | [OH-2026-DEVMGR-003](../content/issues/OH-2026-DEVMGR-003.md) | HIGH | GeneratePinCode length == requested pinLength |
+| `DTS2026060814531` | [OH-2026-DHFWK-001](../content/issues/OH-2026-DHFWK-001.md) | MEDIUM | uint validators accept only values that fit the destination type |
+| `DTS2026061256925` | [OH-2026-ARKUI-001](../content/issues/OH-2026-ARKUI-001.md) | MEDIUM | layout height ≥ 0 |
+| `DTS2026061512035` | [OH-2026-ARKUI-002](../content/issues/OH-2026-ARKUI-002.md) | HIGH | FindInMatrix(x) found iff x is in the matrix |
+| `DTS2026062427889` | [OH-2026-ARKUI-004](../content/issues/OH-2026-ARKUI-004.md) | HIGH | impossible span returns -1 |
+| `DTS2026062915131` | [ARK-2026-INT-002](../content/issues/ARK-2026-INT-002.md) | MEDIUM | empty Range contains nothing; indices only in [0, size) |
+| `DTS2026062926934` | [OH-2026-NET-001](../content/issues/OH-2026-NET-001.md) | MEDIUM | ToAnonymousIp(ip, true) ≠ ip for every valid IP |
+| `DTS2026070318488` | [OH-2026-ARKUI-005](../content/issues/OH-2026-ARKUI-005.md) | HIGH | lazy-grid line-position rebase includes spaceWidth_ |
+| `DTS2026070856858` | [OH-2026-ARKUI-006](../content/issues/OH-2026-ARKUI-006.md) | MEDIUM | channel lerp is linear for increasing and decreasing channels |
+| `DTS2026070856960` | [OH-2026-NET-002](../content/issues/OH-2026-NET-002.md) | HIGH | CIDR /0 matches every IPv4 address |
+| `DTS2026071433052` | [ARK-2026-LOOP-001](../content/issues/ARK-2026-LOOP-001.md) | MEDIUM | GetParams terminates for N in [0, 65535] |
+| `DTS2026071807957` | [ARK-2026-BUF-001](../content/issues/ARK-2026-BUF-001.md) | MEDIUM | past-capacity write returns false / stays in bounds |
+| `DTS2026072011242` | [OH-2026-CAM-004](../content/issues/OH-2026-CAM-004.md) | MEDIUM | accepted exposure denominator ⇒ inner divisor ≠ 0 |
+| `DTS2026072325132` | [OH-2026-ARKUI-007](../content/issues/OH-2026-ARKUI-007.md) | HIGH | GetIrregularHeight is finite and non-negative |
+| `DTS2026072438492` | [OH-2026-IMG-002](../content/issues/OH-2026-IMG-002.md) | MEDIUM | int32 overflow of top+height / left+width is never a valid crop |
+| `DTS2026072454808` | [OH-2026-MEDIALIB-001](../content/issues/OH-2026-MEDIALIB-001.md) | MEDIUM | bucket-only URI has no file id (not the bucket name) |
+| `DTS2026072750511` | [OH-2026-NET-004](../content/issues/OH-2026-NET-004.md) | MEDIUM | RfindIp6 terminates for every start/end query |
+| `DTS2026073013382` | [OH-2026-IMG-009](../content/issues/OH-2026-IMG-009.md) | MEDIUM | width*bpp overflow ⇒ tiny stride rejected |
+| `DTS2026073112258` | [ARK-2026-STR-001](../content/issues/ARK-2026-STR-001.md) | MEDIUM | "/" strip does not corrupt size() |
+| `DTS2026073116282` | [OH-2026-ARKUI-008](../content/issues/OH-2026-ARKUI-008.md) | MEDIUM | circleAngle is finite for any stroke |
+| `DTS2026073129863` | [OH-2026-GFX-006](../content/issues/OH-2026-GFX-006.md) | MEDIUM | setting a drawing.disable* param then Update disables that flag |
+| `DTS2026080528903` | [OH-2026-GFX-007](../content/issues/OH-2026-GFX-007.md) | MEDIUM | IsNearEqual uses all 9 matrix elements |
+| `DTS2026080530843` | [OH-2026-GFX-008](../content/issues/OH-2026-GFX-008.md) | LOW | Dump prints cubicCoffB and cubicCoffC independently |
+| `DTS2026080608464` | [OH-2026-NET-005](../content/issues/OH-2026-NET-005.md) | MEDIUM | GetIp4AndMask terminates when the range ends at 255.255.255.255 |
+| `DTS2026080813827` | [OH-2026-CAM-010](../content/issues/OH-2026-CAM-010.md) | MEDIUM | TLV remaining length covers claimed 3×num points |
+| `DTS2026080813868` | [OH-2026-CAM-011](../content/issues/OH-2026-CAM-011.md) | MEDIUM | length-prefix payload fits in remaining count |
+
+<a id="negative--error-contract"></a>
+
+### Negative / Error Contract
+
+Inputs outside the valid domain are rejected as specified.
+
+| DTS | ID | Severity | Failing property |
+|-----|----|----------|------------------|
+| `DTS2026071428596` | [OH-2026-CAM-002](../content/issues/OH-2026-CAM-002.md) | MEDIUM | single-element beauty range returns OK/INVALID_ARG, never SIGFPE |
+| `DTS2026071809730` | [OH-2026-ABILITY-002](../content/issues/OH-2026-ABILITY-002.md) | MEDIUM | IsNumber rejects floats; GetId does not truncate |
+| `DTS2026072223098` | [OH-2026-DATAMGR-001](../content/issues/OH-2026-DATAMGR-001.md) | MEDIUM | IsValidPath rejects lone ".." |
+| `DTS2026072335866` | [OH-2026-STORAGE-001](../content/issues/OH-2026-STORAGE-001.md) | MEDIUM | out-of-range userId is rejected (CheckUserIdRange) |
+| `DTS2026072935286` | [OH-2026-AVCODEC-002](../content/issues/OH-2026-AVCODEC-002.md) | MEDIUM | truncated %X is not decoded as a byte |
+
+<a id="reference"></a>
+
+### Reference
+
+Authoritative spec / stdlib / IEEE / Unicode / pinning contract that this SUT claims.
+
+| DTS | ID | Severity | Failing property |
+|-----|----|----------|------------------|
+| `DTS2026052810677` | [YLONG-2026-SSL-001](../content/issues/YLONG-2026-SSL-001.md) | HIGH | client with the cert's real SPKI pin completes the request |
+| `DTS2026062516469` | [OH-2026-GFX-003](../content/issues/OH-2026-GFX-003.md) | MEDIUM | RectF::Round edge-wise matches std::round |
+| `DTS2026072513315` | [OH-2026-GFX-005](../content/issues/OH-2026-GFX-005.md) | MEDIUM | IsUtf8 rejects UTF-8 surrogate halves (Unicode) |
+| `DTS2026081417372` | [OH-2026-IMG-010](../content/issues/OH-2026-IMG-010.md) | MEDIUM | FloatToHalf(±0) == IEEE half zero |
+| `DTS2026081424330` | [OH-2026-IMG-006](../content/issues/OH-2026-IMG-006.md) | MEDIUM | HalfToFloat(+0) == 0.0f (IEEE half) |
+
+<a id="crash-only"></a>
+
+### Crash-Only
+
+`f(x) ≠ ⊥` — no SEGV / SIGFPE / uncaught throw / double-free on the tested domain. Last-resort oracle.
+
+| DTS | ID | Severity | Failing property |
+|-----|----|----------|------------------|
+| `DTS2026070722498` | [OH-2026-AVSESSION-001](../content/issues/OH-2026-AVSESSION-001.md) | HIGH | GetAnonyTitle never crashes on continuation-only titles |
+| `DTS2026071309672` | [OH-2026-MF-001](../content/issues/OH-2026-MF-001.md) | HIGH | Stringify survives any public Put* including PutIntBuffer |
+| `DTS2026071544397` | [OH-2026-ABILITY-001](../content/issues/OH-2026-ABILITY-001.md) | MEDIUM | abc-path builder never throws on any srcEntrance |
+| `DTS2026071806709` | [OH-2026-WIFI-001](../content/issues/OH-2026-WIFI-001.md) | MEDIUM | null / short hex does not crash HexString2Byte |
+| `DTS2026072457284` | [OH-2026-PLAYER-001](../content/issues/OH-2026-PLAYER-001.md) | MEDIUM | Destroy + destructor does not double-free |
+| `DTS2026072514260` | [OH-2026-ABILITY-003](../content/issues/OH-2026-ABILITY-003.md) | MEDIUM | ParseURI catch never indexes uriVec past end |
+| `DTS2026072717921` | [OH-2026-CAM-005](../content/issues/OH-2026-CAM-005.md) | MEDIUM | odd-count pair walk must not OOB |
+| `DTS2026073020799` | [OH-2026-DEVMGR-004](../content/issues/OH-2026-DEVMGR-004.md) | HIGH | GenerateRandNum samples a valid distribution (no SIGSEGV) |
+| `DTS2026080813420` | [OH-2026-CAM-007](../content/issues/OH-2026-CAM-007.md) | MEDIUM | short/odd HIGH_QUALITY_SUPPORT must not OOB |
 
 ## Arithmetic & Numeric Bugs
 
@@ -587,5 +744,6 @@ Masking/redaction fails; secrets or addresses reach logs.
 
 - Scope is DTS-submitted bugs only (`internal_issue_id`).
 - Bug types are derived primarily from CWE, refined by title/symptom. Each ticket maps to one primary type.
+- Detecting property follows pi-pbt oracles (`State Machine` ≻ `Differential` ≻ `Algebraic` ≻ `Reference` ≻ `Crash-Only`). One primary property per ticket.
 - Local write-ups: [`content/issues/`](../content/issues/).
 
