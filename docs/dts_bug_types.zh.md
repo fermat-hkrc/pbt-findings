@@ -2,25 +2,25 @@
 
 对 [`content/issues/`](../content/issues/) 中带有 **DTS** 工单号（`internal_issue_id`）的发现所做的归类，按**缺陷类型**（失效模式）分组，而非按组件分组。
 
-- **DTS 工单数**：**59**
+- **DTS 工单数**：**73**
 - **状态**：所列工单均为 `CONFIRMED_FIXED`（已确认修复）
-- **严重级别**：HIGH=15，MEDIUM=42，LOW=2
-- **精确率**（判定为 DTS）：**88.1%**（59 个 FIXED / 67 个已判定）— [`finding_precision_by_project.md`](finding_precision_by_project.md)
-- **生成时间**：2026-08-18
+- **严重级别**：HIGH=15，MEDIUM=56，LOW=2
+- **精确率**（判定为 DTS）：**88.0%**（73 个 FIXED / 83 个已判定）— [`finding_precision_by_project.md`](finding_precision_by_project.md)
+- **生成时间**：2026-08-25
 
 ## 概览
 
 | 缺陷类型 | 数量 | HIGH | MEDIUM | LOW |
 |----------|------:|-----:|-------:|----:|
-| [算术 — 整数上溢 / 下溢](#算术-整数上溢-下溢) | 9 | 1 | 8 | 0 |
-| [算术 — 计算错误](#算术-计算错误) | 10 | 3 | 6 | 1 |
+| [算术 — 整数上溢 / 下溢](#算术-整数上溢-下溢) | 11 | 1 | 10 | 0 |
+| [算术 — 计算错误](#算术-计算错误) | 15 | 3 | 11 | 1 |
 | [算术 — 除零](#算术-除零) | 3 | 1 | 2 | 0 |
 | [算术 — 差一错误](#算术-差一错误) | 3 | 1 | 2 | 0 |
-| [内存安全 — 缓冲区 / 越界访问](#内存安全-缓冲区-越界访问) | 7 | 1 | 6 | 0 |
+| [内存安全 — 缓冲区 / 越界访问](#内存安全-缓冲区-越界访问) | 13 | 1 | 12 | 0 |
 | [内存安全 — 空指针解引用](#内存安全-空指针解引用) | 1 | 1 | 0 | 0 |
 | [内存安全 — 重复释放](#内存安全-重复释放) | 1 | 0 | 1 | 0 |
 | [控制流 — 死循环 / 挂起](#控制流-死循环-挂起) | 3 | 0 | 3 | 0 |
-| [逻辑 — 控制流错误](#逻辑-控制流错误) | 5 | 2 | 3 | 0 |
+| [逻辑 — 控制流错误](#逻辑-控制流错误) | 6 | 2 | 4 | 0 |
 | [逻辑 — 运算符 / 谓词错误](#逻辑-运算符-谓词错误) | 1 | 1 | 0 | 0 |
 | [逻辑 — 未检查返回值](#逻辑-未检查返回值) | 1 | 0 | 1 | 0 |
 | [未定义行为](#未定义行为) | 2 | 1 | 1 | 0 |
@@ -32,15 +32,15 @@
 | [安全 — 授权 / 访问控制](#安全-授权-访问控制) | 3 | 1 | 2 | 0 |
 | [安全 — 证书校验](#安全-证书校验) | 1 | 1 | 0 | 0 |
 | [安全 — 信息泄露](#安全-信息泄露) | 1 | 0 | 1 | 0 |
-| **合计** | **59** | **15** | **42** | **2** |
+| **合计** | **73** | **15** | **56** | **2** |
 
 ### 按家族
 
 | 家族 | 数量 |
 |--------|------:|
-| 算术与数值类缺陷 | 25 |
-| 内存安全 | 9 |
-| 控制流与逻辑 | 13 |
+| 算术与数值类缺陷 | 32 |
+| 内存安全 | 15 |
+| 控制流与逻辑 | 14 |
 | 输入校验 | 7 |
 | 安全 | 5 |
 
@@ -50,19 +50,20 @@
 
 | 模块 | 数量 | HIGH | MEDIUM | LOW | 精确率 |
 |--------|------:|-----:|-------:|----:|----------:|
+| `multimedia_camera_framework` | 11 | 0 | 10 | 1 | 100% |
+| `multimedia_image_framework` | 9 | 1 | 8 | 0 | 100% |
+| `arkui_ace_engine` | 8 | 4 | 4 | 0 | 89% |
 | `graphic_graphic_2d` | 8 | 2 | 5 | 1 | 100% |
-| `arkui_ace_engine` | 7 | 4 | 3 | 0 | 88% |
 | `communication_netmanager_base` | 7 | 2 | 5 | 0 | 78% |
-| `multimedia_camera_framework` | 6 | 0 | 5 | 1 | 100% |
+| `arkcompiler_runtime_core` | 5 | 0 | 5 | 0 | 83% |
 | `ability_ability_runtime` | 4 | 0 | 4 | 0 | 100% |
-| `arkcompiler_runtime_core` | 4 | 0 | 4 | 0 | 100% |
-| `multimedia_image_framework` | 4 | 1 | 3 | 0 | 100% |
+| `multimedia_av_codec` | 3 | 0 | 3 | 0 | 100% |
 | `distributeddatamgr_pasteboard` | 2 | 1 | 1 | 0 | 100% |
-| `distributedhardware_device_manager` | 2 | 2 | 0 | 0 | 100% |
-| `multimedia_av_codec` | 2 | 0 | 2 | 0 | 100% |
+| `distributedhardware_device_manager` | 2 | 2 | 0 | 0 | 67% |
 | `multimedia_player_framework` | 2 | 0 | 2 | 0 | 100% |
 | `window_window_manager` | 2 | 0 | 2 | 0 | 100% |
 | `commonlibrary_rust_ylong_http` | 1 | 1 | 0 | 0 | 100% |
+| `communication_dsoftbus` | 1 | 0 | 1 | 0 | 50% |
 | `communication_wifi` | 1 | 0 | 1 | 0 | 100% |
 | `distributeddatamgr_datamgr_service` | 1 | 0 | 1 | 0 | 100% |
 | `distributedhardware_distributed_hardware_fwk` | 1 | 0 | 1 | 0 | 100% |
@@ -71,7 +72,7 @@
 | `multimedia_av_session` | 1 | 1 | 0 | 0 | 50% |
 | `multimedia_media_foundation` | 1 | 1 | 0 | 0 | 25% |
 | `multimedia_media_library` | 1 | 0 | 1 | 0 | 100% |
-| **合计** | **59** | **15** | **42** | **2** | **88%** |
+| **合计** | **73** | **15** | **56** | **2** | **88%** |
 
 ## DTS 索引
 
@@ -124,18 +125,32 @@
 | `DTS2026072750511` | [OH-2026-NET-004](../content/issues/OH-2026-NET-004.md) | 控制流 — 死循环 / 挂起 | MEDIUM | `communication_netmanager_base` |
 | `DTS2026072921166` | [OH-2026-WM-002](../content/issues/OH-2026-WM-002.md) | 算术 — 整数上溢 / 下溢 | MEDIUM | `window_window_manager` |
 | `DTS2026072935286` | [OH-2026-AVCODEC-002](../content/issues/OH-2026-AVCODEC-002.md) | 算术 — 差一错误 | MEDIUM | `multimedia_av_codec` |
+| `DTS2026073013382` | [OH-2026-IMG-009](../content/issues/OH-2026-IMG-009.md) | 算术 — 整数上溢 / 下溢 | MEDIUM | `multimedia_image_framework` |
 | `DTS2026073015200` | [OH-2026-IMG-003](../content/issues/OH-2026-IMG-003.md) | 逻辑 — 运算符 / 谓词错误 | HIGH | `multimedia_image_framework` |
 | `DTS2026073020799` | [OH-2026-DEVMGR-004](../content/issues/OH-2026-DEVMGR-004.md) | 算术 — 整数上溢 / 下溢 | HIGH | `distributedhardware_device_manager` |
+| `DTS2026073112258` | [ARK-2026-STR-001](../content/issues/ARK-2026-STR-001.md) | 逻辑 — 控制流错误 | MEDIUM | `arkcompiler_runtime_core` |
+| `DTS2026073116282` | [OH-2026-ARKUI-008](../content/issues/OH-2026-ARKUI-008.md) | 算术 — 计算错误 | MEDIUM | `arkui_ace_engine` |
 | `DTS2026073129863` | [OH-2026-GFX-006](../content/issues/OH-2026-GFX-006.md) | 逻辑 — 控制流错误 | MEDIUM | `graphic_graphic_2d` |
 | `DTS2026073173354` | [OH-2026-ABILITY-004](../content/issues/OH-2026-ABILITY-004.md) | 安全 — 授权 / 访问控制 | MEDIUM | `ability_ability_runtime` |
 | `DTS2026080528903` | [OH-2026-GFX-007](../content/issues/OH-2026-GFX-007.md) | 算术 — 差一错误 | MEDIUM | `graphic_graphic_2d` |
 | `DTS2026080530843` | [OH-2026-GFX-008](../content/issues/OH-2026-GFX-008.md) | 算术 — 计算错误 | LOW | `graphic_graphic_2d` |
 | `DTS2026080608464` | [OH-2026-NET-005](../content/issues/OH-2026-NET-005.md) | 控制流 — 死循环 / 挂起 | MEDIUM | `communication_netmanager_base` |
+| `DTS2026080813420` | [OH-2026-CAM-007](../content/issues/OH-2026-CAM-007.md) | 内存安全 — 缓冲区 / 越界访问 | MEDIUM | `multimedia_camera_framework` |
+| `DTS2026080813622` | [OH-2026-CAM-008](../content/issues/OH-2026-CAM-008.md) | 内存安全 — 缓冲区 / 越界访问 | MEDIUM | `multimedia_camera_framework` |
+| `DTS2026080813794` | [OH-2026-CAM-009](../content/issues/OH-2026-CAM-009.md) | 内存安全 — 缓冲区 / 越界访问 | MEDIUM | `multimedia_camera_framework` |
+| `DTS2026080813827` | [OH-2026-CAM-010](../content/issues/OH-2026-CAM-010.md) | 内存安全 — 缓冲区 / 越界访问 | MEDIUM | `multimedia_camera_framework` |
+| `DTS2026080813868` | [OH-2026-CAM-011](../content/issues/OH-2026-CAM-011.md) | 内存安全 — 缓冲区 / 越界访问 | MEDIUM | `multimedia_camera_framework` |
 | `DTS2026081126994` | [OH-2026-IMG-005](../content/issues/OH-2026-IMG-005.md) | 算术 — 计算错误 | MEDIUM | `multimedia_image_framework` |
 | `DTS2026081128460` | [OH-2026-IMG-004](../content/issues/OH-2026-IMG-004.md) | 逻辑 — 控制流错误 | MEDIUM | `multimedia_image_framework` |
 | `DTS2026081135903` | [OH-2026-NET-007](../content/issues/OH-2026-NET-007.md) | 内存安全 — 缓冲区 / 越界访问 | MEDIUM | `communication_netmanager_base` |
 | `DTS2026081136698` | [OH-2026-NET-006](../content/issues/OH-2026-NET-006.md) | 内存安全 — 缓冲区 / 越界访问 | MEDIUM | `communication_netmanager_base` |
 | `DTS2026081318473` | [OH-2026-PLAYER-002](../content/issues/OH-2026-PLAYER-002.md) | 算术 — 计算错误 | MEDIUM | `multimedia_player_framework` |
+| `DTS2026081413702` | [OH-2026-IMG-008](../content/issues/OH-2026-IMG-008.md) | 算术 — 计算错误 | MEDIUM | `multimedia_image_framework` |
+| `DTS2026081417372` | [OH-2026-IMG-010](../content/issues/OH-2026-IMG-010.md) | 算术 — 计算错误 | MEDIUM | `multimedia_image_framework` |
+| `DTS2026081421810` | [OH-2026-IMG-007](../content/issues/OH-2026-IMG-007.md) | 算术 — 整数上溢 / 下溢 | MEDIUM | `multimedia_image_framework` |
+| `DTS2026081424330` | [OH-2026-IMG-006](../content/issues/OH-2026-IMG-006.md) | 算术 — 计算错误 | MEDIUM | `multimedia_image_framework` |
+| `DTS2026081713997` | [OH-2026-AVCODEC-003](../content/issues/OH-2026-AVCODEC-003.md) | 算术 — 计算错误 | MEDIUM | `multimedia_av_codec` |
+| `DTS2026082023118` | [OH-2026-DSOFTBUS-001](../content/issues/OH-2026-DSOFTBUS-001.md) | 内存安全 — 缓冲区 / 越界访问 | MEDIUM | `communication_dsoftbus` |
 
 ## 算术与数值类缺陷
 
@@ -154,6 +169,8 @@
 | `DTS2026072454808` | [OH-2026-MEDIALIB-001](../content/issues/OH-2026-MEDIALIB-001.md) | MEDIUM | CWE-191（整数下溢（回绕）） | `common/utils/src/media_uri_utils.cpp` · `multimedia_media_library` | GetFileIdStr 在仅含 bucket 的 URI 上返回 bucket 名（npos+1 回绕） |
 | `DTS2026072921166` | [OH-2026-WM-002](../content/issues/OH-2026-WM-002.md) | MEDIUM | CWE-191（整数下溢（回绕）） | `wmserver/src/window_layout_policy_cascade.cpp` · `window_window_manager` | ComputeRectByAspectRatio 级联布局剥离装饰框时 uint32 下溢 |
 | `DTS2026073020799` | [OH-2026-DEVMGR-004](../content/issues/OH-2026-DEVMGR-004.md) | HIGH | CWE-190（整数溢出或回绕） | `utils/src/dm_random.cpp` · `distributedhardware_device_manager` | GenerateRandNum 无效的 uniform_int_distribution(1, 0xFFFFFFFF) → SIGSEGV |
+| `DTS2026073013382` | [OH-2026-IMG-009](../content/issues/OH-2026-IMG-009.md) | MEDIUM | CWE-190（整数溢出或回绕） | `frameworks/innerkitsimpl/converter/src/pixel_convert.cpp` · `multimedia_image_framework` | IsValidRowStride 的 int32 溢出接受不可能的 stride（width*bpp 回绕） |
+| `DTS2026081421810` | [OH-2026-IMG-007](../content/issues/OH-2026-IMG-007.md) | MEDIUM | CWE-190（整数溢出或回绕） | `frameworks/innerkitsimpl/utils/src/pixel_yuv_utils.cpp` · `multimedia_image_framework` | PixelYuvUtils::IsLegalAxis 拒绝一切合法负向平移（INT32_MAX - offset 回绕） |
 
 <details><summary>摘要</summary>
 
@@ -166,6 +183,8 @@
 - **OH-2026-MEDIALIB-001**（`DTS2026072454808`）：`MediaUriUtils::GetFileIdStr` 用 `tmp.substr(tmp.find_first_of('/') + 1)` 提取文件 ID 段。当前缀之后的剩余部分**没有** `/`（仅含 bucket 的 URI `file://media/<bucket>`）时，`find_first_of` 返回 `npos`；`npos + 1`……
 - **OH-2026-WM-002**（`DTS2026072921166`）：`ComputeRectByAspectRatio` 用裸 `uint32_t -=` 剥离装饰框。小于 `WINDOW_FRAME_WIDTH`（5）的请求会发生下溢，级联布局使用了回绕后的尺寸。
 - **OH-2026-DEVMGR-004**（`DTS2026073020799`）：`GenerateRandNum` 构造 `uniform_int_distribution<>(1, 0xFFFFFFFF)`。默认类型是 `int`；`0xFFFFFFFF` 是 **-1** → 无效范围 `[1, -1]` → SIGSEGV。
+- **OH-2026-IMG-009**（`DTS2026073013382`）：`PixelConvert::IsValidRowStride` 用 `int32` 乘 `width * bpp`。溢出（如 RGBA_F16 `width=INT32_MAX/8+1`）回绕为负，因此 `rowStride=1` 被接受。同类 `pixel_map.cpp` 已使用 `int64_t`。
+- **OH-2026-IMG-007**（`DTS2026081421810`）：`IsLegalAxis` 用 `size > INT32_MAX - offset` 守卫 `size + offset`。负 offset 使减法回绕；每一个合法 YUV 平移-收缩都在 `[1, MAX_DIMENSION]` 检查之前被拒绝。
 
 </details>
 
@@ -185,6 +204,11 @@
 | `DTS2026081126994` | [OH-2026-IMG-005](../content/issues/OH-2026-IMG-005.md) | MEDIUM | CWE-682（计算错误） | `frameworks/innerkitsimpl/converter/src/matrix.cpp` · `multimedia_image_framework` | Matrix::SetConcat 缩放/平移快速路径中平移量相乘错误 |
 | `DTS2026080530843` | [OH-2026-GFX-008](../content/issues/OH-2026-GFX-008.md) | LOW | CWE-682（计算错误） | `rosen/modules/2d_graphics/include/utils/sampling_options.h` · `graphic_graphic_2d` | CubicResampler::Dump 把 cubicCoffB 写入 cubicCoffC 字段 |
 | `DTS2026081318473` | [OH-2026-PLAYER-002](../content/issues/OH-2026-PLAYER-002.md) | MEDIUM | CWE-682（计算错误） | `services/utils/media_utils.cpp` · `multimedia_player_framework` | TransRecorderStatus 复用器映射缺少 START 键 + STOP 键重复 |
+| `DTS2026081413702` | [OH-2026-IMG-008](../content/issues/OH-2026-IMG-008.md) | MEDIUM | CWE-682（计算错误） | `frameworks/innerkitsimpl/converter/include/pixel_convert.h` · `multimedia_image_framework` | HalfToUint32 小端/大端分支对调（每个 live half 通道都被字节交换） |
+| `DTS2026081417372` | [OH-2026-IMG-010](../content/issues/OH-2026-IMG-010.md) | MEDIUM | CWE-682（计算错误） | `frameworks/innerkitsimpl/converter/include/pixel_convert.h` · `multimedia_image_framework` | FloatToHalf 把 0.0f 映射为 Half 2.0（0x4000）— 重基减法无符号下溢 |
+| `DTS2026081424330` | [OH-2026-IMG-006](../content/issues/OH-2026-IMG-006.md) | MEDIUM | CWE-682（计算错误） | `frameworks/innerkitsimpl/converter/include/pixel_convert.h` · `multimedia_image_framework` | HalfToFloat 把 half +0（0x0000）映射为 2^-15 而非 0.0f |
+| `DTS2026081713997` | [OH-2026-AVCODEC-003](../content/issues/OH-2026-AVCODEC-003.md) | MEDIUM | CWE-682（计算错误） | `services/media_engine/plugins/source/http_source/hls/hls_tags.cpp` · `multimedia_av_codec` | ValuesListTag::ParseAttributes 的 TITLE 包含前导逗号 |
+| `DTS2026073116282` | [OH-2026-ARKUI-008](../content/issues/OH-2026-ARKUI-008.md) | MEDIUM | CWE-682（计算错误） | `frameworks/core/components_ng/pattern/data_panel/data_panel_modifier.cpp` · `arkui_ace_engine` | DataPanel GetPaintPath 无守卫 asin → 描边压垮半径时 circleAngle 为 NaN |
 
 <details><summary>摘要</summary>
 
@@ -198,6 +222,11 @@
 - **OH-2026-IMG-005**（`DTS2026081126994`）：`Matrix::SetConcat` 缩放/平移快速路径（无旋转/倾斜）把平移组合为 `tx1*tx2+tx1` 而非 `sx1*tx2+tx1`。同函数中的完整旋转路径使用了正确的 `MulAddMul`。错误的组合几何（例如先缩放后……
 - **OH-2026-GFX-008**（`DTS2026080530843`）：`CubicResampler::Dump` 从 `cubicCoffB` 格式化两个带标签的字段 — 复制粘贴错操作数 — 因此 `cubicCoffC:` 槽位总是显示 B。仅影响调试/跟踪字符串；无崩溃、无滤镜计算。采样本身使用真实字段（`GetCubicCof……`
 - **OH-2026-PLAYER-002**（`DTS2026081318473`）：`TransRecorderStatus` 映射把 `ERROR_MUXER_STOP_FAILED` 映射到 `MSERR_MUXER_START_FAILED`（复制粘贴），随后第二行 STOP→STOP 被 `unordered_map` 忽略。START 复用器错误永远无法映射；STOP 报告为 START。
+- **OH-2026-IMG-008**（`DTS2026081413702`）：`HalfToUint32` 的 LE/BE 三元分支对调。实际 LE 路径构造 `(lo<<8)|hi` — 每个 half 都被字节交换。通道 `1.0`（`0x3C00`）变成 `0`；同类 `HalfTranslate` 已正确按 LE 加载。
+- **OH-2026-IMG-010**（`DTS2026081417372`）：`FloatToHalf` 重基减法 `(magnitude >> 13) - 0x1C000` 在 ±0.0f 上下溢 → 低 16 位 `0x4000`（half +2.0）而非 `0x0000`。纯黑 / 透明 alpha 被编码为 2.0。
+- **OH-2026-IMG-006**（`DTS2026081424330`）：`HalfToFloat` 把仅适用于正规数的指数重基 `((mag << 13) + 0x38000000)` 用到所有输入。half ±0 的幅度为 0 → 造出 `0x38000000` = `2^-15` 而非 `0.0f`。
+- **OH-2026-AVCODEC-003**（`DTS2026081713997`）：`ValuesListTag::ParseAttributes` 拆分 HLS `#EXTINF:duration,title`。DURATION 用 `substr(0, pos)`（不含逗号）；TITLE 用 `substr(pos)`（含逗号）→ 每个带标题分段的 TITLE 都以 `,` 开头。
+- **OH-2026-ARKUI-008**（`DTS2026073116282`）：`DataPanelModifier::GetPaintPath` 用无守卫的 `asin(thickness/2 / (radius - thickness/2))` 计算 `circleAngle`。描边 ≥ 最小边一半时 `radius <= 0` → 角度为 NaN / 弧线损坏。
 
 </details>
 
@@ -252,6 +281,12 @@
 | `DTS2026072514260` | [OH-2026-ABILITY-003](../content/issues/OH-2026-ABILITY-003.md) | MEDIUM | CWE-125（越界读取） | `services/abilitymgr/src/dialog_session/dialog_session_info.cpp` · `ability_ability_runtime` | ParseURI 的 catch 在最后一个字段 stoi 失败后越界索引 uriVec |
 | `DTS2026081136698` | [OH-2026-NET-006](../content/issues/OH-2026-NET-006.md) | MEDIUM | CWE-125（越界读取） | `services/netmanagernative/bpf/include/bitmap_manager.h` · `communication_netmanager_base` | prefixLen > 128 时 Ip6RuleMap::GetNetworkAddress 越界 |
 | `DTS2026081135903` | [OH-2026-NET-007](../content/issues/OH-2026-NET-007.md) | MEDIUM | CWE-125（越界读取） | `services/netconnmanager/src/pac_functions.cpp` · `communication_netmanager_base` | CheckIpv6InNet 缺少前缀长度边界 — 负值时全匹配 / /129+ 时越界 |
+| `DTS2026080813420` | [OH-2026-CAM-007](../content/issues/OH-2026-CAM-007.md) | MEDIUM | CWE-125（越界读取） | `frameworks/native/camera/base/src/output/photo_output.cpp` · `multimedia_camera_framework` | HIGH_QUALITY_SUPPORT 成对遍历 / 默认 u8[1] 在短或奇数 count 时越界 |
+| `DTS2026080813622` | [OH-2026-CAM-008](../content/issues/OH-2026-CAM-008.md) | MEDIUM | CWE-125（越界读取） | `frameworks/native/camera/base/src/session/capture_session.cpp` · `multimedia_camera_framework` | GetZoomRatioRange 步长 3 的 FOV 读取缺少同类边界检查 |
+| `DTS2026080813794` | [OH-2026-CAM-009](../content/issues/OH-2026-CAM-009.md) | MEDIUM | CWE-125（越界读取） | `frameworks/native/camera/base/src/output/sketch_wrapper.cpp` · `multimedia_camera_framework` | 月亮增强 FOV 三元组读取 ui32[i+1]/[i+2] 无界（两处） |
+| `DTS2026080813827` | [OH-2026-CAM-010](../content/issues/OH-2026-CAM-010.md) | MEDIUM | CWE-125（越界读取） | `services/camera_service/src/hcapture_session.cpp` · `multimedia_camera_framework` | QueryZoomPerformance TLV 遍历越界（mode / num / points） |
+| `DTS2026080813868` | [OH-2026-CAM-011](../content/issues/OH-2026-CAM-011.md) | MEDIUM | CWE-125（越界读取） | `frameworks/native/camera/base/src/input/camera_manager.cpp` · `multimedia_camera_framework` | ParsingCameraConcurrentLimted 长度前缀越界 |
+| `DTS2026082023118` | [OH-2026-DSOFTBUS-001](../content/issues/OH-2026-DSOFTBUS-001.md) | MEDIUM | CWE-125（越界读取） | `core/connection/wifi_direct_cpp/processor/p2p_v1_processor.cpp` · `communication_dsoftbus` | ConnectGroup 差一守卫在 3 段 group config 上读取 configs[3] |
 
 <details><summary>摘要</summary>
 
@@ -262,6 +297,12 @@
 - **OH-2026-ABILITY-003**（`DTS2026072514260`）：最后一个 `stoi(uriVec[index++])` 在抛出异常前把 `index` 推进到 11；catch 中记录 `uriVec[index++]` 越界（对 `operator[]` 是 UB）。
 - **OH-2026-NET-006**（`DTS2026081136698`）：`Ip6RuleMap::GetNetworkAddress` 以 `prefixLen / 8` 索引 `s6_addr` 且无上界。`prefixLen > 128` → 越界读和错误的 netfirewall 位图键。
 - **OH-2026-NET-007**（`DTS2026081135903`）：`CheckIpv6InNet` 在索引 `s6_addr` 前没有 `prefixLen` 边界检查。PAC 的 `atoi` 可能为负（全匹配）或 `/129+`（越界）。
+- **OH-2026-CAM-007**（`DTS2026080813420`）：`IsAutoHighQualityPhotoSupported` 在没有 `count >= 2` 时读 `u8[1]`，并以 `i < count` 成对遍历后读 `u8[i+1]`。短/奇数 `HIGH_QUALITY_SUPPORT` → 越界；Find 失败则遍历未初始化的 `item`。
+- **OH-2026-CAM-008**（`DTS2026080813622`）：`GetZoomRatioRange` 以步长 3 遍历 scene-zoom 三元组，边界只有 `i < count`，然后读 `i32[i+1]`/`[i+2]`。同类 `GetRAWZoomRatioRange` 已检查 `i + maxOffset`。
+- **OH-2026-CAM-009**（`DTS2026080813794`）：两处月亮增强 FOV 站点只以 `i < count` 读 `ui32[i+1]`/`[i+2]`。截断的 FOV 尾部 → 越界。sketch 浮点同类已使用 `i < count - 2`。
+- **OH-2026-CAM-010**（`DTS2026080813827`）：`QueryZoomPerformance` 信任 TLV 的 `num` 且无剩余长度检查，随后 `GetCrossZoomAndTime` 步长 3 无尾部守卫。短/虚报 `num` → 越界。
+- **OH-2026-CAM-011**（`DTS2026080813868`）：`ParsingCameraConcurrentLimted` 读取长度前缀 `originInfo[i+1]` 再读 payload，没有 `i+1 < count` / `i+2+length <= count`。辅助函数盲目循环 `k < length`。
+- **OH-2026-DSOFTBUS-001**（`DTS2026082023118`）：`ConnectGroup` 守卫 `configs.size() < INDEX_FREQ`（3）然后读 `configs[3]`。3 段对端 group config 通过守卫并越界。同类 `P2pConnectGroup` 要求 `size >= INDEX_MODE`（4）。
 
 </details>
 
@@ -324,6 +365,7 @@
 | `DTS2026071544397` | [OH-2026-ABILITY-001](../content/issues/OH-2026-ABILITY-001.md) | MEDIUM | CWE-754（异常条件检查或处理不当） | `frameworks/native/ability/native/ability_runtime/js_ui_ability.cpp` · `ability_ability_runtime` | Stage 模型 .abc 路径构建器中 erase(rfind('.')) 无守卫，无扩展名 srcEntrance 导致应用崩溃 |
 | `DTS2026073129863` | [OH-2026-GFX-006](../content/issues/OH-2026-GFX-006.md) | MEDIUM | CWE-670（控制流实现始终错误） | `rosen/modules/2d_graphics/src/drawing/config/DrawingConfig.cpp` · `graphic_graphic_2d` | UpdateDrawingProperties 永久空操作（枚举与字符串列表大小不一致） |
 | `DTS2026081128460` | [OH-2026-IMG-004](../content/issues/OH-2026-IMG-004.md) | MEDIUM | CWE-670（控制流实现始终错误） | `frameworks/innerkitsimpl/utils/src/image_utils.cpp` · `multimedia_image_framework` | GetValidAlphaTypeByFormat 缺少 RGBA_U16 分支，返回 UNKNOWN |
+| `DTS2026073112258` | [ARK-2026-STR-001](../content/issues/ARK-2026-STR-001.md) | MEDIUM | CWE-680（整数溢出导致缓冲区溢出） | `panda_guard/util/string_util.cpp` · `arkcompiler_runtime_core` | RemoveSlashFromBothEnds("/") 对空串 pop_back()（UB / 损坏 size） |
 
 <details><summary>摘要</summary>
 
@@ -332,6 +374,7 @@
 - **OH-2026-ABILITY-001**（`DTS2026071544397`）：Stage 模型 `.abc` 路径构建器从 HAP 的模块名和 `srcEntrance` 构造编译后的 arkts 路径，然后调用 `srcPath.erase(srcPath.rfind("."))` 去掉源扩展名。**没有 `npos` 守卫**。当……
 - **OH-2026-GFX-006**（`DTS2026073129863`）：`DrawingConfig::UpdateDrawingProperties` 把 `DrawingDisableFlag::COUNT`（42）与 `gDrawingDisableFlagStr.size()`（41）比较，不匹配即提前返回 — 因此**没有任何** `drawing.disable*` 参数被应用，所有标志保持 `false`。……
 - **OH-2026-IMG-004**（`DTS2026081128460`）：`ImageUtils::GetValidAlphaTypeByFormat` 对 RGBA 类格式归一化 alpha 类型时落穿 `break` 组并返回调用者的 `dstType`。`RGBA_F16` 在该组中；**缺少 `RGBA_U16`**，落入 `default` → `IMA……`
+- **ARK-2026-STR-001**（`DTS2026073112258`）：`RemoveSlashFromBothEnds` 剥离 `/pattern/` 定界符。守卫 `!empty() && front=='/' && back=='/'` 对单个 `"/"`（同一字符）也通过。`erase()` 清空后再对空串 `pop_back()` → UB；libstdc++ 的 `size()` 下溢到约 7.2e16。
 
 </details>
 
@@ -509,9 +552,9 @@ TLS/固定校验使用了错误的材料或指针。
 
 | CWE | 名称 | 数量 |
 |-----|------|------:|
-| CWE-682 | 计算错误 | 10 |
-| CWE-125 | 越界读取 | 5 |
-| CWE-190 | 整数溢出或回绕 | 5 |
+| CWE-682 | 计算错误 | 15 |
+| CWE-125 | 越界读取 | 11 |
+| CWE-190 | 整数溢出或回绕 | 7 |
 | CWE-670 | 控制流实现始终错误 | 4 |
 | CWE-191 | 整数下溢（回绕） | 4 |
 | CWE-369 | 除零 | 3 |
@@ -533,6 +576,7 @@ TLS/固定校验使用了错误的材料或指针。
 | CWE-459 | 清理不完整 | 1 |
 | CWE-476 | 空指针解引用 | 1 |
 | CWE-480 | 使用错误运算符 | 1 |
+| CWE-680 | 整数溢出导致缓冲区溢出 | 1 |
 | CWE-754 | 异常条件检查或处理不当 | 1 |
 | CWE-787 | 越界写入 | 1 |
 | CWE-787 | 越界读取 | 1 |
