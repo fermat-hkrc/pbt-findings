@@ -168,8 +168,8 @@
 | `DTS2026072438492` | [OH-2026-IMG-002](../content/issues/OH-2026-IMG-002.md) | MEDIUM | CWE-190（整数溢出或回绕） | `frameworks/innerkitsimpl/converter/src/post_proc.cpp` · `multimedia_image_framework` | 当 top+height / left+width 溢出 int32 时 PostProc::GetCropValue 接受越界裁剪 |
 | `DTS2026072454808` | [OH-2026-MEDIALIB-001](../content/issues/OH-2026-MEDIALIB-001.md) | MEDIUM | CWE-191（整数下溢（回绕）） | `common/utils/src/media_uri_utils.cpp` · `multimedia_media_library` | GetFileIdStr 在仅含 bucket 的 URI 上返回 bucket 名（npos+1 回绕） |
 | `DTS2026072921166` | [OH-2026-WM-002](../content/issues/OH-2026-WM-002.md) | MEDIUM | CWE-191（整数下溢（回绕）） | `wmserver/src/window_layout_policy_cascade.cpp` · `window_window_manager` | ComputeRectByAspectRatio 级联布局剥离装饰框时 uint32 下溢 |
-| `DTS2026073020799` | [OH-2026-DEVMGR-004](../content/issues/OH-2026-DEVMGR-004.md) | HIGH | CWE-190（整数溢出或回绕） | `utils/src/dm_random.cpp` · `distributedhardware_device_manager` | GenerateRandNum 无效的 uniform_int_distribution(1, 0xFFFFFFFF) → SIGSEGV |
 | `DTS2026073013382` | [OH-2026-IMG-009](../content/issues/OH-2026-IMG-009.md) | MEDIUM | CWE-190（整数溢出或回绕） | `frameworks/innerkitsimpl/converter/src/pixel_convert.cpp` · `multimedia_image_framework` | IsValidRowStride 的 int32 溢出接受不可能的 stride（width*bpp 回绕） |
+| `DTS2026073020799` | [OH-2026-DEVMGR-004](../content/issues/OH-2026-DEVMGR-004.md) | HIGH | CWE-190（整数溢出或回绕） | `utils/src/dm_random.cpp` · `distributedhardware_device_manager` | GenerateRandNum 无效的 uniform_int_distribution(1, 0xFFFFFFFF) → SIGSEGV |
 | `DTS2026081421810` | [OH-2026-IMG-007](../content/issues/OH-2026-IMG-007.md) | MEDIUM | CWE-190（整数溢出或回绕） | `frameworks/innerkitsimpl/utils/src/pixel_yuv_utils.cpp` · `multimedia_image_framework` | PixelYuvUtils::IsLegalAxis 拒绝一切合法负向平移（INT32_MAX - offset 回绕） |
 
 <details><summary>摘要</summary>
@@ -182,8 +182,8 @@
 - **OH-2026-IMG-002**（`DTS2026072438492`）：`PostProc::GetCropValue` 用裸 `int32_t` 加法 `top + height` 和 `left + width` 对裁剪分类。当数学和超出 `INT32_MAX` 时，和发生回绕（有符号溢出是 UB；常见编译器按回绕处理），并且常常通过 `<= size` 的比较……
 - **OH-2026-MEDIALIB-001**（`DTS2026072454808`）：`MediaUriUtils::GetFileIdStr` 用 `tmp.substr(tmp.find_first_of('/') + 1)` 提取文件 ID 段。当前缀之后的剩余部分**没有** `/`（仅含 bucket 的 URI `file://media/<bucket>`）时，`find_first_of` 返回 `npos`；`npos + 1`……
 - **OH-2026-WM-002**（`DTS2026072921166`）：`ComputeRectByAspectRatio` 用裸 `uint32_t -=` 剥离装饰框。小于 `WINDOW_FRAME_WIDTH`（5）的请求会发生下溢，级联布局使用了回绕后的尺寸。
-- **OH-2026-DEVMGR-004**（`DTS2026073020799`）：`GenerateRandNum` 构造 `uniform_int_distribution<>(1, 0xFFFFFFFF)`。默认类型是 `int`；`0xFFFFFFFF` 是 **-1** → 无效范围 `[1, -1]` → SIGSEGV。
 - **OH-2026-IMG-009**（`DTS2026073013382`）：`PixelConvert::IsValidRowStride` 用 `int32` 乘 `width * bpp`。溢出（如 RGBA_F16 `width=INT32_MAX/8+1`）回绕为负，因此 `rowStride=1` 被接受。同类 `pixel_map.cpp` 已使用 `int64_t`。
+- **OH-2026-DEVMGR-004**（`DTS2026073020799`）：`GenerateRandNum` 构造 `uniform_int_distribution<>(1, 0xFFFFFFFF)`。默认类型是 `int`；`0xFFFFFFFF` 是 **-1** → 无效范围 `[1, -1]` → SIGSEGV。
 - **OH-2026-IMG-007**（`DTS2026081421810`）：`IsLegalAxis` 用 `size > INT32_MAX - offset` 守卫 `size + offset`。负 offset 使减法回绕；每一个合法 YUV 平移-收缩都在 `[1, MAX_DIMENSION]` 检查之前被拒绝。
 
 </details>
