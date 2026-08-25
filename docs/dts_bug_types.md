@@ -2,21 +2,21 @@
 
 Categorization of [`content/issues/`](../content/issues/) findings that carry a **DTS** ticket (`internal_issue_id`), grouped by **bug type** (failure mode), not by component.
 
-- **DTS tickets**: **66**
+- **DTS tickets**: **73**
 - **Status**: all listed tickets are `CONFIRMED_FIXED`
-- **Severity**: HIGH=15, MEDIUM=49, LOW=2
-- **Precision** (decided DTS): **89.2%** (66 FIXED / 74 decided) — [`finding_precision_by_project.md`](finding_precision_by_project.md)
-- **Generated**: 2026-08-21
+- **Severity**: HIGH=15, MEDIUM=56, LOW=2
+- **Precision** (decided DTS): **88.0%** (73 FIXED / 83 decided) — [`finding_precision_by_project.md`](finding_precision_by_project.md)
+- **Generated**: 2026-08-25
 
 ## Overview
 
 | Bug type | Count | HIGH | MEDIUM | LOW |
 |----------|------:|-----:|-------:|----:|
 | [Arithmetic — Integer Overflow / Underflow](#arithmetic-integer-overflow-underflow) | 11 | 1 | 10 | 0 |
-| [Arithmetic — Incorrect Calculation](#arithmetic-incorrect-calculation) | 14 | 3 | 10 | 1 |
+| [Arithmetic — Incorrect Calculation](#arithmetic-incorrect-calculation) | 15 | 3 | 11 | 1 |
 | [Arithmetic — Divide by Zero](#arithmetic-divide-by-zero) | 3 | 1 | 2 | 0 |
 | [Arithmetic — Off-by-One](#arithmetic-off-by-one) | 3 | 1 | 2 | 0 |
-| [Memory Safety — Buffer / OOB Access](#memory-safety-buffer-oob-access) | 7 | 1 | 6 | 0 |
+| [Memory Safety — Buffer / OOB Access](#memory-safety-buffer-oob-access) | 13 | 1 | 12 | 0 |
 | [Memory Safety — Null Pointer Dereference](#memory-safety-null-pointer-dereference) | 1 | 1 | 0 | 0 |
 | [Memory Safety — Double Free](#memory-safety-double-free) | 1 | 0 | 1 | 0 |
 | [Control Flow — Infinite Loop / Hang](#control-flow-infinite-loop-hang) | 3 | 0 | 3 | 0 |
@@ -32,14 +32,14 @@ Categorization of [`content/issues/`](../content/issues/) findings that carry a 
 | [Security — Authorization / Access Control](#security-authorization-access-control) | 3 | 1 | 2 | 0 |
 | [Security — Certificate Validation](#security-certificate-validation) | 1 | 1 | 0 | 0 |
 | [Security — Information Leakage](#security-information-leakage) | 1 | 0 | 1 | 0 |
-| **Total** | **66** | **15** | **49** | **2** |
+| **Total** | **73** | **15** | **56** | **2** |
 
 ### By family
 
 | Family | Count |
 |--------|------:|
-| Arithmetic & Numeric Bugs | 31 |
-| Memory Safety | 9 |
+| Arithmetic & Numeric Bugs | 32 |
+| Memory Safety | 15 |
 | Control Flow & Logic | 14 |
 | Input Validation | 7 |
 | Security | 5 |
@@ -50,19 +50,20 @@ Count is this catalog (`CONFIRMED_FIXED` write-ups). **Precision** is `FIXED / (
 
 | Module | Count | HIGH | MEDIUM | LOW | Precision |
 |--------|------:|-----:|-------:|----:|----------:|
+| `multimedia_camera_framework` | 11 | 0 | 10 | 1 | 100% |
 | `multimedia_image_framework` | 9 | 1 | 8 | 0 | 100% |
+| `arkui_ace_engine` | 8 | 4 | 4 | 0 | 89% |
 | `graphic_graphic_2d` | 8 | 2 | 5 | 1 | 100% |
-| `arkui_ace_engine` | 7 | 4 | 3 | 0 | 88% |
 | `communication_netmanager_base` | 7 | 2 | 5 | 0 | 78% |
-| `multimedia_camera_framework` | 6 | 0 | 5 | 1 | 100% |
-| `arkcompiler_runtime_core` | 5 | 0 | 5 | 0 | 100% |
+| `arkcompiler_runtime_core` | 5 | 0 | 5 | 0 | 83% |
 | `ability_ability_runtime` | 4 | 0 | 4 | 0 | 100% |
 | `multimedia_av_codec` | 3 | 0 | 3 | 0 | 100% |
 | `distributeddatamgr_pasteboard` | 2 | 1 | 1 | 0 | 100% |
-| `distributedhardware_device_manager` | 2 | 2 | 0 | 0 | 100% |
+| `distributedhardware_device_manager` | 2 | 2 | 0 | 0 | 67% |
 | `multimedia_player_framework` | 2 | 0 | 2 | 0 | 100% |
 | `window_window_manager` | 2 | 0 | 2 | 0 | 100% |
 | `commonlibrary_rust_ylong_http` | 1 | 1 | 0 | 0 | 100% |
+| `communication_dsoftbus` | 1 | 0 | 1 | 0 | 50% |
 | `communication_wifi` | 1 | 0 | 1 | 0 | 100% |
 | `distributeddatamgr_datamgr_service` | 1 | 0 | 1 | 0 | 100% |
 | `distributedhardware_distributed_hardware_fwk` | 1 | 0 | 1 | 0 | 100% |
@@ -71,7 +72,7 @@ Count is this catalog (`CONFIRMED_FIXED` write-ups). **Precision** is `FIXED / (
 | `multimedia_av_session` | 1 | 1 | 0 | 0 | 50% |
 | `multimedia_media_foundation` | 1 | 1 | 0 | 0 | 25% |
 | `multimedia_media_library` | 1 | 0 | 1 | 0 | 100% |
-| **Total** | **66** | **15** | **49** | **2** | **89%** |
+| **Total** | **73** | **15** | **56** | **2** | **88%** |
 
 ## DTS index
 
@@ -128,11 +129,17 @@ Count is this catalog (`CONFIRMED_FIXED` write-ups). **Precision** is `FIXED / (
 | `DTS2026073015200` | [OH-2026-IMG-003](../content/issues/OH-2026-IMG-003.md) | Logic — Incorrect Operator / Predicate | HIGH | `multimedia_image_framework` |
 | `DTS2026073020799` | [OH-2026-DEVMGR-004](../content/issues/OH-2026-DEVMGR-004.md) | Arithmetic — Integer Overflow / Underflow | HIGH | `distributedhardware_device_manager` |
 | `DTS2026073112258` | [ARK-2026-STR-001](../content/issues/ARK-2026-STR-001.md) | Logic — Incorrect Control Flow | MEDIUM | `arkcompiler_runtime_core` |
+| `DTS2026073116282` | [OH-2026-ARKUI-008](../content/issues/OH-2026-ARKUI-008.md) | Arithmetic — Incorrect Calculation | MEDIUM | `arkui_ace_engine` |
 | `DTS2026073129863` | [OH-2026-GFX-006](../content/issues/OH-2026-GFX-006.md) | Logic — Incorrect Control Flow | MEDIUM | `graphic_graphic_2d` |
 | `DTS2026073173354` | [OH-2026-ABILITY-004](../content/issues/OH-2026-ABILITY-004.md) | Security — Authorization / Access Control | MEDIUM | `ability_ability_runtime` |
 | `DTS2026080528903` | [OH-2026-GFX-007](../content/issues/OH-2026-GFX-007.md) | Arithmetic — Off-by-One | MEDIUM | `graphic_graphic_2d` |
 | `DTS2026080530843` | [OH-2026-GFX-008](../content/issues/OH-2026-GFX-008.md) | Arithmetic — Incorrect Calculation | LOW | `graphic_graphic_2d` |
 | `DTS2026080608464` | [OH-2026-NET-005](../content/issues/OH-2026-NET-005.md) | Control Flow — Infinite Loop / Hang | MEDIUM | `communication_netmanager_base` |
+| `DTS2026080813420` | [OH-2026-CAM-007](../content/issues/OH-2026-CAM-007.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `multimedia_camera_framework` |
+| `DTS2026080813622` | [OH-2026-CAM-008](../content/issues/OH-2026-CAM-008.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `multimedia_camera_framework` |
+| `DTS2026080813794` | [OH-2026-CAM-009](../content/issues/OH-2026-CAM-009.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `multimedia_camera_framework` |
+| `DTS2026080813827` | [OH-2026-CAM-010](../content/issues/OH-2026-CAM-010.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `multimedia_camera_framework` |
+| `DTS2026080813868` | [OH-2026-CAM-011](../content/issues/OH-2026-CAM-011.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `multimedia_camera_framework` |
 | `DTS2026081126994` | [OH-2026-IMG-005](../content/issues/OH-2026-IMG-005.md) | Arithmetic — Incorrect Calculation | MEDIUM | `multimedia_image_framework` |
 | `DTS2026081128460` | [OH-2026-IMG-004](../content/issues/OH-2026-IMG-004.md) | Logic — Incorrect Control Flow | MEDIUM | `multimedia_image_framework` |
 | `DTS2026081135903` | [OH-2026-NET-007](../content/issues/OH-2026-NET-007.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `communication_netmanager_base` |
@@ -143,6 +150,7 @@ Count is this catalog (`CONFIRMED_FIXED` write-ups). **Precision** is `FIXED / (
 | `DTS2026081421810` | [OH-2026-IMG-007](../content/issues/OH-2026-IMG-007.md) | Arithmetic — Integer Overflow / Underflow | MEDIUM | `multimedia_image_framework` |
 | `DTS2026081424330` | [OH-2026-IMG-006](../content/issues/OH-2026-IMG-006.md) | Arithmetic — Incorrect Calculation | MEDIUM | `multimedia_image_framework` |
 | `DTS2026081713997` | [OH-2026-AVCODEC-003](../content/issues/OH-2026-AVCODEC-003.md) | Arithmetic — Incorrect Calculation | MEDIUM | `multimedia_av_codec` |
+| `DTS2026082023118` | [OH-2026-DSOFTBUS-001](../content/issues/OH-2026-DSOFTBUS-001.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `communication_dsoftbus` |
 
 ## Arithmetic & Numeric Bugs
 
@@ -200,6 +208,7 @@ Wrong formula, operand, rounding, or matrix/color/geometry math that breaks inva
 | `DTS2026081417372` | [OH-2026-IMG-010](../content/issues/OH-2026-IMG-010.md) | MEDIUM | CWE-682 (Incorrect Calculation) | `frameworks/innerkitsimpl/converter/include/pixel_convert.h` · `multimedia_image_framework` | FloatToHalf maps 0.0f to Half 2.0 (0x4000) — unsigned underflow in rebase subtract |
 | `DTS2026081424330` | [OH-2026-IMG-006](../content/issues/OH-2026-IMG-006.md) | MEDIUM | CWE-682 (Incorrect Calculation) | `frameworks/innerkitsimpl/converter/include/pixel_convert.h` · `multimedia_image_framework` | HalfToFloat maps half +0 (0x0000) to 2^-15 instead of 0.0f |
 | `DTS2026081713997` | [OH-2026-AVCODEC-003](../content/issues/OH-2026-AVCODEC-003.md) | MEDIUM | CWE-682 (Incorrect Calculation) | `services/media_engine/plugins/source/http_source/hls/hls_tags.cpp` · `multimedia_av_codec` | ValuesListTag::ParseAttributes TITLE includes the leading comma |
+| `DTS2026073116282` | [OH-2026-ARKUI-008](../content/issues/OH-2026-ARKUI-008.md) | MEDIUM | CWE-682 (Incorrect Calculation) | `frameworks/core/components_ng/pattern/data_panel/data_panel_modifier.cpp` · `arkui_ace_engine` | DataPanel GetPaintPath unguarded asin → NaN circleAngle when stroke collapses radius |
 
 <details><summary>Summaries</summary>
 
@@ -217,6 +226,7 @@ Wrong formula, operand, rounding, or matrix/color/geometry math that breaks inva
 - **OH-2026-IMG-010** (`DTS2026081417372`): `FloatToHalf` rebase subtract `(magnitude >> 13) - 0x1C000` underflows on ±0.0f → low 16 bits `0x4000` (half +2.0) instead of `0x0000`. Pure black / transparent alpha encode as 2.0.
 - **OH-2026-IMG-006** (`DTS2026081424330`): `HalfToFloat` applies normals-only exponent rebase `((mag << 13) + 0x38000000)` to every input. Half ±0 magnitude is 0 → invents `0x38000000` = `2^-15` instead of `0.0f`.
 - **OH-2026-AVCODEC-003** (`DTS2026081713997`): `ValuesListTag::ParseAttributes` splits HLS `#EXTINF:duration,title`. DURATION uses `substr(0, pos)` (excludes comma); TITLE uses `substr(pos)` (includes comma) → every titled segment TITLE starts with `,`.
+- **OH-2026-ARKUI-008** (`DTS2026073116282`): `DataPanelModifier::GetPaintPath` computes `circleAngle` via unguarded `asin(thickness/2 / (radius - thickness/2))`. Stroke ≥ half min-side drives `radius <= 0` → NaN angle / broken arcs.
 
 </details>
 
@@ -271,6 +281,12 @@ Reads/writes past buffer limits; can crash (`SEGV`) or corrupt adjacent state.
 | `DTS2026072514260` | [OH-2026-ABILITY-003](../content/issues/OH-2026-ABILITY-003.md) | MEDIUM | CWE-125 (Out-of-bounds Read) | `services/abilitymgr/src/dialog_session/dialog_session_info.cpp` · `ability_ability_runtime` | ParseURI catch indexes uriVec past the end after last-field stoi failure |
 | `DTS2026081136698` | [OH-2026-NET-006](../content/issues/OH-2026-NET-006.md) | MEDIUM | CWE-125 (Out-of-bounds Read) | `services/netmanagernative/bpf/include/bitmap_manager.h` · `communication_netmanager_base` | Ip6RuleMap::GetNetworkAddress OOB on prefixLen > 128 |
 | `DTS2026081135903` | [OH-2026-NET-007](../content/issues/OH-2026-NET-007.md) | MEDIUM | CWE-125 (Out-of-bounds Read) | `services/netconnmanager/src/pac_functions.cpp` · `communication_netmanager_base` | CheckIpv6InNet missing prefix bounds — match-all on negative / OOB on /129+ |
+| `DTS2026080813420` | [OH-2026-CAM-007](../content/issues/OH-2026-CAM-007.md) | MEDIUM | CWE-125 (Out-of-bounds Read) | `frameworks/native/camera/base/src/output/photo_output.cpp` · `multimedia_camera_framework` | HIGH_QUALITY_SUPPORT pair walk / default u8[1] OOB on short or odd count |
+| `DTS2026080813622` | [OH-2026-CAM-008](../content/issues/OH-2026-CAM-008.md) | MEDIUM | CWE-125 (Out-of-bounds Read) | `frameworks/native/camera/base/src/session/capture_session.cpp` · `multimedia_camera_framework` | GetZoomRatioRange step-3 FOV read missing sibling bound |
+| `DTS2026080813794` | [OH-2026-CAM-009](../content/issues/OH-2026-CAM-009.md) | MEDIUM | CWE-125 (Out-of-bounds Read) | `frameworks/native/camera/base/src/output/sketch_wrapper.cpp` · `multimedia_camera_framework` | Moon-boost FOV triple reads ui32[i+1]/[i+2] unbound (two sites) |
+| `DTS2026080813827` | [OH-2026-CAM-010](../content/issues/OH-2026-CAM-010.md) | MEDIUM | CWE-125 (Out-of-bounds Read) | `services/camera_service/src/hcapture_session.cpp` · `multimedia_camera_framework` | QueryZoomPerformance TLV walk OOB (mode / num / points) |
+| `DTS2026080813868` | [OH-2026-CAM-011](../content/issues/OH-2026-CAM-011.md) | MEDIUM | CWE-125 (Out-of-bounds Read) | `frameworks/native/camera/base/src/input/camera_manager.cpp` · `multimedia_camera_framework` | ParsingCameraConcurrentLimted length-prefix OOB |
+| `DTS2026082023118` | [OH-2026-DSOFTBUS-001](../content/issues/OH-2026-DSOFTBUS-001.md) | MEDIUM | CWE-125 (Out-of-bounds Read) | `core/connection/wifi_direct_cpp/processor/p2p_v1_processor.cpp` · `communication_dsoftbus` | ConnectGroup off-by-one guard reads configs[3] on a 3-token group config |
 
 <details><summary>Summaries</summary>
 
@@ -281,6 +297,12 @@ Reads/writes past buffer limits; can crash (`SEGV`) or corrupt adjacent state.
 - **OH-2026-ABILITY-003** (`DTS2026072514260`): Last `stoi(uriVec[index++])` advances `index` to 11 before throwing; catch logs `uriVec[index++]` past the end (UB on `operator[]`).
 - **OH-2026-NET-006** (`DTS2026081136698`): `Ip6RuleMap::GetNetworkAddress` indexes `s6_addr` with `prefixLen / 8` and no upper bound. `prefixLen > 128` → OOB read and a wrong netfirewall bitmap key.
 - **OH-2026-NET-007** (`DTS2026081135903`): `CheckIpv6InNet` has no `prefixLen` bounds before indexing `s6_addr`. PAC `atoi` can be negative (match-all) or `/129+` (OOB).
+- **OH-2026-CAM-007** (`DTS2026080813420`): `IsAutoHighQualityPhotoSupported` reads `u8[1]` with no `count >= 2` and pair-walks `i < count` then `u8[i+1]`. Short/odd `HIGH_QUALITY_SUPPORT` → OOB; Find-fail walks uninit `item`.
+- **OH-2026-CAM-008** (`DTS2026080813622`): `GetZoomRatioRange` walks scene-zoom as step-3 triples with only `i < count`, then reads `i32[i+1]`/`[i+2]`. Sibling `GetRAWZoomRatioRange` already bounds `i + maxOffset`.
+- **OH-2026-CAM-009** (`DTS2026080813794`): Two moon-boost FOV sites read `ui32[i+1]`/`[i+2]` with only `i < count`. Truncated FOV tail → OOB. Sketch float sibling already uses `i < count - 2`.
+- **OH-2026-CAM-010** (`DTS2026080813827`): `QueryZoomPerformance` trusts TLV `num` with no remaining-length check, then `GetCrossZoomAndTime` stride-3 has no tail guard. Short/lying-`num` → OOB.
+- **OH-2026-CAM-011** (`DTS2026080813868`): `ParsingCameraConcurrentLimted` reads length-prefix `originInfo[i+1]` then payload with no `i+1 < count` / `i+2+length <= count`. Helpers loop `k < length` blindly.
+- **OH-2026-DSOFTBUS-001** (`DTS2026082023118`): `ConnectGroup` guards `configs.size() < INDEX_FREQ` (3) then reads `configs[3]`. A 3-token peer group config passes and OOB. Sibling `P2pConnectGroup` requires `size >= INDEX_MODE` (4).
 
 </details>
 
@@ -530,9 +552,9 @@ Masking/redaction fails; secrets or addresses reach logs.
 
 | CWE | Name | Count |
 |-----|------|------:|
-| CWE-682 | Incorrect Calculation | 14 |
+| CWE-682 | Incorrect Calculation | 15 |
+| CWE-125 | Out-of-bounds Read | 11 |
 | CWE-190 | Integer Overflow or Wraparound | 7 |
-| CWE-125 | Out-of-bounds Read | 5 |
 | CWE-670 | Always-Incorrect Control Flow Implementation | 4 |
 | CWE-191 | Integer Underflow (Wrap or Wraparound) | 4 |
 | CWE-369 | Divide By Zero | 3 |
