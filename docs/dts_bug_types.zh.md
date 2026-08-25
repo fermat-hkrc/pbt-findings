@@ -2,10 +2,11 @@
 
 对 [`content/issues/`](../content/issues/) 中带有 **DTS** 工单号（`internal_issue_id`）的发现所做的归类，按**缺陷类型**（失效模式）分组。第二条轴是**检测性质（预言机）**——记录是哪条 pi-pbt 性质检出了该工单。
 
-- **DTS 工单数**：**73**
-- **状态**：所列工单均为 `CONFIRMED_FIXED`（已确认修复）
-- **严重级别**：HIGH=15，MEDIUM=56，LOW=2
-- **精确率**（判定为 DTS）：**88.0%**（73 个 FIXED / 83 个已判定）— [`finding_precision_by_project.md`](finding_precision_by_project.md)
+- **已确认（FIXED）**：**73** — 下列目录（`CONFIRMED_FIXED` 报告）
+- **非问题（NON-ISSUE）**：**10** — [目录](#非问题)
+- **已判定**：**83** = 73 + 10
+- **精确率**：**88.0%** = `73 / (73 + 10)` = 已确认 /（已确认 + 非问题）
+- **严重级别**（仅已确认）：HIGH=15，MEDIUM=56，LOW=2
 - **生成时间**：2026-08-25
 
 ## 概览
@@ -54,33 +55,33 @@
 
 ### 按模块
 
-数量为本目录（`CONFIRMED_FIXED` 已确认修复）的报告数。**精确率**为 `FIXED / (FIXED + NON-ISSUE)`，来自 [`finding_precision_by_project.md`](finding_precision_by_project.md)。
+`FIXED` = 本目录。`NI` = [非问题](#非问题)。**精确率** = `FIXED / (FIXED + NI)`。
 
-| 模块 | 数量 | HIGH | MEDIUM | LOW | 精确率 |
-|--------|------:|-----:|-------:|----:|----------:|
-| `multimedia_camera_framework` | 11 | 0 | 10 | 1 | 100% |
-| `multimedia_image_framework` | 9 | 1 | 8 | 0 | 100% |
-| `arkui_ace_engine` | 8 | 4 | 4 | 0 | 89% |
-| `graphic_graphic_2d` | 8 | 2 | 5 | 1 | 100% |
-| `communication_netmanager_base` | 7 | 2 | 5 | 0 | 78% |
-| `arkcompiler_runtime_core` | 5 | 0 | 5 | 0 | 83% |
-| `ability_ability_runtime` | 4 | 0 | 4 | 0 | 100% |
-| `multimedia_av_codec` | 3 | 0 | 3 | 0 | 100% |
-| `distributeddatamgr_pasteboard` | 2 | 1 | 1 | 0 | 100% |
-| `distributedhardware_device_manager` | 2 | 2 | 0 | 0 | 67% |
-| `multimedia_player_framework` | 2 | 0 | 2 | 0 | 100% |
-| `window_window_manager` | 2 | 0 | 2 | 0 | 100% |
-| `commonlibrary_rust_ylong_http` | 1 | 1 | 0 | 0 | 100% |
-| `communication_dsoftbus` | 1 | 0 | 1 | 0 | 50% |
-| `communication_wifi` | 1 | 0 | 1 | 0 | 100% |
-| `distributeddatamgr_datamgr_service` | 1 | 0 | 1 | 0 | 100% |
-| `distributedhardware_distributed_hardware_fwk` | 1 | 0 | 1 | 0 | 100% |
-| `filemanagement_dfs_service` | 1 | 0 | 1 | 0 | 100% |
-| `filemanagement_storage_service` | 1 | 0 | 1 | 0 | 100% |
-| `multimedia_av_session` | 1 | 1 | 0 | 0 | 50% |
-| `multimedia_media_foundation` | 1 | 1 | 0 | 0 | 25% |
-| `multimedia_media_library` | 1 | 0 | 1 | 0 | 100% |
-| **合计** | **73** | **15** | **56** | **2** | **88%** |
+| 模块 | FIXED | NI | HIGH | MEDIUM | LOW | 精确率 |
+|--------|------:|---:|-----:|-------:|----:|----------:|
+| `multimedia_camera_framework` | 11 | 0 | 0 | 10 | 1 | 100% |
+| `multimedia_image_framework` | 9 | 0 | 1 | 8 | 0 | 100% |
+| `arkui_ace_engine` | 8 | 1 | 4 | 4 | 0 | 89% |
+| `graphic_graphic_2d` | 8 | 0 | 2 | 5 | 1 | 100% |
+| `communication_netmanager_base` | 7 | 2 | 2 | 5 | 0 | 78% |
+| `arkcompiler_runtime_core` | 5 | 1 | 0 | 5 | 0 | 83% |
+| `ability_ability_runtime` | 4 | 0 | 0 | 4 | 0 | 100% |
+| `multimedia_av_codec` | 3 | 0 | 0 | 3 | 0 | 100% |
+| `distributeddatamgr_pasteboard` | 2 | 0 | 1 | 1 | 0 | 100% |
+| `distributedhardware_device_manager` | 2 | 1 | 2 | 0 | 0 | 67% |
+| `multimedia_player_framework` | 2 | 0 | 0 | 2 | 0 | 100% |
+| `window_window_manager` | 2 | 0 | 0 | 2 | 0 | 100% |
+| `commonlibrary_rust_ylong_http` | 1 | 0 | 1 | 0 | 0 | 100% |
+| `communication_dsoftbus` | 1 | 1 | 0 | 1 | 0 | 50% |
+| `communication_wifi` | 1 | 0 | 0 | 1 | 0 | 100% |
+| `distributeddatamgr_datamgr_service` | 1 | 0 | 0 | 1 | 0 | 100% |
+| `distributedhardware_distributed_hardware_fwk` | 1 | 0 | 0 | 1 | 0 | 100% |
+| `filemanagement_dfs_service` | 1 | 0 | 0 | 1 | 0 | 100% |
+| `filemanagement_storage_service` | 1 | 0 | 0 | 1 | 0 | 100% |
+| `multimedia_av_session` | 1 | 1 | 1 | 0 | 0 | 50% |
+| `multimedia_media_foundation` | 1 | 3 | 1 | 0 | 0 | 25% |
+| `multimedia_media_library` | 1 | 0 | 0 | 1 | 0 | 100% |
+| **合计** | **73** | **10** | **15** | **56** | **2** | **88%** |
 
 ## DTS 索引
 
@@ -740,9 +741,31 @@ TLS/固定校验使用了错误的材料或指针。
 | CWE-862 | 缺少授权 | 1 |
 | CWE-863 | 授权错误 | 1 |
 
+## 非问题
+
+维护者驳回的 DTS。只计入分母。
+
+**精确率** = 已确认 /（已确认 + 非问题）= **73 / (73 + 10) = 88.0%**。
+
+| DTS | 项目 | 主题 | 为何非问题 |
+|-----|------|------|------------|
+| `DTS2026070145311` | `multimedia_av_session` | ConvertSessionType 丢掉通话类型 | 产品策略 — 无通话类型远端投射要求。cloned 中报告已缺失；暂留，见 [#1](https://github.com/fermat-hkrc/pbt-findings/issues/1)。 |
+| `DTS2026070663477` | `distributedhardware_device_manager` | JsonObject cJSON int64 往返精度损失 | 死后端 — 生产使用 nlohmann_json（`use_nlohmann_json = true`）。 |
+| `DTS2026071719364` | `multimedia_media_foundation` | CopyAVMemory 缺少 offset+size 守卫 | 不可达 — 产品侧 src offset 恒为 0。 |
+| `DTS2026071725399` | `communication_netmanager_base` | 子进程非零退出时 ForkExec 仍 SUCCESS | 设计如此 — SUCCESS 表示子进程已创建。 |
+| `DTS2026071809266` | `arkui_ace_engine` | GetTotalHeightOfItemsInView 空网格 → `-mainGap` | 稳定公式契约；共享 API 未改。 |
+| `DTS2026072017450` | `communication_dsoftbus` | Hex 辅助函数未显式写 NUL | 调用方契约 — 零初始化的 `outBuf` 拥有终止符。cloned 中报告已缺失；暂留，见 [#1](https://github.com/fermat-hkrc/pbt-findings/issues/1)。 |
+| `DTS2026072517792` | `arkcompiler_runtime_core` | SkipULeb128 空/截断越界 | 设计如此 — `void` 辅助无错误通道；畸形 ULEB 视为致命；debug `ASSERT` 即停止点。 |
+| `DTS2026072720774` | `communication_netmanager_base` | GetAddrFamily 拒绝带 zone 的 IPv6 | 不同 API、不同职责 — 不是不一致。 |
+| `DTS2026081129774` | `multimedia_media_foundation` | DataPacker::IsEmpty 谓词取反 | 死代码 — 交付路径未使用。 |
+| `DTS2026081131247` | `multimedia_media_foundation` | OH_AVFormat GetString/Dump/GetKey 上限 + strcpy_s | 已交付 CAPI 契约 — 不能改。 |
+
+来源：`~/cloned/*/pbt-out/bug_reports/non-issue/`（8 个文件）以及 [#1](https://github.com/fermat-hkrc/pbt-findings/issues/1) 中的两张工单。
+
 ## 说明
 
-- 范围仅为已提交 DTS 的缺陷（`internal_issue_id`）。
-- 缺陷类型主要依据 CWE 推导，并结合标题/症状细化。每个工单只映射到一个主要类型。
-- 检测性质遵循 pi-pbt 预言机（`状态机` ≻ `差分` ≻ `代数` ≻ `参考` ≻ `仅崩溃`）。每个工单一条主性质。
-- 本地报告：[`content/issues/`](../content/issues/)。
+- 范围仅为已提交 DTS 的发现（`internal_issue_id`）。
+- **精确率** = 已确认 /（已确认 + 非问题）。仍在提交 / 未关闭的工单不计。
+- 缺陷类型（CWE 各节）只覆盖**已确认**工单。每个工单只映射到一个主要类型。
+- 检测性质遵循 pi-pbt 预言机（`状态机` ≻ `差分` ≻ `代数` ≻ `参考` ≻ `仅崩溃`）。每个已确认工单一条主性质。
+- 本地已确认报告：[`content/issues/`](../content/issues/)。

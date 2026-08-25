@@ -2,10 +2,11 @@
 
 Categorization of [`content/issues/`](../content/issues/) findings that carry a **DTS** ticket (`internal_issue_id`), grouped by **bug type** (failure mode). A second axis — **detecting property (oracle)** — records which pi-pbt property found each ticket.
 
-- **DTS tickets**: **73**
-- **Status**: all listed tickets are `CONFIRMED_FIXED`
-- **Severity**: HIGH=15, MEDIUM=56, LOW=2
-- **Precision** (decided DTS): **88.0%** (73 FIXED / 83 decided) — [`finding_precision_by_project.md`](finding_precision_by_project.md)
+- **Confirmed (FIXED)**: **73** — listed below (`CONFIRMED_FIXED` write-ups)
+- **Non-issue**: **10** — [catalog](#non-issues)
+- **Decided**: **83** = 73 + 10
+- **Precision**: **88.0%** = `73 / (73 + 10)` = confirmed / (confirmed + non-issues)
+- **Severity** (confirmed only): HIGH=15, MEDIUM=56, LOW=2
 - **Generated**: 2026-08-25
 
 ## Overview
@@ -54,33 +55,33 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 
 ### By module
 
-Count is this catalog (`CONFIRMED_FIXED` write-ups). **Precision** is `FIXED / (FIXED + NON-ISSUE)` from [`finding_precision_by_project.md`](finding_precision_by_project.md).
+`FIXED` = this catalog. `NI` = [non-issues](#non-issues). **Precision** = `FIXED / (FIXED + NI)`.
 
-| Module | Count | HIGH | MEDIUM | LOW | Precision |
-|--------|------:|-----:|-------:|----:|----------:|
-| `multimedia_camera_framework` | 11 | 0 | 10 | 1 | 100% |
-| `multimedia_image_framework` | 9 | 1 | 8 | 0 | 100% |
-| `arkui_ace_engine` | 8 | 4 | 4 | 0 | 89% |
-| `graphic_graphic_2d` | 8 | 2 | 5 | 1 | 100% |
-| `communication_netmanager_base` | 7 | 2 | 5 | 0 | 78% |
-| `arkcompiler_runtime_core` | 5 | 0 | 5 | 0 | 83% |
-| `ability_ability_runtime` | 4 | 0 | 4 | 0 | 100% |
-| `multimedia_av_codec` | 3 | 0 | 3 | 0 | 100% |
-| `distributeddatamgr_pasteboard` | 2 | 1 | 1 | 0 | 100% |
-| `distributedhardware_device_manager` | 2 | 2 | 0 | 0 | 67% |
-| `multimedia_player_framework` | 2 | 0 | 2 | 0 | 100% |
-| `window_window_manager` | 2 | 0 | 2 | 0 | 100% |
-| `commonlibrary_rust_ylong_http` | 1 | 1 | 0 | 0 | 100% |
-| `communication_dsoftbus` | 1 | 0 | 1 | 0 | 50% |
-| `communication_wifi` | 1 | 0 | 1 | 0 | 100% |
-| `distributeddatamgr_datamgr_service` | 1 | 0 | 1 | 0 | 100% |
-| `distributedhardware_distributed_hardware_fwk` | 1 | 0 | 1 | 0 | 100% |
-| `filemanagement_dfs_service` | 1 | 0 | 1 | 0 | 100% |
-| `filemanagement_storage_service` | 1 | 0 | 1 | 0 | 100% |
-| `multimedia_av_session` | 1 | 1 | 0 | 0 | 50% |
-| `multimedia_media_foundation` | 1 | 1 | 0 | 0 | 25% |
-| `multimedia_media_library` | 1 | 0 | 1 | 0 | 100% |
-| **Total** | **73** | **15** | **56** | **2** | **88%** |
+| Module | FIXED | NI | HIGH | MEDIUM | LOW | Precision |
+|--------|------:|---:|-----:|-------:|----:|----------:|
+| `multimedia_camera_framework` | 11 | 0 | 0 | 10 | 1 | 100% |
+| `multimedia_image_framework` | 9 | 0 | 1 | 8 | 0 | 100% |
+| `arkui_ace_engine` | 8 | 1 | 4 | 4 | 0 | 89% |
+| `graphic_graphic_2d` | 8 | 0 | 2 | 5 | 1 | 100% |
+| `communication_netmanager_base` | 7 | 2 | 2 | 5 | 0 | 78% |
+| `arkcompiler_runtime_core` | 5 | 1 | 0 | 5 | 0 | 83% |
+| `ability_ability_runtime` | 4 | 0 | 0 | 4 | 0 | 100% |
+| `multimedia_av_codec` | 3 | 0 | 0 | 3 | 0 | 100% |
+| `distributeddatamgr_pasteboard` | 2 | 0 | 1 | 1 | 0 | 100% |
+| `distributedhardware_device_manager` | 2 | 1 | 2 | 0 | 0 | 67% |
+| `multimedia_player_framework` | 2 | 0 | 0 | 2 | 0 | 100% |
+| `window_window_manager` | 2 | 0 | 0 | 2 | 0 | 100% |
+| `commonlibrary_rust_ylong_http` | 1 | 0 | 1 | 0 | 0 | 100% |
+| `communication_dsoftbus` | 1 | 1 | 0 | 1 | 0 | 50% |
+| `communication_wifi` | 1 | 0 | 0 | 1 | 0 | 100% |
+| `distributeddatamgr_datamgr_service` | 1 | 0 | 0 | 1 | 0 | 100% |
+| `distributedhardware_distributed_hardware_fwk` | 1 | 0 | 0 | 1 | 0 | 100% |
+| `filemanagement_dfs_service` | 1 | 0 | 0 | 1 | 0 | 100% |
+| `filemanagement_storage_service` | 1 | 0 | 0 | 1 | 0 | 100% |
+| `multimedia_av_session` | 1 | 1 | 1 | 0 | 0 | 50% |
+| `multimedia_media_foundation` | 1 | 3 | 1 | 0 | 0 | 25% |
+| `multimedia_media_library` | 1 | 0 | 0 | 1 | 0 | 100% |
+| **Total** | **73** | **10** | **15** | **56** | **2** | **88%** |
 
 ## DTS index
 
@@ -740,10 +741,32 @@ Masking/redaction fails; secrets or addresses reach logs.
 | CWE-862 | Missing Authorization | 1 |
 | CWE-863 | Incorrect Authorization | 1 |
 
+## Non-issues
+
+Maintainer-rejected DTS. Counted in the denominator only.
+
+**Precision** = confirmed / (confirmed + non-issues) = **73 / (73 + 10) = 88.0%**.
+
+| DTS | Project | Theme | Why non-issue |
+|-----|---------|-------|---------------|
+| `DTS2026070145311` | `multimedia_av_session` | ConvertSessionType drops call types | Product policy — no call-type remote-cast requirement. Report file gone from cloned; kept pending [#1](https://github.com/fermat-hkrc/pbt-findings/issues/1). |
+| `DTS2026070663477` | `distributedhardware_device_manager` | JsonObject cJSON int64 round-trip loss | Dead backend — production uses nlohmann_json (`use_nlohmann_json = true`). |
+| `DTS2026071719364` | `multimedia_media_foundation` | CopyAVMemory missing offset+size guard | Unreachable — product src offset is always 0. |
+| `DTS2026071725399` | `communication_netmanager_base` | ForkExec SUCCESS on non-zero child exit | By design — SUCCESS means the child was created. |
+| `DTS2026071809266` | `arkui_ace_engine` | GetTotalHeightOfItemsInView empty → `-mainGap` | Stable formula contract; shared API unchanged. |
+| `DTS2026072017450` | `communication_dsoftbus` | Hex helpers omit explicit NUL write | Caller-owned contract — zero-init `outBuf` owns the terminator. Report file gone from cloned; kept pending [#1](https://github.com/fermat-hkrc/pbt-findings/issues/1). |
+| `DTS2026072517792` | `arkcompiler_runtime_core` | SkipULeb128 empty/truncated OOB | By design — `void` helper has no error channel; malformed ULEB is fatal; debug `ASSERT` is the stop. |
+| `DTS2026072720774` | `communication_netmanager_base` | GetAddrFamily rejects zoned IPv6 | Different APIs, different jobs — not inconsistency. |
+| `DTS2026081129774` | `multimedia_media_foundation` | DataPacker::IsEmpty inverted | Dead code — unused on the shipped path. |
+| `DTS2026081131247` | `multimedia_media_foundation` | OH_AVFormat GetString/Dump/GetKey cap + strcpy_s | Shipped CAPI contract — incompatible to change. |
+
+Sources: `~/cloned/*/pbt-out/bug_reports/non-issue/` (8 files) plus the two tickets in [#1](https://github.com/fermat-hkrc/pbt-findings/issues/1).
+
 ## Notes
 
-- Scope is DTS-submitted bugs only (`internal_issue_id`).
-- Bug types are derived primarily from CWE, refined by title/symptom. Each ticket maps to one primary type.
-- Detecting property follows pi-pbt oracles (`State Machine` ≻ `Differential` ≻ `Algebraic` ≻ `Reference` ≻ `Crash-Only`). One primary property per ticket.
-- Local write-ups: [`content/issues/`](../content/issues/).
+- Scope is DTS-submitted findings only (`internal_issue_id`).
+- **Precision** = confirmed / (confirmed + non-issues). Open / still-submitted tickets are omitted.
+- Bug types (CWE sections) cover **confirmed** tickets only. Each maps to one primary type.
+- Detecting property follows pi-pbt oracles (`State Machine` ≻ `Differential` ≻ `Algebraic` ≻ `Reference` ≻ `Crash-Only`). One primary property per confirmed ticket.
+- Local confirmed write-ups: [`content/issues/`](../content/issues/).
 
