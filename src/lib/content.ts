@@ -37,7 +37,7 @@ export interface PocData {
   output?: string;
 }
 
-const HIDDEN_STATUSES = new Set(["PENDING", "CLOSED"]);
+const PUBLIC_STATUSES = new Set(["CONFIRMED_REAL", "CONFIRMED_FIXED"]);
 
 export function getAllIssueIds(): string[] {
   if (!fs.existsSync(issuesDirectory)) return [];
@@ -47,7 +47,7 @@ export function getAllIssueIds(): string[] {
     .map((f) => f.replace(/\.md$/, ""))
     .filter((id) => {
       const meta = getIssueMeta(id);
-      return meta !== null && !HIDDEN_STATUSES.has(meta.status);
+      return meta !== null && PUBLIC_STATUSES.has(meta.status);
     });
 }
 
@@ -151,21 +151,10 @@ export function getDtsIssues(): IssueMeta[] {
   return getAllIssues().filter((i) => i.internal_issue_id?.startsWith("DTS"));
 }
 
-export function getUnconfirmedIssues(): IssueMeta[] {
-  const issues = getAllIssues();
-  return issues.filter(
-    (i) =>
-      i.status !== "CONFIRMED_REAL" &&
-      i.status !== "CONFIRMED_FIXED" &&
-      i.status !== "CLOSED"
-  );
-}
-
 export interface Stats {
   total: number;
   confirmed: number;
   fixed: number;
-  unconfirmed: number;
   repos: number;
   byCwe: Record<string, number>;
   byStatus: Record<string, number>;
@@ -195,19 +184,10 @@ export function getStats(): Stats {
     (i) => i.status === "CONFIRMED_REAL" || i.status === "CONFIRMED_FIXED"
   ).length;
 
-  const unconfirmed = issues.filter(
-    (i) =>
-      i.status !== "CONFIRMED_REAL" &&
-      i.status !== "CONFIRMED_FIXED" &&
-      i.status !== "CLOSED" &&
-      i.status !== "PENDING"
-  ).length;
-
   return {
     total: issues.length,
     confirmed,
     fixed: 0,
-    unconfirmed,
     repos: Object.keys(byRepo).length,
     byCwe,
     byStatus,
