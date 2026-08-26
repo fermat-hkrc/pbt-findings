@@ -293,18 +293,18 @@
 
 | DTS | 项目 | 主题 | 为何非问题 |
 |-----|------|------|------------|
-| `DTS2026070145311` | `multimedia_av_session` | ConvertSessionType 丢掉通话类型 | 产品策略 — 无通话类型远端投射要求。cloned 中报告已缺失；暂留，见 [#1](https://github.com/fermat-hkrc/pbt-findings/issues/1)。 |
+| `DTS2026070145311` | `multimedia_av_session` | ConvertSessionType 丢掉通话类型 | 产品策略 — 无通话类型远端投射要求。 |
 | `DTS2026070663477` | `distributedhardware_device_manager` | JsonObject cJSON int64 往返精度损失 | 死后端 — 生产使用 nlohmann_json（`use_nlohmann_json = true`）。 |
 | `DTS2026071719364` | `multimedia_media_foundation` | CopyAVMemory 缺少 offset+size 守卫 | 不可达 — 产品侧 src offset 恒为 0。 |
 | `DTS2026071725399` | `communication_netmanager_base` | 子进程非零退出时 ForkExec 仍 SUCCESS | 设计如此 — SUCCESS 表示子进程已创建。 |
 | `DTS2026071809266` | `arkui_ace_engine` | GetTotalHeightOfItemsInView 空网格 → `-mainGap` | 稳定公式契约；共享 API 未改。 |
-| `DTS2026072017450` | `communication_dsoftbus` | Hex 辅助函数未显式写 NUL | 调用方契约 — 零初始化的 `outBuf` 拥有终止符。cloned 中报告已缺失；暂留，见 [#1](https://github.com/fermat-hkrc/pbt-findings/issues/1)。 |
+| `DTS2026072017450` | `communication_dsoftbus` | Hex 辅助函数未显式写 NUL | 调用方契约 — 零初始化的 `outBuf` 拥有终止符。 |
 | `DTS2026072517792` | `arkcompiler_runtime_core` | SkipULeb128 空/截断越界 | 设计如此 — `void` 辅助无错误通道；畸形 ULEB 视为致命；debug `ASSERT` 即停止点。 |
 | `DTS2026072720774` | `communication_netmanager_base` | GetAddrFamily 拒绝带 zone 的 IPv6 | 不同 API、不同职责 — 不是不一致。 |
 | `DTS2026081129774` | `multimedia_media_foundation` | DataPacker::IsEmpty 谓词取反 | 死代码 — 交付路径未使用。 |
 | `DTS2026081131247` | `multimedia_media_foundation` | OH_AVFormat GetString/Dump/GetKey 上限 + strcpy_s | 已交付 CAPI 契约 — 不能改。 |
 
-来源：`~/cloned/*/pbt-out/bug_reports/non-issue/`（8 个文件）以及 [#1](https://github.com/fermat-hkrc/pbt-findings/issues/1) 中的两张工单。
+来源：`~/cloned/*/pbt-out/bug_reports/non-issue/`（10 个文件）。
 
 ## 说明
 

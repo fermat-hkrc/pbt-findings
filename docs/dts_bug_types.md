@@ -293,18 +293,18 @@ Maintainer-rejected DTS. Counted in the denominator only.
 
 | DTS | Project | Theme | Why non-issue |
 |-----|---------|-------|---------------|
-| `DTS2026070145311` | `multimedia_av_session` | ConvertSessionType drops call types | Product policy — no call-type remote-cast requirement. Report file gone from cloned; kept pending [#1](https://github.com/fermat-hkrc/pbt-findings/issues/1). |
+| `DTS2026070145311` | `multimedia_av_session` | ConvertSessionType drops call types | Product policy — no call-type remote-cast requirement. |
 | `DTS2026070663477` | `distributedhardware_device_manager` | JsonObject cJSON int64 round-trip loss | Dead backend — production uses nlohmann_json (`use_nlohmann_json = true`). |
 | `DTS2026071719364` | `multimedia_media_foundation` | CopyAVMemory missing offset+size guard | Unreachable — product src offset is always 0. |
 | `DTS2026071725399` | `communication_netmanager_base` | ForkExec SUCCESS on non-zero child exit | By design — SUCCESS means the child was created. |
 | `DTS2026071809266` | `arkui_ace_engine` | GetTotalHeightOfItemsInView empty → `-mainGap` | Stable formula contract; shared API unchanged. |
-| `DTS2026072017450` | `communication_dsoftbus` | Hex helpers omit explicit NUL write | Caller-owned contract — zero-init `outBuf` owns the terminator. Report file gone from cloned; kept pending [#1](https://github.com/fermat-hkrc/pbt-findings/issues/1). |
+| `DTS2026072017450` | `communication_dsoftbus` | Hex helpers omit explicit NUL write | Caller-owned contract — zero-init `outBuf` owns the terminator. |
 | `DTS2026072517792` | `arkcompiler_runtime_core` | SkipULeb128 empty/truncated OOB | By design — `void` helper has no error channel; malformed ULEB is fatal; debug `ASSERT` is the stop. |
 | `DTS2026072720774` | `communication_netmanager_base` | GetAddrFamily rejects zoned IPv6 | Different APIs, different jobs — not inconsistency. |
 | `DTS2026081129774` | `multimedia_media_foundation` | DataPacker::IsEmpty inverted | Dead code — unused on the shipped path. |
 | `DTS2026081131247` | `multimedia_media_foundation` | OH_AVFormat GetString/Dump/GetKey cap + strcpy_s | Shipped CAPI contract — incompatible to change. |
 
-Sources: `~/cloned/*/pbt-out/bug_reports/non-issue/` (8 files) plus the two tickets in [#1](https://github.com/fermat-hkrc/pbt-findings/issues/1).
+Sources: `~/cloned/*/pbt-out/bug_reports/non-issue/` (10 files).
 
 ## Notes
 
