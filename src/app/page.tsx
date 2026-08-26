@@ -83,7 +83,7 @@ export default function DashboardPage() {
         <div className="px-6 py-4 border-b border-[#262626] flex items-center justify-between">
           <h2 className="text-lg font-semibold text-white">PBT Issues</h2>
           <Link
-            href="/issues"
+            href="/confirmed"
             className="text-sm text-blue-400 hover:text-blue-300"
           >
             View all &rarr;

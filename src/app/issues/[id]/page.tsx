@@ -56,8 +56,8 @@ export default async function IssueDetailPage({
           Dashboard
         </Link>
         <span>/</span>
-        <Link href="/issues" className="hover:text-white">
-          Issues
+        <Link href="/confirmed" className="hover:text-white">
+          Confirmed
         </Link>
         <span>/</span>
         <span className="text-[#a3a3a3]">{issue.meta.id}</span>

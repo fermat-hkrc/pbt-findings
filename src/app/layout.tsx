@@ -29,7 +29,6 @@ export default function RootLayout({
                 </Link>
                 <div className="hidden sm:flex items-center gap-1">
                   <NavLink href="/">Dashboard</NavLink>
-                  <NavLink href="/issues">Issues</NavLink>
                   <NavLink href="/confirmed">Confirmed</NavLink>
                   <NavLink href="/dts">DTS</NavLink>
                 </div>
