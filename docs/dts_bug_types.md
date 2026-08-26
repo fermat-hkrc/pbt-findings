@@ -3,9 +3,9 @@
 Categorization of [`content/issues/`](../content/issues/) findings that carry a **DTS** ticket (`internal_issue_id`), grouped by the **pi-pbt property (oracle)** that found each ticket. CWE / failure-mode grouping is archived at the end of [`finding_precision_by_project.md`](finding_precision_by_project.md).
 
 - **Confirmed (FIXED)**: **73** — listed below (`CONFIRMED_FIXED` write-ups)
-- **Non-issue**: **10** — [catalog](#non-issues)
-- **Decided**: **83** = 73 + 10
-- **Precision**: **88.0%** = `73 / (73 + 10)` = confirmed / (confirmed + non-issues)
+- **Non-issue**: **11** — [catalog](#non-issues)
+- **Decided**: **84** = 73 + 11
+- **Precision**: **86.9%** = `73 / (73 + 11)` = confirmed / (confirmed + non-issues)
 - **Severity** (confirmed only): HIGH=15, MEDIUM=56, LOW=2
 - **Generated**: 2026-08-25
 
@@ -54,9 +54,9 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `filemanagement_dfs_service` | 1 | 0 | 0 | 1 | 0 | 100% |
 | `filemanagement_storage_service` | 1 | 0 | 0 | 1 | 0 | 100% |
 | `multimedia_av_session` | 1 | 1 | 1 | 0 | 0 | 50% |
-| `multimedia_media_foundation` | 1 | 3 | 1 | 0 | 0 | 25% |
+| `multimedia_media_foundation` | 1 | 4 | 1 | 0 | 0 | 20% |
 | `multimedia_media_library` | 1 | 0 | 0 | 1 | 0 | 100% |
-| **Total** | **73** | **10** | **15** | **56** | **2** | **88%** |
+| **Total** | **73** | **11** | **15** | **56** | **2** | **87%** |
 
 ## DTS index
 
@@ -289,7 +289,7 @@ Authoritative spec / stdlib / IEEE / Unicode / pinning contract that this SUT cl
 
 Maintainer-rejected DTS. Counted in the denominator only.
 
-**Precision** = confirmed / (confirmed + non-issues) = **73 / (73 + 10) = 88.0%**.
+**Precision** = confirmed / (confirmed + non-issues) = **73 / (73 + 11) = 86.9%**.
 
 | DTS | Project | Theme | Why non-issue |
 |-----|---------|-------|---------------|
@@ -301,10 +301,11 @@ Maintainer-rejected DTS. Counted in the denominator only.
 | `DTS2026072017450` | `communication_dsoftbus` | Hex helpers omit explicit NUL write | Caller-owned contract — zero-init `outBuf` owns the terminator. |
 | `DTS2026072517792` | `arkcompiler_runtime_core` | SkipULeb128 empty/truncated OOB | By design — `void` helper has no error channel; malformed ULEB is fatal; debug `ASSERT` is the stop. |
 | `DTS2026072720774` | `communication_netmanager_base` | GetAddrFamily rejects zoned IPv6 | Different APIs, different jobs — not inconsistency. |
+| `DTS2026072938754` | `multimedia_media_foundation` | Format::Stringify SIGSEGV on bool-stored tag | Not reproduced on product `-O2`; crash only on host `-O0`. |
 | `DTS2026081129774` | `multimedia_media_foundation` | DataPacker::IsEmpty inverted | Dead code — unused on the shipped path. |
 | `DTS2026081131247` | `multimedia_media_foundation` | OH_AVFormat GetString/Dump/GetKey cap + strcpy_s | Shipped CAPI contract — incompatible to change. |
 
-Sources: `~/cloned/*/pbt-out/bug_reports/non-issue/` (10 files).
+Sources: `~/cloned/*/pbt-out/bug_reports/non-issue/` (11 files).
 
 ## Notes
 

@@ -3,9 +3,9 @@
 对 [`content/issues/`](../content/issues/) 中带有 **DTS** 工单号（`internal_issue_id`）的发现所做的归类，按检出该工单的 **pi-pbt 性质（预言机）** 分组。CWE / 失效模式分组归档在 [`finding_precision_by_project.md`](finding_precision_by_project.md) 文末。
 
 - **已确认（FIXED）**：**73** — 下列目录（`CONFIRMED_FIXED` 报告）
-- **非问题（NON-ISSUE）**：**10** — [目录](#非问题)
-- **已判定**：**83** = 73 + 10
-- **精确率**：**88.0%** = `73 / (73 + 10)` = 已确认 /（已确认 + 非问题）
+- **非问题（NON-ISSUE）**：**11** — [目录](#非问题)
+- **已判定**：**84** = 73 + 11
+- **精确率**：**86.9%** = `73 / (73 + 11)` = 已确认 /（已确认 + 非问题）
 - **严重级别**（仅已确认）：HIGH=15，MEDIUM=56，LOW=2
 - **生成时间**：2026-08-25
 
@@ -54,9 +54,9 @@
 | `filemanagement_dfs_service` | 1 | 0 | 0 | 1 | 0 | 100% |
 | `filemanagement_storage_service` | 1 | 0 | 0 | 1 | 0 | 100% |
 | `multimedia_av_session` | 1 | 1 | 1 | 0 | 0 | 50% |
-| `multimedia_media_foundation` | 1 | 3 | 1 | 0 | 0 | 25% |
+| `multimedia_media_foundation` | 1 | 4 | 1 | 0 | 0 | 20% |
 | `multimedia_media_library` | 1 | 0 | 0 | 1 | 0 | 100% |
-| **合计** | **73** | **10** | **15** | **56** | **2** | **88%** |
+| **合计** | **73** | **11** | **15** | **56** | **2** | **87%** |
 
 ## DTS 索引
 
@@ -289,7 +289,7 @@
 
 维护者驳回的 DTS。只计入分母。
 
-**精确率** = 已确认 /（已确认 + 非问题）= **73 / (73 + 10) = 88.0%**。
+**精确率** = 已确认 /（已确认 + 非问题）= **73 / (73 + 11) = 86.9%**。
 
 | DTS | 项目 | 主题 | 为何非问题 |
 |-----|------|------|------------|
@@ -301,10 +301,11 @@
 | `DTS2026072017450` | `communication_dsoftbus` | Hex 辅助函数未显式写 NUL | 调用方契约 — 零初始化的 `outBuf` 拥有终止符。 |
 | `DTS2026072517792` | `arkcompiler_runtime_core` | SkipULeb128 空/截断越界 | 设计如此 — `void` 辅助无错误通道；畸形 ULEB 视为致命；debug `ASSERT` 即停止点。 |
 | `DTS2026072720774` | `communication_netmanager_base` | GetAddrFamily 拒绝带 zone 的 IPv6 | 不同 API、不同职责 — 不是不一致。 |
+| `DTS2026072938754` | `multimedia_media_foundation` | Format::Stringify 在 bool 存储的 tag 上 SIGSEGV | 产品 `-O2` 无法复现；崩溃仅见于 host `-O0`。 |
 | `DTS2026081129774` | `multimedia_media_foundation` | DataPacker::IsEmpty 谓词取反 | 死代码 — 交付路径未使用。 |
 | `DTS2026081131247` | `multimedia_media_foundation` | OH_AVFormat GetString/Dump/GetKey 上限 + strcpy_s | 已交付 CAPI 契约 — 不能改。 |
 
-来源：`~/cloned/*/pbt-out/bug_reports/non-issue/`（10 个文件）。
+来源：`~/cloned/*/pbt-out/bug_reports/non-issue/`（11 个文件）。
 
 ## 说明
 
