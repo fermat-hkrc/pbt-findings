@@ -273,7 +273,7 @@ High-confidence project: **4** accepted fixes and **no** rejected DTS.
 **FIXED DTS**
 
 - `DTS2026071412383` — [OH-2026-PB-001](../content/issues/OH-2026-PB-001.md): ProcessDistributedDelayUri exports URI without consulting per-record grant flag (fail-open)
-- `DTS2026072000001` — [OH-2026-PB-002](../content/issues/OH-2026-PB-002.md): SetCurrentDistributedData timeout leaves isRunning stuck, permanently disabling cross-device clipboard publish
+- `DTS2026073012747` — [OH-2026-PB-002](../content/issues/OH-2026-PB-002.md): SetCurrentDistributedData timeout leaves isRunning stuck, permanently disabling cross-device clipboard publish
 
 ### `multimedia_av_codec`
 
@@ -574,7 +574,7 @@ Moved out of [`dts_bug_types.md`](./dts_bug_types.md) (that file is now the dete
 | `DTS2026071806709` | [OH-2026-WIFI-001](../content/issues/OH-2026-WIFI-001.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `communication_wifi` |
 | `DTS2026071807957` | [ARK-2026-BUF-001](../content/issues/ARK-2026-BUF-001.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `arkcompiler_runtime_core` |
 | `DTS2026071809730` | [OH-2026-ABILITY-002](../content/issues/OH-2026-ABILITY-002.md) | Input Validation — Improper Checks | MEDIUM | `ability_ability_runtime` |
-| `DTS2026072000001` | [OH-2026-PB-002](../content/issues/OH-2026-PB-002.md) | State / Lifecycle — Incomplete Cleanup or Stuck State | HIGH | `distributeddatamgr_pasteboard` |
+| `DTS2026073012747` | [OH-2026-PB-002](../content/issues/OH-2026-PB-002.md) | State / Lifecycle — Incomplete Cleanup or Stuck State | HIGH | `distributeddatamgr_pasteboard` |
 | `DTS2026072011242` | [OH-2026-CAM-004](../content/issues/OH-2026-CAM-004.md) | Arithmetic — Divide by Zero | MEDIUM | `multimedia_camera_framework` |
 | `DTS2026072223098` | [OH-2026-DATAMGR-001](../content/issues/OH-2026-DATAMGR-001.md) | Input Validation — Path Traversal | MEDIUM | `distributeddatamgr_datamgr_service` |
 | `DTS2026072325132` | [OH-2026-ARKUI-007](../content/issues/OH-2026-ARKUI-007.md) | Arithmetic — Divide by Zero | HIGH | `arkui_ace_engine` |
@@ -895,11 +895,11 @@ Timeout/error path leaves a flag or resource stuck, disabling later operations.
 
 | DTS | ID | Severity | CWE | Component / repo | Title |
 |-----|----|----------|-----|------------------|-------|
-| `DTS2026072000001` | [OH-2026-PB-002](../content/issues/OH-2026-PB-002.md) | HIGH | CWE-459 (Incomplete Cleanup) | `services/core/src/pasteboard_service.cpp` · `distributeddatamgr_pasteboard` | SetCurrentDistributedData timeout leaves isRunning stuck, permanently disabling cross-device clipboard publish |
+| `DTS2026073012747` | [OH-2026-PB-002](../content/issues/OH-2026-PB-002.md) | HIGH | CWE-459 (Incomplete Cleanup) | `services/core/src/pasteboard_service.cpp` · `distributeddatamgr_pasteboard` | SetCurrentDistributedData timeout leaves isRunning stuck, permanently disabling cross-device clipboard publish |
 
 <details><summary>Summaries</summary>
 
-- **OH-2026-PB-002** (`DTS2026072000001`): `PasteboardService::SetCurrentDistributedData` runs its distributed-publish pipeline inside a worker lambda guarded by the `setDistributedMemory_.isRunning` flag. The flag is an ownership latch: the worker sets it `true` on entry, and la...
+- **OH-2026-PB-002** (`DTS2026073012747`): `PasteboardService::SetCurrentDistributedData` runs its distributed-publish pipeline inside a worker lambda guarded by the `setDistributedMemory_.isRunning` flag. The flag is an ownership latch: the worker sets it `true` on entry, and la...
 
 </details>
 

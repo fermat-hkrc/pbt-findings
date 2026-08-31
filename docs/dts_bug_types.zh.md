@@ -92,7 +92,7 @@
 | `DTS2026071806709` | [OH-2026-WIFI-001](../content/issues/OH-2026-WIFI-001.md) | 仅崩溃 | MEDIUM | `communication_wifi` |
 | `DTS2026071807957` | [ARK-2026-BUF-001](../content/issues/ARK-2026-BUF-001.md) | 代数 — 不变量 | MEDIUM | `arkcompiler_runtime_core` |
 | `DTS2026071809730` | [OH-2026-ABILITY-002](../content/issues/OH-2026-ABILITY-002.md) | 否定 / 错误契约 | MEDIUM | `ability_ability_runtime` |
-| `DTS2026072000001` | [OH-2026-PB-002](../content/issues/OH-2026-PB-002.md) | 状态机 | HIGH | `distributeddatamgr_pasteboard` |
+| `DTS2026073012747` | [OH-2026-PB-002](../content/issues/OH-2026-PB-002.md) | 状态机 | HIGH | `distributeddatamgr_pasteboard` |
 | `DTS2026072011242` | [OH-2026-CAM-004](../content/issues/OH-2026-CAM-004.md) | 代数 — 不变量 | MEDIUM | `multimedia_camera_framework` |
 | `DTS2026072223098` | [OH-2026-DATAMGR-001](../content/issues/OH-2026-DATAMGR-001.md) | 否定 / 错误契约 | MEDIUM | `distributeddatamgr_datamgr_service` |
 | `DTS2026072325132` | [OH-2026-ARKUI-007](../content/issues/OH-2026-ARKUI-007.md) | 代数 — 不变量 | HIGH | `arkui_ace_engine` |
@@ -149,7 +149,7 @@
 | DTS | ID | 严重级别 | 失败的性质 |
 |-----|----|----------|------------------|
 | `DTS2026070238028` | [OH-2026-CAM-001](../content/issues/OH-2026-CAM-001.md) | LOW | FixedSizeList ≡ 有界 FIFO 模型（add/remove 序列） |
-| `DTS2026072000001` | [OH-2026-PB-002](../content/issues/OH-2026-PB-002.md) | HIGH | 任意 worker 停止（含超时）清除 isRunning |
+| `DTS2026073012747` | [OH-2026-PB-002](../content/issues/OH-2026-PB-002.md) | HIGH | 任意 worker 停止（含超时）清除 isRunning |
 
 <a id="差分"></a>
 

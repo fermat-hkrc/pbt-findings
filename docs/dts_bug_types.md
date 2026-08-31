@@ -92,7 +92,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `DTS2026071806709` | [OH-2026-WIFI-001](../content/issues/OH-2026-WIFI-001.md) | Crash-Only | MEDIUM | `communication_wifi` |
 | `DTS2026071807957` | [ARK-2026-BUF-001](../content/issues/ARK-2026-BUF-001.md) | Algebraic — Invariant | MEDIUM | `arkcompiler_runtime_core` |
 | `DTS2026071809730` | [OH-2026-ABILITY-002](../content/issues/OH-2026-ABILITY-002.md) | Negative / Error Contract | MEDIUM | `ability_ability_runtime` |
-| `DTS2026072000001` | [OH-2026-PB-002](../content/issues/OH-2026-PB-002.md) | State Machine | HIGH | `distributeddatamgr_pasteboard` |
+| `DTS2026073012747` | [OH-2026-PB-002](../content/issues/OH-2026-PB-002.md) | State Machine | HIGH | `distributeddatamgr_pasteboard` |
 | `DTS2026072011242` | [OH-2026-CAM-004](../content/issues/OH-2026-CAM-004.md) | Algebraic — Invariant | MEDIUM | `multimedia_camera_framework` |
 | `DTS2026072223098` | [OH-2026-DATAMGR-001](../content/issues/OH-2026-DATAMGR-001.md) | Negative / Error Contract | MEDIUM | `distributeddatamgr_datamgr_service` |
 | `DTS2026072325132` | [OH-2026-ARKUI-007](../content/issues/OH-2026-ARKUI-007.md) | Algebraic — Invariant | HIGH | `arkui_ace_engine` |
@@ -149,7 +149,7 @@ Operation sequences vs an independent model (lifecycle / collection).
 | DTS | ID | Severity | Failing property |
 |-----|----|----------|------------------|
 | `DTS2026070238028` | [OH-2026-CAM-001](../content/issues/OH-2026-CAM-001.md) | LOW | FixedSizeList ≡ bounded FIFO model across add/remove |
-| `DTS2026072000001` | [OH-2026-PB-002](../content/issues/OH-2026-PB-002.md) | HIGH | any worker stop (incl. timeout) clears isRunning |
+| `DTS2026073012747` | [OH-2026-PB-002](../content/issues/OH-2026-PB-002.md) | HIGH | any worker stop (incl. timeout) clears isRunning |
 
 <a id="differential"></a>
 
