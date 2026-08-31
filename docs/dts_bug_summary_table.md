@@ -1,7 +1,5 @@
 # DTS Bug Summary Table
 
-**82** confirmed-and-fixed bugs in [`content/issues/`](../content/issues/) that carry a DTS ticket (`internal_issue_id`), plus **12** developer-rejected non-issues.
-
 | # | Bug Summary | Project | Location | Status | Non-issue Reason | DTS Number |
 |---|-------------|---------|----------|--------|------------------|------------|
 | 1 | MemoryBufferWriter WriteByte/WriteBytes/AppendRange past-capacity OOB write returns true | arkcompiler_runtime_core | `static_core/libarkfile/file_writer.cpp` | Confirmed and Fixed |  | DTS2026071807957 |
