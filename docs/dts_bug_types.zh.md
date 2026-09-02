@@ -2,12 +2,12 @@
 
 对 [`content/issues/`](../content/issues/) 中带有 **DTS** 工单号（`internal_issue_id`）的发现所做的归类，按检出该工单的 **pi-pbt 性质（预言机）** 分组。CWE / 失效模式分组归档在 [`finding_precision_by_project.md`](finding_precision_by_project.md) 文末。
 
-- **已确认（FIXED）**：**73** — 下列目录（`CONFIRMED_FIXED` 报告）
+- **已确认（FIXED）**：**84** — 下列目录（`CONFIRMED_FIXED` 报告）
 - **非问题（NON-ISSUE）**：**11** — [目录](#非问题)
-- **已判定**：**84** = 73 + 11
-- **精确率**：**86.9%** = `73 / (73 + 11)` = 已确认 /（已确认 + 非问题）
-- **严重级别**（仅已确认）：HIGH=15，MEDIUM=56，LOW=2
-- **生成时间**：2026-08-25
+- **已判定**：**95** = 84 + 11
+- **精确率**：**88.4%** = `84 / (84 + 11)` = 已确认 /（已确认 + 非问题）
+- **严重级别**（仅已确认）：HIGH=19，MEDIUM=63，LOW=2
+- **生成时间**：2026-09-02
 
 ## 概览
 
@@ -17,14 +17,14 @@
 | 性质（预言机） | 数量 | HIGH | MEDIUM | LOW |
 |----------|------:|-----:|-------:|----:|
 | [状态机](#状态机) | 2 | 1 | 0 | 1 |
-| [差分](#差分) | 19 | 0 | 19 | 0 |
-| [代数 — 往返](#代数--往返) | 3 | 2 | 1 | 0 |
+| [差分](#差分) | 22 | 0 | 22 | 0 |
+| [代数 — 往返](#代数--往返) | 5 | 3 | 2 | 0 |
 | [代数 — 蜕变](#代数--蜕变) | 3 | 1 | 2 | 0 |
-| [代数 — 不变量](#代数--不变量) | 27 | 7 | 19 | 1 |
-| [否定 / 错误契约](#否定--错误契约) | 5 | 0 | 5 | 0 |
+| [代数 — 不变量](#代数--不变量) | 28 | 7 | 20 | 1 |
+| [否定 / 错误契约](#否定--错误契约) | 7 | 1 | 6 | 0 |
 | [参考](#参考) | 5 | 1 | 4 | 0 |
-| [仅崩溃](#仅崩溃) | 9 | 3 | 6 | 0 |
-| **合计** | **73** | **15** | **56** | **2** |
+| [仅崩溃](#仅崩溃) | 12 | 5 | 7 | 0 |
+| **合计** | **84** | **19** | **63** | **2** |
 
 强度顺序：状态机 ≻ 差分 ≻ 代数（往返 ≻ 幂等 ≻ 蜕变 ≻ 不变量 ≻ 否定/错误）≻ 参考 ≻ 仅崩溃。本集合中**幂等：0**。
 
@@ -36,27 +36,29 @@
 |--------|------:|---:|-----:|-------:|----:|----------:|
 | `multimedia_camera_framework` | 11 | 0 | 0 | 10 | 1 | 100% |
 | `multimedia_image_framework` | 9 | 0 | 1 | 8 | 0 | 100% |
+| `communication_netmanager_base` | 9 | 2 | 2 | 7 | 0 | 82% |
 | `arkui_ace_engine` | 8 | 1 | 4 | 4 | 0 | 89% |
 | `graphic_graphic_2d` | 8 | 0 | 2 | 5 | 1 | 100% |
-| `communication_netmanager_base` | 7 | 2 | 2 | 5 | 0 | 78% |
+| `ability_ability_runtime` | 5 | 0 | 0 | 5 | 0 | 100% |
 | `arkcompiler_runtime_core` | 5 | 1 | 0 | 5 | 0 | 83% |
-| `ability_ability_runtime` | 4 | 0 | 0 | 4 | 0 | 100% |
-| `multimedia_av_codec` | 3 | 0 | 0 | 3 | 0 | 100% |
+| `multimedia_av_codec` | 4 | 0 | 0 | 4 | 0 | 100% |
+| `multimedia_player_framework` | 3 | 0 | 0 | 3 | 0 | 100% |
+| `communication_bluetooth_service` | 2 | 0 | 2 | 0 | 0 | 100% |
+| `communication_wifi` | 2 | 0 | 1 | 1 | 0 | 100% |
 | `distributeddatamgr_pasteboard` | 2 | 0 | 1 | 1 | 0 | 100% |
 | `distributedhardware_device_manager` | 2 | 1 | 2 | 0 | 0 | 67% |
-| `multimedia_player_framework` | 2 | 0 | 0 | 2 | 0 | 100% |
+| `multimedia_av_session` | 2 | 1 | 1 | 1 | 0 | 67% |
+| `multimedia_media_library` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `window_window_manager` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `commonlibrary_rust_ylong_http` | 1 | 0 | 1 | 0 | 0 | 100% |
 | `communication_dsoftbus` | 1 | 1 | 0 | 1 | 0 | 50% |
-| `communication_wifi` | 1 | 0 | 0 | 1 | 0 | 100% |
 | `distributeddatamgr_datamgr_service` | 1 | 0 | 0 | 1 | 0 | 100% |
 | `distributedhardware_distributed_hardware_fwk` | 1 | 0 | 0 | 1 | 0 | 100% |
 | `filemanagement_dfs_service` | 1 | 0 | 0 | 1 | 0 | 100% |
 | `filemanagement_storage_service` | 1 | 0 | 0 | 1 | 0 | 100% |
-| `multimedia_av_session` | 1 | 1 | 1 | 0 | 0 | 50% |
 | `multimedia_media_foundation` | 1 | 4 | 1 | 0 | 0 | 20% |
-| `multimedia_media_library` | 1 | 0 | 0 | 1 | 0 | 100% |
-| **合计** | **73** | **11** | **15** | **56** | **2** | **87%** |
+| `telephony_core_service` | 1 | 0 | 1 | 0 | 0 | 100% |
+| **合计** | **84** | **11** | **19** | **63** | **2** | **88%** |
 
 ## DTS 索引
 
@@ -76,6 +78,8 @@
 | `DTS2026062915131` | [ARK-2026-INT-002](../content/issues/ARK-2026-INT-002.md) | 代数 — 不变量 | MEDIUM | `arkcompiler_runtime_core` |
 | `DTS2026062916398` | [ARK-2026-INT-001](../content/issues/ARK-2026-INT-001.md) | 差分 | MEDIUM | `arkcompiler_runtime_core` |
 | `DTS2026062926934` | [OH-2026-NET-001](../content/issues/OH-2026-NET-001.md) | 代数 — 不变量 | MEDIUM | `communication_netmanager_base` |
+| `DTS2026063023525` | [OH-2026-BT-001](../content/issues/OH-2026-BT-001.md) | 代数 — 往返 | HIGH | `communication_bluetooth_service` |
+| `DTS2026063027223` | [OH-2026-BT-002](../content/issues/OH-2026-BT-002.md) | 否定 / 错误契约 | HIGH | `communication_bluetooth_service` |
 | `DTS2026070238028` | [OH-2026-CAM-001](../content/issues/OH-2026-CAM-001.md) | 状态机 | LOW | `multimedia_camera_framework` |
 | `DTS2026070318488` | [OH-2026-ARKUI-005](../content/issues/OH-2026-ARKUI-005.md) | 代数 — 不变量 | HIGH | `arkui_ace_engine` |
 | `DTS2026070722498` | [OH-2026-AVSESSION-001](../content/issues/OH-2026-AVSESSION-001.md) | 仅崩溃 | HIGH | `multimedia_av_session` |
@@ -89,6 +93,9 @@
 | `DTS2026071430826` | [OH-2026-GFX-004](../content/issues/OH-2026-GFX-004.md) | 代数 — 蜕变 | MEDIUM | `graphic_graphic_2d` |
 | `DTS2026071433052` | [ARK-2026-LOOP-001](../content/issues/ARK-2026-LOOP-001.md) | 代数 — 不变量 | MEDIUM | `arkcompiler_runtime_core` |
 | `DTS2026071544397` | [OH-2026-ABILITY-001](../content/issues/OH-2026-ABILITY-001.md) | 仅崩溃 | MEDIUM | `ability_ability_runtime` |
+| `DTS20260717048` | [OH-2026-NET-009](../content/issues/OH-2026-NET-009.md) | 差分 | MEDIUM | `communication_netmanager_base` |
+| `DTS2026071727054` | [OH-2026-NET-008](../content/issues/OH-2026-NET-008.md) | 否定 / 错误契约 | MEDIUM | `communication_netmanager_base` |
+| `DTS2026071806648` | [OH-2026-MEDIALIB-002](../content/issues/OH-2026-MEDIALIB-002.md) | 仅崩溃 | MEDIUM | `multimedia_media_library` |
 | `DTS2026071806709` | [OH-2026-WIFI-001](../content/issues/OH-2026-WIFI-001.md) | 仅崩溃 | MEDIUM | `communication_wifi` |
 | `DTS2026071807957` | [ARK-2026-BUF-001](../content/issues/ARK-2026-BUF-001.md) | 代数 — 不变量 | MEDIUM | `arkcompiler_runtime_core` |
 | `DTS2026071809730` | [OH-2026-ABILITY-002](../content/issues/OH-2026-ABILITY-002.md) | 否定 / 错误契约 | MEDIUM | `ability_ability_runtime` |
@@ -112,10 +119,12 @@
 | `DTS2026073013382` | [OH-2026-IMG-009](../content/issues/OH-2026-IMG-009.md) | 代数 — 不变量 | MEDIUM | `multimedia_image_framework` |
 | `DTS2026073015200` | [OH-2026-IMG-003](../content/issues/OH-2026-IMG-003.md) | 代数 — 往返 | HIGH | `multimedia_image_framework` |
 | `DTS2026073020799` | [OH-2026-DEVMGR-004](../content/issues/OH-2026-DEVMGR-004.md) | 仅崩溃 | HIGH | `distributedhardware_device_manager` |
+| `DTS2026073028465` | [OH-2026-WIFI-002](../content/issues/OH-2026-WIFI-002.md) | 仅崩溃 | HIGH | `communication_wifi` |
 | `DTS2026073112258` | [ARK-2026-STR-001](../content/issues/ARK-2026-STR-001.md) | 代数 — 不变量 | MEDIUM | `arkcompiler_runtime_core` |
 | `DTS2026073116282` | [OH-2026-ARKUI-008](../content/issues/OH-2026-ARKUI-008.md) | 代数 — 不变量 | MEDIUM | `arkui_ace_engine` |
 | `DTS2026073129863` | [OH-2026-GFX-006](../content/issues/OH-2026-GFX-006.md) | 代数 — 不变量 | MEDIUM | `graphic_graphic_2d` |
 | `DTS2026073173354` | [OH-2026-ABILITY-004](../content/issues/OH-2026-ABILITY-004.md) | 差分 | MEDIUM | `ability_ability_runtime` |
+| `DTS2026080300753` | [OH-2026-AVSESSION-002](../content/issues/OH-2026-AVSESSION-002.md) | 代数 — 往返 | MEDIUM | `multimedia_av_session` |
 | `DTS2026080528903` | [OH-2026-GFX-007](../content/issues/OH-2026-GFX-007.md) | 代数 — 不变量 | MEDIUM | `graphic_graphic_2d` |
 | `DTS2026080530843` | [OH-2026-GFX-008](../content/issues/OH-2026-GFX-008.md) | 代数 — 不变量 | LOW | `graphic_graphic_2d` |
 | `DTS2026080608464` | [OH-2026-NET-005](../content/issues/OH-2026-NET-005.md) | 代数 — 不变量 | MEDIUM | `communication_netmanager_base` |
@@ -133,8 +142,12 @@
 | `DTS2026081417372` | [OH-2026-IMG-010](../content/issues/OH-2026-IMG-010.md) | 参考 | MEDIUM | `multimedia_image_framework` |
 | `DTS2026081421810` | [OH-2026-IMG-007](../content/issues/OH-2026-IMG-007.md) | 差分 | MEDIUM | `multimedia_image_framework` |
 | `DTS2026081424330` | [OH-2026-IMG-006](../content/issues/OH-2026-IMG-006.md) | 参考 | MEDIUM | `multimedia_image_framework` |
+| `DTS2026081703440` | [OH-2026-PLAYER-003](../content/issues/OH-2026-PLAYER-003.md) | 差分 | MEDIUM | `multimedia_player_framework` |
 | `DTS2026081713997` | [OH-2026-AVCODEC-003](../content/issues/OH-2026-AVCODEC-003.md) | 差分 | MEDIUM | `multimedia_av_codec` |
+| `DTS2026082007640` | [OH-2026-AVCODEC-004](../content/issues/OH-2026-AVCODEC-004.md) | 差分 | MEDIUM | `multimedia_av_codec` |
 | `DTS2026082023118` | [OH-2026-DSOFTBUS-001](../content/issues/OH-2026-DSOFTBUS-001.md) | 差分 | MEDIUM | `communication_dsoftbus` |
+| `DTS2026082254944` | [OH-2026-ABILITY-005](../content/issues/OH-2026-ABILITY-005.md) | 代数 — 不变量 | MEDIUM | `ability_ability_runtime` |
+| `DTS2026082565627` | [OH-2026-TEL-001](../content/issues/OH-2026-TEL-001.md) | 仅崩溃 | HIGH | `telephony_core_service` |
 
 ## 检测性质（预言机）
 
@@ -163,6 +176,7 @@
 | `DTS2026071303295` | [OH-2026-CAM-006](../content/issues/OH-2026-CAM-006.md) | MEDIUM | IsDoubleRegex 接受 ⇒ 调用方 std::stoi 不抛 |
 | `DTS2026071411883` | [OH-2026-CAM-003](../content/issues/OH-2026-CAM-003.md) | MEDIUM | isIntegerRegex 接受 ⇒ std::stoi 不抛 |
 | `DTS2026071412383` | [OH-2026-PB-001](../content/issues/OH-2026-PB-001.md) | MEDIUM | 仅在每条记录已授权时导出 URI（同类 include 规则） |
+| `DTS20260717048` | [OH-2026-NET-009](../content/issues/OH-2026-NET-009.md) | MEDIUM | StrToInt/Uint/Uint64 前导零十进制 ≡ ParseInt 十进制同类 |
 | `DTS2026072326318` | [OH-2026-DFS-001](../content/issues/OH-2026-DFS-001.md) | MEDIUM | 子项 ReadFromParcel 失败则拒绝，与 Marshalling 同类一致 |
 | `DTS2026072347788` | [OH-2026-WM-001](../content/issues/OH-2026-WM-001.md) | MEDIUM | 宽高比检查与加宽无符号预言一致 |
 | `DTS2026072438019` | [OH-2026-AVCODEC-001](../content/issues/OH-2026-AVCODEC-001.md) | MEDIUM | byterange 终点与加宽安全加法一致 |
@@ -176,7 +190,9 @@
 | `DTS2026081136698` | [OH-2026-NET-006](../content/issues/OH-2026-NET-006.md) | MEDIUM | IPv6 GetNetworkAddress 前缀边界 ≡ IPv4 同类插入拒绝 |
 | `DTS2026081413702` | [OH-2026-IMG-008](../content/issues/OH-2026-IMG-008.md) | MEDIUM | HalfToUint32 LE/BE 与同类拼装 + HalfToFloat 一致 |
 | `DTS2026081421810` | [OH-2026-IMG-007](../content/issues/OH-2026-IMG-007.md) | MEDIUM | IsLegalAxis 与 int64 加宽预言一致 |
+| `DTS2026081703440` | [OH-2026-PLAYER-003](../content/issues/OH-2026-PLAYER-003.md) | MEDIUM | Ext 扩展偏移用 Ext 基数，与 MSErrorToString 同类一致 |
 | `DTS2026081713997` | [OH-2026-AVCODEC-003](../content/issues/OH-2026-AVCODEC-003.md) | MEDIUM | TITLE 不含逗号，与 DURATION 同类一致 |
+| `DTS2026082007640` | [OH-2026-AVCODEC-004](../content/issues/OH-2026-AVCODEC-004.md) | MEDIUM | YCRCB_P010 → NV21，与 8-bit YCRCB_420_SP 同类一致 |
 | `DTS2026082023118` | [OH-2026-DSOFTBUS-001](../content/issues/OH-2026-DSOFTBUS-001.md) | MEDIUM | ConnectGroup 长度守卫 ≡ P2pConnectGroup 同类（size ≥ MODE） |
 
 <a id="代数--往返"></a>
@@ -189,7 +205,9 @@
 |-----|----|----------|------------------|
 | `DTS2026062427183` | [OH-2026-ARKUI-003](../content/issues/OH-2026-ARKUI-003.md) | MEDIUM | Get(SetEntry(row,col,v)) == v |
 | `DTS2026062701168` | [OH-2026-GFX-002](../content/issues/OH-2026-GFX-002.md) | HIGH | FromBgraInt(AsBgraInt(c)) == c |
+| `DTS2026063023525` | [OH-2026-BT-001](../content/issues/OH-2026-BT-001.md) | HIGH | ConvertStringToUuid(ConvertUuidToString(uuids)) == uuids |
 | `DTS2026073015200` | [OH-2026-IMG-003](../content/issues/OH-2026-IMG-003.md) | HIGH | 单轴平移映射点且求逆取反 |
+| `DTS2026080300753` | [OH-2026-AVSESSION-002](../content/issues/OH-2026-AVSESSION-002.md) | MEDIUM | TransformStrToInt64(TransformInt64ToStr(n)) == n |
 
 <a id="代数--蜕变"></a>
 
@@ -238,6 +256,7 @@
 | `DTS2026080608464` | [OH-2026-NET-005](../content/issues/OH-2026-NET-005.md) | MEDIUM | 范围止于 255.255.255.255 时 GetIp4AndMask 终止 |
 | `DTS2026080813827` | [OH-2026-CAM-010](../content/issues/OH-2026-CAM-010.md) | MEDIUM | TLV 剩余长度覆盖声称的 3×num 点 |
 | `DTS2026080813868` | [OH-2026-CAM-011](../content/issues/OH-2026-CAM-011.md) | MEDIUM | 长度前缀 payload 落在剩余 count 内 |
+| `DTS2026082254944` | [OH-2026-ABILITY-005](../content/issues/OH-2026-ABILITY-005.md) | MEDIUM | ConvertStringToUint32 接受 [0, UINT32_MAX] 内任意完整消费的十进制 |
 
 <a id="否定--错误契约"></a>
 
@@ -247,7 +266,9 @@
 
 | DTS | ID | 严重级别 | 失败的性质 |
 |-----|----|----------|------------------|
+| `DTS2026063027223` | [OH-2026-BT-002](../content/issues/OH-2026-BT-002.md) | HIGH | 非 hex / 奇数长度 hex 被拒绝（不抛、无前缀解析） |
 | `DTS2026071428596` | [OH-2026-CAM-002](../content/issues/OH-2026-CAM-002.md) | MEDIUM | 单元素美颜范围返回 OK/INVALID_ARG，不 SIGFPE |
+| `DTS2026071727054` | [OH-2026-NET-008](../content/issues/OH-2026-NET-008.md) | MEDIUM | StrToUint64("-1") 返回 defaultErr（不绕成 UINT64_MAX） |
 | `DTS2026071809730` | [OH-2026-ABILITY-002](../content/issues/OH-2026-ABILITY-002.md) | MEDIUM | IsNumber 拒绝浮点；GetId 不截断 |
 | `DTS2026072223098` | [OH-2026-DATAMGR-001](../content/issues/OH-2026-DATAMGR-001.md) | MEDIUM | IsValidPath 拒绝单独的 ".." |
 | `DTS2026072335866` | [OH-2026-STORAGE-001](../content/issues/OH-2026-STORAGE-001.md) | MEDIUM | 越界 userId 被拒绝（CheckUserIdRange） |
@@ -278,18 +299,21 @@
 | `DTS2026070722498` | [OH-2026-AVSESSION-001](../content/issues/OH-2026-AVSESSION-001.md) | HIGH | 全连续字节标题下 GetAnonyTitle 不崩溃 |
 | `DTS2026071309672` | [OH-2026-MF-001](../content/issues/OH-2026-MF-001.md) | HIGH | Stringify 对任何公共 Put*（含 PutIntBuffer）不崩溃 |
 | `DTS2026071544397` | [OH-2026-ABILITY-001](../content/issues/OH-2026-ABILITY-001.md) | MEDIUM | 任意 srcEntrance 下 .abc 路径构建不抛异常 |
+| `DTS2026071806648` | [OH-2026-MEDIALIB-002](../content/issues/OH-2026-MEDIALIB-002.md) | MEDIUM | GetTimeIdFromUri 对空 / 非整数 offset 不抛 |
 | `DTS2026071806709` | [OH-2026-WIFI-001](../content/issues/OH-2026-WIFI-001.md) | MEDIUM | 空指针 / 过短 hex 不使 HexString2Byte 崩溃 |
 | `DTS2026072457284` | [OH-2026-PLAYER-001](../content/issues/OH-2026-PLAYER-001.md) | MEDIUM | Destroy + 析构不双重释放 |
 | `DTS2026072514260` | [OH-2026-ABILITY-003](../content/issues/OH-2026-ABILITY-003.md) | MEDIUM | ParseURI 的 catch 不越界索引 uriVec |
 | `DTS2026072717921` | [OH-2026-CAM-005](../content/issues/OH-2026-CAM-005.md) | MEDIUM | 奇数 count 成对遍历不越界 |
 | `DTS2026073020799` | [OH-2026-DEVMGR-004](../content/issues/OH-2026-DEVMGR-004.md) | HIGH | GenerateRandNum 采样合法分布（无 SIGSEGV） |
+| `DTS2026073028465` | [OH-2026-WIFI-002](../content/issues/OH-2026-WIFI-002.md) | HIGH | 空 mStateVector 上 GetCurStateName 不越界 |
 | `DTS2026080813420` | [OH-2026-CAM-007](../content/issues/OH-2026-CAM-007.md) | MEDIUM | 短/奇数 HIGH_QUALITY_SUPPORT 不越界 |
+| `DTS2026082565627` | [OH-2026-TEL-001](../content/issues/OH-2026-TEL-001.md) | HIGH | offset+length 绕回不得 SIGSEGV |
 
 ## 非问题
 
 维护者驳回的 DTS。只计入分母。
 
-**精确率** = 已确认 /（已确认 + 非问题）= **73 / (73 + 11) = 86.9%**。
+**精确率** = 已确认 /（已确认 + 非问题）= **84 / (84 + 11) = 88.4%**。
 
 | DTS | 项目 | 主题 | 为何非问题 |
 |-----|------|------|------------|

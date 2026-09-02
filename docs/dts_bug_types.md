@@ -2,12 +2,12 @@
 
 Categorization of [`content/issues/`](../content/issues/) findings that carry a **DTS** ticket (`internal_issue_id`), grouped by the **pi-pbt property (oracle)** that found each ticket. CWE / failure-mode grouping is archived at the end of [`finding_precision_by_project.md`](finding_precision_by_project.md).
 
-- **Confirmed (FIXED)**: **73** — listed below (`CONFIRMED_FIXED` write-ups)
+- **Confirmed (FIXED)**: **84** — listed below (`CONFIRMED_FIXED` write-ups)
 - **Non-issue**: **11** — [catalog](#non-issues)
-- **Decided**: **84** = 73 + 11
-- **Precision**: **86.9%** = `73 / (73 + 11)` = confirmed / (confirmed + non-issues)
-- **Severity** (confirmed only): HIGH=15, MEDIUM=56, LOW=2
-- **Generated**: 2026-08-25
+- **Decided**: **95** = 84 + 11
+- **Precision**: **88.4%** = `84 / (84 + 11)` = confirmed / (confirmed + non-issues)
+- **Severity** (confirmed only): HIGH=19, MEDIUM=63, LOW=2
+- **Generated**: 2026-09-02
 
 ## Overview
 
@@ -17,14 +17,14 @@ Oracle taxonomy from [pi-pbt `docs/oracles.md`](https://github.com/fermat-hkrc/p
 | Property (oracle) | Count | HIGH | MEDIUM | LOW |
 |----------|------:|-----:|-------:|----:|
 | [State Machine](#state-machine) | 2 | 1 | 0 | 1 |
-| [Differential](#differential) | 19 | 0 | 19 | 0 |
-| [Algebraic — Round-trip](#algebraic--round-trip) | 3 | 2 | 1 | 0 |
+| [Differential](#differential) | 22 | 0 | 22 | 0 |
+| [Algebraic — Round-trip](#algebraic--round-trip) | 5 | 3 | 2 | 0 |
 | [Algebraic — Metamorphic](#algebraic--metamorphic) | 3 | 1 | 2 | 0 |
-| [Algebraic — Invariant](#algebraic--invariant) | 27 | 7 | 19 | 1 |
-| [Negative / Error Contract](#negative--error-contract) | 5 | 0 | 5 | 0 |
+| [Algebraic — Invariant](#algebraic--invariant) | 28 | 7 | 20 | 1 |
+| [Negative / Error Contract](#negative--error-contract) | 7 | 1 | 6 | 0 |
 | [Reference](#reference) | 5 | 1 | 4 | 0 |
-| [Crash-Only](#crash-only) | 9 | 3 | 6 | 0 |
-| **Total** | **73** | **15** | **56** | **2** |
+| [Crash-Only](#crash-only) | 12 | 5 | 7 | 0 |
+| **Total** | **84** | **19** | **63** | **2** |
 
 Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Idempotence ≻ Metamorphic ≻ Invariant ≻ Negative/Error) ≻ Reference ≻ Crash-Only. **Idempotence: 0** in this set.
 
@@ -36,27 +36,29 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 |--------|------:|---:|-----:|-------:|----:|----------:|
 | `multimedia_camera_framework` | 11 | 0 | 0 | 10 | 1 | 100% |
 | `multimedia_image_framework` | 9 | 0 | 1 | 8 | 0 | 100% |
+| `communication_netmanager_base` | 9 | 2 | 2 | 7 | 0 | 82% |
 | `arkui_ace_engine` | 8 | 1 | 4 | 4 | 0 | 89% |
 | `graphic_graphic_2d` | 8 | 0 | 2 | 5 | 1 | 100% |
-| `communication_netmanager_base` | 7 | 2 | 2 | 5 | 0 | 78% |
+| `ability_ability_runtime` | 5 | 0 | 0 | 5 | 0 | 100% |
 | `arkcompiler_runtime_core` | 5 | 1 | 0 | 5 | 0 | 83% |
-| `ability_ability_runtime` | 4 | 0 | 0 | 4 | 0 | 100% |
-| `multimedia_av_codec` | 3 | 0 | 0 | 3 | 0 | 100% |
+| `multimedia_av_codec` | 4 | 0 | 0 | 4 | 0 | 100% |
+| `multimedia_player_framework` | 3 | 0 | 0 | 3 | 0 | 100% |
+| `communication_bluetooth_service` | 2 | 0 | 2 | 0 | 0 | 100% |
+| `communication_wifi` | 2 | 0 | 1 | 1 | 0 | 100% |
 | `distributeddatamgr_pasteboard` | 2 | 0 | 1 | 1 | 0 | 100% |
 | `distributedhardware_device_manager` | 2 | 1 | 2 | 0 | 0 | 67% |
-| `multimedia_player_framework` | 2 | 0 | 0 | 2 | 0 | 100% |
+| `multimedia_av_session` | 2 | 1 | 1 | 1 | 0 | 67% |
+| `multimedia_media_library` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `window_window_manager` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `commonlibrary_rust_ylong_http` | 1 | 0 | 1 | 0 | 0 | 100% |
 | `communication_dsoftbus` | 1 | 1 | 0 | 1 | 0 | 50% |
-| `communication_wifi` | 1 | 0 | 0 | 1 | 0 | 100% |
 | `distributeddatamgr_datamgr_service` | 1 | 0 | 0 | 1 | 0 | 100% |
 | `distributedhardware_distributed_hardware_fwk` | 1 | 0 | 0 | 1 | 0 | 100% |
 | `filemanagement_dfs_service` | 1 | 0 | 0 | 1 | 0 | 100% |
 | `filemanagement_storage_service` | 1 | 0 | 0 | 1 | 0 | 100% |
-| `multimedia_av_session` | 1 | 1 | 1 | 0 | 0 | 50% |
 | `multimedia_media_foundation` | 1 | 4 | 1 | 0 | 0 | 20% |
-| `multimedia_media_library` | 1 | 0 | 0 | 1 | 0 | 100% |
-| **Total** | **73** | **11** | **15** | **56** | **2** | **87%** |
+| `telephony_core_service` | 1 | 0 | 1 | 0 | 0 | 100% |
+| **Total** | **84** | **11** | **19** | **63** | **2** | **88%** |
 
 ## DTS index
 
@@ -76,6 +78,8 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `DTS2026062915131` | [ARK-2026-INT-002](../content/issues/ARK-2026-INT-002.md) | Algebraic — Invariant | MEDIUM | `arkcompiler_runtime_core` |
 | `DTS2026062916398` | [ARK-2026-INT-001](../content/issues/ARK-2026-INT-001.md) | Differential | MEDIUM | `arkcompiler_runtime_core` |
 | `DTS2026062926934` | [OH-2026-NET-001](../content/issues/OH-2026-NET-001.md) | Algebraic — Invariant | MEDIUM | `communication_netmanager_base` |
+| `DTS2026063023525` | [OH-2026-BT-001](../content/issues/OH-2026-BT-001.md) | Algebraic — Round-trip | HIGH | `communication_bluetooth_service` |
+| `DTS2026063027223` | [OH-2026-BT-002](../content/issues/OH-2026-BT-002.md) | Negative / Error Contract | HIGH | `communication_bluetooth_service` |
 | `DTS2026070238028` | [OH-2026-CAM-001](../content/issues/OH-2026-CAM-001.md) | State Machine | LOW | `multimedia_camera_framework` |
 | `DTS2026070318488` | [OH-2026-ARKUI-005](../content/issues/OH-2026-ARKUI-005.md) | Algebraic — Invariant | HIGH | `arkui_ace_engine` |
 | `DTS2026070722498` | [OH-2026-AVSESSION-001](../content/issues/OH-2026-AVSESSION-001.md) | Crash-Only | HIGH | `multimedia_av_session` |
@@ -89,6 +93,9 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `DTS2026071430826` | [OH-2026-GFX-004](../content/issues/OH-2026-GFX-004.md) | Algebraic — Metamorphic | MEDIUM | `graphic_graphic_2d` |
 | `DTS2026071433052` | [ARK-2026-LOOP-001](../content/issues/ARK-2026-LOOP-001.md) | Algebraic — Invariant | MEDIUM | `arkcompiler_runtime_core` |
 | `DTS2026071544397` | [OH-2026-ABILITY-001](../content/issues/OH-2026-ABILITY-001.md) | Crash-Only | MEDIUM | `ability_ability_runtime` |
+| `DTS20260717048` | [OH-2026-NET-009](../content/issues/OH-2026-NET-009.md) | Differential | MEDIUM | `communication_netmanager_base` |
+| `DTS2026071727054` | [OH-2026-NET-008](../content/issues/OH-2026-NET-008.md) | Negative / Error Contract | MEDIUM | `communication_netmanager_base` |
+| `DTS2026071806648` | [OH-2026-MEDIALIB-002](../content/issues/OH-2026-MEDIALIB-002.md) | Crash-Only | MEDIUM | `multimedia_media_library` |
 | `DTS2026071806709` | [OH-2026-WIFI-001](../content/issues/OH-2026-WIFI-001.md) | Crash-Only | MEDIUM | `communication_wifi` |
 | `DTS2026071807957` | [ARK-2026-BUF-001](../content/issues/ARK-2026-BUF-001.md) | Algebraic — Invariant | MEDIUM | `arkcompiler_runtime_core` |
 | `DTS2026071809730` | [OH-2026-ABILITY-002](../content/issues/OH-2026-ABILITY-002.md) | Negative / Error Contract | MEDIUM | `ability_ability_runtime` |
@@ -112,10 +119,12 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `DTS2026073013382` | [OH-2026-IMG-009](../content/issues/OH-2026-IMG-009.md) | Algebraic — Invariant | MEDIUM | `multimedia_image_framework` |
 | `DTS2026073015200` | [OH-2026-IMG-003](../content/issues/OH-2026-IMG-003.md) | Algebraic — Round-trip | HIGH | `multimedia_image_framework` |
 | `DTS2026073020799` | [OH-2026-DEVMGR-004](../content/issues/OH-2026-DEVMGR-004.md) | Crash-Only | HIGH | `distributedhardware_device_manager` |
+| `DTS2026073028465` | [OH-2026-WIFI-002](../content/issues/OH-2026-WIFI-002.md) | Crash-Only | HIGH | `communication_wifi` |
 | `DTS2026073112258` | [ARK-2026-STR-001](../content/issues/ARK-2026-STR-001.md) | Algebraic — Invariant | MEDIUM | `arkcompiler_runtime_core` |
 | `DTS2026073116282` | [OH-2026-ARKUI-008](../content/issues/OH-2026-ARKUI-008.md) | Algebraic — Invariant | MEDIUM | `arkui_ace_engine` |
 | `DTS2026073129863` | [OH-2026-GFX-006](../content/issues/OH-2026-GFX-006.md) | Algebraic — Invariant | MEDIUM | `graphic_graphic_2d` |
 | `DTS2026073173354` | [OH-2026-ABILITY-004](../content/issues/OH-2026-ABILITY-004.md) | Differential | MEDIUM | `ability_ability_runtime` |
+| `DTS2026080300753` | [OH-2026-AVSESSION-002](../content/issues/OH-2026-AVSESSION-002.md) | Algebraic — Round-trip | MEDIUM | `multimedia_av_session` |
 | `DTS2026080528903` | [OH-2026-GFX-007](../content/issues/OH-2026-GFX-007.md) | Algebraic — Invariant | MEDIUM | `graphic_graphic_2d` |
 | `DTS2026080530843` | [OH-2026-GFX-008](../content/issues/OH-2026-GFX-008.md) | Algebraic — Invariant | LOW | `graphic_graphic_2d` |
 | `DTS2026080608464` | [OH-2026-NET-005](../content/issues/OH-2026-NET-005.md) | Algebraic — Invariant | MEDIUM | `communication_netmanager_base` |
@@ -133,8 +142,12 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `DTS2026081417372` | [OH-2026-IMG-010](../content/issues/OH-2026-IMG-010.md) | Reference | MEDIUM | `multimedia_image_framework` |
 | `DTS2026081421810` | [OH-2026-IMG-007](../content/issues/OH-2026-IMG-007.md) | Differential | MEDIUM | `multimedia_image_framework` |
 | `DTS2026081424330` | [OH-2026-IMG-006](../content/issues/OH-2026-IMG-006.md) | Reference | MEDIUM | `multimedia_image_framework` |
+| `DTS2026081703440` | [OH-2026-PLAYER-003](../content/issues/OH-2026-PLAYER-003.md) | Differential | MEDIUM | `multimedia_player_framework` |
 | `DTS2026081713997` | [OH-2026-AVCODEC-003](../content/issues/OH-2026-AVCODEC-003.md) | Differential | MEDIUM | `multimedia_av_codec` |
+| `DTS2026082007640` | [OH-2026-AVCODEC-004](../content/issues/OH-2026-AVCODEC-004.md) | Differential | MEDIUM | `multimedia_av_codec` |
 | `DTS2026082023118` | [OH-2026-DSOFTBUS-001](../content/issues/OH-2026-DSOFTBUS-001.md) | Differential | MEDIUM | `communication_dsoftbus` |
+| `DTS2026082254944` | [OH-2026-ABILITY-005](../content/issues/OH-2026-ABILITY-005.md) | Algebraic — Invariant | MEDIUM | `ability_ability_runtime` |
+| `DTS2026082565627` | [OH-2026-TEL-001](../content/issues/OH-2026-TEL-001.md) | Crash-Only | HIGH | `telephony_core_service` |
 
 ## Detecting property (oracle)
 
@@ -163,6 +176,7 @@ Candidate vs a same-job sibling or independent implementation of the same contra
 | `DTS2026071303295` | [OH-2026-CAM-006](../content/issues/OH-2026-CAM-006.md) | MEDIUM | IsDoubleRegex accept ⇒ caller std::stoi does not throw |
 | `DTS2026071411883` | [OH-2026-CAM-003](../content/issues/OH-2026-CAM-003.md) | MEDIUM | isIntegerRegex accept ⇒ std::stoi does not throw |
 | `DTS2026071412383` | [OH-2026-PB-001](../content/issues/OH-2026-PB-001.md) | MEDIUM | export URI only when per-record grant is set (sibling include rule) |
+| `DTS20260717048` | [OH-2026-NET-009](../content/issues/OH-2026-NET-009.md) | MEDIUM | StrToInt/Uint/Uint64 leading-zero decimal ≡ ParseInt base-10 sibling |
 | `DTS2026072326318` | [OH-2026-DFS-001](../content/issues/OH-2026-DFS-001.md) | MEDIUM | item ReadFromParcel failure rejects, as Marshalling sibling does |
 | `DTS2026072347788` | [OH-2026-WM-001](../content/issues/OH-2026-WM-001.md) | MEDIUM | aspect-ratio check agrees with widened uint oracle |
 | `DTS2026072438019` | [OH-2026-AVCODEC-001](../content/issues/OH-2026-AVCODEC-001.md) | MEDIUM | byterange end agrees with widened (secure) add |
@@ -176,7 +190,9 @@ Candidate vs a same-job sibling or independent implementation of the same contra
 | `DTS2026081136698` | [OH-2026-NET-006](../content/issues/OH-2026-NET-006.md) | MEDIUM | IPv6 GetNetworkAddress prefix bound ≡ IPv4 sibling insert reject |
 | `DTS2026081413702` | [OH-2026-IMG-008](../content/issues/OH-2026-IMG-008.md) | MEDIUM | HalfToUint32 LE/BE matches sibling assemble + HalfToFloat |
 | `DTS2026081421810` | [OH-2026-IMG-007](../content/issues/OH-2026-IMG-007.md) | MEDIUM | IsLegalAxis agrees with int64 widened oracle |
+| `DTS2026081703440` | [OH-2026-PLAYER-003](../content/issues/OH-2026-PLAYER-003.md) | MEDIUM | Ext extend offset uses Ext base, as MSErrorToString sibling |
 | `DTS2026081713997` | [OH-2026-AVCODEC-003](../content/issues/OH-2026-AVCODEC-003.md) | MEDIUM | TITLE excludes the comma, same as DURATION sibling |
+| `DTS2026082007640` | [OH-2026-AVCODEC-004](../content/issues/OH-2026-AVCODEC-004.md) | MEDIUM | YCRCB_P010 → NV21, same as 8-bit YCRCB_420_SP sibling |
 | `DTS2026082023118` | [OH-2026-DSOFTBUS-001](../content/issues/OH-2026-DSOFTBUS-001.md) | MEDIUM | ConnectGroup size guard ≡ P2pConnectGroup sibling (size ≥ MODE) |
 
 <a id="algebraic--round-trip"></a>
@@ -189,7 +205,9 @@ Candidate vs a same-job sibling or independent implementation of the same contra
 |-----|----|----------|------------------|
 | `DTS2026062427183` | [OH-2026-ARKUI-003](../content/issues/OH-2026-ARKUI-003.md) | MEDIUM | Get(SetEntry(row,col,v)) == v |
 | `DTS2026062701168` | [OH-2026-GFX-002](../content/issues/OH-2026-GFX-002.md) | HIGH | FromBgraInt(AsBgraInt(c)) == c |
+| `DTS2026063023525` | [OH-2026-BT-001](../content/issues/OH-2026-BT-001.md) | HIGH | ConvertStringToUuid(ConvertUuidToString(uuids)) == uuids |
 | `DTS2026073015200` | [OH-2026-IMG-003](../content/issues/OH-2026-IMG-003.md) | HIGH | axis translate maps points and invert negates |
+| `DTS2026080300753` | [OH-2026-AVSESSION-002](../content/issues/OH-2026-AVSESSION-002.md) | MEDIUM | TransformStrToInt64(TransformInt64ToStr(n)) == n |
 
 <a id="algebraic--metamorphic"></a>
 
@@ -238,6 +256,7 @@ A source-grounded input transform implies a relation on outputs (`a+b==b+a`, nam
 | `DTS2026080608464` | [OH-2026-NET-005](../content/issues/OH-2026-NET-005.md) | MEDIUM | GetIp4AndMask terminates when the range ends at 255.255.255.255 |
 | `DTS2026080813827` | [OH-2026-CAM-010](../content/issues/OH-2026-CAM-010.md) | MEDIUM | TLV remaining length covers claimed 3×num points |
 | `DTS2026080813868` | [OH-2026-CAM-011](../content/issues/OH-2026-CAM-011.md) | MEDIUM | length-prefix payload fits in remaining count |
+| `DTS2026082254944` | [OH-2026-ABILITY-005](../content/issues/OH-2026-ABILITY-005.md) | MEDIUM | ConvertStringToUint32 accepts any full-consume decimal in [0, UINT32_MAX] |
 
 <a id="negative--error-contract"></a>
 
@@ -247,7 +266,9 @@ Inputs outside the valid domain are rejected as specified.
 
 | DTS | ID | Severity | Failing property |
 |-----|----|----------|------------------|
+| `DTS2026063027223` | [OH-2026-BT-002](../content/issues/OH-2026-BT-002.md) | HIGH | non-hex / odd-length hex is rejected (no throw, no prefix) |
 | `DTS2026071428596` | [OH-2026-CAM-002](../content/issues/OH-2026-CAM-002.md) | MEDIUM | single-element beauty range returns OK/INVALID_ARG, never SIGFPE |
+| `DTS2026071727054` | [OH-2026-NET-008](../content/issues/OH-2026-NET-008.md) | MEDIUM | StrToUint64("-1") returns defaultErr (no UINT64_MAX wrap) |
 | `DTS2026071809730` | [OH-2026-ABILITY-002](../content/issues/OH-2026-ABILITY-002.md) | MEDIUM | IsNumber rejects floats; GetId does not truncate |
 | `DTS2026072223098` | [OH-2026-DATAMGR-001](../content/issues/OH-2026-DATAMGR-001.md) | MEDIUM | IsValidPath rejects lone ".." |
 | `DTS2026072335866` | [OH-2026-STORAGE-001](../content/issues/OH-2026-STORAGE-001.md) | MEDIUM | out-of-range userId is rejected (CheckUserIdRange) |
@@ -278,18 +299,21 @@ Authoritative spec / stdlib / IEEE / Unicode / pinning contract that this SUT cl
 | `DTS2026070722498` | [OH-2026-AVSESSION-001](../content/issues/OH-2026-AVSESSION-001.md) | HIGH | GetAnonyTitle never crashes on continuation-only titles |
 | `DTS2026071309672` | [OH-2026-MF-001](../content/issues/OH-2026-MF-001.md) | HIGH | Stringify survives any public Put* including PutIntBuffer |
 | `DTS2026071544397` | [OH-2026-ABILITY-001](../content/issues/OH-2026-ABILITY-001.md) | MEDIUM | abc-path builder never throws on any srcEntrance |
+| `DTS2026071806648` | [OH-2026-MEDIALIB-002](../content/issues/OH-2026-MEDIALIB-002.md) | MEDIUM | GetTimeIdFromUri never throws on empty / non-integer offset |
 | `DTS2026071806709` | [OH-2026-WIFI-001](../content/issues/OH-2026-WIFI-001.md) | MEDIUM | null / short hex does not crash HexString2Byte |
 | `DTS2026072457284` | [OH-2026-PLAYER-001](../content/issues/OH-2026-PLAYER-001.md) | MEDIUM | Destroy + destructor does not double-free |
 | `DTS2026072514260` | [OH-2026-ABILITY-003](../content/issues/OH-2026-ABILITY-003.md) | MEDIUM | ParseURI catch never indexes uriVec past end |
 | `DTS2026072717921` | [OH-2026-CAM-005](../content/issues/OH-2026-CAM-005.md) | MEDIUM | odd-count pair walk must not OOB |
 | `DTS2026073020799` | [OH-2026-DEVMGR-004](../content/issues/OH-2026-DEVMGR-004.md) | HIGH | GenerateRandNum samples a valid distribution (no SIGSEGV) |
+| `DTS2026073028465` | [OH-2026-WIFI-002](../content/issues/OH-2026-WIFI-002.md) | HIGH | empty mStateVector GetCurStateName does not OOB |
 | `DTS2026080813420` | [OH-2026-CAM-007](../content/issues/OH-2026-CAM-007.md) | MEDIUM | short/odd HIGH_QUALITY_SUPPORT must not OOB |
+| `DTS2026082565627` | [OH-2026-TEL-001](../content/issues/OH-2026-TEL-001.md) | HIGH | wrapping offset+length must not SEGV |
 
 ## Non-issues
 
 Maintainer-rejected DTS. Counted in the denominator only.
 
-**Precision** = confirmed / (confirmed + non-issues) = **73 / (73 + 11) = 86.9%**.
+**Precision** = confirmed / (confirmed + non-issues) = **84 / (84 + 11) = 88.4%**.
 
 | DTS | Project | Theme | Why non-issue |
 |-----|---------|-------|---------------|
