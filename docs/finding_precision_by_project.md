@@ -2,8 +2,8 @@
 
 How often PBT-filed **DTS** tickets were accepted as real bugs versus closed as non-issues, broken down by project.
 
-- **Precision:** **88.1%** (59 FIXED / 67 decided)
-- **False-positive rate:** **11.9%** (8 NON-ISSUE)
+- **Precision:** **88.4%** (84 FIXED / 95 decided)
+- **False-positive rate:** **11.6%** (11 NON-ISSUE)
 
 Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS tickets are omitted — their outcome (bug vs non-issue) is not yet known.
 
@@ -19,22 +19,22 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 
 **Sources**
 
-- DTS inventory: `~/cloned/BUG_REPORTS.md` (**101** unique DTS; **37** still SUBMITTED, omitted)
-- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**59** issues, all `CONFIRMED_FIXED`)
-- Non-issue write-ups: `~/cloned/*/pbt-out/bug_reports/non-issue/` (**8** DTS-stamped)
+- DTS inventory: [`dts_bug_types.md`](./dts_bug_types.md) + [`content/issues/`](../content/issues/)
+- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**84** issues, all `CONFIRMED_FIXED`)
+- Non-issue write-ups: `~/cloned/*/pbt-out/bug_reports/non-issue/` (**11** DTS-stamped)
 
-- **Generated:** 2026-08-18
+- **Generated:** 2026-09-02
 
 ### Global DTS scoreboard (decided only)
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 59 | 88.1% |
-| NON-ISSUE | 8 | 11.9% |
-| **Total decided** | **67** | 100% |
+| FIXED | 84 | 88.4% |
+| NON-ISSUE | 11 | 11.6% |
+| **Total decided** | **95** | 100% |
 
-- **Precision:** **59/67 = 88.1%** — almost nine in ten closed tickets were real bugs.
-- **False-positive rate:** **8/67 = 11.9%**.
+- **Precision:** **84/95 = 88.4%** — almost nine in ten closed tickets were real bugs.
+- **False-positive rate:** **11/95 = 11.6%**.
 
 > Precision means *maintainer-accepted defect rate among dispositioned DTS*, not static-analysis alert rate. Open/submitted tickets are out of scope until closed.
 
@@ -44,35 +44,37 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 
 | Project | FIXED | NON-ISSUE | Decided | Precision |
 |---------|------:|----------:|--------:|----------:|
-| [`communication_netmanager_base`](#communication-netmanager-base) | 7 | 2 | 9 | 78% |
+| [`multimedia_camera_framework`](#multimedia-camera-framework) | 11 | 0 | 11 | 100% |
+| [`communication_netmanager_base`](#communication-netmanager-base) | 9 | 2 | 11 | 82% |
+| [`multimedia_image_framework`](#multimedia-image-framework) | 9 | 0 | 9 | 100% |
+| [`arkui_ace_engine`](#arkui-ace-engine) | 8 | 1 | 9 | 89% |
 | [`graphic_graphic_2d`](#graphic-graphic-2d) | 8 | 0 | 8 | 100% |
-| [`arkui_ace_engine`](#arkui-ace-engine) | 7 | 1 | 8 | 88% |
-| [`multimedia_camera_framework`](#multimedia-camera-framework) | 6 | 0 | 6 | 100% |
-| [`ability_ability_runtime`](#ability-ability-runtime) | 4 | 0 | 4 | 100% |
-| [`arkcompiler_runtime_core`](#arkcompiler-runtime-core) | 4 | 0 | 4 | 100% |
-| [`multimedia_image_framework`](#multimedia-image-framework) | 4 | 0 | 4 | 100% |
-| [`multimedia_media_foundation`](#multimedia-media-foundation) | 1 | 3 | 4 | 25% |
+| [`arkcompiler_runtime_core`](#arkcompiler-runtime-core) | 5 | 1 | 6 | 83% |
+| [`ability_ability_runtime`](#ability-ability-runtime) | 5 | 0 | 5 | 100% |
+| [`multimedia_media_foundation`](#multimedia-media-foundation) | 1 | 4 | 5 | 20% |
+| [`multimedia_av_codec`](#multimedia-av-codec) | 4 | 0 | 4 | 100% |
+| [`distributedhardware_device_manager`](#distributedhardware-device-manager) | 2 | 1 | 3 | 67% |
+| [`multimedia_av_session`](#multimedia-av-session) | 2 | 1 | 3 | 67% |
+| [`multimedia_player_framework`](#multimedia-player-framework) | 3 | 0 | 3 | 100% |
+| [`communication_bluetooth_service`](#communication-bluetooth-service) | 2 | 0 | 2 | 100% |
+| [`communication_dsoftbus`](#communication-dsoftbus) | 1 | 1 | 2 | 50% |
+| [`communication_wifi`](#communication-wifi) | 2 | 0 | 2 | 100% |
 | [`distributeddatamgr_pasteboard`](#distributeddatamgr-pasteboard) | 2 | 0 | 2 | 100% |
-| [`distributedhardware_device_manager`](#distributedhardware-device-manager) | 2 | 0 | 2 | 100% |
-| [`multimedia_av_codec`](#multimedia-av-codec) | 2 | 0 | 2 | 100% |
-| [`multimedia_av_session`](#multimedia-av-session) | 1 | 1 | 2 | 50% |
-| [`multimedia_player_framework`](#multimedia-player-framework) | 2 | 0 | 2 | 100% |
+| [`multimedia_media_library`](#multimedia-media-library) | 2 | 0 | 2 | 100% |
 | [`window_window_manager`](#window-window-manager) | 2 | 0 | 2 | 100% |
 | [`commonlibrary_rust_ylong_http`](#commonlibrary-rust-ylong-http) | 1 | 0 | 1 | 100% |
-| [`communication_wifi`](#communication-wifi) | 1 | 0 | 1 | 100% |
 | [`distributeddatamgr_datamgr_service`](#distributeddatamgr-datamgr-service) | 1 | 0 | 1 | 100% |
 | [`distributedhardware_distributed_hardware_fwk`](#distributedhardware-distributed-hardware-fwk) | 1 | 0 | 1 | 100% |
 | [`filemanagement_dfs_service`](#filemanagement-dfs-service) | 1 | 0 | 1 | 100% |
 | [`filemanagement_storage_service`](#filemanagement-storage-service) | 1 | 0 | 1 | 100% |
-| [`multimedia_media_library`](#multimedia-media-library) | 1 | 0 | 1 | 100% |
-| [`communication_dsoftbus`](#communication-dsoftbus) | 0 | 1 | 1 | 0% |
-| **Total** | **59** | **8** | **67** | **88%** |
+| [`telephony_core_service`](#telephony-core-service) | 1 | 0 | 1 | 100% |
+| **Total** | **84** | **11** | **95** | **88%** |
 
 ## Precision tiers
 
 ### Tier A — Perfect precision (100%, ≥1 FIXED, 0 NON-ISSUE)
 
-`graphic_graphic_2d` (8 fixed), `multimedia_camera_framework` (6 fixed), `ability_ability_runtime` (4 fixed), `arkcompiler_runtime_core` (4 fixed), `multimedia_image_framework` (4 fixed), `distributeddatamgr_pasteboard` (2 fixed), `distributedhardware_device_manager` (2 fixed), `multimedia_av_codec` (2 fixed), `multimedia_player_framework` (2 fixed), `window_window_manager` (2 fixed), `commonlibrary_rust_ylong_http` (1 fixed), `communication_wifi` (1 fixed), `distributeddatamgr_datamgr_service` (1 fixed), `distributedhardware_distributed_hardware_fwk` (1 fixed), `filemanagement_dfs_service` (1 fixed), `filemanagement_storage_service` (1 fixed), `multimedia_media_library` (1 fixed)
+`multimedia_camera_framework` (11 fixed), `multimedia_image_framework` (9 fixed), `graphic_graphic_2d` (8 fixed), `ability_ability_runtime` (5 fixed), `multimedia_av_codec` (4 fixed), `multimedia_player_framework` (3 fixed), `communication_bluetooth_service` (2 fixed), `communication_wifi` (2 fixed), `distributeddatamgr_pasteboard` (2 fixed), `multimedia_media_library` (2 fixed), `window_window_manager` (2 fixed), `commonlibrary_rust_ylong_http` (1 fixed), `distributeddatamgr_datamgr_service` (1 fixed), `distributedhardware_distributed_hardware_fwk` (1 fixed), `filemanagement_dfs_service` (1 fixed), `filemanagement_storage_service` (1 fixed), `telephony_core_service` (1 fixed)
 
 These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 
@@ -80,27 +82,33 @@ These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 
 | Project | FIXED | NON-ISSUE | Precision | What non-issues teach |
 |---------|------:|----------:|----------:|----------------------|
-| `arkui_ace_engine` | 7 | 1 | 88% | Empty-grid `-mainGap` is stable formula output, not a defect; real layout/math bugs still fixed at high rate. |
-| `communication_netmanager_base` | 7 | 2 | 78% | Helper semantics (ForkExec) and API role split (zoned IPv6) ≠ bugs; firewall/IP/mask defects accepted. |
-| `multimedia_media_foundation` | 1 | 3 | 25% | Abstract OOB / dead inverted predicate / shipped CAPI cap rejected; live `Format::Stringify` null-deref fixed. |
-| `multimedia_av_session` | 1 | 1 | 50% | Call-type JSON omission = product policy; OOB crash in `GetAnonyTitle` still fixed. |
+| `arkui_ace_engine` | 8 | 1 | 89% | Empty-grid `-mainGap` is stable formula output, not a defect; real layout/math bugs still fixed at high rate. |
+| `arkcompiler_runtime_core` | 5 | 1 | 83% | SkipULeb128 empty/truncated is by-design (void helper, no error channel); real buffer/loop bugs still fixed. |
+| `communication_netmanager_base` | 9 | 2 | 82% | Helper semantics (ForkExec) and API role split (zoned IPv6) ≠ bugs; firewall/IP/mask defects accepted. |
+| `distributedhardware_device_manager` | 2 | 1 | 67% | cJSON int64 round-trip is a dead backend (`use_nlohmann_json`); PIN/rand bugs still fixed. |
+| `multimedia_av_session` | 2 | 1 | 67% | Call-type JSON omission = product policy; OOB crash in `GetAnonyTitle` still fixed. |
+| `communication_dsoftbus` | 1 | 1 | 50% | Hex NUL write is caller-owned; ConnectGroup freq OOB still fixed. |
+| `multimedia_media_foundation` | 1 | 4 | 20% | Abstract OOB / dead inverted predicate / shipped CAPI cap / `-O0`-only crash rejected; live `Format::Stringify` null-deref fixed. |
 
 ### Tier C — Only NON-ISSUE (0 FIXED)
 
-- `communication_dsoftbus`: 1 non-issue — dispositioned findings not accepted as product bugs.
+None — every project with a rejected DTS also has at least one accepted fix.
 
 ## Non-issue DTS catalog (all projects)
 
-All **8** maintainer-rejected tickets. Useful as negative examples for future filing.
+All **11** maintainer-rejected tickets. Useful as negative examples for future filing.
 
 | DTS | Project | Report theme | Rejection class |
 |-----|---------|--------------|-----------------|
 | `DTS2026071809266` | `arkui_ace_engine` | GetTotalHeightOfItemsInView empty → -mainGap | Stable API contract (formula) |
+| `DTS2026072517792` | `arkcompiler_runtime_core` | SkipULeb128 empty/truncated OOB | By-design helper semantics |
 | `DTS2026072017450` | `communication_dsoftbus` | Hex helpers omit explicit NUL write | Caller-owned contract (internal API) |
 | `DTS2026071725399` | `communication_netmanager_base` | ForkExec SUCCESS on non-zero child exit | By-design helper semantics |
 | `DTS2026072720774` | `communication_netmanager_base` | GetAddrFamily rejects zoned IPv6 | Different APIs, different jobs |
+| `DTS2026070663477` | `distributedhardware_device_manager` | JsonObject cJSON int64 round-trip loss | Dead backend / unreachable |
 | `DTS2026070145311` | `multimedia_av_session` | ConvertSessionType drops call types | Product policy / intentional omission |
 | `DTS2026071719364` | `multimedia_media_foundation` | CopyAVMemory missing offset+size guard | Unreachable under product invariant |
+| `DTS2026072938754` | `multimedia_media_foundation` | Format::Stringify SIGSEGV on bool-stored tag | Not reproduced on product `-O2` |
 | `DTS2026081129774` | `multimedia_media_foundation` | DataPacker::IsEmpty inverted | Dead code / no shipped callers |
 | `DTS2026081131247` | `multimedia_media_foundation` | OH_AVFormat GetString/Dump/GetKey cap + strcpy_s | Shipped CAPI contract (incompatible to change) |
 
@@ -108,9 +116,10 @@ All **8** maintainer-rejected tickets. Useful as negative examples for future fi
 
 | Class | Count | Implication for future PBT filings |
 |------:|------:|--------------------------------------|
-| By-design / product policy / stable contract | 4 | Validate *product* intent and call-graph impact, not only algebraic oddity |
-| Unreachable invariant / dead code | 2 | Constrain generators to **production domain**; prove a live caller |
+| By-design / product policy / stable contract | 5 | Validate *product* intent and call-graph impact, not only algebraic oddity |
+| Unreachable invariant / dead code | 3 | Constrain generators to **production domain**; prove a live caller |
 | Caller-owned or split-API contract | 2 | Read in-tree callers and sibling APIs before claiming inconsistency |
+| Flag-dependent / not reproduced | 1 | Match product build flags before filing a crash |
 
 ## Per-project detail
 
@@ -142,10 +151,10 @@ High-confidence project: **8** accepted fixes and **no** rejected DTS.
 
 | Metric | Value |
 |--------|------:|
-| FIXED | 7 |
+| FIXED | 8 |
 | NON-ISSUE | 1 |
-| Decided | 8 |
-| Precision | 87.5% |
+| Decided | 9 |
+| Precision | 88.9% |
 
 **FIXED DTS**
 
@@ -156,27 +165,30 @@ High-confidence project: **8** accepted fixes and **no** rejected DTS.
 - `DTS2026070318488` — [OH-2026-ARKUI-005](../content/issues/OH-2026-ARKUI-005.md): LazyGridLayoutInfo::UpdatePosMapStart omits spaceWidth_ when rebasing from a non-zero start index
 - `DTS2026070856858` — [OH-2026-ARKUI-006](../content/issues/OH-2026-ARKUI-006.md): Color::LineColorTransition UB cast on decreasing channel (legacy DataPanel gradient)
 - `DTS2026072325132` — [OH-2026-ARKUI-007](../content/issues/OH-2026-ARKUI-007.md): GetIrregularHeight divides by zero → +inf content height when itemRatio == 0
+- `DTS2026073116282` — [OH-2026-ARKUI-008](../content/issues/OH-2026-ARKUI-008.md): DataPanel GetPaintPath computes NaN circleAngle via unguarded asin when stroke collapses radius
 
 **NON-ISSUE DTS**
 
 - `DTS2026071809266` — GetTotalHeightOfItemsInView empty → -mainGap. *Long-standing formula contract; shared API unchanged.*
 
-Mixed outcomes: maintainers accepted **7** and rejected **1**. Net precision **88%**.
+Mixed outcomes: maintainers accepted **8** and rejected **1**. Net precision **89%**.
 
 ### `communication_netmanager_base`
 
 | Metric | Value |
 |--------|------:|
-| FIXED | 7 |
+| FIXED | 9 |
 | NON-ISSUE | 2 |
-| Decided | 9 |
-| Precision | 77.8% |
+| Decided | 11 |
+| Precision | 81.8% |
 
 **FIXED DTS**
 
 - `DTS2026050963138` — [OH-2026-NET-003](../content/issues/OH-2026-NET-003.md): netfirewall match_loopback always returns true, classifying all traffic as loopback and short-circuiting deny rules
 - `DTS2026062926934` — [OH-2026-NET-001](../content/issues/OH-2026-NET-001.md): ToAnonymousIp(maskMiddle=true) leaks compressed IPv6 addresses to logs unmasked
 - `DTS2026070856960` — [OH-2026-NET-002](../content/issues/OH-2026-NET-002.md): CheckIpv4InNet /0 CIDR mask via undefined behavior (1<<32), silently bypassing PAC catch-all proxy rules
+- `DTS20260717048` — [OH-2026-NET-009](../content/issues/OH-2026-NET-009.md): StrToInt / StrToUint / StrToUint64 parsed leading-zero decimals as octal
+- `DTS2026071727054` — [OH-2026-NET-008](../content/issues/OH-2026-NET-008.md): StrToUint64 wraps a leading minus to UINT64_MAX
 - `DTS2026072750511` — [OH-2026-NET-004](../content/issues/OH-2026-NET-004.md): RfindIp6 unsigned underflow hang/OOB when startBytes == 0 miss
 - `DTS2026080608464` — [OH-2026-NET-005](../content/issues/OH-2026-NET-005.md): GetIp4AndMask uint32 step wrap → infinite loop when range ends at 255.255.255.255
 - `DTS2026081135903` — [OH-2026-NET-007](../content/issues/OH-2026-NET-007.md): CheckIpv6InNet missing prefix bounds — match-all on negative / OOB on /129+
@@ -187,15 +199,15 @@ Mixed outcomes: maintainers accepted **7** and rejected **1**. Net precision **8
 - `DTS2026071725399` — ForkExec SUCCESS on non-zero child exit. *By design — SUCCESS means child created.*
 - `DTS2026072720774` — GetAddrFamily rejects zoned IPv6. *Different API jobs, not inconsistency.*
 
-Mixed outcomes: maintainers accepted **7** and rejected **2**. Net precision **78%**.
+Mixed outcomes: maintainers accepted **9** and rejected **2**. Net precision **82%**.
 
 ### `multimedia_camera_framework`
 
 | Metric | Value |
 |--------|------:|
-| FIXED | 6 |
+| FIXED | 11 |
 | NON-ISSUE | 0 |
-| Decided | 6 |
+| Decided | 11 |
 | Precision | 100.0% |
 
 **FIXED DTS**
@@ -206,17 +218,22 @@ Mixed outcomes: maintainers accepted **7** and rejected **2**. Net precision **7
 - `DTS2026071428596` — [OH-2026-CAM-002](../content/issues/OH-2026-CAM-002.md): SwitchBeautyValToDataShareVal divides by zero (SIGFPE) when ability range.size() == 1
 - `DTS2026072011242` — [OH-2026-CAM-004](../content/issues/OH-2026-CAM-004.md): sensor-exposure numerator/(denominator/1e6) SIGFPE when |denominator| < 1e6
 - `DTS2026072717921` — [OH-2026-CAM-005](../content/issues/OH-2026-CAM-005.md): CAPTURE_MIRROR_SUPPORTED pair walk OOB on odd item.count
+- `DTS2026080813420` — [OH-2026-CAM-007](../content/issues/OH-2026-CAM-007.md): HIGH_QUALITY_SUPPORT pair walk / default u8[1] OOB on short or odd count
+- `DTS2026080813622` — [OH-2026-CAM-008](../content/issues/OH-2026-CAM-008.md): GetZoomRatioRange step-3 FOV read missing sibling bound
+- `DTS2026080813794` — [OH-2026-CAM-009](../content/issues/OH-2026-CAM-009.md): Moon-boost FOV triple reads ui32[i+1]/[i+2] unbound (two sites)
+- `DTS2026080813827` — [OH-2026-CAM-010](../content/issues/OH-2026-CAM-010.md): QueryZoomPerformance TLV walk OOB (mode / num / points)
+- `DTS2026080813868` — [OH-2026-CAM-011](../content/issues/OH-2026-CAM-011.md): ParsingCameraConcurrentLimted length-prefix OOB
 
-High-confidence project: **6** accepted fixes and **no** rejected DTS.
+High-confidence project: **11** accepted fixes and **no** rejected DTS.
 
 ### `arkcompiler_runtime_core`
 
 | Metric | Value |
 |--------|------:|
-| FIXED | 4 |
-| NON-ISSUE | 0 |
-| Decided | 4 |
-| Precision | 100.0% |
+| FIXED | 5 |
+| NON-ISSUE | 1 |
+| Decided | 6 |
+| Precision | 83.3% |
 
 **FIXED DTS**
 
@@ -224,34 +241,44 @@ High-confidence project: **6** accepted fixes and **no** rejected DTS.
 - `DTS2026062916398` — [ARK-2026-INT-001](../content/issues/ARK-2026-INT-001.md): NumToStr(INT_MIN) triggers signed-overflow undefined behaviour in verifier diagnostic formatter
 - `DTS2026071433052` — [ARK-2026-LOOP-001](../content/issues/ARK-2026-LOOP-001.md): GetParams uint8_t loop eternal hang for argument counts in [256, 65535]
 - `DTS2026071807957` — [ARK-2026-BUF-001](../content/issues/ARK-2026-BUF-001.md): MemoryBufferWriter WriteByte/WriteBytes/AppendRange past-capacity OOB write returns true
+- `DTS2026073112258` — [ARK-2026-STR-001](../content/issues/ARK-2026-STR-001.md): RemoveSlashFromBothEnds("/") empty pop_back() (UB / corrupt size)
 
-High-confidence project: **4** accepted fixes and **no** rejected DTS.
+**NON-ISSUE DTS**
+
+- `DTS2026072517792` — SkipULeb128 empty/truncated OOB. *By design — void helper has no error channel; malformed ULEB is fatal.*
+
+Mixed outcomes: maintainers accepted **5** and rejected **1**. Net precision **83%**.
 
 ### `multimedia_image_framework`
 
 | Metric | Value |
 |--------|------:|
-| FIXED | 4 |
+| FIXED | 9 |
 | NON-ISSUE | 0 |
-| Decided | 4 |
+| Decided | 9 |
 | Precision | 100.0% |
 
 **FIXED DTS**
 
 - `DTS2026072438492` — [OH-2026-IMG-002](../content/issues/OH-2026-IMG-002.md): PostProc::GetCropValue accepts OOB crops when top+height / left+width overflows int32
+- `DTS2026073013382` — [OH-2026-IMG-009](../content/issues/OH-2026-IMG-009.md): IsValidRowStride int32 overflow accepts impossible stride (width*bpp wraps negative)
 - `DTS2026073015200` — [OH-2026-IMG-003](../content/issues/OH-2026-IMG-003.md): Matrix::SetTranslate tags IDENTITY when either axis is zero
 - `DTS2026081126994` — [OH-2026-IMG-005](../content/issues/OH-2026-IMG-005.md): Matrix::SetConcat multiplies translations in scale/translate fast path
 - `DTS2026081128460` — [OH-2026-IMG-004](../content/issues/OH-2026-IMG-004.md): GetValidAlphaTypeByFormat missing RGBA_U16 case returns UNKNOWN
+- `DTS2026081413702` — [OH-2026-IMG-008](../content/issues/OH-2026-IMG-008.md): HalfToUint32 little-/big-endian arms are swapped
+- `DTS2026081417372` — [OH-2026-IMG-010](../content/issues/OH-2026-IMG-010.md): FloatToHalf maps 0.0f to Half 2.0 (unsigned underflow in rebase subtract)
+- `DTS2026081421810` — [OH-2026-IMG-007](../content/issues/OH-2026-IMG-007.md): PixelYuvUtils::IsLegalAxis rejects every legal negative translate
+- `DTS2026081424330` — [OH-2026-IMG-006](../content/issues/OH-2026-IMG-006.md): HalfToFloat maps half +0 (0x0000) to 2^-15 instead of 0.0f
 
-High-confidence project: **4** accepted fixes and **no** rejected DTS.
+High-confidence project: **9** accepted fixes and **no** rejected DTS.
 
 ### `ability_ability_runtime`
 
 | Metric | Value |
 |--------|------:|
-| FIXED | 4 |
+| FIXED | 5 |
 | NON-ISSUE | 0 |
-| Decided | 4 |
+| Decided | 5 |
 | Precision | 100.0% |
 
 **FIXED DTS**
@@ -260,6 +287,7 @@ High-confidence project: **4** accepted fixes and **no** rejected DTS.
 - `DTS2026071809730` — [OH-2026-ABILITY-002](../content/issues/OH-2026-ABILITY-002.md): DataUriUtils::IsNumber accepts floats; GetId silently truncates to integer prefix
 - `DTS2026072514260` — [OH-2026-ABILITY-003](../content/issues/OH-2026-ABILITY-003.md): ParseURI catch indexes uriVec past the end after last-field stoi failure
 - `DTS2026073173354` — [OH-2026-ABILITY-004](../content/issues/OH-2026-ABILITY-004.md): CheckFileManagerUriPermission matches Download/Desktop/Documents prefix without '/' boundary
+- `DTS2026082254944` — [OH-2026-ABILITY-005](../content/issues/OH-2026-ABILITY-005.md): ConvertStringToUint32 parses with signed stoi (drops >INT_MAX, accepts "8a" and "-1")
 
 ### `distributeddatamgr_pasteboard`
 
@@ -279,24 +307,26 @@ High-confidence project: **4** accepted fixes and **no** rejected DTS.
 
 | Metric | Value |
 |--------|------:|
-| FIXED | 2 |
+| FIXED | 4 |
 | NON-ISSUE | 0 |
-| Decided | 2 |
+| Decided | 4 |
 | Precision | 100.0% |
 
 **FIXED DTS**
 
 - `DTS2026072438019` — [OH-2026-AVCODEC-001](../content/issues/OH-2026-AVCODEC-001.md): HLS segment byterange offset_+length_-1 wraps in uint32_t → dropped / wrong range
 - `DTS2026072935286` — [OH-2026-AVCODEC-002](../content/issues/OH-2026-AVCODEC-002.md): UriDecode escape guard off-by-one decodes truncated %X as a control byte
+- `DTS2026081713997` — [OH-2026-AVCODEC-003](../content/issues/OH-2026-AVCODEC-003.md): ValuesListTag::ParseAttributes TITLE includes the leading comma
+- `DTS2026082007640` — [OH-2026-AVCODEC-004](../content/issues/OH-2026-AVCODEC-004.md): GraphicPixelFmtToVideoPixelFmt maps YCRCB_P010 to NV12 (should be NV21)
 
 ### `multimedia_media_foundation`
 
 | Metric | Value |
 |--------|------:|
 | FIXED | 1 |
-| NON-ISSUE | 3 |
-| Decided | 4 |
-| Precision | 25.0% |
+| NON-ISSUE | 4 |
+| Decided | 5 |
+| Precision | 20.0% |
 
 **FIXED DTS**
 
@@ -305,42 +335,45 @@ High-confidence project: **4** accepted fixes and **no** rejected DTS.
 **NON-ISSUE DTS**
 
 - `DTS2026071719364` — CopyAVMemory missing offset+size guard. *Unreachable — product src offset always 0.*
+- `DTS2026072938754` — Format::Stringify SIGSEGV on bool-stored tag. *Not reproduced on product `-O2`; crash only on host `-O0`.*
 - `DTS2026081129774` — DataPacker::IsEmpty inverted. *Dead code — unused on shipped path.*
 - `DTS2026081131247` — OH_AVFormat GetString/Dump/GetKey cap + strcpy_s. *Shipped CAPI contract — incompatible to change.*
 
-Mixed outcomes: maintainers accepted **1** and rejected **3**. Net precision **25%**.
+Mixed outcomes: maintainers accepted **1** and rejected **4**. Net precision **20%**.
 
 ### `multimedia_av_session`
 
 | Metric | Value |
 |--------|------:|
-| FIXED | 1 |
+| FIXED | 2 |
 | NON-ISSUE | 1 |
-| Decided | 2 |
-| Precision | 50.0% |
+| Decided | 3 |
+| Precision | 66.7% |
 
 **FIXED DTS**
 
 - `DTS2026070722498` — [OH-2026-AVSESSION-001](../content/issues/OH-2026-AVSESSION-001.md): GetAnonyTitle crashes (SEGV) on all-continuation-byte media titles via empty-vector OOB read
+- `DTS2026080300753` — [OH-2026-AVSESSION-002](../content/issues/OH-2026-AVSESSION-002.md): TransformStrToInt64 throws on overflow; signed strings rejected by scan from 0
 
 **NON-ISSUE DTS**
 
 - `DTS2026070145311` — ConvertSessionType drops call types. *Product policy — no call-type remote cast requirement.*
 
-Mixed outcomes: maintainers accepted **1** and rejected **1**. Net precision **50%**.
+Mixed outcomes: maintainers accepted **2** and rejected **1**. Net precision **67%**.
 
 ### `communication_wifi`
 
 | Metric | Value |
 |--------|------:|
-| FIXED | 1 |
+| FIXED | 2 |
 | NON-ISSUE | 0 |
-| Decided | 1 |
+| Decided | 2 |
 | Precision | 100.0% |
 
 **FIXED DTS**
 
 - `DTS2026071806709` — [OH-2026-WIFI-001](../content/issues/OH-2026-WIFI-001.md): HexString2Byte missing null checks and source bounds — OOB read + null deref
+- `DTS2026073028465` — [OH-2026-WIFI-002](../content/issues/OH-2026-WIFI-002.md): GetCurStateName OOB-reads empty mStateVector — SEGV on mStateVector[-1]
 
 ### `distributeddatamgr_datamgr_service`
 
@@ -360,14 +393,18 @@ Mixed outcomes: maintainers accepted **1** and rejected **1**. Net precision **5
 | Metric | Value |
 |--------|------:|
 | FIXED | 2 |
-| NON-ISSUE | 0 |
-| Decided | 2 |
-| Precision | 100.0% |
+| NON-ISSUE | 1 |
+| Decided | 3 |
+| Precision | 66.7% |
 
 **FIXED DTS**
 
 - `DTS2026052974442` — [OH-2026-DEVMGR-003](../content/issues/OH-2026-DEVMGR-003.md): GeneratePinCode off-by-one loop condition returns short PIN ~16% of the time
 - `DTS2026073020799` — [OH-2026-DEVMGR-004](../content/issues/OH-2026-DEVMGR-004.md): GenerateRandNum invalid uniform_int_distribution(1, 0xFFFFFFFF) → SIGSEGV
+
+**NON-ISSUE DTS**
+
+- `DTS2026070663477` — JsonObject cJSON int64 round-trip loss. *Dead backend — production uses nlohmann_json.*
 
 ### `filemanagement_dfs_service`
 
@@ -399,19 +436,6 @@ Mixed outcomes: maintainers accepted **1** and rejected **1**. Net precision **5
 
 | Metric | Value |
 |--------|------:|
-| FIXED | 1 |
-| NON-ISSUE | 0 |
-| Decided | 1 |
-| Precision | 100.0% |
-
-**FIXED DTS**
-
-- `DTS2026072454808` — [OH-2026-MEDIALIB-001](../content/issues/OH-2026-MEDIALIB-001.md): GetFileIdStr returns bucket name on bucket-only URI (npos+1 wrap)
-
-### `multimedia_player_framework`
-
-| Metric | Value |
-|--------|------:|
 | FIXED | 2 |
 | NON-ISSUE | 0 |
 | Decided | 2 |
@@ -419,8 +443,23 @@ Mixed outcomes: maintainers accepted **1** and rejected **1**. Net precision **5
 
 **FIXED DTS**
 
+- `DTS2026071806648` — [OH-2026-MEDIALIB-002](../content/issues/OH-2026-MEDIALIB-002.md): GetTimeIdFromUri uncaught stoi on empty / non-integer &offset=
+- `DTS2026072454808` — [OH-2026-MEDIALIB-001](../content/issues/OH-2026-MEDIALIB-001.md): GetFileIdStr returns bucket name on bucket-only URI (npos+1 wrap)
+
+### `multimedia_player_framework`
+
+| Metric | Value |
+|--------|------:|
+| FIXED | 3 |
+| NON-ISSUE | 0 |
+| Decided | 3 |
+| Precision | 100.0% |
+
+**FIXED DTS**
+
 - `DTS2026072457284` — [OH-2026-PLAYER-001](../content/issues/OH-2026-PLAYER-001.md): XmlParser::Destroy double-frees mDoc_ (destructor re-enters without null)
 - `DTS2026081318473` — [OH-2026-PLAYER-002](../content/issues/OH-2026-PLAYER-002.md): TransRecorderStatus muxer map missing START + duplicate STOP key
+- `DTS2026081703440` — [OH-2026-PLAYER-003](../content/issues/OH-2026-PLAYER-003.md): MSExtErrorToString subtracts the wrong enum base on the extend fall-through
 
 ### `window_window_manager`
 
@@ -466,28 +505,61 @@ Mixed outcomes: maintainers accepted **1** and rejected **1**. Net precision **5
 
 | Metric | Value |
 |--------|------:|
-| FIXED | 0 |
+| FIXED | 1 |
 | NON-ISSUE | 1 |
-| Decided | 1 |
-| Precision | 0.0% |
+| Decided | 2 |
+| Precision | 50.0% |
+
+**FIXED DTS**
+
+- `DTS2026082023118` — [OH-2026-DSOFTBUS-001](../content/issues/OH-2026-DSOFTBUS-001.md): P2pV1Processor::ConnectGroup off-by-one guard reads configs[3] on a 3-token group config
 
 **NON-ISSUE DTS**
 
 - `DTS2026072017450` — Hex helpers omit explicit NUL write. *Caller contract — zero-init outBuf owns terminator.*
 
-All dispositioned tickets so far are non-issues — treat new filings with extra contract/call-site evidence.
+Mixed outcomes: maintainers accepted **1** and rejected **1**. Net precision **50%**.
+
+### `communication_bluetooth_service`
+
+| Metric | Value |
+|--------|------:|
+| FIXED | 2 |
+| NON-ISSUE | 0 |
+| Decided | 2 |
+| Precision | 100.0% |
+
+**FIXED DTS**
+
+- `DTS2026063023525` — [OH-2026-BT-001](../content/issues/OH-2026-BT-001.md): ClassicUtils::ConvertStringToUuid infinite loop and last-UUID drop
+- `DTS2026063027223` — [OH-2026-BT-002](../content/issues/OH-2026-BT-002.md): ClassicUtils::ConvertHexStringToInt uncaught stol throw and silent prefix parse
+
+High-confidence project: **2** accepted fixes and **no** rejected DTS.
+
+### `telephony_core_service`
+
+| Metric | Value |
+|--------|------:|
+| FIXED | 1 |
+| NON-ISSUE | 0 |
+| Decided | 1 |
+| Precision | 100.0% |
+
+**FIXED DTS**
+
+- `DTS2026082565627` — [OH-2026-TEL-001](../content/issues/OH-2026-TEL-001.md): Asn1Utils::BytesToInt segfaults when offset+length wraps uint32
 
 ## Relation to `content/issues/` write-ups
 
-This repo’s [`content/issues/`](../content/issues/) currently carries **59** DTS-linked reports, all status `CONFIRMED_FIXED`.
-That set is the **FIXED** count here. Non-issues come from `~/cloned/BUG_REPORTS.md` / `pbt-out/bug_reports/non-issue/`.
+This repo’s [`content/issues/`](../content/issues/) currently carries **84** DTS-linked reports, all status `CONFIRMED_FIXED`.
+That set is the **FIXED** count here. Non-issues come from `~/cloned/*/pbt-out/bug_reports/non-issue/`.
 
 | Population | Count | Role |
 |------------|------:|------|
-| Decided DTS (FIXED + NON-ISSUE) | 67 | Ground truth for precision |
-| FIXED | 59 | Maintainer-accepted (`content/issues`) |
-| NON-ISSUE | 8 | Maintainer-rejected (cloned inventory) |
-| Write-ups in `content/issues` with DTS | 59 | Published confirmed bugs |
+| Decided DTS (FIXED + NON-ISSUE) | 95 | Ground truth for precision |
+| FIXED | 84 | Maintainer-accepted (`content/issues`) |
+| NON-ISSUE | 11 | Maintainer-rejected (cloned inventory) |
+| Write-ups in `content/issues` with DTS | 84 | Published confirmed bugs |
 
 **Do not** compute precision from `content/issues` alone — it omits non-issues by design. Use this document (or dispositioned rows in `BUG_REPORTS.md`) for acceptance rate.
 
@@ -496,8 +568,8 @@ See also: [DTS tickets by detecting property](./dts_bug_types.md). Failure-mode 
 ## Takeaways
 
 1. **Overall precision is high (88%)** — PBT filings that reach a DTS decision are usually real defects.
-2. **False positives cluster in a few patterns** (8 tickets): by-design helpers, dead/unreachable code, caller-owned contracts, shipped CAPI / product omissions — not flaky reproduction.
-3. **Several large surfaces are clean so far** (e.g. `graphic_graphic_2d`, `multimedia_camera_framework`, `arkcompiler_runtime_core` among high-volume FIXED with 0 NON-ISSUE).
+2. **False positives cluster in a few patterns** (11 tickets): by-design helpers, dead/unreachable code, caller-owned contracts, shipped CAPI / product omissions, flag-dependent crashes — not flaky reproduction.
+3. **Several large surfaces are clean so far** (e.g. `multimedia_camera_framework`, `multimedia_image_framework`, `graphic_graphic_2d` among high-volume FIXED with 0 NON-ISSUE).
 4. **Filing bar that non-issues imply:** prove a live production caller, state the product contract, and avoid “algebraic inconsistency across differently purposed APIs” without impact.
 
 ## Methodology notes

@@ -84,15 +84,17 @@
 | 80 | window_window_manager | IsAspectRatioSatisfiedWithSizeLimits 装饰 uint32 下溢拒绝合法比例 | 整数溢出/下溢 | `utils/include/window_helper.h` | 已确认并修复 |  | DTS2026072347788 |
 | 81 | window_window_manager | ComputeRectByAspectRatio 级联装饰条带 uint32 下溢 | 整数溢出/下溢 | `wmserver/src/window_layout_policy_cascade.cpp` | 已确认并修复 |  | DTS2026072921166 |
 | 82 | commonlibrary_rust_ylong_http | verify_pinned_pubkey 用错指针导致证书固定（pinning）被绕过 | 证书校验 | `ylong_http_client/src/util/c_openssl/ssl/stream.rs` | 已确认并修复 |  | DTS2026052810677 |
-| 83 | arkcompiler_runtime_core | SkipULeb128 空/截断输入越界读 + size_t 下溢 | 缓冲区/越界访问 | `static_core/libarkfile/helpers.h` | 非问题 | 辅助函数为 void；畸形 ULEB 对 VM 视为致命；debug ASSERT 即停止点 | DTS2026072517792 |
-| 84 | arkui_ace_engine | GetTotalHeightOfItemsInView 对空/全剪枝窗口返回 -mainGap | 计算错误 | `frameworks/core/components_ng/pattern/grid/grid_layout_info.cpp` | 非问题 | n=0 时 sum-mainGap 的公式结果；约两年稳定；滚动/过滚调用图很宽；兄弟 API 空→0 是另一接口 | DTS2026071809266 |
-| 85 | communication_dsoftbus | ConvertBytesToHexString 虽要求 HEXIFY_LEN +1 容量却从不写 NUL | 控制流错误 | `core/common/utils/softbus_utils.c` | 非问题 | 内部辅助；所有调用方零初始化 outBuf；终止符由调用方拥有 | DTS2026072017450 |
-| 86 | communication_netmanager_base | ForkExecParentProcess 在子进程非零/异常退出后仍返回 SUCCESS | 未检查返回值 | `utils/common_utils/src/netmanager_base_common_utils.cpp` | 非问题 | 只关心创建是否成功；iptables/ip-rule 已存在类失败在批量场景必须可忽略 | DTS2026071725399 |
-| 87 | communication_netmanager_base | GetAddrFamily 不像兄弟 IsIPv6LinkLocal 那样剥离 IPv6 %scope | 控制流错误 | `utils/common_utils/src/netmanager_base_common_utils.cpp` | 非问题 | 职责不同 — 族判断按 inet_pton 严格；zone 在下游添加 | DTS2026072720774 |
-| 88 | distributeddatamgr_datamgr_service | DeviceMatrix::ConvertIndex 末尾 index-- 导致 uint16 回绕 | 差一 | `services/distributeddataservice/service/matrix/src/device_matrix.cpp` | 非问题 | index-- 适配旧版 dynamicApps_（少一位）；回绕不在现行 ConvertDynamic 路径 | DTS2026082738345 |
-| 89 | distributedhardware_device_manager | JsonObject cJSON 后端 64 位整数往返精度损失 | 计算错误 | `json/src/json_object_cjson.cpp` | 非问题 | 生产 use_nlohmann_json=true；cJSON 分支未走；已知限制，延后处理 | DTS2026070663477 |
-| 90 | multimedia_av_session | ConvertSessionType 从 JSON 丢掉 SESSION_TYPE_VIDEO_CALL / VOICE_CALL | 控制流错误 | `services/session/server/json_utils.cpp` | 非问题 | 通话会话不走远端投射路径；省略是有意的 | DTS2026070145311 |
-| 91 | multimedia_media_foundation | CopyAVMemory 缺少 offset+size≤capacity 守卫 | 缓冲区/越界访问 | `src/buffer/avbuffer/avbuffer.cpp` | 非问题 | 产品侧 src offset 恒为 0；抽象越界不可达 | DTS2026071719364 |
-| 92 | multimedia_media_foundation | DataPacker::IsEmpty 谓词取反（有数据时返回 true） | 运算符/谓词错误 | `engine/pipeline/filters/demux/data_packer.cpp` | 非问题 | 函数体已死/不再使用；现行 demux/type-finder 不调用 | DTS2026081129774 |
-| 93 | multimedia_media_foundation | Format::Stringify 对已注册 tag 把 bool AnyCast 成 int32 时 SIGSEGV | 未定义行为 | `src/meta/format.cpp` | 非问题 | 主机 -O0 会陷入；产品/UT -O2 不会；维护者配置无法复现崩溃 | DTS2026072938754 |
-| 94 | multimedia_media_foundation | OH_AVFormat_GetStringValue / DumpInfo / GetKey 用 strcpy_s 失败关闭而非截断 | 控制流错误 | `src/capi/native_avformat.cpp` | 非问题 | 失败关闭（false / nullptr）是已交付 CAPI；改成 strncpy_s 截断不兼容 | DTS2026081131247 |
+| 83 | communication_bluetooth_service | ClassicUtils::ConvertStringToUuid 死循环并丢掉最后一个 UUID | 死循环/挂起 | `services/bluetooth/service/src/classic/classic_utils.cpp` | 已确认并修复 |  | DTS2026063023525 |
+| 84 | communication_bluetooth_service | ClassicUtils::ConvertHexStringToInt 未捕获 stol 抛出与静默前缀解析 | 坏输入未捕获异常/崩溃 | `services/bluetooth/service/src/classic/classic_utils.cpp` | 已确认并修复 |  | DTS2026063027223 |
+| 85 | arkcompiler_runtime_core | SkipULeb128 空/截断输入越界读 + size_t 下溢 | 缓冲区/越界访问 | `static_core/libarkfile/helpers.h` | 非问题 | 辅助函数为 void；畸形 ULEB 对 VM 视为致命；debug ASSERT 即停止点 | DTS2026072517792 |
+| 86 | arkui_ace_engine | GetTotalHeightOfItemsInView 对空/全剪枝窗口返回 -mainGap | 计算错误 | `frameworks/core/components_ng/pattern/grid/grid_layout_info.cpp` | 非问题 | n=0 时 sum-mainGap 的公式结果；约两年稳定；滚动/过滚调用图很宽；兄弟 API 空→0 是另一接口 | DTS2026071809266 |
+| 87 | communication_dsoftbus | ConvertBytesToHexString 虽要求 HEXIFY_LEN +1 容量却从不写 NUL | 控制流错误 | `core/common/utils/softbus_utils.c` | 非问题 | 内部辅助；所有调用方零初始化 outBuf；终止符由调用方拥有 | DTS2026072017450 |
+| 88 | communication_netmanager_base | ForkExecParentProcess 在子进程非零/异常退出后仍返回 SUCCESS | 未检查返回值 | `utils/common_utils/src/netmanager_base_common_utils.cpp` | 非问题 | 只关心创建是否成功；iptables/ip-rule 已存在类失败在批量场景必须可忽略 | DTS2026071725399 |
+| 89 | communication_netmanager_base | GetAddrFamily 不像兄弟 IsIPv6LinkLocal 那样剥离 IPv6 %scope | 控制流错误 | `utils/common_utils/src/netmanager_base_common_utils.cpp` | 非问题 | 职责不同 — 族判断按 inet_pton 严格；zone 在下游添加 | DTS2026072720774 |
+| 90 | distributeddatamgr_datamgr_service | DeviceMatrix::ConvertIndex 末尾 index-- 导致 uint16 回绕 | 差一 | `services/distributeddataservice/service/matrix/src/device_matrix.cpp` | 非问题 | index-- 适配旧版 dynamicApps_（少一位）；回绕不在现行 ConvertDynamic 路径 | DTS2026082738345 |
+| 91 | distributedhardware_device_manager | JsonObject cJSON 后端 64 位整数往返精度损失 | 计算错误 | `json/src/json_object_cjson.cpp` | 非问题 | 生产 use_nlohmann_json=true；cJSON 分支未走；已知限制，延后处理 | DTS2026070663477 |
+| 92 | multimedia_av_session | ConvertSessionType 从 JSON 丢掉 SESSION_TYPE_VIDEO_CALL / VOICE_CALL | 控制流错误 | `services/session/server/json_utils.cpp` | 非问题 | 通话会话不走远端投射路径；省略是有意的 | DTS2026070145311 |
+| 93 | multimedia_media_foundation | CopyAVMemory 缺少 offset+size≤capacity 守卫 | 缓冲区/越界访问 | `src/buffer/avbuffer/avbuffer.cpp` | 非问题 | 产品侧 src offset 恒为 0；抽象越界不可达 | DTS2026071719364 |
+| 94 | multimedia_media_foundation | DataPacker::IsEmpty 谓词取反（有数据时返回 true） | 运算符/谓词错误 | `engine/pipeline/filters/demux/data_packer.cpp` | 非问题 | 函数体已死/不再使用；现行 demux/type-finder 不调用 | DTS2026081129774 |
+| 95 | multimedia_media_foundation | Format::Stringify 对已注册 tag 把 bool AnyCast 成 int32 时 SIGSEGV | 未定义行为 | `src/meta/format.cpp` | 非问题 | 主机 -O0 会陷入；产品/UT -O2 不会；维护者配置无法复现崩溃 | DTS2026072938754 |
+| 96 | multimedia_media_foundation | OH_AVFormat_GetStringValue / DumpInfo / GetKey 用 strcpy_s 失败关闭而非截断 | 控制流错误 | `src/capi/native_avformat.cpp` | 非问题 | 失败关闭（false / nullptr）是已交付 CAPI；改成 strncpy_s 截断不兼容 | DTS2026081131247 |

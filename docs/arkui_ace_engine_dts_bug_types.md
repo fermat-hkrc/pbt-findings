@@ -5,27 +5,27 @@ Categorization of **confirmed fixed** DTS findings in `arkui_ace_engine`, groupe
 Scoped to this repo only. Companion precision report: [arkui_ace_engine_finding_precision.md](./arkui_ace_engine_finding_precision.md).
 
 - **Repo:** `arkui_ace_engine`
-- **Confirmed fixed (DTS + write-up):** **7**
+- **Confirmed fixed (DTS + write-up):** **8**
 - **Status:** all listed tickets are `CONFIRMED_FIXED`
-- **Severity:** HIGH=4, MEDIUM=3, LOW=0
+- **Severity:** HIGH=4, MEDIUM=4, LOW=0
 - **Sources:** [`content/issues/OH-2026-ARKUI-*.md`](../content/issues/), `~/cloned/arkui_ace_engine/pbt-out/bug_reports/fixed/`
-- **Generated:** 2026-08-14
+- **Generated:** 2026-09-02
 
 ## Overview
 
 | Bug type | Count | HIGH | MEDIUM | LOW |
 |----------|------:|-----:|-------:|----:|
-| [Arithmetic — Incorrect Calculation](#arithmetic-incorrect-calculation) | 3 | 1 | 2 | 0 |
+| [Arithmetic — Incorrect Calculation](#arithmetic-incorrect-calculation) | 4 | 1 | 3 | 0 |
 | [Arithmetic — Divide by Zero](#arithmetic-divide-by-zero) | 1 | 1 | 0 | 0 |
 | [Logic — Incorrect Control Flow](#logic-incorrect-control-flow) | 2 | 2 | 0 | 0 |
 | [Undefined Behavior](#undefined-behavior) | 1 | 0 | 1 | 0 |
-| **Total** | **7** | **4** | **3** | **0** |
+| **Total** | **8** | **4** | **4** | **0** |
 
 ### By family
 
 | Family | Count |
 |--------|------:|
-| Arithmetic & Numeric | 4 |
+| Arithmetic & Numeric | 5 |
 | Logic | 2 |
 | Undefined Behavior | 1 |
 
@@ -40,6 +40,7 @@ Scoped to this repo only. Companion precision report: [arkui_ace_engine_finding_
 | `DTS2026070318488` | [OH-2026-ARKUI-005](../content/issues/OH-2026-ARKUI-005.md) | Arithmetic — Incorrect Calculation | HIGH | `frameworks/core/components_ng/pattern/lazy_grid_layout/lazy_grid_layout_info.cpp` |
 | `DTS2026070856858` | [OH-2026-ARKUI-006](../content/issues/OH-2026-ARKUI-006.md) | Undefined Behavior | MEDIUM | `frameworks/core/components/common/properties/color.cpp` |
 | `DTS2026072325132` | [OH-2026-ARKUI-007](../content/issues/OH-2026-ARKUI-007.md) | Arithmetic — Divide by Zero | HIGH | `frameworks/core/components_ng/pattern/grid/grid_layout_info.cpp` |
+| `DTS2026073116282` | [OH-2026-ARKUI-008](../content/issues/OH-2026-ARKUI-008.md) | Arithmetic — Incorrect Calculation | MEDIUM | `frameworks/core/components_ng/pattern/data_panel/data_panel_modifier.cpp` |
 
 ## Arithmetic — Incorrect Calculation
 
@@ -50,12 +51,14 @@ Wrong formula, operand, or matrix/layout math that breaks geometric or color inv
 | `DTS2026070318488` | [OH-2026-ARKUI-005](../content/issues/OH-2026-ARKUI-005.md) | HIGH | CWE-682 (Incorrect Calculation) | `frameworks/core/components_ng/pattern/lazy_grid_layout/lazy_grid_layout_info.cpp` | LazyGridLayoutInfo::UpdatePosMapStart omits spaceWidth_ when rebasing from a non-zero start index |
 | `DTS2026061256925` | [OH-2026-ARKUI-001](../content/issues/OH-2026-ARKUI-001.md) | MEDIUM | CWE-682 (Incorrect Calculation) | `frameworks/core/components_ng/pattern/grid/grid_layout_info.cpp` | GridLayoutInfo::GetContentHeightOfRegularGrid returns negative height for empty grids with positive gap |
 | `DTS2026062427183` | [OH-2026-ARKUI-003](../content/issues/OH-2026-ARKUI-003.md) | MEDIUM | CWE-682 (Incorrect Calculation) | `frameworks/base/geometry/matrix4.cpp` | Matrix4::SetEntry uses opposite storage order from Get/Set, breaking off-diagonal round-trips |
+| `DTS2026073116282` | [OH-2026-ARKUI-008](../content/issues/OH-2026-ARKUI-008.md) | MEDIUM | CWE-682 (Incorrect Calculation) | `frameworks/core/components_ng/pattern/data_panel/data_panel_modifier.cpp` | DataPanel GetPaintPath computes NaN circleAngle via unguarded asin ratio when stroke collapses radius to 0 |
 
 <details><summary>Summaries</summary>
 
 - **OH-2026-ARKUI-005** (`DTS2026070318488`): `LazyGridLayoutInfo::UpdatePosMapStart()` recalculates the position anchor for the start of the cached lazy-grid position map. When the map starts at index > 0 and has no predecessor entry, the first-branch formula uses only `estimateIte...
 - **OH-2026-ARKUI-001** (`DTS2026061256925`): `GridLayoutInfo::GetContentHeightOfRegularGrid()` returns a negative content height when the grid has zero items and `mainGap` is positive. The empty-grid case falls through the modulo branch and subtracts `mainGap` from zero, violating ...
 - **OH-2026-ARKUI-003** (`DTS2026062427183`): `Matrix4::SetEntry(row, col, value)` writes to `matrix4x4_[row][col]`, but `Matrix4::Get(row, col)` and `Matrix4::Set(row, col, value)` read/write `matrix4x4_[col][row]`. Off-diagonal writes therefore do not round-trip: a value written t...
+- **OH-2026-ARKUI-008** (`DTS2026073116282`): `DataPanelModifier::GetPaintPath()` computes circle-cap angle as `asin(thickness*0.5/(radius-thickness*0.5))` with no domain guard. Stroke at or above half the min side drives `radius <= 0` → `|sine| > 1` / `0/0` → NaN `circleAngle` that poisons the arc.
 
 </details>
 
@@ -107,7 +110,7 @@ Relies on UB (e.g. out-of-range cast) with environment-dependent fallout.
 
 | CWE | Name | Count |
 |-----|------|------:|
-| CWE-682 | Incorrect Calculation | 3 |
+| CWE-682 | Incorrect Calculation | 4 |
 | CWE-670 | Always-Incorrect Control Flow Implementation | 2 |
 | CWE-369 | Divide By Zero | 1 |
 | CWE-758 | Reliance on Undefined, Unspecified, or Implementation-Defined Behavior | 1 |
