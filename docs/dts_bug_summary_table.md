@@ -146,5 +146,5 @@
 | 142 | communication_netmanager_base | GetMtu passes sysfs "1500\n" to StrToInt → always -1 | Improper Checks | `services/netmanagernative/src/manager/interface_manager.cpp` | Confirmed and Fixed |  | DTS2026083109843 |
 | 143 | communication_dsoftbus | ConvertBtMacToBinary ignores strtoul leftover and uint8 overflow | Improper Checks | `core/common/utils/softbus_utils.c` | Submitted |  | DTS2026083116823 |
 | 144 | telephony_core_service | CountTrailingZeros is wrong when more than one bit is set | Incorrect Calculation | `utils/codec/src/asn1_utils.cpp` | Submitted |  | DTS2026090526221 |
-| 145 | graphic_graphic_2d | DrawPixelMapMeshBuilderProcess swaps mesh columns and rows | Incorrect Calculation | `rosen/modules/2d_graphics/drawing_ndk/drawing_utils/drawing_canvas_utils.cpp` | Submitted |  | DTS2026090527401 |
+| 145 | graphic_graphic_2d | DrawPixelMapMeshBuilderProcess swaps mesh columns and rows | Incorrect Calculation | `rosen/modules/2d_graphics/drawing_ndk/drawing_utils/drawing_canvas_utils.cpp` | Confirmed and Fixed |  | DTS2026090527401 |
 | 146 | arkui_ace_engine | MediaQueryer::MatchCondition drops AND-group when it is not the last OR-clause | Incorrect Control Flow | `frameworks/bridge/common/media_query/media_queryer.cpp` | Submitted |  | DTS2026090919800 |
