@@ -111,7 +111,7 @@
 | 107 | multimedia_image_framework | PixelYuvUtils::IsLegalAxis 拒绝所有合法负平移（INT32_MAX - offset 有符号溢出） | 整数溢出/下溢 | `frameworks/innerkitsimpl/utils/src/pixel_yuv_utils.cpp` | 已确认并修复 |  | DTS2026081421810 |
 | 108 | multimedia_image_framework | HalfToFloat 把 half +0（0x0000）映射成 2^-15 而非 0.0f | 计算错误 | `frameworks/innerkitsimpl/converter/include/pixel_convert.h` | 已确认并修复 |  | DTS2026081424330 |
 | 109 | arkui_napi | NativeCallbackScopeManager::Close 在 scope 为 nullptr 时仍递减 depth → size_t 下溢 | 整数溢出/下溢 | `callback_scope_manager/native_callback_scope_manager.cpp` | 已提交 |  | DTS2026081440197 |
-| 110 | arkui_napi | RuntimeType::IsType 的 strcmp 谓词反转 — 接受无关类型，拒绝 TypeBase→TypeBase | 运算符/谓词错误 | `interfaces/inner_api/cjffi/native/runtimetype.h` | 已提交 |  | DTS2026081506434 |
+| 110 | arkui_napi | RuntimeType::IsType 的 strcmp 谓词反转 — 接受无关类型，拒绝 TypeBase→TypeBase | 运算符/谓词错误 | `interfaces/inner_api/cjffi/native/runtimetype.h` | 已确认并修复 |  | DTS2026081506434 |
 | 111 | multimedia_player_framework | AVCSErrorToMSError 将 AVCS_ERR_DATA_SOURCE_OBTAIN_MEM_ERROR 映射为 MSERR_DATA_SOURCE_ERROR_UNKNOWN | 计算错误 | `frameworks/native/common/media_lpp_errors.cpp` | 已提交 |  | DTS2026081702025 |
 | 112 | multimedia_player_framework | MSExtErrorToString 在 extend 落空分支减去错误的枚举基 | 计算错误 | `frameworks/native/common/media_errors.cpp` | 已确认并修复 |  | DTS2026081703440 |
 | 113 | multimedia_av_codec | AvcParser::ParseSpsInfo else 分支把 bitDepthLuma_ 写两次（bitDepthChroma_ 从未设置） | 控制流错误 | `services/media_engine/plugins/ffmpeg_adapter/muxer/mpeg4_muxer/avc_parser.cpp` | 已确认并修复 |  | DTS2026081706437 |
