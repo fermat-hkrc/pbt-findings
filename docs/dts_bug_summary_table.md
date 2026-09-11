@@ -148,3 +148,5 @@
 | 144 | telephony_core_service | CountTrailingZeros is wrong when more than one bit is set | Incorrect Calculation | `utils/codec/src/asn1_utils.cpp` | Submitted |  | DTS2026090526221 |
 | 145 | graphic_graphic_2d | DrawPixelMapMeshBuilderProcess swaps mesh columns and rows | Incorrect Calculation | `rosen/modules/2d_graphics/drawing_ndk/drawing_utils/drawing_canvas_utils.cpp` | Confirmed and Fixed |  | DTS2026090527401 |
 | 146 | arkui_ace_engine | MediaQueryer::MatchCondition drops AND-group when it is not the last OR-clause | Incorrect Control Flow | `frameworks/bridge/common/media_query/media_queryer.cpp` | Submitted |  | DTS2026090919800 |
+| 147 | arkui_ace_engine | CheckColorAlpha casts unit alpha to uint8_t before scaling to 255 | Incorrect Calculation | `frameworks/core/components_ng/svg/parse/svg_attributes_parser.cpp` | Submitted |  | DTS2026090920220 |
+| 148 | arkui_ace_engine | BubbleLayoutAlgorithm::GetP2 asin domain break → NaN arrow clip path | Incorrect Calculation | `frameworks/core/components_ng/pattern/bubble/bubble_layout_algorithm.cpp` | Submitted |  | DTS2026090922585 |
