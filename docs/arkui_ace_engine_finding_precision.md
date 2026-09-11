@@ -22,7 +22,7 @@ Companion bug-type catalog: [arkui_ace_engine_dts_bug_types.md](./arkui_ace_engi
 - [`content/issues/OH-2026-ARKUI-*.md`](../content/issues/) (**8** confirmed write-ups)
 - Cross-repo context: [finding_precision_by_project.md](./finding_precision_by_project.md)
 
-- **Generated:** 2026-09-02
+- **Generated:** 2026-09-11
 
 ## Scoreboard (decided only)
 
@@ -35,7 +35,7 @@ Companion bug-type catalog: [arkui_ace_engine_dts_bug_types.md](./arkui_ace_engi
 - **Precision:** **8/9 = 88.9%**
 - **False-positive rate:** **1/9 = 11.1%**
 
-Compared with the cross-repo decided baseline (**88.4%** precision), arkui_ace_engine is essentially **on par** (88.9%).
+Compared with the cross-repo decided baseline (**87.0%** precision), arkui_ace_engine is **slightly above** (88.9%).
 
 ## FIXED DTS
 

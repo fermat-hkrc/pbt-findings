@@ -9,7 +9,7 @@ Scoped to this repo only. Companion precision report: [arkui_ace_engine_finding_
 - **Status:** all listed tickets are `CONFIRMED_FIXED`
 - **Severity:** HIGH=4, MEDIUM=4, LOW=0
 - **Sources:** [`content/issues/OH-2026-ARKUI-*.md`](../content/issues/), `~/cloned/arkui_ace_engine/pbt-out/bug_reports/fixed/`
-- **Generated:** 2026-09-02
+- **Generated:** 2026-09-11
 
 ## Overview
 
