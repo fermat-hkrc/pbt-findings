@@ -2,8 +2,8 @@
 
 How often PBT-filed **DTS** tickets were accepted as real bugs versus closed as non-issues, broken down by project.
 
-- **Precision:** **88.4%** (84 FIXED / 95 decided)
-- **False-positive rate:** **11.6%** (11 NON-ISSUE)
+- **Precision:** **87.0%** (87 FIXED / 100 decided)
+- **False-positive rate:** **13.0%** (13 NON-ISSUE)
 
 Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS tickets are omitted — their outcome (bug vs non-issue) is not yet known.
 
@@ -20,21 +20,21 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 **Sources**
 
 - DTS inventory: [`dts_bug_types.md`](./dts_bug_types.md) + [`content/issues/`](../content/issues/)
-- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**84** issues, all `CONFIRMED_FIXED`)
-- Non-issue write-ups: `~/cloned/*/pbt-out/bug_reports/non-issue/` (**11** DTS-stamped)
+- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**87** issues, all `CONFIRMED_FIXED`)
+- Non-issue write-ups: `~/cloned/*/pbt-out/bug_reports/non-issue/` (**13** DTS-stamped)
 
-- **Generated:** 2026-09-02
+- **Generated:** 2026-09-11
 
 ### Global DTS scoreboard (decided only)
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 84 | 88.4% |
-| NON-ISSUE | 11 | 11.6% |
-| **Total decided** | **95** | 100% |
+| FIXED | 87 | 87.0% |
+| NON-ISSUE | 13 | 13.0% |
+| **Total decided** | **100** | 100% |
 
-- **Precision:** **84/95 = 88.4%** — almost nine in ten closed tickets were real bugs.
-- **False-positive rate:** **11/95 = 11.6%**.
+- **Precision:** **87/100 = 87.0%** — just under nine in ten closed tickets were real bugs.
+- **False-positive rate:** **13/100 = 13.0%**.
 
 > Precision means *maintainer-accepted defect rate among dispositioned DTS*, not static-analysis alert rate. Open/submitted tickets are out of scope until closed.
 
@@ -44,37 +44,38 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 
 | Project | FIXED | NON-ISSUE | Decided | Precision |
 |---------|------:|----------:|--------:|----------:|
+| [`communication_netmanager_base`](#communication-netmanager-base) | 11 | 2 | 13 | 85% |
 | [`multimedia_camera_framework`](#multimedia-camera-framework) | 11 | 0 | 11 | 100% |
-| [`communication_netmanager_base`](#communication-netmanager-base) | 9 | 2 | 11 | 82% |
+| [`graphic_graphic_2d`](#graphic-graphic-2d) | 9 | 0 | 9 | 100% |
 | [`multimedia_image_framework`](#multimedia-image-framework) | 9 | 0 | 9 | 100% |
 | [`arkui_ace_engine`](#arkui-ace-engine) | 8 | 1 | 9 | 89% |
-| [`graphic_graphic_2d`](#graphic-graphic-2d) | 8 | 0 | 8 | 100% |
 | [`arkcompiler_runtime_core`](#arkcompiler-runtime-core) | 5 | 1 | 6 | 83% |
 | [`ability_ability_runtime`](#ability-ability-runtime) | 5 | 0 | 5 | 100% |
 | [`multimedia_media_foundation`](#multimedia-media-foundation) | 1 | 4 | 5 | 20% |
 | [`multimedia_av_codec`](#multimedia-av-codec) | 4 | 0 | 4 | 100% |
-| [`distributedhardware_device_manager`](#distributedhardware-device-manager) | 2 | 1 | 3 | 67% |
-| [`multimedia_av_session`](#multimedia-av-session) | 2 | 1 | 3 | 67% |
+| [`distributedhardware_device_manager`](#distributedhardware-device-manager) | 2 | 2 | 4 | 50% |
 | [`multimedia_player_framework`](#multimedia-player-framework) | 3 | 0 | 3 | 100% |
+| [`multimedia_av_session`](#multimedia-av-session) | 2 | 1 | 3 | 67% |
 | [`communication_bluetooth_service`](#communication-bluetooth-service) | 2 | 0 | 2 | 100% |
-| [`communication_dsoftbus`](#communication-dsoftbus) | 1 | 1 | 2 | 50% |
 | [`communication_wifi`](#communication-wifi) | 2 | 0 | 2 | 100% |
 | [`distributeddatamgr_pasteboard`](#distributeddatamgr-pasteboard) | 2 | 0 | 2 | 100% |
 | [`multimedia_media_library`](#multimedia-media-library) | 2 | 0 | 2 | 100% |
 | [`window_window_manager`](#window-window-manager) | 2 | 0 | 2 | 100% |
+| [`communication_dsoftbus`](#communication-dsoftbus) | 1 | 1 | 2 | 50% |
 | [`commonlibrary_rust_ylong_http`](#commonlibrary-rust-ylong-http) | 1 | 0 | 1 | 100% |
 | [`distributeddatamgr_datamgr_service`](#distributeddatamgr-datamgr-service) | 1 | 0 | 1 | 100% |
 | [`distributedhardware_distributed_hardware_fwk`](#distributedhardware-distributed-hardware-fwk) | 1 | 0 | 1 | 100% |
 | [`filemanagement_dfs_service`](#filemanagement-dfs-service) | 1 | 0 | 1 | 100% |
 | [`filemanagement_storage_service`](#filemanagement-storage-service) | 1 | 0 | 1 | 100% |
 | [`telephony_core_service`](#telephony-core-service) | 1 | 0 | 1 | 100% |
-| **Total** | **84** | **11** | **95** | **88%** |
+| [`multimedia_audio_framework`](#multimedia-audio-framework) | 0 | 1 | 1 | 0% |
+| **Total** | **87** | **13** | **100** | **87%** |
 
 ## Precision tiers
 
 ### Tier A — Perfect precision (100%, ≥1 FIXED, 0 NON-ISSUE)
 
-`multimedia_camera_framework` (11 fixed), `multimedia_image_framework` (9 fixed), `graphic_graphic_2d` (8 fixed), `ability_ability_runtime` (5 fixed), `multimedia_av_codec` (4 fixed), `multimedia_player_framework` (3 fixed), `communication_bluetooth_service` (2 fixed), `communication_wifi` (2 fixed), `distributeddatamgr_pasteboard` (2 fixed), `multimedia_media_library` (2 fixed), `window_window_manager` (2 fixed), `commonlibrary_rust_ylong_http` (1 fixed), `distributeddatamgr_datamgr_service` (1 fixed), `distributedhardware_distributed_hardware_fwk` (1 fixed), `filemanagement_dfs_service` (1 fixed), `filemanagement_storage_service` (1 fixed), `telephony_core_service` (1 fixed)
+`multimedia_camera_framework` (11 fixed), `graphic_graphic_2d` (9 fixed), `multimedia_image_framework` (9 fixed), `ability_ability_runtime` (5 fixed), `multimedia_av_codec` (4 fixed), `multimedia_player_framework` (3 fixed), `communication_bluetooth_service` (2 fixed), `communication_wifi` (2 fixed), `distributeddatamgr_pasteboard` (2 fixed), `multimedia_media_library` (2 fixed), `window_window_manager` (2 fixed), `commonlibrary_rust_ylong_http` (1 fixed), `distributeddatamgr_datamgr_service` (1 fixed), `distributedhardware_distributed_hardware_fwk` (1 fixed), `filemanagement_dfs_service` (1 fixed), `filemanagement_storage_service` (1 fixed), `telephony_core_service` (1 fixed)
 
 These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 
@@ -84,19 +85,19 @@ These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 |---------|------:|----------:|----------:|----------------------|
 | `arkui_ace_engine` | 8 | 1 | 89% | Empty-grid `-mainGap` is stable formula output, not a defect; real layout/math bugs still fixed at high rate. |
 | `arkcompiler_runtime_core` | 5 | 1 | 83% | SkipULeb128 empty/truncated is by-design (void helper, no error channel); real buffer/loop bugs still fixed. |
-| `communication_netmanager_base` | 9 | 2 | 82% | Helper semantics (ForkExec) and API role split (zoned IPv6) ≠ bugs; firewall/IP/mask defects accepted. |
-| `distributedhardware_device_manager` | 2 | 1 | 67% | cJSON int64 round-trip is a dead backend (`use_nlohmann_json`); PIN/rand bugs still fixed. |
+| `communication_netmanager_base` | 11 | 2 | 85% | Helper semantics (ForkExec) and API role split (zoned IPv6) ≠ bugs; firewall/IP/mask defects accepted. |
+| `distributedhardware_device_manager` | 2 | 2 | 50% | cJSON int64 round-trip and ConvertStrToInt are dead/unshipped; PIN/rand bugs still fixed. |
 | `multimedia_av_session` | 2 | 1 | 67% | Call-type JSON omission = product policy; OOB crash in `GetAnonyTitle` still fixed. |
 | `communication_dsoftbus` | 1 | 1 | 50% | Hex NUL write is caller-owned; ConnectGroup freq OOB still fixed. |
 | `multimedia_media_foundation` | 1 | 4 | 20% | Abstract OOB / dead inverted predicate / shipped CAPI cap / `-O0`-only crash rejected; live `Format::Stringify` null-deref fixed. |
 
 ### Tier C — Only NON-ISSUE (0 FIXED)
 
-None — every project with a rejected DTS also has at least one accepted fix.
+`multimedia_audio_framework` (0 fixed, 1 non-issue) — PulseAudio `audio_effect_chain_adapter.cpp` dropped from the 7.0 trunk.
 
 ## Non-issue DTS catalog (all projects)
 
-All **11** maintainer-rejected tickets. Useful as negative examples for future filing.
+All **13** maintainer-rejected tickets. Useful as negative examples for future filing.
 
 | DTS | Project | Report theme | Rejection class |
 |-----|---------|--------------|-----------------|
@@ -111,13 +112,15 @@ All **11** maintainer-rejected tickets. Useful as negative examples for future f
 | `DTS2026072938754` | `multimedia_media_foundation` | Format::Stringify SIGSEGV on bool-stored tag | Not reproduced on product `-O2` |
 | `DTS2026081129774` | `multimedia_media_foundation` | DataPacker::IsEmpty inverted | Dead code / no shipped callers |
 | `DTS2026081131247` | `multimedia_media_foundation` | OH_AVFormat GetString/Dump/GetKey cap + strcpy_s | Shipped CAPI contract (incompatible to change) |
+| `DTS2026082554468` | `multimedia_audio_framework` | ConvertChLayoutToPaChMap HOA order ≥ 5 overflows pa_channel_map | Dead code / removed from 7.0 trunk |
+| `DTS2026082568985` | `distributedhardware_device_manager` | ConvertStrToInt returns positive wrap of overflowing decimals | Dead code / no shipped callers |
 
 ### Rejection classes (count)
 
 | Class | Count | Implication for future PBT filings |
 |------:|------:|--------------------------------------|
 | By-design / product policy / stable contract | 5 | Validate *product* intent and call-graph impact, not only algebraic oddity |
-| Unreachable invariant / dead code | 3 | Constrain generators to **production domain**; prove a live caller |
+| Unreachable invariant / dead code | 5 | Constrain generators to **production domain**; prove a live caller |
 | Caller-owned or split-API contract | 2 | Read in-tree callers and sibling APIs before claiming inconsistency |
 | Flag-dependent / not reproduced | 1 | Match product build flags before filing a crash |
 
@@ -129,9 +132,9 @@ For each project with decided DTS: outcome mix, precision, non-issue notes (if a
 
 | Metric | Value |
 |--------|------:|
-| FIXED | 8 |
+| FIXED | 9 |
 | NON-ISSUE | 0 |
-| Decided | 8 |
+| Decided | 9 |
 | Precision | 100.0% |
 
 **FIXED DTS**
@@ -144,8 +147,9 @@ For each project with decided DTS: outcome mix, precision, non-issue notes (if a
 - `DTS2026073129863` — [OH-2026-GFX-006](../content/issues/OH-2026-GFX-006.md): UpdateDrawingProperties permanent no-op (enum vs string list size)
 - `DTS2026080528903` — [OH-2026-GFX-007](../content/issues/OH-2026-GFX-007.md): Matrix3::IsNearEqual compares only 8 of 9 elements (data_ + 8)
 - `DTS2026080530843` — [OH-2026-GFX-008](../content/issues/OH-2026-GFX-008.md): CubicResampler::Dump writes cubicCoffB into the cubicCoffC field
+- `DTS2026082261311` — [OH-2026-GFX-009](../content/issues/OH-2026-GFX-009.md): RSColor::IsNearEqual compares BT2020 float16 bits, not channel counts
 
-High-confidence project: **8** accepted fixes and **no** rejected DTS.
+High-confidence project: **9** accepted fixes and **no** rejected DTS.
 
 ### `arkui_ace_engine`
 
@@ -177,10 +181,10 @@ Mixed outcomes: maintainers accepted **8** and rejected **1**. Net precision **8
 
 | Metric | Value |
 |--------|------:|
-| FIXED | 9 |
+| FIXED | 11 |
 | NON-ISSUE | 2 |
-| Decided | 11 |
-| Precision | 81.8% |
+| Decided | 13 |
+| Precision | 84.6% |
 
 **FIXED DTS**
 
@@ -193,13 +197,15 @@ Mixed outcomes: maintainers accepted **8** and rejected **1**. Net precision **8
 - `DTS2026080608464` — [OH-2026-NET-005](../content/issues/OH-2026-NET-005.md): GetIp4AndMask uint32 step wrap → infinite loop when range ends at 255.255.255.255
 - `DTS2026081135903` — [OH-2026-NET-007](../content/issues/OH-2026-NET-007.md): CheckIpv6InNet missing prefix bounds — match-all on negative / OOB on /129+
 - `DTS2026081136698` — [OH-2026-NET-006](../content/issues/OH-2026-NET-006.md): Ip6RuleMap::GetNetworkAddress OOB on prefixLen > 128
+- `DTS2026071727288` — [OH-2026-NET-010](../content/issues/OH-2026-NET-010.md): Ip4RuleMap::GetNetworkAddress(/0) is UB and does not yield 0.0.0.0
+- `DTS2026083109843` — [OH-2026-NET-011](../content/issues/OH-2026-NET-011.md): GetMtu passes sysfs "1500\n" to StrToInt → always -1
 
 **NON-ISSUE DTS**
 
 - `DTS2026071725399` — ForkExec SUCCESS on non-zero child exit. *By design — SUCCESS means child created.*
 - `DTS2026072720774` — GetAddrFamily rejects zoned IPv6. *Different API jobs, not inconsistency.*
 
-Mixed outcomes: maintainers accepted **9** and rejected **2**. Net precision **82%**.
+Mixed outcomes: maintainers accepted **11** and rejected **2**. Net precision **85%**.
 
 ### `multimedia_camera_framework`
 
@@ -393,9 +399,9 @@ Mixed outcomes: maintainers accepted **2** and rejected **1**. Net precision **6
 | Metric | Value |
 |--------|------:|
 | FIXED | 2 |
-| NON-ISSUE | 1 |
-| Decided | 3 |
-| Precision | 66.7% |
+| NON-ISSUE | 2 |
+| Decided | 4 |
+| Precision | 50.0% |
 
 **FIXED DTS**
 
@@ -405,6 +411,7 @@ Mixed outcomes: maintainers accepted **2** and rejected **1**. Net precision **6
 **NON-ISSUE DTS**
 
 - `DTS2026070663477` — JsonObject cJSON int64 round-trip loss. *Dead backend — production uses nlohmann_json.*
+- `DTS2026082568985` — ConvertStrToInt returns positive wrap of overflowing decimals. *Dead code / no shipped callers.*
 
 ### `filemanagement_dfs_service`
 
@@ -549,17 +556,30 @@ High-confidence project: **2** accepted fixes and **no** rejected DTS.
 
 - `DTS2026082564627` — [OH-2026-TEL-001](../content/issues/OH-2026-TEL-001.md): Asn1Utils::BytesToInt segfaults when offset+length wraps uint32
 
+### `multimedia_audio_framework`
+
+| Metric | Value |
+|--------|------:|
+| FIXED | 0 |
+| NON-ISSUE | 1 |
+| Decided | 1 |
+| Precision | 0.0% |
+
+**NON-ISSUE DTS**
+
+- `DTS2026082554468` — ConvertChLayoutToPaChMap HOA order ≥ 5 overflows pa_channel_map. *7.0 dropped the PulseAudio engine; `audio_effect_chain_adapter.cpp` removed from trunk.*
+
 ## Relation to `content/issues/` write-ups
 
-This repo’s [`content/issues/`](../content/issues/) currently carries **84** DTS-linked reports, all status `CONFIRMED_FIXED`.
+This repo’s [`content/issues/`](../content/issues/) currently carries **87** DTS-linked reports, all status `CONFIRMED_FIXED`.
 That set is the **FIXED** count here. Non-issues come from `~/cloned/*/pbt-out/bug_reports/non-issue/`.
 
 | Population | Count | Role |
 |------------|------:|------|
-| Decided DTS (FIXED + NON-ISSUE) | 95 | Ground truth for precision |
-| FIXED | 84 | Maintainer-accepted (`content/issues`) |
-| NON-ISSUE | 11 | Maintainer-rejected (cloned inventory) |
-| Write-ups in `content/issues` with DTS | 84 | Published confirmed bugs |
+| Decided DTS (FIXED + NON-ISSUE) | 100 | Ground truth for precision |
+| FIXED | 87 | Maintainer-accepted (`content/issues`) |
+| NON-ISSUE | 13 | Maintainer-rejected (cloned inventory) |
+| Write-ups in `content/issues` with DTS | 87 | Published confirmed bugs |
 
 **Do not** compute precision from `content/issues` alone — it omits non-issues by design. Use this document (or dispositioned rows in `BUG_REPORTS.md`) for acceptance rate.
 
@@ -567,8 +587,8 @@ See also: [DTS tickets by detecting property](./dts_bug_types.md). Failure-mode 
 
 ## Takeaways
 
-1. **Overall precision is high (88%)** — PBT filings that reach a DTS decision are usually real defects.
-2. **False positives cluster in a few patterns** (11 tickets): by-design helpers, dead/unreachable code, caller-owned contracts, shipped CAPI / product omissions, flag-dependent crashes — not flaky reproduction.
+1. **Overall precision is high (87%)** — PBT filings that reach a DTS decision are usually real defects.
+2. **False positives cluster in a few patterns** (13 tickets): by-design helpers, dead/unreachable / dropped-from-trunk code, caller-owned contracts, shipped CAPI / product omissions, flag-dependent crashes — not flaky reproduction.
 3. **Several large surfaces are clean so far** (e.g. `multimedia_camera_framework`, `multimedia_image_framework`, `graphic_graphic_2d` among high-volume FIXED with 0 NON-ISSUE).
 4. **Filing bar that non-issues imply:** prove a live production caller, state the product contract, and avoid “algebraic inconsistency across differently purposed APIs” without impact.
 
