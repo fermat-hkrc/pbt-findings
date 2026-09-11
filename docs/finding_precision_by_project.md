@@ -187,7 +187,7 @@ Mixed outcomes: maintainers accepted **8** and rejected **1**. Net precision **8
 - `DTS2026050963138` — [OH-2026-NET-003](../content/issues/OH-2026-NET-003.md): netfirewall match_loopback always returns true, classifying all traffic as loopback and short-circuiting deny rules
 - `DTS2026062926934` — [OH-2026-NET-001](../content/issues/OH-2026-NET-001.md): ToAnonymousIp(maskMiddle=true) leaks compressed IPv6 addresses to logs unmasked
 - `DTS2026070856960` — [OH-2026-NET-002](../content/issues/OH-2026-NET-002.md): CheckIpv4InNet /0 CIDR mask via undefined behavior (1<<32), silently bypassing PAC catch-all proxy rules
-- `DTS20260717048` — [OH-2026-NET-009](../content/issues/OH-2026-NET-009.md): StrToInt / StrToUint / StrToUint64 parsed leading-zero decimals as octal
+- `DTS2026083107415` — [OH-2026-NET-009](../content/issues/OH-2026-NET-009.md): StrToInt / StrToUint / StrToUint64 parsed leading-zero decimals as octal
 - `DTS2026071727054` — [OH-2026-NET-008](../content/issues/OH-2026-NET-008.md): StrToUint64 wraps a leading minus to UINT64_MAX
 - `DTS2026072750511` — [OH-2026-NET-004](../content/issues/OH-2026-NET-004.md): RfindIp6 unsigned underflow hang/OOB when startBytes == 0 miss
 - `DTS2026080608464` — [OH-2026-NET-005](../content/issues/OH-2026-NET-005.md): GetIp4AndMask uint32 step wrap → infinite loop when range ends at 255.255.255.255

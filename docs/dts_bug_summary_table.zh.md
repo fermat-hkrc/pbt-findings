@@ -71,7 +71,7 @@
 | 67 | communication_netmanager_base | Ip6RuleMap::GetNetworkAddress 在 prefixLen > 128 时越界 — netfirewall 位图错误合并 | 缓冲区/越界访问 | `services/netmanagernative/bpf/include/bitmap_manager.h` | 已确认并修复 |  | DTS2026081136698 |
 | 68 | communication_netmanager_base | CheckIpv6InNet 缺少前缀边界 — 负数全匹配 / /129+ 越界 | 缓冲区/越界访问 | `services/netconnmanager/src/pac_functions.cpp` | 已确认并修复 |  | DTS2026081135903 |
 | 69 | communication_netmanager_base | StrToUint64 把前导负号回绕成 UINT64_MAX | 整数溢出/下溢 | `utils/common_utils/src/netmanager_base_common_utils.cpp` | 已确认并修复 |  | DTS2026071727054 |
-| 70 | communication_netmanager_base | StrToInt / StrToUint / StrToUint64 把前导零十进制当八进制解析 | 计算错误 | `utils/common_utils/src/netmanager_base_common_utils.cpp` | 已确认并修复 |  | DTS20260717048 |
+| 70 | communication_netmanager_base | StrToInt / StrToUint / StrToUint64 把前导零十进制当八进制解析 | 计算错误 | `utils/common_utils/src/netmanager_base_common_utils.cpp` | 已确认并修复 |  | DTS2026083107415 |
 | 71 | distributeddatamgr_pasteboard | ProcessDistributedDelayUri 导出 URI 不查每条 grant 标志（失败开放） | 授权/访问控制 | `services/core/src/pasteboard_service.cpp` | 已确认并修复 |  | DTS2026071412383 |
 | 72 | distributeddatamgr_pasteboard | SetCurrentDistributedData 超时后 isRunning 卡住，永久关闭跨设备剪贴板发布 | 清理不完整或卡住 | `services/core/src/pasteboard_service.cpp` | 已确认并修复 |  | DTS2026073012747 |
 | 73 | multimedia_player_framework | XmlParser::Destroy 双重释放 mDoc_（析构未置空再次进入） | 双重释放 | `services/utils/xml_parse.cpp` | 已确认并修复 |  | DTS2026072457284 |

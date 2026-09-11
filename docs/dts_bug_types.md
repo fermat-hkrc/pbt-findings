@@ -93,7 +93,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `DTS2026071430826` | [OH-2026-GFX-004](../content/issues/OH-2026-GFX-004.md) | Algebraic — Metamorphic | MEDIUM | `graphic_graphic_2d` |
 | `DTS2026071433052` | [ARK-2026-LOOP-001](../content/issues/ARK-2026-LOOP-001.md) | Algebraic — Invariant | MEDIUM | `arkcompiler_runtime_core` |
 | `DTS2026071544397` | [OH-2026-ABILITY-001](../content/issues/OH-2026-ABILITY-001.md) | Crash-Only | MEDIUM | `ability_ability_runtime` |
-| `DTS20260717048` | [OH-2026-NET-009](../content/issues/OH-2026-NET-009.md) | Differential | MEDIUM | `communication_netmanager_base` |
+| `DTS2026083107415` | [OH-2026-NET-009](../content/issues/OH-2026-NET-009.md) | Differential | MEDIUM | `communication_netmanager_base` |
 | `DTS2026071727054` | [OH-2026-NET-008](../content/issues/OH-2026-NET-008.md) | Negative / Error Contract | MEDIUM | `communication_netmanager_base` |
 | `DTS2026071806648` | [OH-2026-MEDIALIB-002](../content/issues/OH-2026-MEDIALIB-002.md) | Crash-Only | MEDIUM | `multimedia_media_library` |
 | `DTS2026071806709` | [OH-2026-WIFI-001](../content/issues/OH-2026-WIFI-001.md) | Crash-Only | MEDIUM | `communication_wifi` |
@@ -176,7 +176,7 @@ Candidate vs a same-job sibling or independent implementation of the same contra
 | `DTS2026071303295` | [OH-2026-CAM-006](../content/issues/OH-2026-CAM-006.md) | MEDIUM | IsDoubleRegex accept ⇒ caller std::stoi does not throw |
 | `DTS2026071411883` | [OH-2026-CAM-003](../content/issues/OH-2026-CAM-003.md) | MEDIUM | isIntegerRegex accept ⇒ std::stoi does not throw |
 | `DTS2026071412383` | [OH-2026-PB-001](../content/issues/OH-2026-PB-001.md) | MEDIUM | export URI only when per-record grant is set (sibling include rule) |
-| `DTS20260717048` | [OH-2026-NET-009](../content/issues/OH-2026-NET-009.md) | MEDIUM | StrToInt/Uint/Uint64 leading-zero decimal ≡ ParseInt base-10 sibling |
+| `DTS2026083107415` | [OH-2026-NET-009](../content/issues/OH-2026-NET-009.md) | MEDIUM | StrToInt/Uint/Uint64 leading-zero decimal ≡ ParseInt base-10 sibling |
 | `DTS2026072326318` | [OH-2026-DFS-001](../content/issues/OH-2026-DFS-001.md) | MEDIUM | item ReadFromParcel failure rejects, as Marshalling sibling does |
 | `DTS2026072347788` | [OH-2026-WM-001](../content/issues/OH-2026-WM-001.md) | MEDIUM | aspect-ratio check agrees with widened uint oracle |
 | `DTS2026072438019` | [OH-2026-AVCODEC-001](../content/issues/OH-2026-AVCODEC-001.md) | MEDIUM | byterange end agrees with widened (secure) add |

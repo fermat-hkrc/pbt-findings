@@ -93,7 +93,7 @@
 | `DTS2026071430826` | [OH-2026-GFX-004](../content/issues/OH-2026-GFX-004.md) | 代数 — 蜕变 | MEDIUM | `graphic_graphic_2d` |
 | `DTS2026071433052` | [ARK-2026-LOOP-001](../content/issues/ARK-2026-LOOP-001.md) | 代数 — 不变量 | MEDIUM | `arkcompiler_runtime_core` |
 | `DTS2026071544397` | [OH-2026-ABILITY-001](../content/issues/OH-2026-ABILITY-001.md) | 仅崩溃 | MEDIUM | `ability_ability_runtime` |
-| `DTS20260717048` | [OH-2026-NET-009](../content/issues/OH-2026-NET-009.md) | 差分 | MEDIUM | `communication_netmanager_base` |
+| `DTS2026083107415` | [OH-2026-NET-009](../content/issues/OH-2026-NET-009.md) | 差分 | MEDIUM | `communication_netmanager_base` |
 | `DTS2026071727054` | [OH-2026-NET-008](../content/issues/OH-2026-NET-008.md) | 否定 / 错误契约 | MEDIUM | `communication_netmanager_base` |
 | `DTS2026071806648` | [OH-2026-MEDIALIB-002](../content/issues/OH-2026-MEDIALIB-002.md) | 仅崩溃 | MEDIUM | `multimedia_media_library` |
 | `DTS2026071806709` | [OH-2026-WIFI-001](../content/issues/OH-2026-WIFI-001.md) | 仅崩溃 | MEDIUM | `communication_wifi` |
@@ -176,7 +176,7 @@
 | `DTS2026071303295` | [OH-2026-CAM-006](../content/issues/OH-2026-CAM-006.md) | MEDIUM | IsDoubleRegex 接受 ⇒ 调用方 std::stoi 不抛 |
 | `DTS2026071411883` | [OH-2026-CAM-003](../content/issues/OH-2026-CAM-003.md) | MEDIUM | isIntegerRegex 接受 ⇒ std::stoi 不抛 |
 | `DTS2026071412383` | [OH-2026-PB-001](../content/issues/OH-2026-PB-001.md) | MEDIUM | 仅在每条记录已授权时导出 URI（同类 include 规则） |
-| `DTS20260717048` | [OH-2026-NET-009](../content/issues/OH-2026-NET-009.md) | MEDIUM | StrToInt/Uint/Uint64 前导零十进制 ≡ ParseInt 十进制同类 |
+| `DTS2026083107415` | [OH-2026-NET-009](../content/issues/OH-2026-NET-009.md) | MEDIUM | StrToInt/Uint/Uint64 前导零十进制 ≡ ParseInt 十进制同类 |
 | `DTS2026072326318` | [OH-2026-DFS-001](../content/issues/OH-2026-DFS-001.md) | MEDIUM | 子项 ReadFromParcel 失败则拒绝，与 Marshalling 同类一致 |
 | `DTS2026072347788` | [OH-2026-WM-001](../content/issues/OH-2026-WM-001.md) | MEDIUM | 宽高比检查与加宽无符号预言一致 |
 | `DTS2026072438019` | [OH-2026-AVCODEC-001](../content/issues/OH-2026-AVCODEC-001.md) | MEDIUM | byterange 终点与加宽安全加法一致 |
