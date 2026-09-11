@@ -2,11 +2,11 @@
 
 对 [`content/issues/`](../content/issues/) 中带有 **DTS** 工单号（`internal_issue_id`）的发现所做的归类，按检出该工单的 **pi-pbt 性质（预言机）** 分组。CWE / 失效模式分组归档在 [`finding_precision_by_project.md`](finding_precision_by_project.md) 文末。
 
-- **已确认（FIXED）**：**87** — 下列目录（`CONFIRMED_FIXED` 报告）
+- **已确认（FIXED）**：**92** — 下列目录（`CONFIRMED_FIXED` 报告）
 - **非问题（NON-ISSUE）**：**13** — [目录](#非问题)
-- **已判定**：**100** = 87 + 13
-- **精确率**：**87.0%** = `87 / (87 + 13)` = 已确认 /（已确认 + 非问题）
-- **严重级别**（仅已确认）：HIGH=20，MEDIUM=65，LOW=2
+- **已判定**：**105** = 92 + 13
+- **精确率**：**87.6%** = `92 / (92 + 13)` = 已确认 /（已确认 + 非问题）
+- **严重级别**（仅已确认）：HIGH=21，MEDIUM=68，LOW=3
 - **生成时间**：2026-09-11
 
 ## 概览
@@ -17,14 +17,14 @@
 | 性质（预言机） | 数量 | HIGH | MEDIUM | LOW |
 |----------|------:|-----:|-------:|----:|
 | [状态机](#状态机) | 2 | 1 | 0 | 1 |
-| [差分](#差分) | 23 | 0 | 23 | 0 |
+| [差分](#差分) | 28 | 1 | 26 | 1 |
 | [代数 — 往返](#代数--往返) | 5 | 3 | 2 | 0 |
 | [代数 — 蜕变](#代数--蜕变) | 3 | 1 | 2 | 0 |
 | [代数 — 不变量](#代数--不变量) | 30 | 8 | 21 | 1 |
 | [否定 / 错误契约](#否定--错误契约) | 7 | 1 | 6 | 0 |
 | [参考](#参考) | 5 | 1 | 4 | 0 |
 | [仅崩溃](#仅崩溃) | 12 | 5 | 7 | 0 |
-| **合计** | **87** | **20** | **65** | **2** |
+| **合计** | **92** | **21** | **68** | **3** |
 
 强度顺序：状态机 ≻ 差分 ≻ 代数（往返 ≻ 幂等 ≻ 蜕变 ≻ 不变量 ≻ 否定/错误）≻ 参考 ≻ 仅崩溃。本集合中**幂等：0**。
 
@@ -34,15 +34,15 @@
 
 | 模块 | FIXED | NI | HIGH | MEDIUM | LOW | 精确率 |
 |--------|------:|---:|-----:|-------:|----:|----------:|
-| `multimedia_camera_framework` | 11 | 0 | 0 | 10 | 1 | 100% |
+| `multimedia_camera_framework` | 12 | 0 | 0 | 11 | 1 | 100% |
 | `multimedia_image_framework` | 9 | 0 | 1 | 8 | 0 | 100% |
 | `communication_netmanager_base` | 11 | 2 | 3 | 8 | 0 | 85% |
+| `graphic_graphic_2d` | 10 | 0 | 3 | 6 | 1 | 100% |
 | `arkui_ace_engine` | 8 | 1 | 4 | 4 | 0 | 89% |
-| `graphic_graphic_2d` | 9 | 0 | 2 | 6 | 1 | 100% |
 | `ability_ability_runtime` | 5 | 0 | 0 | 5 | 0 | 100% |
 | `arkcompiler_runtime_core` | 5 | 1 | 0 | 5 | 0 | 83% |
-| `multimedia_av_codec` | 4 | 0 | 0 | 4 | 0 | 100% |
-| `multimedia_player_framework` | 3 | 0 | 0 | 3 | 0 | 100% |
+| `multimedia_av_codec` | 5 | 0 | 0 | 4 | 1 | 100% |
+| `multimedia_player_framework` | 4 | 0 | 0 | 4 | 0 | 100% |
 | `communication_bluetooth_service` | 2 | 0 | 2 | 0 | 0 | 100% |
 | `communication_wifi` | 2 | 0 | 1 | 1 | 0 | 100% |
 | `distributeddatamgr_pasteboard` | 2 | 0 | 1 | 1 | 0 | 100% |
@@ -58,8 +58,9 @@
 | `filemanagement_storage_service` | 1 | 0 | 0 | 1 | 0 | 100% |
 | `multimedia_media_foundation` | 1 | 4 | 1 | 0 | 0 | 20% |
 | `telephony_core_service` | 1 | 0 | 1 | 0 | 0 | 100% |
+| `arkui_napi` | 1 | 0 | 0 | 1 | 0 | 100% |
 | `multimedia_audio_framework` | 0 | 1 | 0 | 0 | 0 | 0% |
-| **合计** | **87** | **13** | **20** | **65** | **2** | **87%** |
+| **合计** | **92** | **13** | **21** | **68** | **3** | **88%** |
 
 ## DTS 索引
 
@@ -144,14 +145,19 @@
 | `DTS2026081417372` | [OH-2026-IMG-010](../content/issues/OH-2026-IMG-010.md) | 参考 | MEDIUM | `multimedia_image_framework` |
 | `DTS2026081421810` | [OH-2026-IMG-007](../content/issues/OH-2026-IMG-007.md) | 差分 | MEDIUM | `multimedia_image_framework` |
 | `DTS2026081424330` | [OH-2026-IMG-006](../content/issues/OH-2026-IMG-006.md) | 参考 | MEDIUM | `multimedia_image_framework` |
+| `DTS2026081506434` | [OH-2026-NAPI-001](../content/issues/OH-2026-NAPI-001.md) | 差分 | MEDIUM | `arkui_napi` |
 | `DTS2026081703440` | [OH-2026-PLAYER-003](../content/issues/OH-2026-PLAYER-003.md) | 差分 | MEDIUM | `multimedia_player_framework` |
+| `DTS2026081706437` | [OH-2026-AVCODEC-005](../content/issues/OH-2026-AVCODEC-005.md) | 差分 | LOW | `multimedia_av_codec` |
 | `DTS2026081713997` | [OH-2026-AVCODEC-003](../content/issues/OH-2026-AVCODEC-003.md) | 差分 | MEDIUM | `multimedia_av_codec` |
 | `DTS2026082007640` | [OH-2026-AVCODEC-004](../content/issues/OH-2026-AVCODEC-004.md) | 差分 | MEDIUM | `multimedia_av_codec` |
+| `DTS2026082009479` | [OH-2026-PLAYER-004](../content/issues/OH-2026-PLAYER-004.md) | 差分 | MEDIUM | `multimedia_player_framework` |
 | `DTS2026082023118` | [OH-2026-DSOFTBUS-001](../content/issues/OH-2026-DSOFTBUS-001.md) | 差分 | MEDIUM | `communication_dsoftbus` |
+| `DTS2026082239652` | [OH-2026-CAM-012](../content/issues/OH-2026-CAM-012.md) | 差分 | MEDIUM | `multimedia_camera_framework` |
 | `DTS2026082254944` | [OH-2026-ABILITY-005](../content/issues/OH-2026-ABILITY-005.md) | 代数 — 不变量 | MEDIUM | `ability_ability_runtime` |
 | `DTS2026082261311` | [OH-2026-GFX-009](../content/issues/OH-2026-GFX-009.md) | 代数 — 不变量 | MEDIUM | `graphic_graphic_2d` |
 | `DTS2026082564627` | [OH-2026-TEL-001](../content/issues/OH-2026-TEL-001.md) | 仅崩溃 | HIGH | `telephony_core_service` |
 | `DTS2026083109843` | [OH-2026-NET-011](../content/issues/OH-2026-NET-011.md) | 差分 | MEDIUM | `communication_netmanager_base` |
+| `DTS2026090527401` | [OH-2026-GFX-010](../content/issues/OH-2026-GFX-010.md) | 差分 | HIGH | `graphic_graphic_2d` |
 
 ## 检测性质（预言机）
 
@@ -199,6 +205,11 @@
 | `DTS2026081713997` | [OH-2026-AVCODEC-003](../content/issues/OH-2026-AVCODEC-003.md) | MEDIUM | TITLE 不含逗号，与 DURATION 同类一致 |
 | `DTS2026082007640` | [OH-2026-AVCODEC-004](../content/issues/OH-2026-AVCODEC-004.md) | MEDIUM | YCRCB_P010 → NV21，与 8-bit YCRCB_420_SP 同类一致 |
 | `DTS2026082023118` | [OH-2026-DSOFTBUS-001](../content/issues/OH-2026-DSOFTBUS-001.md) | MEDIUM | ConnectGroup 长度守卫 ≡ P2pConnectGroup 同类（size ≥ MODE） |
+| `DTS2026081506434` | [OH-2026-NAPI-001](../content/issues/OH-2026-NAPI-001.md) | MEDIUM | IsType ≡ dynamic_cast（拒绝无关类型；自身转换成功） |
+| `DTS2026081706437` | [OH-2026-AVCODEC-005](../content/issues/OH-2026-AVCODEC-005.md) | LOW | else 分支设置 chroma，与 if 分支同类一致 |
+| `DTS2026082009479` | [OH-2026-PLAYER-004](../content/issues/OH-2026-PLAYER-004.md) | MEDIUM | GetPackageName ≡ 整串 syspara 同类（不用 stringstream 分词） |
+| `DTS2026082239652` | [OH-2026-CAM-012](../content/issues/OH-2026-CAM-012.md) | MEDIUM | IsUint8Regex 接受 ⇒ std::stoi 不抛 |
+| `DTS2026090527401` | [OH-2026-GFX-010](../content/issues/OH-2026-GFX-010.md) | HIGH | NDK 网格遍历 ≡ JS/ANI DrawingPixelMapMesh（先按行再按列） |
 
 <a id="代数--往返"></a>
 
@@ -320,7 +331,7 @@
 
 维护者驳回的 DTS。只计入分母。
 
-**精确率** = 已确认 /（已确认 + 非问题）= **87 / (87 + 13) = 87.0%**。
+**精确率** = 已确认 /（已确认 + 非问题）= **92 / (92 + 13) = 87.6%**。
 
 | DTS | 项目 | 主题 | 为何非问题 |
 |-----|------|------|------------|
