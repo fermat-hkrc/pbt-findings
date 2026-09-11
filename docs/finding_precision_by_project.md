@@ -547,7 +547,7 @@ High-confidence project: **2** accepted fixes and **no** rejected DTS.
 
 **FIXED DTS**
 
-- `DTS2026082565627` — [OH-2026-TEL-001](../content/issues/OH-2026-TEL-001.md): Asn1Utils::BytesToInt segfaults when offset+length wraps uint32
+- `DTS2026082564627` — [OH-2026-TEL-001](../content/issues/OH-2026-TEL-001.md): Asn1Utils::BytesToInt segfaults when offset+length wraps uint32
 
 ## Relation to `content/issues/` write-ups
 

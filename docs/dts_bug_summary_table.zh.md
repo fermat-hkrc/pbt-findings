@@ -137,7 +137,7 @@
 | 133 | multimodalinput_input | IsValidJsonPath 把任意 /data… 前缀当成允许路径 | 授权/访问控制 | `util/common/src/util.cpp` | 已提交 |  | DTS2026082549915 |
 | 134 | multimedia_audio_framework | ConvertChLayoutToPaChMap HOA 阶 ≥ 5 写穿 pa_channel_map | 缓冲区/越界访问 | `frameworks/native/audioeffect/src/audio_effect_chain_adapter.cpp` | 非问题 | 7.0 已不用 PulseAudio 引擎；该文件已从主干下掉 | DTS2026082554468 |
 | 135 | arkcompiler_runtime_core | ParseInt 把 strtoll 溢出当成成功 | 整数溢出/下溢 | `libpandabase/include/libpandabase/utils/string_helpers.h` | 已提交 |  | DTS2026082563048 |
-| 136 | telephony_core_service | Asn1Utils::BytesToInt 在 offset+length 的 uint32 回绕时段错误 | 整数溢出/下溢 | `utils/codec/src/asn1_utils.cpp` | 已确认并修复 |  | DTS2026082565627 |
+| 136 | telephony_core_service | Asn1Utils::BytesToInt 在 offset+length 的 uint32 回绕时段错误 | 整数溢出/下溢 | `utils/codec/src/asn1_utils.cpp` | 已确认并修复 |  | DTS2026082564627 |
 | 137 | distributedhardware_device_manager | ConvertStrToInt 对溢出十进制返回正回绕值 | 整数溢出/下溢 | `common/src/dm_anonymous.cpp` | 非问题 | 死代码 / 无出货调用方 | DTS2026082568985 |
 | 138 | multimedia_media_library | GetVirtualPath / UpdateVirtualPath 空 relativePath 末字符未定义行为 | 未定义行为 | `frameworks/innerkitsimpl/medialibrary_data_extension/src/medialibrary_asset_operations.cpp` | 已提交 |  | DTS2608260052510 |
 | 139 | distributeddatamgr_datamgr_service | DeviceMatrix::ConvertIndex 末尾 index-- 导致 uint16 回绕 | 差一 | `services/distributeddataservice/service/matrix/src/device_matrix.cpp` | 非问题 | index-- 适配旧版 dynamicApps_（少一位）；回绕不在现行 ConvertDynamic 路径 | DTS2026082738345 |
