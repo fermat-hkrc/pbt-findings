@@ -2,12 +2,12 @@
 
 Categorization of [`content/issues/`](../content/issues/) findings that carry a **DTS** ticket (`internal_issue_id`), grouped by the **pi-pbt property (oracle)** that found each ticket. CWE / failure-mode grouping is archived at the end of [`finding_precision_by_project.md`](finding_precision_by_project.md).
 
-- **Confirmed (FIXED)**: **84** — listed below (`CONFIRMED_FIXED` write-ups)
-- **Non-issue**: **11** — [catalog](#non-issues)
-- **Decided**: **95** = 84 + 11
-- **Precision**: **88.4%** = `84 / (84 + 11)` = confirmed / (confirmed + non-issues)
-- **Severity** (confirmed only): HIGH=19, MEDIUM=63, LOW=2
-- **Generated**: 2026-09-02
+- **Confirmed (FIXED)**: **87** — listed below (`CONFIRMED_FIXED` write-ups)
+- **Non-issue**: **13** — [catalog](#non-issues)
+- **Decided**: **100** = 87 + 13
+- **Precision**: **87.0%** = `87 / (87 + 13)` = confirmed / (confirmed + non-issues)
+- **Severity** (confirmed only): HIGH=20, MEDIUM=65, LOW=2
+- **Generated**: 2026-09-11
 
 ## Overview
 
@@ -17,14 +17,14 @@ Oracle taxonomy from [pi-pbt `docs/oracles.md`](https://github.com/fermat-hkrc/p
 | Property (oracle) | Count | HIGH | MEDIUM | LOW |
 |----------|------:|-----:|-------:|----:|
 | [State Machine](#state-machine) | 2 | 1 | 0 | 1 |
-| [Differential](#differential) | 22 | 0 | 22 | 0 |
+| [Differential](#differential) | 23 | 0 | 23 | 0 |
 | [Algebraic — Round-trip](#algebraic--round-trip) | 5 | 3 | 2 | 0 |
 | [Algebraic — Metamorphic](#algebraic--metamorphic) | 3 | 1 | 2 | 0 |
-| [Algebraic — Invariant](#algebraic--invariant) | 28 | 7 | 20 | 1 |
+| [Algebraic — Invariant](#algebraic--invariant) | 30 | 8 | 21 | 1 |
 | [Negative / Error Contract](#negative--error-contract) | 7 | 1 | 6 | 0 |
 | [Reference](#reference) | 5 | 1 | 4 | 0 |
 | [Crash-Only](#crash-only) | 12 | 5 | 7 | 0 |
-| **Total** | **84** | **19** | **63** | **2** |
+| **Total** | **87** | **20** | **65** | **2** |
 
 Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Idempotence ≻ Metamorphic ≻ Invariant ≻ Negative/Error) ≻ Reference ≻ Crash-Only. **Idempotence: 0** in this set.
 
@@ -36,9 +36,9 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 |--------|------:|---:|-----:|-------:|----:|----------:|
 | `multimedia_camera_framework` | 11 | 0 | 0 | 10 | 1 | 100% |
 | `multimedia_image_framework` | 9 | 0 | 1 | 8 | 0 | 100% |
-| `communication_netmanager_base` | 9 | 2 | 2 | 7 | 0 | 82% |
+| `communication_netmanager_base` | 11 | 2 | 3 | 8 | 0 | 85% |
 | `arkui_ace_engine` | 8 | 1 | 4 | 4 | 0 | 89% |
-| `graphic_graphic_2d` | 8 | 0 | 2 | 5 | 1 | 100% |
+| `graphic_graphic_2d` | 9 | 0 | 2 | 6 | 1 | 100% |
 | `ability_ability_runtime` | 5 | 0 | 0 | 5 | 0 | 100% |
 | `arkcompiler_runtime_core` | 5 | 1 | 0 | 5 | 0 | 83% |
 | `multimedia_av_codec` | 4 | 0 | 0 | 4 | 0 | 100% |
@@ -46,7 +46,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `communication_bluetooth_service` | 2 | 0 | 2 | 0 | 0 | 100% |
 | `communication_wifi` | 2 | 0 | 1 | 1 | 0 | 100% |
 | `distributeddatamgr_pasteboard` | 2 | 0 | 1 | 1 | 0 | 100% |
-| `distributedhardware_device_manager` | 2 | 1 | 2 | 0 | 0 | 67% |
+| `distributedhardware_device_manager` | 2 | 2 | 2 | 0 | 0 | 50% |
 | `multimedia_av_session` | 2 | 1 | 1 | 1 | 0 | 67% |
 | `multimedia_media_library` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `window_window_manager` | 2 | 0 | 0 | 2 | 0 | 100% |
@@ -58,7 +58,8 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `filemanagement_storage_service` | 1 | 0 | 0 | 1 | 0 | 100% |
 | `multimedia_media_foundation` | 1 | 4 | 1 | 0 | 0 | 20% |
 | `telephony_core_service` | 1 | 0 | 1 | 0 | 0 | 100% |
-| **Total** | **84** | **11** | **19** | **63** | **2** | **88%** |
+| `multimedia_audio_framework` | 0 | 1 | 0 | 0 | 0 | 0% |
+| **Total** | **87** | **13** | **20** | **65** | **2** | **87%** |
 
 ## DTS index
 
@@ -95,6 +96,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `DTS2026071544397` | [OH-2026-ABILITY-001](../content/issues/OH-2026-ABILITY-001.md) | Crash-Only | MEDIUM | `ability_ability_runtime` |
 | `DTS2026083107415` | [OH-2026-NET-009](../content/issues/OH-2026-NET-009.md) | Differential | MEDIUM | `communication_netmanager_base` |
 | `DTS2026071727054` | [OH-2026-NET-008](../content/issues/OH-2026-NET-008.md) | Negative / Error Contract | MEDIUM | `communication_netmanager_base` |
+| `DTS2026071727288` | [OH-2026-NET-010](../content/issues/OH-2026-NET-010.md) | Algebraic — Invariant | HIGH | `communication_netmanager_base` |
 | `DTS2026071806648` | [OH-2026-MEDIALIB-002](../content/issues/OH-2026-MEDIALIB-002.md) | Crash-Only | MEDIUM | `multimedia_media_library` |
 | `DTS2026071806709` | [OH-2026-WIFI-001](../content/issues/OH-2026-WIFI-001.md) | Crash-Only | MEDIUM | `communication_wifi` |
 | `DTS2026071807957` | [ARK-2026-BUF-001](../content/issues/ARK-2026-BUF-001.md) | Algebraic — Invariant | MEDIUM | `arkcompiler_runtime_core` |
@@ -147,7 +149,9 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `DTS2026082007640` | [OH-2026-AVCODEC-004](../content/issues/OH-2026-AVCODEC-004.md) | Differential | MEDIUM | `multimedia_av_codec` |
 | `DTS2026082023118` | [OH-2026-DSOFTBUS-001](../content/issues/OH-2026-DSOFTBUS-001.md) | Differential | MEDIUM | `communication_dsoftbus` |
 | `DTS2026082254944` | [OH-2026-ABILITY-005](../content/issues/OH-2026-ABILITY-005.md) | Algebraic — Invariant | MEDIUM | `ability_ability_runtime` |
+| `DTS2026082261311` | [OH-2026-GFX-009](../content/issues/OH-2026-GFX-009.md) | Algebraic — Invariant | MEDIUM | `graphic_graphic_2d` |
 | `DTS2026082564627` | [OH-2026-TEL-001](../content/issues/OH-2026-TEL-001.md) | Crash-Only | HIGH | `telephony_core_service` |
+| `DTS2026083109843` | [OH-2026-NET-011](../content/issues/OH-2026-NET-011.md) | Differential | MEDIUM | `communication_netmanager_base` |
 
 ## Detecting property (oracle)
 
@@ -177,6 +181,7 @@ Candidate vs a same-job sibling or independent implementation of the same contra
 | `DTS2026071411883` | [OH-2026-CAM-003](../content/issues/OH-2026-CAM-003.md) | MEDIUM | isIntegerRegex accept ⇒ std::stoi does not throw |
 | `DTS2026071412383` | [OH-2026-PB-001](../content/issues/OH-2026-PB-001.md) | MEDIUM | export URI only when per-record grant is set (sibling include rule) |
 | `DTS2026083107415` | [OH-2026-NET-009](../content/issues/OH-2026-NET-009.md) | MEDIUM | StrToInt/Uint/Uint64 leading-zero decimal ≡ ParseInt base-10 sibling |
+| `DTS2026083109843` | [OH-2026-NET-011](../content/issues/OH-2026-NET-011.md) | MEDIUM | GetMtu(sysfs line) ≡ StrToInt(stripped decimal) |
 | `DTS2026072326318` | [OH-2026-DFS-001](../content/issues/OH-2026-DFS-001.md) | MEDIUM | item ReadFromParcel failure rejects, as Marshalling sibling does |
 | `DTS2026072347788` | [OH-2026-WM-001](../content/issues/OH-2026-WM-001.md) | MEDIUM | aspect-ratio check agrees with widened uint oracle |
 | `DTS2026072438019` | [OH-2026-AVCODEC-001](../content/issues/OH-2026-AVCODEC-001.md) | MEDIUM | byterange end agrees with widened (secure) add |
@@ -241,6 +246,7 @@ A source-grounded input transform implies a relation on outputs (`a+b==b+a`, nam
 | `DTS2026070856858` | [OH-2026-ARKUI-006](../content/issues/OH-2026-ARKUI-006.md) | MEDIUM | channel lerp is linear for increasing and decreasing channels |
 | `DTS2026070856960` | [OH-2026-NET-002](../content/issues/OH-2026-NET-002.md) | HIGH | CIDR /0 matches every IPv4 address |
 | `DTS2026071433052` | [ARK-2026-LOOP-001](../content/issues/ARK-2026-LOOP-001.md) | MEDIUM | GetParams terminates for N in [0, 65535] |
+| `DTS2026071727288` | [OH-2026-NET-010](../content/issues/OH-2026-NET-010.md) | HIGH | GetNetworkAddress(/0) == 0.0.0.0 (no UB shift) |
 | `DTS2026071807957` | [ARK-2026-BUF-001](../content/issues/ARK-2026-BUF-001.md) | MEDIUM | past-capacity write returns false / stays in bounds |
 | `DTS2026072011242` | [OH-2026-CAM-004](../content/issues/OH-2026-CAM-004.md) | MEDIUM | accepted exposure denominator ⇒ inner divisor ≠ 0 |
 | `DTS2026072325132` | [OH-2026-ARKUI-007](../content/issues/OH-2026-ARKUI-007.md) | HIGH | GetIrregularHeight is finite and non-negative |
@@ -257,6 +263,7 @@ A source-grounded input transform implies a relation on outputs (`a+b==b+a`, nam
 | `DTS2026080813827` | [OH-2026-CAM-010](../content/issues/OH-2026-CAM-010.md) | MEDIUM | TLV remaining length covers claimed 3×num points |
 | `DTS2026080813868` | [OH-2026-CAM-011](../content/issues/OH-2026-CAM-011.md) | MEDIUM | length-prefix payload fits in remaining count |
 | `DTS2026082254944` | [OH-2026-ABILITY-005](../content/issues/OH-2026-ABILITY-005.md) | MEDIUM | ConvertStringToUint32 accepts any full-consume decimal in [0, UINT32_MAX] |
+| `DTS2026082261311` | [OH-2026-GFX-009](../content/issues/OH-2026-GFX-009.md) | MEDIUM | same-gamut IsNearEqual uses decoded channel counts, not raw union bits |
 
 <a id="negative--error-contract"></a>
 
@@ -313,7 +320,7 @@ Authoritative spec / stdlib / IEEE / Unicode / pinning contract that this SUT cl
 
 Maintainer-rejected DTS. Counted in the denominator only.
 
-**Precision** = confirmed / (confirmed + non-issues) = **84 / (84 + 11) = 88.4%**.
+**Precision** = confirmed / (confirmed + non-issues) = **87 / (87 + 13) = 87.0%**.
 
 | DTS | Project | Theme | Why non-issue |
 |-----|---------|-------|---------------|
@@ -328,8 +335,10 @@ Maintainer-rejected DTS. Counted in the denominator only.
 | `DTS2026072938754` | `multimedia_media_foundation` | Format::Stringify SIGSEGV on bool-stored tag | Not reproduced on product `-O2`; crash only on host `-O0`. |
 | `DTS2026081129774` | `multimedia_media_foundation` | DataPacker::IsEmpty inverted | Dead code — unused on the shipped path. |
 | `DTS2026081131247` | `multimedia_media_foundation` | OH_AVFormat GetString/Dump/GetKey cap + strcpy_s | Shipped CAPI contract — incompatible to change. |
+| `DTS2026082554468` | `multimedia_audio_framework` | ConvertChLayoutToPaChMap HOA order ≥ 5 overflows pa_channel_map | 7.0 dropped PulseAudio engine; `audio_effect_chain_adapter.cpp` removed from trunk. |
+| `DTS2026082568985` | `distributedhardware_device_manager` | ConvertStrToInt returns positive wrap of overflowing decimals | Dead code / no shipped callers. |
 
-Sources: `~/cloned/*/pbt-out/bug_reports/non-issue/` (11 files).
+Sources: `~/cloned/*/pbt-out/bug_reports/non-issue/` (13 files).
 
 ## Notes
 
