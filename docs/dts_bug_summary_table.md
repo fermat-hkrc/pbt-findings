@@ -154,3 +154,6 @@
 | 150 | arkui_ace_engine | Quaternion::Slerp at t=0 returns -this when from·to < 0 | Incorrect Calculation | `frameworks/base/geometry/quaternion.cpp` | Submitted |  | DTS2026091029544 |
 | 151 | arkui_ace_engine | MediaQueryer::MatchCondition never matches min-/max- features with an explicit `px` unit | Incorrect Control Flow | `frameworks/bridge/common/media_query/media_queryer.cpp` | Submitted |  | DTS2026091412083 |
 | 152 | communication_netmanager_base | ExtractDomainFormUrl includes :port in the DNS domain | Incorrect Control Flow | `utils/common_utils/src/netmanager_base_common_utils.cpp` | Submitted |  | DTS2026091437628 |
+| 153 | arkui_ace_engine | Matrix3N::SetEntry / MatrixN3::SetEntry missing negative-index guard (OOB write / crash) | Buffer / OOB Access | `frameworks/base/geometry/matrix3.cpp` | Submitted |  | DTS2026091012206 |
+| 154 | arkui_ace_engine | LazyGridLayoutInfo::UpdatePosMap puts the whole body delta on adjustOffset.start when only gap changed | Incorrect Calculation | `frameworks/core/components_ng/pattern/lazy_grid_layout/lazy_grid_layout_info.cpp` | Submitted |  | DTS2026091437627 |
+| 155 | arkui_ace_engine | GridLayoutInfo::FindEndIdx skips item 0 and falls back to {0,0,0} | Incorrect Control Flow | `frameworks/core/components_ng/pattern/grid/grid_layout_info.cpp` | Submitted |  | DTS2026091425514 |
