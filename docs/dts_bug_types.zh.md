@@ -2,11 +2,11 @@
 
 对 [`content/issues/`](../content/issues/) 中带有 **DTS** 工单号（`internal_issue_id`）的发现所做的归类，按检出该工单的 **pi-pbt 性质（预言机）** 分组。CWE / 失效模式分组归档在 [`finding_precision_by_project.md`](finding_precision_by_project.md) 文末。
 
-- **已确认（FIXED）**：**92** — 下列目录（`CONFIRMED_FIXED` 报告）
+- **已确认（FIXED）**：**93** — 下列目录（`CONFIRMED_FIXED` 报告）
 - **非问题（NON-ISSUE）**：**14** — [目录](#非问题)
-- **已判定**：**106** = 92 + 14
-- **精确率**：**86.8%** = `92 / (92 + 14)` = 已确认 /（已确认 + 非问题）
-- **严重级别**（仅已确认）：HIGH=21，MEDIUM=68，LOW=3
+- **已判定**：**107** = 93 + 14
+- **精确率**：**86.9%** = `93 / (93 + 14)` = 已确认 /（已确认 + 非问题）
+- **严重级别**（仅已确认）：HIGH=21，MEDIUM=69，LOW=3
 - **生成时间**：2026-09-11
 
 ## 概览
@@ -20,11 +20,11 @@
 | [差分](#差分) | 28 | 1 | 26 | 1 |
 | [代数 — 往返](#代数--往返) | 5 | 3 | 2 | 0 |
 | [代数 — 蜕变](#代数--蜕变) | 3 | 1 | 2 | 0 |
-| [代数 — 不变量](#代数--不变量) | 30 | 8 | 21 | 1 |
+| [代数 — 不变量](#代数--不变量) | 31 | 8 | 22 | 1 |
 | [否定 / 错误契约](#否定--错误契约) | 7 | 1 | 6 | 0 |
 | [参考](#参考) | 5 | 1 | 4 | 0 |
 | [仅崩溃](#仅崩溃) | 12 | 5 | 7 | 0 |
-| **合计** | **92** | **21** | **68** | **3** |
+| **合计** | **93** | **21** | **69** | **3** |
 
 强度顺序：状态机 ≻ 差分 ≻ 代数（往返 ≻ 幂等 ≻ 蜕变 ≻ 不变量 ≻ 否定/错误）≻ 参考 ≻ 仅崩溃。本集合中**幂等：0**。
 
@@ -41,7 +41,7 @@
 | `arkui_ace_engine` | 8 | 1 | 4 | 4 | 0 | 89% |
 | `ability_ability_runtime` | 5 | 0 | 0 | 5 | 0 | 100% |
 | `arkcompiler_runtime_core` | 5 | 1 | 0 | 5 | 0 | 83% |
-| `multimedia_av_codec` | 5 | 0 | 0 | 4 | 1 | 100% |
+| `multimedia_av_codec` | 6 | 0 | 0 | 5 | 1 | 100% |
 | `multimedia_player_framework` | 4 | 0 | 0 | 4 | 0 | 100% |
 | `communication_bluetooth_service` | 2 | 0 | 2 | 0 | 0 | 100% |
 | `communication_wifi` | 2 | 0 | 1 | 1 | 0 | 100% |
@@ -60,7 +60,7 @@
 | `telephony_core_service` | 1 | 0 | 1 | 0 | 0 | 100% |
 | `arkui_napi` | 1 | 0 | 0 | 1 | 0 | 100% |
 | `multimedia_audio_framework` | 0 | 1 | 0 | 0 | 0 | 0% |
-| **合计** | **92** | **14** | **21** | **68** | **3** | **87%** |
+| **合计** | **93** | **14** | **21** | **69** | **3** | **87%** |
 
 ## DTS 索引
 
@@ -157,6 +157,7 @@
 | `DTS2026082261311` | [OH-2026-GFX-009](../content/issues/OH-2026-GFX-009.md) | 代数 — 不变量 | MEDIUM | `graphic_graphic_2d` |
 | `DTS2026082564627` | [OH-2026-TEL-001](../content/issues/OH-2026-TEL-001.md) | 仅崩溃 | HIGH | `telephony_core_service` |
 | `DTS2026083109843` | [OH-2026-NET-011](../content/issues/OH-2026-NET-011.md) | 差分 | MEDIUM | `communication_netmanager_base` |
+| `DTS2026090130983` | [OH-2026-AVCODEC-006](../content/issues/OH-2026-AVCODEC-006.md) | 代数 — 不变量 | MEDIUM | `multimedia_av_codec` |
 | `DTS2026090527401` | [OH-2026-GFX-010](../content/issues/OH-2026-GFX-010.md) | 差分 | HIGH | `graphic_graphic_2d` |
 
 ## 检测性质（预言机）
@@ -275,6 +276,7 @@
 | `DTS2026080813868` | [OH-2026-CAM-011](../content/issues/OH-2026-CAM-011.md) | MEDIUM | 长度前缀 payload 落在剩余 count 内 |
 | `DTS2026082254944` | [OH-2026-ABILITY-005](../content/issues/OH-2026-ABILITY-005.md) | MEDIUM | ConvertStringToUint32 接受 [0, UINT32_MAX] 内任意完整消费的十进制 |
 | `DTS2026082261311` | [OH-2026-GFX-009](../content/issues/OH-2026-GFX-009.md) | MEDIUM | 同色域 IsNearEqual 比较解码后的通道计数，而非联合体原始位 |
+| `DTS2026090130983` | [OH-2026-AVCODEC-006](../content/issues/OH-2026-AVCODEC-006.md) | MEDIUM | 成功 ⇒ result ≥ 0（NaN 无序，不是非负） |
 
 <a id="否定--错误契约"></a>
 
@@ -331,7 +333,7 @@
 
 维护者驳回的 DTS。只计入分母。
 
-**精确率** = 已确认 /（已确认 + 非问题）= **92 / (92 + 14) = 86.8%**。
+**精确率** = 已确认 /（已确认 + 非问题）= **93 / (93 + 14) = 86.9%**。
 
 | DTS | 项目 | 主题 | 为何非问题 |
 |-----|------|------|------------|

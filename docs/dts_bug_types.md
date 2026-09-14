@@ -2,11 +2,11 @@
 
 Categorization of [`content/issues/`](../content/issues/) findings that carry a **DTS** ticket (`internal_issue_id`), grouped by the **pi-pbt property (oracle)** that found each ticket. CWE / failure-mode grouping is archived at the end of [`finding_precision_by_project.md`](finding_precision_by_project.md).
 
-- **Confirmed (FIXED)**: **92** — listed below (`CONFIRMED_FIXED` write-ups)
+- **Confirmed (FIXED)**: **93** — listed below (`CONFIRMED_FIXED` write-ups)
 - **Non-issue**: **14** — [catalog](#non-issues)
-- **Decided**: **106** = 92 + 14
-- **Precision**: **86.8%** = `92 / (92 + 14)` = confirmed / (confirmed + non-issues)
-- **Severity** (confirmed only): HIGH=21, MEDIUM=68, LOW=3
+- **Decided**: **107** = 93 + 14
+- **Precision**: **86.9%** = `93 / (93 + 14)` = confirmed / (confirmed + non-issues)
+- **Severity** (confirmed only): HIGH=21, MEDIUM=69, LOW=3
 - **Generated**: 2026-09-11
 
 ## Overview
@@ -20,11 +20,11 @@ Oracle taxonomy from [pi-pbt `docs/oracles.md`](https://github.com/fermat-hkrc/p
 | [Differential](#differential) | 28 | 1 | 26 | 1 |
 | [Algebraic — Round-trip](#algebraic--round-trip) | 5 | 3 | 2 | 0 |
 | [Algebraic — Metamorphic](#algebraic--metamorphic) | 3 | 1 | 2 | 0 |
-| [Algebraic — Invariant](#algebraic--invariant) | 30 | 8 | 21 | 1 |
+| [Algebraic — Invariant](#algebraic--invariant) | 31 | 8 | 22 | 1 |
 | [Negative / Error Contract](#negative--error-contract) | 7 | 1 | 6 | 0 |
 | [Reference](#reference) | 5 | 1 | 4 | 0 |
 | [Crash-Only](#crash-only) | 12 | 5 | 7 | 0 |
-| **Total** | **92** | **21** | **68** | **3** |
+| **Total** | **93** | **21** | **69** | **3** |
 
 Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Idempotence ≻ Metamorphic ≻ Invariant ≻ Negative/Error) ≻ Reference ≻ Crash-Only. **Idempotence: 0** in this set.
 
@@ -41,7 +41,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `arkui_ace_engine` | 8 | 1 | 4 | 4 | 0 | 89% |
 | `ability_ability_runtime` | 5 | 0 | 0 | 5 | 0 | 100% |
 | `arkcompiler_runtime_core` | 5 | 1 | 0 | 5 | 0 | 83% |
-| `multimedia_av_codec` | 5 | 0 | 0 | 4 | 1 | 100% |
+| `multimedia_av_codec` | 6 | 0 | 0 | 5 | 1 | 100% |
 | `multimedia_player_framework` | 4 | 0 | 0 | 4 | 0 | 100% |
 | `communication_bluetooth_service` | 2 | 0 | 2 | 0 | 0 | 100% |
 | `communication_wifi` | 2 | 0 | 1 | 1 | 0 | 100% |
@@ -60,7 +60,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `telephony_core_service` | 1 | 0 | 1 | 0 | 0 | 100% |
 | `arkui_napi` | 1 | 0 | 0 | 1 | 0 | 100% |
 | `multimedia_audio_framework` | 0 | 1 | 0 | 0 | 0 | 0% |
-| **Total** | **92** | **14** | **21** | **68** | **3** | **87%** |
+| **Total** | **93** | **14** | **21** | **69** | **3** | **87%** |
 
 ## DTS index
 
@@ -157,6 +157,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `DTS2026082261311` | [OH-2026-GFX-009](../content/issues/OH-2026-GFX-009.md) | Algebraic — Invariant | MEDIUM | `graphic_graphic_2d` |
 | `DTS2026082564627` | [OH-2026-TEL-001](../content/issues/OH-2026-TEL-001.md) | Crash-Only | HIGH | `telephony_core_service` |
 | `DTS2026083109843` | [OH-2026-NET-011](../content/issues/OH-2026-NET-011.md) | Differential | MEDIUM | `communication_netmanager_base` |
+| `DTS2026090130983` | [OH-2026-AVCODEC-006](../content/issues/OH-2026-AVCODEC-006.md) | Algebraic — Invariant | MEDIUM | `multimedia_av_codec` |
 | `DTS2026090527401` | [OH-2026-GFX-010](../content/issues/OH-2026-GFX-010.md) | Differential | HIGH | `graphic_graphic_2d` |
 
 ## Detecting property (oracle)
@@ -275,6 +276,7 @@ A source-grounded input transform implies a relation on outputs (`a+b==b+a`, nam
 | `DTS2026080813868` | [OH-2026-CAM-011](../content/issues/OH-2026-CAM-011.md) | MEDIUM | length-prefix payload fits in remaining count |
 | `DTS2026082254944` | [OH-2026-ABILITY-005](../content/issues/OH-2026-ABILITY-005.md) | MEDIUM | ConvertStringToUint32 accepts any full-consume decimal in [0, UINT32_MAX] |
 | `DTS2026082261311` | [OH-2026-GFX-009](../content/issues/OH-2026-GFX-009.md) | MEDIUM | same-gamut IsNearEqual uses decoded channel counts, not raw union bits |
+| `DTS2026090130983` | [OH-2026-AVCODEC-006](../content/issues/OH-2026-AVCODEC-006.md) | MEDIUM | success ⇒ result ≥ 0 (NaN is unordered, not non-negative) |
 
 <a id="negative--error-contract"></a>
 
@@ -331,7 +333,7 @@ Authoritative spec / stdlib / IEEE / Unicode / pinning contract that this SUT cl
 
 Maintainer-rejected DTS. Counted in the denominator only.
 
-**Precision** = confirmed / (confirmed + non-issues) = **92 / (92 + 14) = 86.8%**.
+**Precision** = confirmed / (confirmed + non-issues) = **93 / (93 + 14) = 86.9%**.
 
 | DTS | Project | Theme | Why non-issue |
 |-----|---------|-------|---------------|

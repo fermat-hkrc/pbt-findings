@@ -150,3 +150,4 @@
 | 146 | arkui_ace_engine | MediaQueryer::MatchCondition drops AND-group when it is not the last OR-clause | Incorrect Control Flow | `frameworks/bridge/common/media_query/media_queryer.cpp` | Submitted |  | DTS2026090919800 |
 | 147 | arkui_ace_engine | CheckColorAlpha casts unit alpha to uint8_t before scaling to 255 | Incorrect Calculation | `frameworks/core/components_ng/svg/parse/svg_attributes_parser.cpp` | Submitted |  | DTS2026090920220 |
 | 148 | arkui_ace_engine | BubbleLayoutAlgorithm::GetP2 asin domain break → NaN arrow clip path | Incorrect Calculation | `frameworks/core/components_ng/pattern/bubble/bubble_layout_algorithm.cpp` | Submitted |  | DTS2026090922585 |
+| 149 | multimedia_av_codec | DashStrToNonNegativeDouble accepts NaN (`result < 0` misses unordered) | Incorrect Operator / Predicate | `services/media_engine/plugins/source/http_source/dash/mpd_parser/dash_mpd_util.cpp` | Confirmed and Fixed |  | DTS2026090130983 |
