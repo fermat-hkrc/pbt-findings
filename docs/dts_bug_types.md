@@ -3,9 +3,9 @@
 Categorization of [`content/issues/`](../content/issues/) findings that carry a **DTS** ticket (`internal_issue_id`), grouped by the **pi-pbt property (oracle)** that found each ticket. CWE / failure-mode grouping is archived at the end of [`finding_precision_by_project.md`](finding_precision_by_project.md).
 
 - **Confirmed (FIXED)**: **92** — listed below (`CONFIRMED_FIXED` write-ups)
-- **Non-issue**: **13** — [catalog](#non-issues)
-- **Decided**: **105** = 92 + 13
-- **Precision**: **87.6%** = `92 / (92 + 13)` = confirmed / (confirmed + non-issues)
+- **Non-issue**: **14** — [catalog](#non-issues)
+- **Decided**: **106** = 92 + 14
+- **Precision**: **86.8%** = `92 / (92 + 14)` = confirmed / (confirmed + non-issues)
 - **Severity** (confirmed only): HIGH=21, MEDIUM=68, LOW=3
 - **Generated**: 2026-09-11
 
@@ -52,7 +52,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `window_window_manager` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `commonlibrary_rust_ylong_http` | 1 | 0 | 1 | 0 | 0 | 100% |
 | `communication_dsoftbus` | 1 | 1 | 0 | 1 | 0 | 50% |
-| `distributeddatamgr_datamgr_service` | 1 | 0 | 0 | 1 | 0 | 100% |
+| `distributeddatamgr_datamgr_service` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `distributedhardware_distributed_hardware_fwk` | 1 | 0 | 0 | 1 | 0 | 100% |
 | `filemanagement_dfs_service` | 1 | 0 | 0 | 1 | 0 | 100% |
 | `filemanagement_storage_service` | 1 | 0 | 0 | 1 | 0 | 100% |
@@ -60,7 +60,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `telephony_core_service` | 1 | 0 | 1 | 0 | 0 | 100% |
 | `arkui_napi` | 1 | 0 | 0 | 1 | 0 | 100% |
 | `multimedia_audio_framework` | 0 | 1 | 0 | 0 | 0 | 0% |
-| **Total** | **92** | **13** | **21** | **68** | **3** | **88%** |
+| **Total** | **92** | **14** | **21** | **68** | **3** | **87%** |
 
 ## DTS index
 
@@ -331,7 +331,7 @@ Authoritative spec / stdlib / IEEE / Unicode / pinning contract that this SUT cl
 
 Maintainer-rejected DTS. Counted in the denominator only.
 
-**Precision** = confirmed / (confirmed + non-issues) = **92 / (92 + 13) = 87.6%**.
+**Precision** = confirmed / (confirmed + non-issues) = **92 / (92 + 14) = 86.8%**.
 
 | DTS | Project | Theme | Why non-issue |
 |-----|---------|-------|---------------|
@@ -348,8 +348,9 @@ Maintainer-rejected DTS. Counted in the denominator only.
 | `DTS2026081131247` | `multimedia_media_foundation` | OH_AVFormat GetString/Dump/GetKey cap + strcpy_s | Shipped CAPI contract — incompatible to change. |
 | `DTS2026082554468` | `multimedia_audio_framework` | ConvertChLayoutToPaChMap HOA order ≥ 5 overflows pa_channel_map | 7.0 dropped PulseAudio engine; `audio_effect_chain_adapter.cpp` removed from trunk. |
 | `DTS2026082568985` | `distributedhardware_device_manager` | ConvertStrToInt returns positive wrap of overflowing decimals | Dead code / no shipped callers. |
+| `DTS2026082738345` | `distributeddatamgr_datamgr_service` | DeviceMatrix::ConvertIndex trailing index-- uint16 wrap | Version-layout adapter — old dynamicApps_ has one fewer slot; wrap not on live ConvertDynamic path. |
 
-Sources: `~/cloned/*/pbt-out/bug_reports/non-issue/` (13 files).
+Sources: `~/cloned/*/pbt-out/bug_reports/non-issue/` (14 files).
 
 ## Notes
 

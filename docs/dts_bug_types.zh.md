@@ -3,9 +3,9 @@
 对 [`content/issues/`](../content/issues/) 中带有 **DTS** 工单号（`internal_issue_id`）的发现所做的归类，按检出该工单的 **pi-pbt 性质（预言机）** 分组。CWE / 失效模式分组归档在 [`finding_precision_by_project.md`](finding_precision_by_project.md) 文末。
 
 - **已确认（FIXED）**：**92** — 下列目录（`CONFIRMED_FIXED` 报告）
-- **非问题（NON-ISSUE）**：**13** — [目录](#非问题)
-- **已判定**：**105** = 92 + 13
-- **精确率**：**87.6%** = `92 / (92 + 13)` = 已确认 /（已确认 + 非问题）
+- **非问题（NON-ISSUE）**：**14** — [目录](#非问题)
+- **已判定**：**106** = 92 + 14
+- **精确率**：**86.8%** = `92 / (92 + 14)` = 已确认 /（已确认 + 非问题）
 - **严重级别**（仅已确认）：HIGH=21，MEDIUM=68，LOW=3
 - **生成时间**：2026-09-11
 
@@ -52,7 +52,7 @@
 | `window_window_manager` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `commonlibrary_rust_ylong_http` | 1 | 0 | 1 | 0 | 0 | 100% |
 | `communication_dsoftbus` | 1 | 1 | 0 | 1 | 0 | 50% |
-| `distributeddatamgr_datamgr_service` | 1 | 0 | 0 | 1 | 0 | 100% |
+| `distributeddatamgr_datamgr_service` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `distributedhardware_distributed_hardware_fwk` | 1 | 0 | 0 | 1 | 0 | 100% |
 | `filemanagement_dfs_service` | 1 | 0 | 0 | 1 | 0 | 100% |
 | `filemanagement_storage_service` | 1 | 0 | 0 | 1 | 0 | 100% |
@@ -60,7 +60,7 @@
 | `telephony_core_service` | 1 | 0 | 1 | 0 | 0 | 100% |
 | `arkui_napi` | 1 | 0 | 0 | 1 | 0 | 100% |
 | `multimedia_audio_framework` | 0 | 1 | 0 | 0 | 0 | 0% |
-| **合计** | **92** | **13** | **21** | **68** | **3** | **88%** |
+| **合计** | **92** | **14** | **21** | **68** | **3** | **87%** |
 
 ## DTS 索引
 
@@ -331,7 +331,7 @@
 
 维护者驳回的 DTS。只计入分母。
 
-**精确率** = 已确认 /（已确认 + 非问题）= **92 / (92 + 13) = 87.6%**。
+**精确率** = 已确认 /（已确认 + 非问题）= **92 / (92 + 14) = 86.8%**。
 
 | DTS | 项目 | 主题 | 为何非问题 |
 |-----|------|------|------------|
@@ -348,8 +348,9 @@
 | `DTS2026081131247` | `multimedia_media_foundation` | OH_AVFormat GetString/Dump/GetKey 上限 + strcpy_s | 已交付 CAPI 契约 — 不能改。 |
 | `DTS2026082554468` | `multimedia_audio_framework` | ConvertChLayoutToPaChMap HOA 阶 ≥ 5 写穿 pa_channel_map | 7.0 已不用 PulseAudio 引擎；`audio_effect_chain_adapter.cpp` 已从主干下掉。 |
 | `DTS2026082568985` | `distributedhardware_device_manager` | ConvertStrToInt 对溢出十进制返回正回绕值 | 死代码 / 无出货调用方。 |
+| `DTS2026082738345` | `distributeddatamgr_datamgr_service` | DeviceMatrix::ConvertIndex 末尾 index-- 导致 uint16 回绕 | 版本布局适配 — 旧版 dynamicApps_ 少一位；回绕不在现行 ConvertDynamic 路径。 |
 
-来源：`~/cloned/*/pbt-out/bug_reports/non-issue/`（13 个文件）。
+来源：`~/cloned/*/pbt-out/bug_reports/non-issue/`（14 个文件）。
 
 ## 说明
 
