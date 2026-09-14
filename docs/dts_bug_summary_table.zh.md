@@ -153,3 +153,4 @@
 | 149 | multimedia_av_codec | DashStrToNonNegativeDouble 接受 NaN（`result < 0` 漏掉无序比较） | 运算符/谓词错误 | `services/media_engine/plugins/source/http_source/dash/mpd_parser/dash_mpd_util.cpp` | 已确认并修复 |  | DTS2026090130983 |
 | 150 | arkui_ace_engine | Quaternion::Slerp 在 t=0 且 from·to < 0 时返回 -this | 计算错误 | `frameworks/base/geometry/quaternion.cpp` | 已提交 |  | DTS2026091029544 |
 | 151 | arkui_ace_engine | MediaQueryer::MatchCondition 对带显式 `px` 的 min-/max- 特征永远不匹配 | 控制流错误 | `frameworks/bridge/common/media_query/media_queryer.cpp` | 已提交 |  | DTS2026091412083 |
+| 152 | communication_netmanager_base | ExtractDomainFormUrl 把 :port 留在 DNS 域名里 | 控制流错误 | `utils/common_utils/src/netmanager_base_common_utils.cpp` | 已提交 |  | DTS2026091437628 |

@@ -153,3 +153,4 @@
 | 149 | multimedia_av_codec | DashStrToNonNegativeDouble accepts NaN (`result < 0` misses unordered) | Incorrect Operator / Predicate | `services/media_engine/plugins/source/http_source/dash/mpd_parser/dash_mpd_util.cpp` | Confirmed and Fixed |  | DTS2026090130983 |
 | 150 | arkui_ace_engine | Quaternion::Slerp at t=0 returns -this when from·to < 0 | Incorrect Calculation | `frameworks/base/geometry/quaternion.cpp` | Submitted |  | DTS2026091029544 |
 | 151 | arkui_ace_engine | MediaQueryer::MatchCondition never matches min-/max- features with an explicit `px` unit | Incorrect Control Flow | `frameworks/bridge/common/media_query/media_queryer.cpp` | Submitted |  | DTS2026091412083 |
+| 152 | communication_netmanager_base | ExtractDomainFormUrl includes :port in the DNS domain | Incorrect Control Flow | `utils/common_utils/src/netmanager_base_common_utils.cpp` | Submitted |  | DTS2026091437628 |
