@@ -157,3 +157,4 @@
 | 153 | arkui_ace_engine | GridLayoutInfo::FindEndIdx skips item 0 and falls back to {0,0,0} | Incorrect Control Flow | `frameworks/core/components_ng/pattern/grid/grid_layout_info.cpp` | Submitted |  | DTS2026091425514 |
 | 154 | arkui_ace_engine | LazyGridLayoutInfo::UpdatePosMap puts the whole body delta on adjustOffset.start when only gap changed | Incorrect Calculation | `frameworks/core/components_ng/pattern/lazy_grid_layout/lazy_grid_layout_info.cpp` | Submitted |  | DTS2026091437627 |
 | 155 | communication_netmanager_base | ExtractDomainFormUrl includes :port in the DNS domain | Incorrect Control Flow | `utils/common_utils/src/netmanager_base_common_utils.cpp` | Submitted |  | DTS2026091437628 |
+| 156 | arkui_ace_engine | LazyGridLayoutInfo::SetSpace places a scrolled window one line too high when lanes > 1 | Off-by-One | `frameworks/core/components_ng/pattern/lazy_grid_layout/lazy_grid_layout_info.cpp` | Submitted |  | DTS2609150107715 |
