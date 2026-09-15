@@ -4,6 +4,14 @@ A live dashboard tracking bugs and vulnerabilities discovered through **Property
 
 **Live site:** https://fermat-hkrc.github.io/pbt-findings/
 
+## DTS Tickets
+
+| Status | Count |
+|--------|------:|
+| Confirmed and Fixed | 93 |
+| Submitted | 49 |
+| Non-issue | 14 |
+
 ## What is this?
 
 This site catalogs bugs found by applying property-based testing (PBT) to open-source codebases. Each finding includes:
@@ -13,14 +21,6 @@ This site catalogs bugs found by applying property-based testing (PBT) to open-s
 - **Trigger conditions** and impact analysis
 - **Suggested fixes**
 - **Upstream issue links** and status tracking
-
-## Tech Stack
-
-- **Next.js 16** (static export via `next build`)
-- **Tailwind CSS v4** for styling
-- **gray-matter** for Markdown frontmatter parsing
-- **react-markdown** with rehype/remark plugins for issue rendering
-- **GitHub Pages** for deployment
 
 ## Project Structure
 
@@ -80,14 +80,3 @@ npm run build      # static export to ./out
 2. Optionally add PoC files under `content/pocs/<issue-id>/`
 3. Run `npm run validate` to check frontmatter
 4. Push to `main` — GitHub Actions deploys automatically
-
-## Documentation
-
-- [Introduction to Property-Based Testing](docs/intro-to-pbt.md)
-- [PBT Workflow Guide](docs/pbt-workflow.md)
-- [openGauss Findings](docs/openGauss_findings.md)
-
-## Related
-
-- [Fermat Review Board](https://fermat-hkrc.github.io/Fermat-Review-Board/) — full vulnerability tracking dashboard (PBT + static analysis)
-- [PBT Skills](https://github.com/fermat-hkrc/pbt-skills) — testing skills and strategies
