@@ -2,8 +2,8 @@
 
 How often PBT-filed **DTS** tickets were accepted as real bugs versus closed as non-issues, broken down by project.
 
-- **Precision:** **86.9%** (93 FIXED / 107 decided)
-- **False-positive rate:** **13.1%** (14 NON-ISSUE)
+- **Precision:** **86.1%** (93 FIXED / 108 decided)
+- **False-positive rate:** **13.9%** (15 NON-ISSUE)
 
 Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS tickets are omitted — their outcome (bug vs non-issue) is not yet known.
 
@@ -21,7 +21,7 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 
 - DTS inventory: [`dts_bug_types.md`](./dts_bug_types.md) + [`content/issues/`](../content/issues/)
 - Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**93** issues, all `CONFIRMED_FIXED`)
-- Non-issue write-ups: `~/cloned/*/pbt-out/bug_reports/non-issue/` (**14** DTS-stamped)
+- Non-issue write-ups: `~/cloned/*/pbt-out/bug_reports/non-issue/` (**15** DTS-stamped)
 
 - **Generated:** 2026-09-11
 
@@ -29,12 +29,12 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 93 | 86.9% |
-| NON-ISSUE | 14 | 13.1% |
-| **Total decided** | **107** | 100% |
+| FIXED | 93 | 86.1% |
+| NON-ISSUE | 15 | 13.9% |
+| **Total decided** | **108** | 100% |
 
-- **Precision:** **93/107 = 86.9%** — just under nine in ten closed tickets were real bugs.
-- **False-positive rate:** **14/107 = 13.1%**.
+- **Precision:** **93/108 = 86.1%** — just under nine in ten closed tickets were real bugs.
+- **False-positive rate:** **15/108 = 13.9%**.
 
 > Precision means *maintainer-accepted defect rate among dispositioned DTS*, not static-analysis alert rate. Open/submitted tickets are out of scope until closed.
 
@@ -56,10 +56,10 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`multimedia_player_framework`](#multimedia-player-framework) | 4 | 0 | 4 | 100% |
 | [`distributedhardware_device_manager`](#distributedhardware-device-manager) | 2 | 2 | 4 | 50% |
 | [`multimedia_av_session`](#multimedia-av-session) | 2 | 1 | 3 | 67% |
+| [`multimedia_media_library`](#multimedia-media-library) | 2 | 1 | 3 | 67% |
 | [`communication_bluetooth_service`](#communication-bluetooth-service) | 2 | 0 | 2 | 100% |
 | [`communication_wifi`](#communication-wifi) | 2 | 0 | 2 | 100% |
 | [`distributeddatamgr_pasteboard`](#distributeddatamgr-pasteboard) | 2 | 0 | 2 | 100% |
-| [`multimedia_media_library`](#multimedia-media-library) | 2 | 0 | 2 | 100% |
 | [`window_window_manager`](#window-window-manager) | 2 | 0 | 2 | 100% |
 | [`communication_dsoftbus`](#communication-dsoftbus) | 1 | 1 | 2 | 50% |
 | [`distributeddatamgr_datamgr_service`](#distributeddatamgr-datamgr-service) | 1 | 1 | 2 | 50% |
@@ -70,13 +70,13 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`telephony_core_service`](#telephony-core-service) | 1 | 0 | 1 | 100% |
 | [`arkui_napi`](#arkui-napi) | 1 | 0 | 1 | 100% |
 | [`multimedia_audio_framework`](#multimedia-audio-framework) | 0 | 1 | 1 | 0% |
-| **Total** | **93** | **14** | **107** | **87%** |
+| **Total** | **93** | **15** | **108** | **86%** |
 
 ## Precision tiers
 
 ### Tier A — Perfect precision (100%, ≥1 FIXED, 0 NON-ISSUE)
 
-`multimedia_camera_framework` (12 fixed), `graphic_graphic_2d` (10 fixed), `multimedia_image_framework` (9 fixed), `multimedia_av_codec` (6 fixed), `ability_ability_runtime` (5 fixed), `multimedia_player_framework` (4 fixed), `communication_bluetooth_service` (2 fixed), `communication_wifi` (2 fixed), `distributeddatamgr_pasteboard` (2 fixed), `multimedia_media_library` (2 fixed), `window_window_manager` (2 fixed), `commonlibrary_rust_ylong_http` (1 fixed), `distributedhardware_distributed_hardware_fwk` (1 fixed), `filemanagement_dfs_service` (1 fixed), `filemanagement_storage_service` (1 fixed), `telephony_core_service` (1 fixed), `arkui_napi` (1 fixed)
+`multimedia_camera_framework` (12 fixed), `graphic_graphic_2d` (10 fixed), `multimedia_image_framework` (9 fixed), `multimedia_av_codec` (6 fixed), `ability_ability_runtime` (5 fixed), `multimedia_player_framework` (4 fixed), `communication_bluetooth_service` (2 fixed), `communication_wifi` (2 fixed), `distributeddatamgr_pasteboard` (2 fixed), `window_window_manager` (2 fixed), `commonlibrary_rust_ylong_http` (1 fixed), `distributedhardware_distributed_hardware_fwk` (1 fixed), `filemanagement_dfs_service` (1 fixed), `filemanagement_storage_service` (1 fixed), `telephony_core_service` (1 fixed), `arkui_napi` (1 fixed)
 
 These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 
@@ -89,6 +89,7 @@ These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 | `communication_netmanager_base` | 11 | 2 | 85% | Helper semantics (ForkExec) and API role split (zoned IPv6) ≠ bugs; firewall/IP/mask defects accepted. |
 | `distributedhardware_device_manager` | 2 | 2 | 50% | cJSON int64 round-trip and ConvertStrToInt are dead/unshipped; PIN/rand bugs still fixed. |
 | `multimedia_av_session` | 2 | 1 | 67% | Call-type JSON omission = product policy; OOB crash in `GetAnonyTitle` still fixed. |
+| `multimedia_media_library` | 2 | 1 | 67% | Incomplete consume is the IsValidInteger contract (compat 1.000); ConvertToInt is the full-consume sibling; GetTimeIdFromUri / GetFileIdStr still fixed. |
 | `communication_dsoftbus` | 1 | 1 | 50% | Hex NUL write is caller-owned; ConnectGroup freq OOB still fixed. |
 | `distributeddatamgr_datamgr_service` | 1 | 1 | 50% | ConvertIndex `index--` is a v1/v2 layout adapter, not a wrap bug; IsValidPath `..` still fixed. |
 | `multimedia_media_foundation` | 1 | 4 | 20% | Abstract OOB / dead inverted predicate / shipped CAPI cap / `-O0`-only crash rejected; live `Format::Stringify` null-deref fixed. |
@@ -99,7 +100,7 @@ These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 
 ## Non-issue DTS catalog (all projects)
 
-All **14** maintainer-rejected tickets. Useful as negative examples for future filing.
+All **15** maintainer-rejected tickets. Useful as negative examples for future filing.
 
 | DTS | Project | Report theme | Rejection class |
 |-----|---------|--------------|-----------------|
@@ -117,6 +118,7 @@ All **14** maintainer-rejected tickets. Useful as negative examples for future f
 | `DTS2026082554468` | `multimedia_audio_framework` | ConvertChLayoutToPaChMap HOA order ≥ 5 overflows pa_channel_map | Dead code / removed from 7.0 trunk |
 | `DTS2026082568985` | `distributedhardware_device_manager` | ConvertStrToInt returns positive wrap of overflowing decimals | Dead code / no shipped callers |
 | `DTS2026082738345` | `distributeddatamgr_datamgr_service` | DeviceMatrix::ConvertIndex trailing index-- uint16 wrap | By-design version-layout adapter |
+| `DTS2026081715017` | `multimedia_media_library` | IsValidInteger accepts partial parses | Different APIs, different jobs |
 
 ### Rejection classes (count)
 
@@ -124,7 +126,7 @@ All **14** maintainer-rejected tickets. Useful as negative examples for future f
 |------:|------:|--------------------------------------|
 | By-design / product policy / stable contract | 6 | Validate *product* intent and call-graph impact, not only algebraic oddity |
 | Unreachable invariant / dead code | 5 | Constrain generators to **production domain**; prove a live caller |
-| Caller-owned or split-API contract | 2 | Read in-tree callers and sibling APIs before claiming inconsistency |
+| Caller-owned or split-API contract | 3 | Read in-tree callers and sibling APIs before claiming inconsistency |
 | Flag-dependent / not reproduced | 1 | Match product build flags before filing a crash |
 
 ## Per-project detail
@@ -455,14 +457,18 @@ Mixed outcomes: maintainers accepted **2** and rejected **1**. Net precision **6
 | Metric | Value |
 |--------|------:|
 | FIXED | 2 |
-| NON-ISSUE | 0 |
-| Decided | 2 |
-| Precision | 100.0% |
+| NON-ISSUE | 1 |
+| Decided | 3 |
+| Precision | 67.0% |
 
 **FIXED DTS**
 
 - `DTS2026071806648` — [OH-2026-MEDIALIB-002](../content/issues/OH-2026-MEDIALIB-002.md): GetTimeIdFromUri uncaught stoi on empty / non-integer &offset=
 - `DTS2026072454808` — [OH-2026-MEDIALIB-001](../content/issues/OH-2026-MEDIALIB-001.md): GetFileIdStr returns bucket name on bucket-only URI (npos+1 wrap)
+
+**NON-ISSUE DTS**
+
+- `DTS2026081715017` — MediaFileUtils::IsValidInteger accepts partial parses. *By design — incomplete consume (compat 1.000); ConvertToInt is the full-consume sibling.*
 
 ### `multimedia_player_framework`
 
@@ -601,9 +607,9 @@ That set is the **FIXED** count here. Non-issues come from `~/cloned/*/pbt-out/b
 
 | Population | Count | Role |
 |------------|------:|------|
-| Decided DTS (FIXED + NON-ISSUE) | 107 | Ground truth for precision |
+| Decided DTS (FIXED + NON-ISSUE) | 108 | Ground truth for precision |
 | FIXED | 93 | Maintainer-accepted (`content/issues`) |
-| NON-ISSUE | 14 | Maintainer-rejected (cloned inventory) |
+| NON-ISSUE | 15 | Maintainer-rejected (cloned inventory) |
 | Write-ups in `content/issues` with DTS | 93 | Published confirmed bugs |
 
 **Do not** compute precision from `content/issues` alone — it omits non-issues by design. Use this document (or dispositioned rows in `BUG_REPORTS.md`) for acceptance rate.
@@ -612,8 +618,8 @@ See also: [DTS tickets by detecting property](./dts_bug_types.md). Failure-mode 
 
 ## Takeaways
 
-1. **Overall precision is high (86.9%)** — PBT filings that reach a DTS decision are usually real defects.
-2. **False positives cluster in a few patterns** (14 tickets): by-design helpers, dead/unreachable / dropped-from-trunk code, caller-owned contracts, shipped CAPI / product omissions, flag-dependent crashes — not flaky reproduction.
+1. **Overall precision is high (86.1%)** — PBT filings that reach a DTS decision are usually real defects.
+2. **False positives cluster in a few patterns** (15 tickets): by-design helpers, dead/unreachable / dropped-from-trunk code, caller-owned contracts, shipped CAPI / product omissions, flag-dependent crashes — not flaky reproduction.
 3. **Several large surfaces are clean so far** (e.g. `multimedia_camera_framework`, `multimedia_image_framework`, `graphic_graphic_2d` among high-volume FIXED with 0 NON-ISSUE).
 4. **Filing bar that non-issues imply:** prove a live production caller, state the product contract, and avoid “algebraic inconsistency across differently purposed APIs” without impact.
 

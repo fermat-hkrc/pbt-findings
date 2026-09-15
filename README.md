@@ -9,8 +9,8 @@ A live dashboard tracking bugs and vulnerabilities discovered through **Property
 | Status | Count |
 |--------|------:|
 | Confirmed and Fixed | 93 |
-| Submitted | 49 |
-| Non-issue | 14 |
+| Submitted | 48 |
+| Non-issue | 15 |
 
 ## What is this?
 
