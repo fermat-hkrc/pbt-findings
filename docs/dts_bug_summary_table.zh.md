@@ -158,3 +158,4 @@
 | 154 | arkui_ace_engine | LazyGridLayoutInfo::UpdatePosMap 在只改 gap 时把整段 body 增量写进 adjustOffset.start | 计算错误 | `frameworks/core/components_ng/pattern/lazy_grid_layout/lazy_grid_layout_info.cpp` | 已提交 |  | DTS2026091437627 |
 | 155 | communication_netmanager_base | ExtractDomainFormUrl 把 :port 留在 DNS 域名里 | 控制流错误 | `utils/common_utils/src/netmanager_base_common_utils.cpp` | 已提交 |  | DTS2026091437628 |
 | 156 | arkui_ace_engine | LazyGridLayoutInfo::SetSpace 在 lanes > 1 时把已滚动窗口放高一行 | 差一 | `frameworks/core/components_ng/pattern/lazy_grid_layout/lazy_grid_layout_info.cpp` | 已提交 |  | DTS2609150107715 |
+| 157 | arkui_ace_engine | LazyGridLayoutInfo::UpdatePosMapEnd 在末行不完整时把 totalMainSize_ 留在上一行终点 | 计算错误 | `frameworks/core/components_ng/pattern/lazy_grid_layout/lazy_grid_layout_info.cpp` | 已提交 |  | DTS2609150123188 |
