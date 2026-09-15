@@ -118,7 +118,7 @@ Relies on UB (e.g. out-of-range cast) with environment-dependent fallout.
 ## Notes
 
 - Only **confirmed fixed** DTS with write-ups under `content/issues/OH-2026-ARKUI-*.md` are typed here.
-- The single arkui **NON-ISSUE** DTS is covered in the [precision report](./arkui_ace_engine_finding_precision.md), not in this bug-type catalog.
+- The two arkui **NON-ISSUE** DTS tickets are covered in the [precision report](./arkui_ace_engine_finding_precision.md), not in this bug-type catalog.
 - Open/submitted DTS (not yet dispositioned) are omitted.
 - Cross-repo taxonomy: [dts_bug_types.md](./dts_bug_types.md).
 

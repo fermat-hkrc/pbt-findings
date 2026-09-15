@@ -60,7 +60,7 @@
 | 56 | ability_ability_runtime | DialogAbilityInfo::ParseURI 的 catch 在末字段 stoi 失败后越界索引 uriVec | 缓冲区/越界访问 | `services/abilitymgr/src/dialog_session/dialog_session_info.cpp` | 已确认并修复 |  | DTS2026072514260 |
 | 57 | ability_ability_runtime | ParseNormalizedOhmUrl 过短 import 路径 substr 抛出 std::out_of_range | 坏输入未捕获异常/崩溃 | `frameworks/native/appkit/app_startup/preload_so_startup_task.cpp` | 已提交 |  | DTS2026072515209 |
 | 58 | arkcompiler_runtime_core | SkipULeb128 空/截断输入越界读 + size_t 下溢 | 缓冲区/越界访问 | `static_core/libarkfile/helpers.h` | 非问题 | 辅助函数为 void；畸形 ULEB 对 VM 视为致命；debug ASSERT 即停止点 | DTS2026072517792 |
-| 59 | arkui_ace_engine | 跨度标记末单元格时 IsAllItemsMeasured 为 false | 控制流错误 | `frameworks/core/components_ng/pattern/grid/grid_layout_info.cpp` | 已提交 |  | DTS2026072522059 |
+| 59 | arkui_ace_engine | 跨度标记末单元格时 IsAllItemsMeasured 为 false | 控制流错误 | `frameworks/core/components_ng/pattern/grid/grid_layout_info.cpp` | 非问题 | 调用处不见 `-idx`；不规则布局走 GetIrregularHeight，不经此门禁 | DTS2026072522059 |
 | 60 | multimedia_camera_framework | UpdateDeviceDeferredability 照片 pair 遍历在奇数 item.count 上越界 | 缓冲区/越界访问 | `frameworks/native/camera/base/src/session/capture_session.cpp` | 已提交 |  | DTS2026072716582 |
 | 61 | multimedia_camera_framework | CAPTURE_MIRROR_SUPPORTED 成对遍历在奇数 item.count 时越界 | 缓冲区/越界访问 | `frameworks/native/camera/base/src/output/photo_output.cpp` | 已确认并修复 |  | DTS2026072717921 |
 | 62 | communication_netmanager_base | GetAddrFamily 不像兄弟 IsIPv6LinkLocal 那样剥离 IPv6 %scope | 控制流错误 | `utils/common_utils/src/netmanager_base_common_utils.cpp` | 非问题 | 职责不同 — 族判断按 inet_pton 严格；zone 在下游添加 | DTS2026072720774 |

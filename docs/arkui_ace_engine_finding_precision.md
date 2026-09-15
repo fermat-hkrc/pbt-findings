@@ -28,14 +28,14 @@ Companion bug-type catalog: [arkui_ace_engine_dts_bug_types.md](./arkui_ace_engi
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 8 | 88.9% |
-| NON-ISSUE | 1 | 11.1% |
-| **Total decided** | **9** | 100% |
+| FIXED | 8 | 80.0% |
+| NON-ISSUE | 2 | 20.0% |
+| **Total decided** | **10** | 100% |
 
-- **Precision:** **8/9 = 88.9%**
-- **False-positive rate:** **1/9 = 11.1%**
+- **Precision:** **8/10 = 80.0%**
+- **False-positive rate:** **2/10 = 20.0%**
 
-Compared with the cross-repo decided baseline (**87.0%** precision), arkui_ace_engine is **slightly above** (88.9%).
+Compared with the cross-repo decided baseline (**85.3%** precision), arkui_ace_engine is **slightly below** (80.0%).
 
 ## FIXED DTS
 
@@ -81,14 +81,17 @@ Under `~/cloned/arkui_ace_engine/pbt-out/bug_reports/fixed/`:
 | DTS | Report theme | Rejection class |
 |-----|--------------|-----------------|
 | `DTS2026071809266` | GridLayoutInfo::GetTotalHeightOfItemsInView returns -mainGap for empty / fully-pruned windows | Stable API contract (formula) |
+| `DTS2026072522059` | IsAllItemsMeasured false on span-marker last cell | Unreachable under live callers |
 
-**Report:** `~/cloned/arkui_ace_engine/pbt-out/bug_reports/non-issue/GetTotalHeightOfItemsInView_NegMainGap.md`
+**Reports:** `~/cloned/arkui_ace_engine/pbt-out/bug_reports/non-issue/GetTotalHeightOfItemsInView_NegMainGap.md`, `IsAllItemsMeasured_span_marker_false.md`
 
 ### Why closed
 
-Long-standing n=0 formula contract (~2y); maintainers declined shared-API change; no user-visible product symptom. Empty → -mainGap is expected formula output, not a defect.
+**`DTS2026071809266`:** Long-standing n=0 formula contract (~2y); maintainers declined shared-API change; no user-visible product symptom. Empty → -mainGap is expected formula output, not a defect.
 
-**Implication for future filings:** an algebraically odd empty-path return is not enough if it is the long-standing shared contract and callers couple to it. Prefer call-site impact / user-visible symptom before requesting a shared helper change.
+**`DTS2026072522059`:** `-idx` span markers exist only on the irregular-filler matrix. That layout never calls `IsAllItemsMeasured` (`UseIrregularLayout()` → `GetIrregularHeight`). The two real callers run on `GridScrollWithOptions`, which stores the same positive index in every spanned cell. PBT mixed two disjoint encodings.
+
+**Implication for future filings:** an algebraically odd empty-path return is not enough if it is the long-standing shared contract and callers couple to it. Prefer call-site impact / user-visible symptom before requesting a shared helper change. Also prove the matrix encoding under test is an input the live caller actually produces.
 
 ## Component mix (FIXED only)
 
@@ -112,9 +115,9 @@ Long-standing n=0 formula contract (~2y); maintainers declined shared-API change
 ## Takeaways
 
 1. **8 real bugs fixed** across grid layout, lazy grid, matrix storage, color transition, and DataPanel geometry — strong confirmed yield for one UI engine repo.
-2. **Precision 89%** on decided tickets: one non-issue (stable empty-height formula) against eight fixes.
+2. **Precision 80%** on decided tickets: two non-issues (stable empty-height formula; `-idx` encoding never seen by `IsAllItemsMeasured`) against eight fixes.
 3. Dominant failure modes: **incorrect calculation**, **wrong control-flow sentinels**, plus **div-by-zero** and **UB cast**.
-4. Non-issue lesson is contract/call-graph sensitivity, not flaky reproduction — PBT still witnessed the raw return as a contract property.
+4. Non-issue lessons are contract/call-graph sensitivity and production-domain encoding, not flaky reproduction — PBT still witnessed the raw returns as contract properties.
 
 ## Methodology notes
 

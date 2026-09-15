@@ -3,9 +3,9 @@
 Categorization of [`content/issues/`](../content/issues/) findings that carry a **DTS** ticket (`internal_issue_id`), grouped by the **pi-pbt property (oracle)** that found each ticket. CWE / failure-mode grouping is archived at the end of [`finding_precision_by_project.md`](finding_precision_by_project.md).
 
 - **Confirmed (FIXED)**: **93** — listed below (`CONFIRMED_FIXED` write-ups)
-- **Non-issue**: **15** — [catalog](#non-issues)
-- **Decided**: **108** = 93 + 15
-- **Precision**: **86.1%** = `93 / (93 + 15)` = confirmed / (confirmed + non-issues)
+- **Non-issue**: **16** — [catalog](#non-issues)
+- **Decided**: **109** = 93 + 16
+- **Precision**: **85.3%** = `93 / (93 + 16)` = confirmed / (confirmed + non-issues)
 - **Severity** (confirmed only): HIGH=21, MEDIUM=69, LOW=3
 - **Generated**: 2026-09-11
 
@@ -38,7 +38,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `multimedia_image_framework` | 9 | 0 | 1 | 8 | 0 | 100% |
 | `communication_netmanager_base` | 11 | 2 | 3 | 8 | 0 | 85% |
 | `graphic_graphic_2d` | 10 | 0 | 3 | 6 | 1 | 100% |
-| `arkui_ace_engine` | 8 | 1 | 4 | 4 | 0 | 89% |
+| `arkui_ace_engine` | 8 | 2 | 4 | 4 | 0 | 80% |
 | `ability_ability_runtime` | 5 | 0 | 0 | 5 | 0 | 100% |
 | `arkcompiler_runtime_core` | 5 | 1 | 0 | 5 | 0 | 83% |
 | `multimedia_av_codec` | 6 | 0 | 0 | 5 | 1 | 100% |
@@ -60,7 +60,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `telephony_core_service` | 1 | 0 | 1 | 0 | 0 | 100% |
 | `arkui_napi` | 1 | 0 | 0 | 1 | 0 | 100% |
 | `multimedia_audio_framework` | 0 | 1 | 0 | 0 | 0 | 0% |
-| **Total** | **93** | **15** | **21** | **69** | **3** | **86%** |
+| **Total** | **93** | **16** | **21** | **69** | **3** | **85%** |
 
 ## DTS index
 
@@ -333,7 +333,7 @@ Authoritative spec / stdlib / IEEE / Unicode / pinning contract that this SUT cl
 
 Maintainer-rejected DTS. Counted in the denominator only.
 
-**Precision** = confirmed / (confirmed + non-issues) = **93 / (93 + 15) = 86.1%**.
+**Precision** = confirmed / (confirmed + non-issues) = **93 / (93 + 16) = 85.3%**.
 
 | DTS | Project | Theme | Why non-issue |
 |-----|---------|-------|---------------|
@@ -342,6 +342,7 @@ Maintainer-rejected DTS. Counted in the denominator only.
 | `DTS2026071719364` | `multimedia_media_foundation` | CopyAVMemory missing offset+size guard | Unreachable — product src offset is always 0. |
 | `DTS2026071725399` | `communication_netmanager_base` | ForkExec SUCCESS on non-zero child exit | By design — SUCCESS means the child was created. |
 | `DTS2026071809266` | `arkui_ace_engine` | GetTotalHeightOfItemsInView empty → `-mainGap` | Stable formula contract; shared API unchanged. |
+| `DTS2026072522059` | `arkui_ace_engine` | IsAllItemsMeasured false on span-marker last cell | Callers never see `-idx`; irregular layout uses GetIrregularHeight. |
 | `DTS2026072017450` | `communication_dsoftbus` | Hex helpers omit explicit NUL write | Caller-owned contract — zero-init `outBuf` owns the terminator. |
 | `DTS2026072517792` | `arkcompiler_runtime_core` | SkipULeb128 empty/truncated OOB | By design — `void` helper has no error channel; malformed ULEB is fatal; debug `ASSERT` is the stop. |
 | `DTS2026072720774` | `communication_netmanager_base` | GetAddrFamily rejects zoned IPv6 | Different APIs, different jobs — not inconsistency. |
@@ -353,7 +354,7 @@ Maintainer-rejected DTS. Counted in the denominator only.
 | `DTS2026082738345` | `distributeddatamgr_datamgr_service` | DeviceMatrix::ConvertIndex trailing index-- uint16 wrap | Version-layout adapter — old dynamicApps_ has one fewer slot; wrap not on live ConvertDynamic path. |
 | `DTS2026081715017` | `multimedia_media_library` | IsValidInteger accepts partial parses | By design — incomplete consume (compat 1.000); ConvertToInt is the full-consume sibling. |
 
-Sources: `~/cloned/*/pbt-out/bug_reports/non-issue/` (15 files).
+Sources: `~/cloned/*/pbt-out/bug_reports/non-issue/` (16 files).
 
 ## Notes
 
