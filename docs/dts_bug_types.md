@@ -2,11 +2,11 @@
 
 Categorization of [`content/issues/`](../content/issues/) findings that carry a **DTS** ticket (`internal_issue_id`), grouped by the **pi-pbt property (oracle)** that found each ticket. CWE / failure-mode grouping is archived at the end of [`finding_precision_by_project.md`](finding_precision_by_project.md).
 
-- **Confirmed (FIXED)**: **94** — listed below (`CONFIRMED_FIXED` write-ups)
+- **Confirmed (FIXED)**: **95** — listed below (`CONFIRMED_FIXED` write-ups)
 - **Non-issue**: **16** — [catalog](#non-issues)
-- **Decided**: **110** = 94 + 16
-- **Precision**: **85.5%** = `94 / (94 + 16)` = confirmed / (confirmed + non-issues)
-- **Severity** (confirmed only): HIGH=21, MEDIUM=70, LOW=3
+- **Decided**: **111** = 95 + 16
+- **Precision**: **85.6%** = `95 / (95 + 16)` = confirmed / (confirmed + non-issues)
+- **Severity** (confirmed only): HIGH=21, MEDIUM=71, LOW=3
 - **Generated**: 2026-09-15
 
 ## Overview
@@ -21,10 +21,10 @@ Oracle taxonomy from [pi-pbt `docs/oracles.md`](https://github.com/fermat-hkrc/p
 | [Algebraic — Round-trip](#algebraic--round-trip) | 6 | 3 | 3 | 0 |
 | [Algebraic — Metamorphic](#algebraic--metamorphic) | 3 | 1 | 2 | 0 |
 | [Algebraic — Invariant](#algebraic--invariant) | 31 | 8 | 22 | 1 |
-| [Negative / Error Contract](#negative--error-contract) | 7 | 1 | 6 | 0 |
+| [Negative / Error Contract](#negative--error-contract) | 8 | 1 | 7 | 0 |
 | [Reference](#reference) | 5 | 1 | 4 | 0 |
 | [Crash-Only](#crash-only) | 12 | 5 | 7 | 0 |
-| **Total** | **94** | **21** | **70** | **3** |
+| **Total** | **95** | **21** | **71** | **3** |
 
 Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Idempotence ≻ Metamorphic ≻ Invariant ≻ Negative/Error) ≻ Reference ≻ Crash-Only. **Idempotence: 0** in this set.
 
@@ -34,7 +34,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 
 | Module | FIXED | NI | HIGH | MEDIUM | LOW | Precision |
 |--------|------:|---:|-----:|-------:|----:|----------:|
-| `multimedia_camera_framework` | 12 | 0 | 0 | 11 | 1 | 100% |
+| `multimedia_camera_framework` | 13 | 0 | 0 | 12 | 1 | 100% |
 | `multimedia_image_framework` | 9 | 0 | 1 | 8 | 0 | 100% |
 | `communication_netmanager_base` | 11 | 2 | 3 | 8 | 0 | 85% |
 | `graphic_graphic_2d` | 10 | 0 | 3 | 6 | 1 | 100% |
@@ -60,7 +60,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `telephony_core_service` | 1 | 0 | 1 | 0 | 0 | 100% |
 | `arkui_napi` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `multimedia_audio_framework` | 0 | 1 | 0 | 0 | 0 | 0% |
-| **Total** | **94** | **16** | **21** | **70** | **3** | **85%** |
+| **Total** | **95** | **16** | **21** | **71** | **3** | **86%** |
 
 ## DTS index
 
@@ -157,6 +157,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `DTS2026082254944` | [OH-2026-ABILITY-005](../content/issues/OH-2026-ABILITY-005.md) | Algebraic — Invariant | MEDIUM | `ability_ability_runtime` |
 | `DTS2026082261311` | [OH-2026-GFX-009](../content/issues/OH-2026-GFX-009.md) | Algebraic — Invariant | MEDIUM | `graphic_graphic_2d` |
 | `DTS2026082564627` | [OH-2026-TEL-001](../content/issues/OH-2026-TEL-001.md) | Crash-Only | HIGH | `telephony_core_service` |
+| `DTS2026082567022` | [OH-2026-CAM-013](../content/issues/OH-2026-CAM-013.md) | Negative / Error Contract | MEDIUM | `multimedia_camera_framework` |
 | `DTS2026083109843` | [OH-2026-NET-011](../content/issues/OH-2026-NET-011.md) | Differential | MEDIUM | `communication_netmanager_base` |
 | `DTS2026090130983` | [OH-2026-AVCODEC-006](../content/issues/OH-2026-AVCODEC-006.md) | Algebraic — Invariant | MEDIUM | `multimedia_av_codec` |
 | `DTS2026090527401` | [OH-2026-GFX-010](../content/issues/OH-2026-GFX-010.md) | Differential | HIGH | `graphic_graphic_2d` |
@@ -295,6 +296,7 @@ Inputs outside the valid domain are rejected as specified.
 | `DTS2026072223098` | [OH-2026-DATAMGR-001](../content/issues/OH-2026-DATAMGR-001.md) | MEDIUM | IsValidPath rejects lone ".." |
 | `DTS2026072335866` | [OH-2026-STORAGE-001](../content/issues/OH-2026-STORAGE-001.md) | MEDIUM | out-of-range userId is rejected (CheckUserIdRange) |
 | `DTS2026072935286` | [OH-2026-AVCODEC-002](../content/issues/OH-2026-AVCODEC-002.md) | MEDIUM | truncated %X is not decoded as a byte |
+| `DTS2026082567022` | [OH-2026-CAM-013](../content/issues/OH-2026-CAM-013.md) | MEDIUM | overflow/underflow digit string → CAMERA_INVALID_STATE, no throw |
 
 <a id="reference"></a>
 
@@ -335,7 +337,7 @@ Authoritative spec / stdlib / IEEE / Unicode / pinning contract that this SUT cl
 
 Maintainer-rejected DTS. Counted in the denominator only.
 
-**Precision** = confirmed / (confirmed + non-issues) = **94 / (94 + 16) = 85.5%**.
+**Precision** = confirmed / (confirmed + non-issues) = **95 / (95 + 16) = 85.6%**.
 
 | DTS | Project | Theme | Why non-issue |
 |-----|---------|-------|---------------|
