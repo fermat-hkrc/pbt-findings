@@ -8,8 +8,8 @@ A live dashboard tracking bugs and vulnerabilities discovered through **Property
 
 | Status | Count |
 |--------|------:|
-| Confirmed and Fixed | 93 |
-| Submitted | 48 |
+| Confirmed and Fixed | 94 |
+| Submitted | 47 |
 | Non-issue | 16 |
 
 ## What is this?

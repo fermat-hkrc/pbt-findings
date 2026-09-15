@@ -127,7 +127,7 @@
 | 123 | arkui_ace_engine | GridLayoutInfo::FindItemCount overcounts when the range starts on a multi-row continuation | Incorrect Calculation | `frameworks/core/components_ng/pattern/grid/grid_layout_info.cpp` | Submitted |  | DTS2026082235533 |
 | 124 | arkui_ace_engine | Color::FromRGBO wraps out-of-range opacity instead of clamping | Integer Overflow / Underflow | `frameworks/core/components/common/properties/color.cpp` | Submitted |  | DTS2026082235589 |
 | 125 | arkui_napi | napi_get_value_string_latin1 writes one byte past buf[bufsize-1] | Off-by-One | `native_engine/native_api.cpp` | Submitted |  | DTS2026082238400 |
-| 126 | arkui_napi | napi_check_object_type_tag false-mismatches tags with upper == 0 | Incorrect Operator / Predicate | `native_engine/native_api.cpp` | Submitted |  | DTS2026082239182 |
+| 126 | arkui_napi | napi_check_object_type_tag false-mismatches tags with upper == 0 | Incorrect Operator / Predicate | `native_engine/native_api.cpp` | Confirmed and Fixed |  | DTS2026082239182 |
 | 127 | multimedia_camera_framework | IsUint8Regex throws on digit strings outside int32 | Uncaught Exception / Crash on Bad Input | `services/camera_service/src/camera_util.cpp` | Confirmed and Fixed |  | DTS2026082239652 |
 | 128 | multimedia_image_framework | IsSizeSupportDma accepts sizes whose area is not a valid int32 product | Integer Overflow / Underflow | `frameworks/innerkitsimpl/utils/src/image_utils.cpp` | Submitted |  | DTS2026082249247 |
 | 129 | ability_ability_runtime | GetAppMemorySize / IsRamConstrainedDevice pass a null buffer to GetParameter | Null Pointer Dereference | `services/abilitymgr/src/ability_manager_service.cpp` | Submitted |  | DTS2026082252519 |

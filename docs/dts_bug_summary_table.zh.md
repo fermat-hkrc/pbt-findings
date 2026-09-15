@@ -127,7 +127,7 @@
 | 123 | arkui_ace_engine | GridLayoutInfo::FindItemCount 在区间起点落在跨行 continuation 时多计 | 计算错误 | `frameworks/core/components_ng/pattern/grid/grid_layout_info.cpp` | 已提交 |  | DTS2026082235533 |
 | 124 | arkui_ace_engine | Color::FromRGBO 对越界 opacity 做回绕而非钳位 | 整数溢出/下溢 | `frameworks/core/components/common/properties/color.cpp` | 已提交 |  | DTS2026082235589 |
 | 125 | arkui_napi | napi_get_value_string_latin1 向 buf[bufsize] 多写一字节 | 差一 | `native_engine/native_api.cpp` | 已提交 |  | DTS2026082238400 |
-| 126 | arkui_napi | napi_check_object_type_tag 对 upper == 0 的标签误判为不匹配 | 运算符/谓词错误 | `native_engine/native_api.cpp` | 已提交 |  | DTS2026082239182 |
+| 126 | arkui_napi | napi_check_object_type_tag 对 upper == 0 的标签误判为不匹配 | 运算符/谓词错误 | `native_engine/native_api.cpp` | 已确认并修复 |  | DTS2026082239182 |
 | 127 | multimedia_camera_framework | IsUint8Regex 对超出 int32 的数字串抛异常 | 坏输入未捕获异常/崩溃 | `services/camera_service/src/camera_util.cpp` | 已确认并修复 |  | DTS2026082239652 |
 | 128 | multimedia_image_framework | IsSizeSupportDma 接受面积不是合法 int32 乘积的尺寸 | 整数溢出/下溢 | `frameworks/innerkitsimpl/utils/src/image_utils.cpp` | 已提交 |  | DTS2026082249247 |
 | 129 | ability_ability_runtime | GetAppMemorySize / IsRamConstrainedDevice 向 GetParameter 传入空缓冲区 | 空指针解引用 | `services/abilitymgr/src/ability_manager_service.cpp` | 已提交 |  | DTS2026082252519 |

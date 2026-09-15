@@ -2,12 +2,12 @@
 
 对 [`content/issues/`](../content/issues/) 中带有 **DTS** 工单号（`internal_issue_id`）的发现所做的归类，按检出该工单的 **pi-pbt 性质（预言机）** 分组。CWE / 失效模式分组归档在 [`finding_precision_by_project.md`](finding_precision_by_project.md) 文末。
 
-- **已确认（FIXED）**：**93** — 下列目录（`CONFIRMED_FIXED` 报告）
+- **已确认（FIXED）**：**94** — 下列目录（`CONFIRMED_FIXED` 报告）
 - **非问题（NON-ISSUE）**：**16** — [目录](#非问题)
-- **已判定**：**109** = 93 + 16
-- **精确率**：**85.3%** = `93 / (93 + 16)` = 已确认 /（已确认 + 非问题）
-- **严重级别**（仅已确认）：HIGH=21，MEDIUM=69，LOW=3
-- **生成时间**：2026-09-11
+- **已判定**：**110** = 94 + 16
+- **精确率**：**85.5%** = `94 / (94 + 16)` = 已确认 /（已确认 + 非问题）
+- **严重级别**（仅已确认）：HIGH=21，MEDIUM=70，LOW=3
+- **生成时间**：2026-09-15
 
 ## 概览
 
@@ -18,13 +18,13 @@
 |----------|------:|-----:|-------:|----:|
 | [状态机](#状态机) | 2 | 1 | 0 | 1 |
 | [差分](#差分) | 28 | 1 | 26 | 1 |
-| [代数 — 往返](#代数--往返) | 5 | 3 | 2 | 0 |
+| [代数 — 往返](#代数--往返) | 6 | 3 | 3 | 0 |
 | [代数 — 蜕变](#代数--蜕变) | 3 | 1 | 2 | 0 |
 | [代数 — 不变量](#代数--不变量) | 31 | 8 | 22 | 1 |
 | [否定 / 错误契约](#否定--错误契约) | 7 | 1 | 6 | 0 |
 | [参考](#参考) | 5 | 1 | 4 | 0 |
 | [仅崩溃](#仅崩溃) | 12 | 5 | 7 | 0 |
-| **合计** | **93** | **21** | **69** | **3** |
+| **合计** | **94** | **21** | **70** | **3** |
 
 强度顺序：状态机 ≻ 差分 ≻ 代数（往返 ≻ 幂等 ≻ 蜕变 ≻ 不变量 ≻ 否定/错误）≻ 参考 ≻ 仅崩溃。本集合中**幂等：0**。
 
@@ -58,9 +58,9 @@
 | `filemanagement_storage_service` | 1 | 0 | 0 | 1 | 0 | 100% |
 | `multimedia_media_foundation` | 1 | 4 | 1 | 0 | 0 | 20% |
 | `telephony_core_service` | 1 | 0 | 1 | 0 | 0 | 100% |
-| `arkui_napi` | 1 | 0 | 0 | 1 | 0 | 100% |
+| `arkui_napi` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `multimedia_audio_framework` | 0 | 1 | 0 | 0 | 0 | 0% |
-| **合计** | **93** | **16** | **21** | **69** | **3** | **85%** |
+| **合计** | **94** | **16** | **21** | **70** | **3** | **85%** |
 
 ## DTS 索引
 
@@ -152,6 +152,7 @@
 | `DTS2026082007640` | [OH-2026-AVCODEC-004](../content/issues/OH-2026-AVCODEC-004.md) | 差分 | MEDIUM | `multimedia_av_codec` |
 | `DTS2026082009479` | [OH-2026-PLAYER-004](../content/issues/OH-2026-PLAYER-004.md) | 差分 | MEDIUM | `multimedia_player_framework` |
 | `DTS2026082023118` | [OH-2026-DSOFTBUS-001](../content/issues/OH-2026-DSOFTBUS-001.md) | 差分 | MEDIUM | `communication_dsoftbus` |
+| `DTS2026082239182` | [OH-2026-NAPI-002](../content/issues/OH-2026-NAPI-002.md) | 代数 — 往返 | MEDIUM | `arkui_napi` |
 | `DTS2026082239652` | [OH-2026-CAM-012](../content/issues/OH-2026-CAM-012.md) | 差分 | MEDIUM | `multimedia_camera_framework` |
 | `DTS2026082254944` | [OH-2026-ABILITY-005](../content/issues/OH-2026-ABILITY-005.md) | 代数 — 不变量 | MEDIUM | `ability_ability_runtime` |
 | `DTS2026082261311` | [OH-2026-GFX-009](../content/issues/OH-2026-GFX-009.md) | 代数 — 不变量 | MEDIUM | `graphic_graphic_2d` |
@@ -225,6 +226,7 @@
 | `DTS2026063023525` | [OH-2026-BT-001](../content/issues/OH-2026-BT-001.md) | HIGH | ConvertStringToUuid(ConvertUuidToString(uuids)) == uuids |
 | `DTS2026073015200` | [OH-2026-IMG-003](../content/issues/OH-2026-IMG-003.md) | HIGH | 单轴平移映射点且求逆取反 |
 | `DTS2026080300753` | [OH-2026-AVSESSION-002](../content/issues/OH-2026-AVSESSION-002.md) | MEDIUM | TransformStrToInt64(TransformInt64ToStr(n)) == n |
+| `DTS2026082239182` | [OH-2026-NAPI-002](../content/issues/OH-2026-NAPI-002.md) | MEDIUM | check(tag_object(obj, T), T) == true（全体 T，含 upper == 0） |
 
 <a id="代数--蜕变"></a>
 
@@ -333,7 +335,7 @@
 
 维护者驳回的 DTS。只计入分母。
 
-**精确率** = 已确认 /（已确认 + 非问题）= **93 / (93 + 16) = 85.3%**。
+**精确率** = 已确认 /（已确认 + 非问题）= **94 / (94 + 16) = 85.5%**。
 
 | DTS | 项目 | 主题 | 为何非问题 |
 |-----|------|------|------------|
