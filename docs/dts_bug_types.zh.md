@@ -2,12 +2,12 @@
 
 对 [`content/issues/`](../content/issues/) 中带有 **DTS** 工单号（`internal_issue_id`）的发现所做的归类，按检出该工单的 **pi-pbt 性质（预言机）** 分组。CWE / 失效模式分组归档在 [`finding_precision_by_project.md`](finding_precision_by_project.md) 文末。
 
-- **已确认（FIXED）**：**95** — 下列目录（`CONFIRMED_FIXED` 报告）
+- **已确认（FIXED）**：**99** — 下列目录（`CONFIRMED_FIXED` 报告）
 - **非问题（NON-ISSUE）**：**16** — [目录](#非问题)
-- **已判定**：**111** = 95 + 16
-- **精确率**：**85.6%** = `95 / (95 + 16)` = 已确认 /（已确认 + 非问题）
-- **严重级别**（仅已确认）：HIGH=21，MEDIUM=71，LOW=3
-- **生成时间**：2026-09-15
+- **已判定**：**115** = 99 + 16
+- **精确率**：**86.1%** = `99 / (99 + 16)` = 已确认 /（已确认 + 非问题）
+- **严重级别**（仅已确认）：HIGH=22，MEDIUM=74，LOW=3
+- **生成时间**：2026-09-16
 
 ## 概览
 
@@ -17,14 +17,14 @@
 | 性质（预言机） | 数量 | HIGH | MEDIUM | LOW |
 |----------|------:|-----:|-------:|----:|
 | [状态机](#状态机) | 2 | 1 | 0 | 1 |
-| [差分](#差分) | 28 | 1 | 26 | 1 |
+| [差分](#差分) | 31 | 1 | 29 | 1 |
 | [代数 — 往返](#代数--往返) | 6 | 3 | 3 | 0 |
 | [代数 — 蜕变](#代数--蜕变) | 3 | 1 | 2 | 0 |
 | [代数 — 不变量](#代数--不变量) | 31 | 8 | 22 | 1 |
 | [否定 / 错误契约](#否定--错误契约) | 8 | 1 | 7 | 0 |
 | [参考](#参考) | 5 | 1 | 4 | 0 |
-| [仅崩溃](#仅崩溃) | 12 | 5 | 7 | 0 |
-| **合计** | **95** | **21** | **71** | **3** |
+| [仅崩溃](#仅崩溃) | 13 | 6 | 7 | 0 |
+| **合计** | **99** | **22** | **74** | **3** |
 
 强度顺序：状态机 ≻ 差分 ≻ 代数（往返 ≻ 幂等 ≻ 蜕变 ≻ 不变量 ≻ 否定/错误）≻ 参考 ≻ 仅崩溃。本集合中**幂等：0**。
 
@@ -48,7 +48,7 @@
 | `distributeddatamgr_pasteboard` | 2 | 0 | 1 | 1 | 0 | 100% |
 | `distributedhardware_device_manager` | 2 | 2 | 2 | 0 | 0 | 50% |
 | `multimedia_av_session` | 2 | 1 | 1 | 1 | 0 | 67% |
-| `multimedia_media_library` | 2 | 1 | 0 | 2 | 0 | 67% |
+| `multimedia_media_library` | 5 | 1 | 1 | 4 | 0 | 83% |
 | `window_window_manager` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `commonlibrary_rust_ylong_http` | 1 | 0 | 1 | 0 | 0 | 100% |
 | `communication_dsoftbus` | 1 | 1 | 0 | 1 | 0 | 50% |
@@ -59,8 +59,8 @@
 | `multimedia_media_foundation` | 1 | 4 | 1 | 0 | 0 | 20% |
 | `telephony_core_service` | 1 | 0 | 1 | 0 | 0 | 100% |
 | `arkui_napi` | 2 | 0 | 0 | 2 | 0 | 100% |
-| `multimedia_audio_framework` | 0 | 1 | 0 | 0 | 0 | 0% |
-| **合计** | **95** | **16** | **21** | **71** | **3** | **86%** |
+| `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
+| **合计** | **99** | **16** | **22** | **74** | **3** | **86%** |
 
 ## DTS 索引
 
@@ -108,6 +108,7 @@
 | `DTS2026072325132` | [OH-2026-ARKUI-007](../content/issues/OH-2026-ARKUI-007.md) | 代数 — 不变量 | HIGH | `arkui_ace_engine` |
 | `DTS2026072326318` | [OH-2026-DFS-001](../content/issues/OH-2026-DFS-001.md) | 差分 | MEDIUM | `filemanagement_dfs_service` |
 | `DTS2026072335866` | [OH-2026-STORAGE-001](../content/issues/OH-2026-STORAGE-001.md) | 否定 / 错误契约 | MEDIUM | `filemanagement_storage_service` |
+| `DTS2026072338862` | [OH-2026-AUDIO-001](../content/issues/OH-2026-AUDIO-001.md) | 差分 | MEDIUM | `multimedia_audio_framework` |
 | `DTS2026072347788` | [OH-2026-WM-001](../content/issues/OH-2026-WM-001.md) | 差分 | MEDIUM | `window_window_manager` |
 | `DTS2026072438019` | [OH-2026-AVCODEC-001](../content/issues/OH-2026-AVCODEC-001.md) | 差分 | MEDIUM | `multimedia_av_codec` |
 | `DTS2026072438492` | [OH-2026-IMG-002](../content/issues/OH-2026-IMG-002.md) | 代数 — 不变量 | MEDIUM | `multimedia_image_framework` |
@@ -149,8 +150,10 @@
 | `DTS2026081703440` | [OH-2026-PLAYER-003](../content/issues/OH-2026-PLAYER-003.md) | 差分 | MEDIUM | `multimedia_player_framework` |
 | `DTS2026081706437` | [OH-2026-AVCODEC-005](../content/issues/OH-2026-AVCODEC-005.md) | 差分 | LOW | `multimedia_av_codec` |
 | `DTS2026081713997` | [OH-2026-AVCODEC-003](../content/issues/OH-2026-AVCODEC-003.md) | 差分 | MEDIUM | `multimedia_av_codec` |
+| `DTS2026081715287` | [OH-2026-MEDIALIB-003](../content/issues/OH-2026-MEDIALIB-003.md) | 差分 | MEDIUM | `multimedia_media_library` |
 | `DTS2026082007640` | [OH-2026-AVCODEC-004](../content/issues/OH-2026-AVCODEC-004.md) | 差分 | MEDIUM | `multimedia_av_codec` |
 | `DTS2026082009479` | [OH-2026-PLAYER-004](../content/issues/OH-2026-PLAYER-004.md) | 差分 | MEDIUM | `multimedia_player_framework` |
+| `DTS2026082012348` | [OH-2026-MEDIALIB-004](../content/issues/OH-2026-MEDIALIB-004.md) | 差分 | MEDIUM | `multimedia_media_library` |
 | `DTS2026082023118` | [OH-2026-DSOFTBUS-001](../content/issues/OH-2026-DSOFTBUS-001.md) | 差分 | MEDIUM | `communication_dsoftbus` |
 | `DTS2026082239182` | [OH-2026-NAPI-002](../content/issues/OH-2026-NAPI-002.md) | 代数 — 往返 | MEDIUM | `arkui_napi` |
 | `DTS2026082239652` | [OH-2026-CAM-012](../content/issues/OH-2026-CAM-012.md) | 差分 | MEDIUM | `multimedia_camera_framework` |
@@ -161,6 +164,7 @@
 | `DTS2026083109843` | [OH-2026-NET-011](../content/issues/OH-2026-NET-011.md) | 差分 | MEDIUM | `communication_netmanager_base` |
 | `DTS2026090130983` | [OH-2026-AVCODEC-006](../content/issues/OH-2026-AVCODEC-006.md) | 代数 — 不变量 | MEDIUM | `multimedia_av_codec` |
 | `DTS2026090527401` | [OH-2026-GFX-010](../content/issues/OH-2026-GFX-010.md) | 差分 | HIGH | `graphic_graphic_2d` |
+| `DTS2608260052510` | [OH-2026-MEDIALIB-005](../content/issues/OH-2026-MEDIALIB-005.md) | 仅崩溃 | HIGH | `multimedia_media_library` |
 
 ## 检测性质（预言机）
 
@@ -212,6 +216,9 @@
 | `DTS2026081706437` | [OH-2026-AVCODEC-005](../content/issues/OH-2026-AVCODEC-005.md) | LOW | else 分支设置 chroma，与 if 分支同类一致 |
 | `DTS2026082009479` | [OH-2026-PLAYER-004](../content/issues/OH-2026-PLAYER-004.md) | MEDIUM | GetPackageName ≡ 整串 syspara 同类（不用 stringstream 分词） |
 | `DTS2026082239652` | [OH-2026-CAM-012](../content/issues/OH-2026-CAM-012.md) | MEDIUM | IsUint8Regex 接受 ⇒ std::stoi 不抛 |
+| `DTS2026081715287` | [OH-2026-MEDIALIB-003](../content/issues/OH-2026-MEDIALIB-003.md) | MEDIUM | GetDateAddedMs 取 GetDateAdded()，与 GetDateAdded 同类一致 |
+| `DTS2026082012348` | [OH-2026-MEDIALIB-004](../content/issues/OH-2026-MEDIALIB-004.md) | MEDIUM | IsFileTablePath / IsPhotoTablePath ≡ 前缀预言（find == 0） |
+| `DTS2026072338862` | [OH-2026-AUDIO-001](../content/issues/OH-2026-AUDIO-001.md) | MEDIUM | LE24 解包 ≡ MixS24Volume 无符号拼装 + 符号扩展 |
 | `DTS2026090527401` | [OH-2026-GFX-010](../content/issues/OH-2026-GFX-010.md) | HIGH | NDK 网格遍历 ≡ JS/ANI DrawingPixelMapMesh（先按行再按列） |
 
 <a id="代数--往返"></a>
@@ -332,12 +339,13 @@
 | `DTS2026073028465` | [OH-2026-WIFI-002](../content/issues/OH-2026-WIFI-002.md) | HIGH | 空 mStateVector 上 GetCurStateName 不越界 |
 | `DTS2026080813420` | [OH-2026-CAM-007](../content/issues/OH-2026-CAM-007.md) | MEDIUM | 短/奇数 HIGH_QUALITY_SUPPORT 不越界 |
 | `DTS2026082564627` | [OH-2026-TEL-001](../content/issues/OH-2026-TEL-001.md) | HIGH | offset+length 绕回不得 SIGSEGV |
+| `DTS2608260052510` | [OH-2026-MEDIALIB-005](../content/issues/OH-2026-MEDIALIB-005.md) | HIGH | 空 relativePath 上 GetVirtualPath 不越界 |
 
 ## 非问题
 
 维护者驳回的 DTS。只计入分母。
 
-**精确率** = 已确认 /（已确认 + 非问题）= **95 / (95 + 16) = 85.6%**。
+**精确率** = 已确认 /（已确认 + 非问题）= **99 / (99 + 16) = 86.1%**。
 
 | DTS | 项目 | 主题 | 为何非问题 |
 |-----|------|------|------------|

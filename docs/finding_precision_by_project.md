@@ -2,8 +2,8 @@
 
 How often PBT-filed **DTS** tickets were accepted as real bugs versus closed as non-issues, broken down by project.
 
-- **Precision:** **85.6%** (95 FIXED / 111 decided)
-- **False-positive rate:** **14.4%** (16 NON-ISSUE)
+- **Precision:** **86.1%** (99 FIXED / 115 decided)
+- **False-positive rate:** **13.9%** (16 NON-ISSUE)
 
 Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS tickets are omitted — their outcome (bug vs non-issue) is not yet known.
 
@@ -20,21 +20,21 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 **Sources**
 
 - DTS inventory: [`dts_bug_types.md`](./dts_bug_types.md) + [`content/issues/`](../content/issues/)
-- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**95** issues, all `CONFIRMED_FIXED`)
+- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**99** issues, all `CONFIRMED_FIXED`)
 - Non-issue write-ups: `~/cloned/*/pbt-out/bug_reports/non-issue/` (**16** DTS-stamped)
 
-- **Generated:** 2026-09-15
+- **Generated:** 2026-09-16
 
 ### Global DTS scoreboard (decided only)
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 95 | 85.6% |
-| NON-ISSUE | 16 | 14.4% |
-| **Total decided** | **111** | 100% |
+| FIXED | 99 | 86.1% |
+| NON-ISSUE | 16 | 13.9% |
+| **Total decided** | **115** | 100% |
 
-- **Precision:** **95/111 = 85.6%** — just under nine in ten closed tickets were real bugs.
-- **False-positive rate:** **16/111 = 14.4%**.
+- **Precision:** **99/115 = 86.1%** — just under nine in ten closed tickets were real bugs.
+- **False-positive rate:** **16/115 = 13.9%**.
 
 > Precision means *maintainer-accepted defect rate among dispositioned DTS*, not static-analysis alert rate. Open/submitted tickets are out of scope until closed.
 
@@ -56,7 +56,7 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`multimedia_player_framework`](#multimedia-player-framework) | 4 | 0 | 4 | 100% |
 | [`distributedhardware_device_manager`](#distributedhardware-device-manager) | 2 | 2 | 4 | 50% |
 | [`multimedia_av_session`](#multimedia-av-session) | 2 | 1 | 3 | 67% |
-| [`multimedia_media_library`](#multimedia-media-library) | 2 | 1 | 3 | 67% |
+| [`multimedia_media_library`](#multimedia-media-library) | 5 | 1 | 6 | 83% |
 | [`communication_bluetooth_service`](#communication-bluetooth-service) | 2 | 0 | 2 | 100% |
 | [`communication_wifi`](#communication-wifi) | 2 | 0 | 2 | 100% |
 | [`distributeddatamgr_pasteboard`](#distributeddatamgr-pasteboard) | 2 | 0 | 2 | 100% |
@@ -69,8 +69,8 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`filemanagement_dfs_service`](#filemanagement-dfs-service) | 1 | 0 | 1 | 100% |
 | [`filemanagement_storage_service`](#filemanagement-storage-service) | 1 | 0 | 1 | 100% |
 | [`telephony_core_service`](#telephony-core-service) | 1 | 0 | 1 | 100% |
-| [`multimedia_audio_framework`](#multimedia-audio-framework) | 0 | 1 | 1 | 0% |
-| **Total** | **95** | **16** | **111** | **86%** |
+| [`multimedia_audio_framework`](#multimedia-audio-framework) | 1 | 1 | 2 | 50% |
+| **Total** | **99** | **16** | **115** | **86%** |
 
 ## Precision tiers
 
@@ -89,14 +89,15 @@ These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 | `communication_netmanager_base` | 11 | 2 | 85% | Helper semantics (ForkExec) and API role split (zoned IPv6) ≠ bugs; firewall/IP/mask defects accepted. |
 | `distributedhardware_device_manager` | 2 | 2 | 50% | cJSON int64 round-trip and ConvertStrToInt are dead/unshipped; PIN/rand bugs still fixed. |
 | `multimedia_av_session` | 2 | 1 | 67% | Call-type JSON omission = product policy; OOB crash in `GetAnonyTitle` still fixed. |
-| `multimedia_media_library` | 2 | 1 | 67% | Incomplete consume is the IsValidInteger contract (compat 1.000); ConvertToInt is the full-consume sibling; GetTimeIdFromUri / GetFileIdStr still fixed. |
+| `multimedia_media_library` | 5 | 1 | 83% | Incomplete consume is the IsValidInteger contract (compat 1.000); ConvertToInt is the full-consume sibling; GetTimeIdFromUri / GetFileIdStr / GetDateAddedMs / IsFileTablePath / GetVirtualPath still fixed. |
 | `communication_dsoftbus` | 1 | 1 | 50% | Hex NUL write is caller-owned; ConnectGroup freq OOB still fixed. |
 | `distributeddatamgr_datamgr_service` | 1 | 1 | 50% | ConvertIndex `index--` is a v1/v2 layout adapter, not a wrap bug; IsValidPath `..` still fixed. |
 | `multimedia_media_foundation` | 1 | 4 | 20% | Abstract OOB / dead inverted predicate / shipped CAPI cap / `-O0`-only crash rejected; live `Format::Stringify` null-deref fixed. |
+| `multimedia_audio_framework` | 1 | 1 | 50% | PulseAudio HOA `pa_channel_map` overflow dropped with the 7.0 engine; live `CalculateMaxAmplitudeForPCM24Bit` LE24 decode still fixed. |
 
 ### Tier C — Only NON-ISSUE (0 FIXED)
 
-`multimedia_audio_framework` (0 fixed, 1 non-issue) — PulseAudio `audio_effect_chain_adapter.cpp` dropped from the 7.0 trunk.
+None. (`multimedia_audio_framework` now has 1 FIXED + 1 NON-ISSUE; see Tier B.)
 
 ## Non-issue DTS catalog (all projects)
 
@@ -459,15 +460,18 @@ Mixed outcomes: maintainers accepted **2** and rejected **1**. Net precision **6
 
 | Metric | Value |
 |--------|------:|
-| FIXED | 2 |
+| FIXED | 5 |
 | NON-ISSUE | 1 |
-| Decided | 3 |
-| Precision | 67.0% |
+| Decided | 6 |
+| Precision | 83.3% |
 
 **FIXED DTS**
 
 - `DTS2026071806648` — [OH-2026-MEDIALIB-002](../content/issues/OH-2026-MEDIALIB-002.md): GetTimeIdFromUri uncaught stoi on empty / non-integer &offset=
 - `DTS2026072454808` — [OH-2026-MEDIALIB-001](../content/issues/OH-2026-MEDIALIB-001.md): GetFileIdStr returns bucket name on bucket-only URI (npos+1 wrap)
+- `DTS2026081715287` — [OH-2026-MEDIALIB-003](../content/issues/OH-2026-MEDIALIB-003.md): GetDateAddedMs calls GetDateModified (copy-paste)
+- `DTS2026082012348` — [OH-2026-MEDIALIB-004](../content/issues/OH-2026-MEDIALIB-004.md): IsFileTablePath / IsPhotoTablePath treat ROOT_MEDIA_DIR as substring then substr from 0
+- `DTS2608260052510` — [OH-2026-MEDIALIB-005](../content/issues/OH-2026-MEDIALIB-005.md): GetVirtualPath / UpdateVirtualPath empty relativePath last-char UB
 
 **NON-ISSUE DTS**
 
@@ -595,10 +599,14 @@ High-confidence project: **2** accepted fixes and **no** rejected DTS.
 
 | Metric | Value |
 |--------|------:|
-| FIXED | 0 |
+| FIXED | 1 |
 | NON-ISSUE | 1 |
-| Decided | 1 |
-| Precision | 0.0% |
+| Decided | 2 |
+| Precision | 50.0% |
+
+**FIXED DTS**
+
+- `DTS2026072338862` — [OH-2026-AUDIO-001](../content/issues/OH-2026-AUDIO-001.md): CalculateMaxAmplitudeForPCM24Bit mis-decodes LE24 via signed char shifts
 
 **NON-ISSUE DTS**
 
@@ -606,15 +614,15 @@ High-confidence project: **2** accepted fixes and **no** rejected DTS.
 
 ## Relation to `content/issues/` write-ups
 
-This repo’s [`content/issues/`](../content/issues/) currently carries **95** DTS-linked reports, all status `CONFIRMED_FIXED`.
+This repo’s [`content/issues/`](../content/issues/) currently carries **99** DTS-linked reports, all status `CONFIRMED_FIXED`.
 That set is the **FIXED** count here. Non-issues come from `~/cloned/*/pbt-out/bug_reports/non-issue/`.
 
 | Population | Count | Role |
 |------------|------:|------|
-| Decided DTS (FIXED + NON-ISSUE) | 111 | Ground truth for precision |
-| FIXED | 95 | Maintainer-accepted (`content/issues`) |
+| Decided DTS (FIXED + NON-ISSUE) | 115 | Ground truth for precision |
+| FIXED | 99 | Maintainer-accepted (`content/issues`) |
 | NON-ISSUE | 16 | Maintainer-rejected (cloned inventory) |
-| Write-ups in `content/issues` with DTS | 95 | Published confirmed bugs |
+| Write-ups in `content/issues` with DTS | 99 | Published confirmed bugs |
 
 **Do not** compute precision from `content/issues` alone — it omits non-issues by design. Use this document (or dispositioned rows in `BUG_REPORTS.md`) for acceptance rate.
 
@@ -622,7 +630,7 @@ See also: [DTS tickets by detecting property](./dts_bug_types.md). Failure-mode 
 
 ## Takeaways
 
-1. **Overall precision is high (85.6%)** — PBT filings that reach a DTS decision are usually real defects.
+1. **Overall precision is high (86.1%)** — PBT filings that reach a DTS decision are usually real defects.
 2. **False positives cluster in a few patterns** (16 tickets): by-design helpers, dead/unreachable / dropped-from-trunk code, caller-owned contracts, shipped CAPI / product omissions, flag-dependent crashes — not flaky reproduction.
 3. **Several large surfaces are clean so far** (e.g. `multimedia_camera_framework`, `multimedia_image_framework`, `graphic_graphic_2d` among high-volume FIXED with 0 NON-ISSUE).
 4. **Filing bar that non-issues imply:** prove a live production caller, state the product contract, and avoid “algebraic inconsistency across differently purposed APIs” without impact.

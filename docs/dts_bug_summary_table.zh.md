@@ -49,7 +49,7 @@
 | 45 | arkui_ace_engine | GetIrregularHeight 在 itemRatio == 0 时除零 → 内容高度为 +inf | 除零 | `frameworks/core/components_ng/pattern/grid/grid_layout_info.cpp` | 已确认并修复 |  | DTS2026072325132 |
 | 46 | filemanagement_dfs_service | ChangesResult::ReadFromParcel 忽略 ChangeData::ReadFromParcel 失败 | 未检查返回值 | `frameworks/native/clouddiskservice_kit_inner/src/cloud_disk_common.cpp` | 已确认并修复 |  | DTS2026072326318 |
 | 47 | filemanagement_storage_service | SA 提供者在用户范围 IPC 上跳过 CheckUserIdRange | 检查不当 | `services/storage_daemon/ipc/src/storage_daemon_provider.cpp` | 已确认并修复 |  | DTS2026072335866 |
-| 48 | multimedia_audio_framework | CalculateMaxAmplitudeForPCM24Bit 经有符号 char 移位错误解码 LE24 | 计算错误 | `frameworks/native/audioutils/src/audio_utils.cpp` | 已提交 |  | DTS2026072338862 |
+| 48 | multimedia_audio_framework | CalculateMaxAmplitudeForPCM24Bit 经有符号 char 移位错误解码 LE24 | 计算错误 | `frameworks/native/audioutils/src/audio_utils.cpp` | 已确认并修复 |  | DTS2026072338862 |
 | 49 | window_window_manager | IsAspectRatioSatisfiedWithSizeLimits 装饰 uint32 下溢拒绝合法比例 | 整数溢出/下溢 | `utils/include/window_helper.h` | 已确认并修复 |  | DTS2026072347788 |
 | 50 | multimodalinput_input | StreamBuffer::Read(string) 经无界 strchr 使 rPos_ 越过 wPos_ | 缓冲区/越界访问 | `util/network/src/stream_buffer.cpp` | 已提交 |  | DTS2026072349266 |
 | 51 | multimedia_av_codec | HLS 分段 byterange 的 offset_+length_-1 在 uint32_t 中回绕 → 丢弃/错误范围 | 整数溢出/下溢 | `services/media_engine/plugins/source/http_source/hls/hls_segment_manager.cpp` | 已确认并修复 |  | DTS2026072438019 |

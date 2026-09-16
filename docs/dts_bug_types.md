@@ -2,12 +2,12 @@
 
 Categorization of [`content/issues/`](../content/issues/) findings that carry a **DTS** ticket (`internal_issue_id`), grouped by the **pi-pbt property (oracle)** that found each ticket. CWE / failure-mode grouping is archived at the end of [`finding_precision_by_project.md`](finding_precision_by_project.md).
 
-- **Confirmed (FIXED)**: **95** — listed below (`CONFIRMED_FIXED` write-ups)
+- **Confirmed (FIXED)**: **99** — listed below (`CONFIRMED_FIXED` write-ups)
 - **Non-issue**: **16** — [catalog](#non-issues)
-- **Decided**: **111** = 95 + 16
-- **Precision**: **85.6%** = `95 / (95 + 16)` = confirmed / (confirmed + non-issues)
-- **Severity** (confirmed only): HIGH=21, MEDIUM=71, LOW=3
-- **Generated**: 2026-09-15
+- **Decided**: **115** = 99 + 16
+- **Precision**: **86.1%** = `99 / (99 + 16)` = confirmed / (confirmed + non-issues)
+- **Severity** (confirmed only): HIGH=22, MEDIUM=74, LOW=3
+- **Generated**: 2026-09-16
 
 ## Overview
 
@@ -17,14 +17,14 @@ Oracle taxonomy from [pi-pbt `docs/oracles.md`](https://github.com/fermat-hkrc/p
 | Property (oracle) | Count | HIGH | MEDIUM | LOW |
 |----------|------:|-----:|-------:|----:|
 | [State Machine](#state-machine) | 2 | 1 | 0 | 1 |
-| [Differential](#differential) | 28 | 1 | 26 | 1 |
+| [Differential](#differential) | 31 | 1 | 29 | 1 |
 | [Algebraic — Round-trip](#algebraic--round-trip) | 6 | 3 | 3 | 0 |
 | [Algebraic — Metamorphic](#algebraic--metamorphic) | 3 | 1 | 2 | 0 |
 | [Algebraic — Invariant](#algebraic--invariant) | 31 | 8 | 22 | 1 |
 | [Negative / Error Contract](#negative--error-contract) | 8 | 1 | 7 | 0 |
 | [Reference](#reference) | 5 | 1 | 4 | 0 |
-| [Crash-Only](#crash-only) | 12 | 5 | 7 | 0 |
-| **Total** | **95** | **21** | **71** | **3** |
+| [Crash-Only](#crash-only) | 13 | 6 | 7 | 0 |
+| **Total** | **99** | **22** | **74** | **3** |
 
 Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Idempotence ≻ Metamorphic ≻ Invariant ≻ Negative/Error) ≻ Reference ≻ Crash-Only. **Idempotence: 0** in this set.
 
@@ -48,7 +48,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `distributeddatamgr_pasteboard` | 2 | 0 | 1 | 1 | 0 | 100% |
 | `distributedhardware_device_manager` | 2 | 2 | 2 | 0 | 0 | 50% |
 | `multimedia_av_session` | 2 | 1 | 1 | 1 | 0 | 67% |
-| `multimedia_media_library` | 2 | 1 | 0 | 2 | 0 | 67% |
+| `multimedia_media_library` | 5 | 1 | 1 | 4 | 0 | 83% |
 | `window_window_manager` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `commonlibrary_rust_ylong_http` | 1 | 0 | 1 | 0 | 0 | 100% |
 | `communication_dsoftbus` | 1 | 1 | 0 | 1 | 0 | 50% |
@@ -59,8 +59,8 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `multimedia_media_foundation` | 1 | 4 | 1 | 0 | 0 | 20% |
 | `telephony_core_service` | 1 | 0 | 1 | 0 | 0 | 100% |
 | `arkui_napi` | 2 | 0 | 0 | 2 | 0 | 100% |
-| `multimedia_audio_framework` | 0 | 1 | 0 | 0 | 0 | 0% |
-| **Total** | **95** | **16** | **21** | **71** | **3** | **86%** |
+| `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
+| **Total** | **99** | **16** | **22** | **74** | **3** | **86%** |
 
 ## DTS index
 
@@ -108,6 +108,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `DTS2026072325132` | [OH-2026-ARKUI-007](../content/issues/OH-2026-ARKUI-007.md) | Algebraic — Invariant | HIGH | `arkui_ace_engine` |
 | `DTS2026072326318` | [OH-2026-DFS-001](../content/issues/OH-2026-DFS-001.md) | Differential | MEDIUM | `filemanagement_dfs_service` |
 | `DTS2026072335866` | [OH-2026-STORAGE-001](../content/issues/OH-2026-STORAGE-001.md) | Negative / Error Contract | MEDIUM | `filemanagement_storage_service` |
+| `DTS2026072338862` | [OH-2026-AUDIO-001](../content/issues/OH-2026-AUDIO-001.md) | Differential | MEDIUM | `multimedia_audio_framework` |
 | `DTS2026072347788` | [OH-2026-WM-001](../content/issues/OH-2026-WM-001.md) | Differential | MEDIUM | `window_window_manager` |
 | `DTS2026072438019` | [OH-2026-AVCODEC-001](../content/issues/OH-2026-AVCODEC-001.md) | Differential | MEDIUM | `multimedia_av_codec` |
 | `DTS2026072438492` | [OH-2026-IMG-002](../content/issues/OH-2026-IMG-002.md) | Algebraic — Invariant | MEDIUM | `multimedia_image_framework` |
@@ -149,8 +150,10 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `DTS2026081703440` | [OH-2026-PLAYER-003](../content/issues/OH-2026-PLAYER-003.md) | Differential | MEDIUM | `multimedia_player_framework` |
 | `DTS2026081706437` | [OH-2026-AVCODEC-005](../content/issues/OH-2026-AVCODEC-005.md) | Differential | LOW | `multimedia_av_codec` |
 | `DTS2026081713997` | [OH-2026-AVCODEC-003](../content/issues/OH-2026-AVCODEC-003.md) | Differential | MEDIUM | `multimedia_av_codec` |
+| `DTS2026081715287` | [OH-2026-MEDIALIB-003](../content/issues/OH-2026-MEDIALIB-003.md) | Differential | MEDIUM | `multimedia_media_library` |
 | `DTS2026082007640` | [OH-2026-AVCODEC-004](../content/issues/OH-2026-AVCODEC-004.md) | Differential | MEDIUM | `multimedia_av_codec` |
 | `DTS2026082009479` | [OH-2026-PLAYER-004](../content/issues/OH-2026-PLAYER-004.md) | Differential | MEDIUM | `multimedia_player_framework` |
+| `DTS2026082012348` | [OH-2026-MEDIALIB-004](../content/issues/OH-2026-MEDIALIB-004.md) | Differential | MEDIUM | `multimedia_media_library` |
 | `DTS2026082023118` | [OH-2026-DSOFTBUS-001](../content/issues/OH-2026-DSOFTBUS-001.md) | Differential | MEDIUM | `communication_dsoftbus` |
 | `DTS2026082239182` | [OH-2026-NAPI-002](../content/issues/OH-2026-NAPI-002.md) | Algebraic — Round-trip | MEDIUM | `arkui_napi` |
 | `DTS2026082239652` | [OH-2026-CAM-012](../content/issues/OH-2026-CAM-012.md) | Differential | MEDIUM | `multimedia_camera_framework` |
@@ -161,6 +164,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `DTS2026083109843` | [OH-2026-NET-011](../content/issues/OH-2026-NET-011.md) | Differential | MEDIUM | `communication_netmanager_base` |
 | `DTS2026090130983` | [OH-2026-AVCODEC-006](../content/issues/OH-2026-AVCODEC-006.md) | Algebraic — Invariant | MEDIUM | `multimedia_av_codec` |
 | `DTS2026090527401` | [OH-2026-GFX-010](../content/issues/OH-2026-GFX-010.md) | Differential | HIGH | `graphic_graphic_2d` |
+| `DTS2608260052510` | [OH-2026-MEDIALIB-005](../content/issues/OH-2026-MEDIALIB-005.md) | Crash-Only | HIGH | `multimedia_media_library` |
 
 ## Detecting property (oracle)
 
@@ -212,6 +216,9 @@ Candidate vs a same-job sibling or independent implementation of the same contra
 | `DTS2026081706437` | [OH-2026-AVCODEC-005](../content/issues/OH-2026-AVCODEC-005.md) | LOW | else-branch sets chroma, same as if-branch sibling |
 | `DTS2026082009479` | [OH-2026-PLAYER-004](../content/issues/OH-2026-PLAYER-004.md) | MEDIUM | GetPackageName ≡ full-string syspara sibling (no stringstream tokenize) |
 | `DTS2026082239652` | [OH-2026-CAM-012](../content/issues/OH-2026-CAM-012.md) | MEDIUM | IsUint8Regex accept ⇒ std::stoi does not throw |
+| `DTS2026081715287` | [OH-2026-MEDIALIB-003](../content/issues/OH-2026-MEDIALIB-003.md) | MEDIUM | GetDateAddedMs sources GetDateAdded(), same as GetDateAdded sibling |
+| `DTS2026082012348` | [OH-2026-MEDIALIB-004](../content/issues/OH-2026-MEDIALIB-004.md) | MEDIUM | IsFileTablePath / IsPhotoTablePath ≡ prefix oracle (find == 0) |
+| `DTS2026072338862` | [OH-2026-AUDIO-001](../content/issues/OH-2026-AUDIO-001.md) | MEDIUM | LE24 unpack ≡ MixS24Volume unsigned assemble + sign-extend |
 | `DTS2026090527401` | [OH-2026-GFX-010](../content/issues/OH-2026-GFX-010.md) | HIGH | NDK mesh walk ≡ JS/ANI DrawingPixelMapMesh (row then column) |
 
 <a id="algebraic--round-trip"></a>
@@ -332,12 +339,13 @@ Authoritative spec / stdlib / IEEE / Unicode / pinning contract that this SUT cl
 | `DTS2026073028465` | [OH-2026-WIFI-002](../content/issues/OH-2026-WIFI-002.md) | HIGH | empty mStateVector GetCurStateName does not OOB |
 | `DTS2026080813420` | [OH-2026-CAM-007](../content/issues/OH-2026-CAM-007.md) | MEDIUM | short/odd HIGH_QUALITY_SUPPORT must not OOB |
 | `DTS2026082564627` | [OH-2026-TEL-001](../content/issues/OH-2026-TEL-001.md) | HIGH | wrapping offset+length must not SEGV |
+| `DTS2608260052510` | [OH-2026-MEDIALIB-005](../content/issues/OH-2026-MEDIALIB-005.md) | HIGH | GetVirtualPath never OOB on empty relativePath |
 
 ## Non-issues
 
 Maintainer-rejected DTS. Counted in the denominator only.
 
-**Precision** = confirmed / (confirmed + non-issues) = **95 / (95 + 16) = 85.6%**.
+**Precision** = confirmed / (confirmed + non-issues) = **99 / (99 + 16) = 86.1%**.
 
 | DTS | Project | Theme | Why non-issue |
 |-----|---------|-------|---------------|
