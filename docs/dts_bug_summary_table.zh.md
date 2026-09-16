@@ -117,11 +117,11 @@
 | 113 | multimedia_av_codec | AvcParser::ParseSpsInfo else 分支把 bitDepthLuma_ 写两次（bitDepthChroma_ 从未设置） | 控制流错误 | `services/media_engine/plugins/ffmpeg_adapter/muxer/mpeg4_muxer/avc_parser.cpp` | 已确认并修复 |  | DTS2026081706437 |
 | 114 | multimedia_av_codec | ValuesListTag::ParseAttributes 的 TITLE 含前导逗号 | 计算错误 | `services/media_engine/plugins/source/http_source/hls/hls_tags.cpp` | 已确认并修复 |  | DTS2026081713997 |
 | 115 | multimedia_media_library | MediaFileUtils::IsValidInteger 接受部分解析（缺少 ptr == end 检查） | 检查不当 | `frameworks/innerkitsimpl/media_library_helper/src/media_file_utils.cpp` | 非问题 | 不完全消费是契约（兼容 1.000）；ConvertToInt 才是全消费兄弟 | DTS2026081715017 |
-| 116 | multimedia_media_library | GetDateAddedMs 调用了 GetDateModified（复制粘贴） | 控制流错误 | `frameworks/native/c_api/media_asset_impl.cpp` | 已提交 |  | DTS2026081715287 |
+| 116 | multimedia_media_library | GetDateAddedMs 调用了 GetDateModified（复制粘贴） | 控制流错误 | `frameworks/native/c_api/media_asset_impl.cpp` | 已确认并修复 |  | DTS2026081715287 |
 | 117 | arkcompiler_runtime_core | Utf16ToUTF8Bytes 用 LOW_AGENT_MASK（0xDC00）做 AND 而非 0x3FF；低代理项恒为 0xDC00 | 编码/Unicode | `static_core/plugins/ets/runtime/intrinsics/helpers/array_buffer_helper.cpp` | 已提交 |  | DTS2026081716365 |
 | 118 | multimedia_av_codec | GraphicPixelFmtToVideoPixelFmt 把 YCRCB_P010 映射成 NV12（应为 NV21） | 计算错误 | `frameworks/native/capi/avcodec/preprocessor_format_utils.cpp` | 已确认并修复 |  | DTS2026082007640 |
 | 119 | multimedia_player_framework | GetPackageName 经 stringstream >> 分词系统参数（丢弃空白 / 截断多 token） | 控制流错误 | `services/utils/media_utils.cpp` | 已确认并修复 |  | DTS2026082009479 |
-| 120 | multimedia_media_library | IsFileTablePath / IsPhotoTablePath 将 ROOT_MEDIA_DIR 按子串查找，却从下标 0 做 substr | 控制流错误 | `frameworks/innerkitsimpl/media_library_helper/src/media_file_utils.cpp` | 已提交 |  | DTS2026082012348 |
+| 120 | multimedia_media_library | IsFileTablePath / IsPhotoTablePath 将 ROOT_MEDIA_DIR 按子串查找，却从下标 0 做 substr | 控制流错误 | `frameworks/innerkitsimpl/media_library_helper/src/media_file_utils.cpp` | 已确认并修复 |  | DTS2026082012348 |
 | 121 | communication_dsoftbus | P2pV1Processor::ConnectGroup 守卫差一，3 段 group 配置时读 configs[3] | 缓冲区/越界访问 | `core/connection/wifi_direct_cpp/processor/p2p_v1_processor.cpp` | 已确认并修复 |  | DTS2026082023118 |
 | 122 | multimedia_media_foundation | Format 移动构造/赋值共享 meta_ 而非转移所有权 | 控制流错误 | `src/meta/format.cpp` | 已提交 |  | DTS2026082129239 |
 | 123 | arkui_ace_engine | GridLayoutInfo::FindItemCount 在区间起点落在跨行 continuation 时多计 | 计算错误 | `frameworks/core/components_ng/pattern/grid/grid_layout_info.cpp` | 已提交 |  | DTS2026082235533 |
@@ -140,7 +140,7 @@
 | 136 | telephony_core_service | Asn1Utils::BytesToInt 在 offset+length 的 uint32 回绕时段错误 | 整数溢出/下溢 | `utils/codec/src/asn1_utils.cpp` | 已确认并修复 |  | DTS2026082564627 |
 | 137 | multimedia_camera_framework | GetLogicCameraScreenStatus 对超出 int32 的数字串抛异常 | 坏输入未捕获异常/崩溃 | `services/camera_service/src/applist_manager/camera_applist_manager.cpp` | 已确认并修复 |  | DTS2026082567022 |
 | 138 | distributedhardware_device_manager | ConvertStrToInt 对溢出十进制返回正回绕值 | 整数溢出/下溢 | `common/src/dm_anonymous.cpp` | 非问题 | 死代码 / 无出货调用方 | DTS2026082568985 |
-| 139 | multimedia_media_library | GetVirtualPath / UpdateVirtualPath 空 relativePath 末字符未定义行为 | 未定义行为 | `frameworks/innerkitsimpl/medialibrary_data_extension/src/medialibrary_asset_operations.cpp` | 已提交 |  | DTS2608260052510 |
+| 139 | multimedia_media_library | GetVirtualPath / UpdateVirtualPath 空 relativePath 末字符未定义行为 | 未定义行为 | `frameworks/innerkitsimpl/medialibrary_data_extension/src/medialibrary_asset_operations.cpp` | 已确认并修复 |  | DTS2608260052510 |
 | 140 | distributeddatamgr_datamgr_service | DeviceMatrix::ConvertIndex 末尾 index-- 导致 uint16 回绕 | 差一 | `services/distributeddataservice/service/matrix/src/device_matrix.cpp` | 非问题 | index-- 适配旧版 dynamicApps_（少一位）；回绕不在现行 ConvertDynamic 路径 | DTS2026082738345 |
 | 141 | communication_wifi | RemoveData 拿整段缓冲区去和 key 切片比较 | 运算符/谓词错误 | `wifi/services/wifi_standard/wifi_framework/wifi_manage/wifi_p2p/wifi_p2p_dns_txt_record.cpp` | 已提交 |  | DTS2026082741568 |
 | 142 | communication_netmanager_base | StrToInt / StrToUint / StrToUint64 把前导零十进制当八进制解析 | 计算错误 | `utils/common_utils/src/netmanager_base_common_utils.cpp` | 已确认并修复 |  | DTS2026083107415 |
