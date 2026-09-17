@@ -2,8 +2,8 @@
 
 How often PBT-filed **DTS** tickets were accepted as real bugs versus closed as non-issues, broken down by project.
 
-- **Precision:** **86.1%** (99 FIXED / 115 decided)
-- **False-positive rate:** **13.9%** (16 NON-ISSUE)
+- **Precision:** **86.2%** (100 FIXED / 116 decided)
+- **False-positive rate:** **13.8%** (16 NON-ISSUE)
 
 Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS tickets are omitted — their outcome (bug vs non-issue) is not yet known.
 
@@ -20,21 +20,21 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 **Sources**
 
 - DTS inventory: [`dts_bug_types.md`](./dts_bug_types.md) + [`content/issues/`](../content/issues/)
-- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**99** issues, all `CONFIRMED_FIXED`)
+- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**100** issues, all `CONFIRMED_FIXED`)
 - Non-issue write-ups: `~/cloned/*/pbt-out/bug_reports/non-issue/` (**16** DTS-stamped)
 
-- **Generated:** 2026-09-16
+- **Generated:** 2026-09-17
 
 ### Global DTS scoreboard (decided only)
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 99 | 86.1% |
-| NON-ISSUE | 16 | 13.9% |
-| **Total decided** | **115** | 100% |
+| FIXED | 100 | 86.2% |
+| NON-ISSUE | 16 | 13.8% |
+| **Total decided** | **116** | 100% |
 
-- **Precision:** **99/115 = 86.1%** — just under nine in ten closed tickets were real bugs.
-- **False-positive rate:** **16/115 = 13.9%**.
+- **Precision:** **100/116 = 86.2%** — just under nine in ten closed tickets were real bugs.
+- **False-positive rate:** **16/116 = 13.8%**.
 
 > Precision means *maintainer-accepted defect rate among dispositioned DTS*, not static-analysis alert rate. Open/submitted tickets are out of scope until closed.
 
@@ -67,16 +67,16 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`commonlibrary_rust_ylong_http`](#commonlibrary-rust-ylong-http) | 1 | 0 | 1 | 100% |
 | [`distributedhardware_distributed_hardware_fwk`](#distributedhardware-distributed-hardware-fwk) | 1 | 0 | 1 | 100% |
 | [`filemanagement_dfs_service`](#filemanagement-dfs-service) | 1 | 0 | 1 | 100% |
-| [`filemanagement_storage_service`](#filemanagement-storage-service) | 1 | 0 | 1 | 100% |
+| [`filemanagement_storage_service`](#filemanagement-storage-service) | 2 | 0 | 2 | 100% |
 | [`telephony_core_service`](#telephony-core-service) | 1 | 0 | 1 | 100% |
 | [`multimedia_audio_framework`](#multimedia-audio-framework) | 1 | 1 | 2 | 50% |
-| **Total** | **99** | **16** | **115** | **86%** |
+| **Total** | **100** | **16** | **116** | **86%** |
 
 ## Precision tiers
 
 ### Tier A — Perfect precision (100%, ≥1 FIXED, 0 NON-ISSUE)
 
-`multimedia_camera_framework` (13 fixed), `graphic_graphic_2d` (10 fixed), `multimedia_image_framework` (9 fixed), `multimedia_av_codec` (6 fixed), `ability_ability_runtime` (5 fixed), `multimedia_player_framework` (4 fixed), `arkui_napi` (2 fixed), `communication_bluetooth_service` (2 fixed), `communication_wifi` (2 fixed), `distributeddatamgr_pasteboard` (2 fixed), `window_window_manager` (2 fixed), `commonlibrary_rust_ylong_http` (1 fixed), `distributedhardware_distributed_hardware_fwk` (1 fixed), `filemanagement_dfs_service` (1 fixed), `filemanagement_storage_service` (1 fixed), `telephony_core_service` (1 fixed)
+`multimedia_camera_framework` (13 fixed), `graphic_graphic_2d` (10 fixed), `multimedia_image_framework` (9 fixed), `multimedia_av_codec` (6 fixed), `ability_ability_runtime` (5 fixed), `multimedia_player_framework` (4 fixed), `arkui_napi` (2 fixed), `communication_bluetooth_service` (2 fixed), `communication_wifi` (2 fixed), `distributeddatamgr_pasteboard` (2 fixed), `filemanagement_storage_service` (2 fixed), `window_window_manager` (2 fixed), `commonlibrary_rust_ylong_http` (1 fixed), `distributedhardware_distributed_hardware_fwk` (1 fixed), `filemanagement_dfs_service` (1 fixed), `telephony_core_service` (1 fixed)
 
 These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 
@@ -447,14 +447,15 @@ Mixed outcomes: maintainers accepted **2** and rejected **1**. Net precision **6
 
 | Metric | Value |
 |--------|------:|
-| FIXED | 1 |
+| FIXED | 2 |
 | NON-ISSUE | 0 |
-| Decided | 1 |
+| Decided | 2 |
 | Precision | 100.0% |
 
 **FIXED DTS**
 
 - `DTS2026072335866` — [OH-2026-STORAGE-001](../content/issues/OH-2026-STORAGE-001.md): SA providers skip CheckUserIdRange on user-scoped IPC
+- `DTS2026082537775` — [OH-2026-STORAGE-002](../content/issues/OH-2026-STORAGE-002.md): StringToUint32 parses through signed int and cuts at INT32_MAX
 
 ### `multimedia_media_library`
 
@@ -622,7 +623,7 @@ That set is the **FIXED** count here. Non-issues come from `~/cloned/*/pbt-out/b
 | Decided DTS (FIXED + NON-ISSUE) | 115 | Ground truth for precision |
 | FIXED | 99 | Maintainer-accepted (`content/issues`) |
 | NON-ISSUE | 16 | Maintainer-rejected (cloned inventory) |
-| Write-ups in `content/issues` with DTS | 99 | Published confirmed bugs |
+| Write-ups in `content/issues` with DTS | 100 | Published confirmed bugs |
 
 **Do not** compute precision from `content/issues` alone — it omits non-issues by design. Use this document (or dispositioned rows in `BUG_REPORTS.md`) for acceptance rate.
 
@@ -630,7 +631,7 @@ See also: [DTS tickets by detecting property](./dts_bug_types.md). Failure-mode 
 
 ## Takeaways
 
-1. **Overall precision is high (86.1%)** — PBT filings that reach a DTS decision are usually real defects.
+1. **Overall precision is high (86.2%)** — PBT filings that reach a DTS decision are usually real defects.
 2. **False positives cluster in a few patterns** (16 tickets): by-design helpers, dead/unreachable / dropped-from-trunk code, caller-owned contracts, shipped CAPI / product omissions, flag-dependent crashes — not flaky reproduction.
 3. **Several large surfaces are clean so far** (e.g. `multimedia_camera_framework`, `multimedia_image_framework`, `graphic_graphic_2d` among high-volume FIXED with 0 NON-ISSUE).
 4. **Filing bar that non-issues imply:** prove a live production caller, state the product contract, and avoid “algebraic inconsistency across differently purposed APIs” without impact.
