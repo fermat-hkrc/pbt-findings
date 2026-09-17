@@ -2,8 +2,8 @@
 
 How often PBT-filed **DTS** tickets were accepted as real bugs versus closed as non-issues, broken down by project.
 
-- **Precision:** **86.3%** (101 FIXED / 117 decided)
-- **False-positive rate:** **13.7%** (16 NON-ISSUE)
+- **Precision:** **86.4%** (102 FIXED / 118 decided)
+- **False-positive rate:** **13.6%** (16 NON-ISSUE)
 
 Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS tickets are omitted — their outcome (bug vs non-issue) is not yet known.
 
@@ -20,7 +20,7 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 **Sources**
 
 - DTS inventory: [`dts_bug_types.md`](./dts_bug_types.md) + [`content/issues/`](../content/issues/)
-- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**101** issues, all `CONFIRMED_FIXED`)
+- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**102** issues, all `CONFIRMED_FIXED`)
 - Non-issue write-ups: `~/cloned/*/pbt-out/bug_reports/non-issue/` (**16** DTS-stamped)
 
 - **Generated:** 2026-09-17
@@ -29,12 +29,12 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 101 | 86.3% |
-| NON-ISSUE | 16 | 13.7% |
-| **Total decided** | **117** | 100% |
+| FIXED | 102 | 86.4% |
+| NON-ISSUE | 16 | 13.6% |
+| **Total decided** | **118** | 100% |
 
-- **Precision:** **101/117 = 86.3%** — just under nine in ten closed tickets were real bugs.
-- **False-positive rate:** **16/117 = 13.7%**.
+- **Precision:** **102/118 = 86.4%** — just under nine in ten closed tickets were real bugs.
+- **False-positive rate:** **16/118 = 13.6%**.
 
 > Precision means *maintainer-accepted defect rate among dispositioned DTS*, not static-analysis alert rate. Open/submitted tickets are out of scope until closed.
 
@@ -50,7 +50,7 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`arkui_ace_engine`](#arkui-ace-engine) | 8 | 2 | 10 | 80% |
 | [`multimedia_image_framework`](#multimedia-image-framework) | 9 | 0 | 9 | 100% |
 | [`arkcompiler_runtime_core`](#arkcompiler-runtime-core) | 6 | 1 | 7 | 86% |
-| [`ability_ability_runtime`](#ability-ability-runtime) | 5 | 0 | 5 | 100% |
+| [`ability_ability_runtime`](#ability-ability-runtime) | 6 | 0 | 6 | 100% |
 | [`multimedia_av_codec`](#multimedia-av-codec) | 6 | 0 | 6 | 100% |
 | [`multimedia_media_foundation`](#multimedia-media-foundation) | 1 | 4 | 5 | 20% |
 | [`multimedia_player_framework`](#multimedia-player-framework) | 4 | 0 | 4 | 100% |
@@ -70,13 +70,13 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`filemanagement_storage_service`](#filemanagement-storage-service) | 2 | 0 | 2 | 100% |
 | [`telephony_core_service`](#telephony-core-service) | 1 | 0 | 1 | 100% |
 | [`multimedia_audio_framework`](#multimedia-audio-framework) | 1 | 1 | 2 | 50% |
-| **Total** | **101** | **16** | **117** | **86%** |
+| **Total** | **102** | **16** | **118** | **86%** |
 
 ## Precision tiers
 
 ### Tier A — Perfect precision (100%, ≥1 FIXED, 0 NON-ISSUE)
 
-`multimedia_camera_framework` (13 fixed), `graphic_graphic_2d` (10 fixed), `multimedia_image_framework` (9 fixed), `multimedia_av_codec` (6 fixed), `ability_ability_runtime` (5 fixed), `multimedia_player_framework` (4 fixed), `arkui_napi` (2 fixed), `communication_bluetooth_service` (2 fixed), `communication_wifi` (2 fixed), `distributeddatamgr_pasteboard` (2 fixed), `filemanagement_storage_service` (2 fixed), `window_window_manager` (2 fixed), `commonlibrary_rust_ylong_http` (1 fixed), `distributedhardware_distributed_hardware_fwk` (1 fixed), `filemanagement_dfs_service` (1 fixed), `telephony_core_service` (1 fixed)
+`multimedia_camera_framework` (13 fixed), `graphic_graphic_2d` (10 fixed), `multimedia_image_framework` (9 fixed), `multimedia_av_codec` (6 fixed), `ability_ability_runtime` (6 fixed), `multimedia_player_framework` (4 fixed), `arkui_napi` (2 fixed), `communication_bluetooth_service` (2 fixed), `communication_wifi` (2 fixed), `distributeddatamgr_pasteboard` (2 fixed), `filemanagement_storage_service` (2 fixed), `window_window_manager` (2 fixed), `commonlibrary_rust_ylong_http` (1 fixed), `distributedhardware_distributed_hardware_fwk` (1 fixed), `filemanagement_dfs_service` (1 fixed), `telephony_core_service` (1 fixed)
 
 These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 
@@ -294,9 +294,9 @@ High-confidence project: **9** accepted fixes and **no** rejected DTS.
 
 | Metric | Value |
 |--------|------:|
-| FIXED | 5 |
+| FIXED | 6 |
 | NON-ISSUE | 0 |
-| Decided | 5 |
+| Decided | 6 |
 | Precision | 100.0% |
 
 **FIXED DTS**
@@ -306,6 +306,7 @@ High-confidence project: **9** accepted fixes and **no** rejected DTS.
 - `DTS2026072514260` — [OH-2026-ABILITY-003](../content/issues/OH-2026-ABILITY-003.md): ParseURI catch indexes uriVec past the end after last-field stoi failure
 - `DTS2026073173354` — [OH-2026-ABILITY-004](../content/issues/OH-2026-ABILITY-004.md): CheckFileManagerUriPermission matches Download/Desktop/Documents prefix without '/' boundary
 - `DTS2026082254944` — [OH-2026-ABILITY-005](../content/issues/OH-2026-ABILITY-005.md): ConvertStringToUint32 parses with signed stoi (drops >INT_MAX, accepts "8a" and "-1")
+- `DTS2026080812965` — [OH-2026-ABILITY-006](../content/issues/OH-2026-ABILITY-006.md): DataUriUtils::AttachId missing rfind npos guard — replace(npos+1) wraps to 0 and rewrites the URI from the start
 
 ### `distributeddatamgr_pasteboard`
 

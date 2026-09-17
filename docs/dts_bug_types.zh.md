@@ -2,11 +2,11 @@
 
 对 [`content/issues/`](../content/issues/) 中带有 **DTS** 工单号（`internal_issue_id`）的发现所做的归类，按检出该工单的 **pi-pbt 性质（预言机）** 分组。CWE / 失效模式分组归档在 [`finding_precision_by_project.md`](finding_precision_by_project.md) 文末。
 
-- **已确认（FIXED）**：**101** — 下列目录（`CONFIRMED_FIXED` 报告）
+- **已确认（FIXED）**：**102** — 下列目录（`CONFIRMED_FIXED` 报告）
 - **非问题（NON-ISSUE）**：**16** — [目录](#非问题)
-- **已判定**：**117** = 101 + 16
-- **精确率**：**86.3%** = `101 / (101 + 16)` = 已确认 /（已确认 + 非问题）
-- **严重级别**（仅已确认）：HIGH=23，MEDIUM=75，LOW=3
+- **已判定**：**118** = 102 + 16
+- **精确率**：**86.4%** = `102 / (102 + 16)` = 已确认 /（已确认 + 非问题）
+- **严重级别**（仅已确认）：HIGH=23，MEDIUM=76，LOW=3
 - **生成时间**：2026-09-17
 
 ## 概览
@@ -17,14 +17,14 @@
 | 性质（预言机） | 数量 | HIGH | MEDIUM | LOW |
 |----------|------:|-----:|-------:|----:|
 | [状态机](#状态机) | 2 | 1 | 0 | 1 |
-| [差分](#差分) | 33 | 2 | 30 | 1 |
+| [差分](#差分) | 34 | 2 | 31 | 1 |
 | [代数 — 往返](#代数--往返) | 6 | 3 | 3 | 0 |
 | [代数 — 蜕变](#代数--蜕变) | 3 | 1 | 2 | 0 |
 | [代数 — 不变量](#代数--不变量) | 31 | 8 | 22 | 1 |
 | [否定 / 错误契约](#否定--错误契约) | 8 | 1 | 7 | 0 |
 | [参考](#参考) | 5 | 1 | 4 | 0 |
 | [仅崩溃](#仅崩溃) | 13 | 6 | 7 | 0 |
-| **合计** | **101** | **23** | **75** | **3** |
+| **合计** | **102** | **23** | **76** | **3** |
 
 强度顺序：状态机 ≻ 差分 ≻ 代数（往返 ≻ 幂等 ≻ 蜕变 ≻ 不变量 ≻ 否定/错误）≻ 参考 ≻ 仅崩溃。本集合中**幂等：0**。
 
@@ -39,7 +39,7 @@
 | `communication_netmanager_base` | 11 | 2 | 3 | 8 | 0 | 85% |
 | `graphic_graphic_2d` | 10 | 0 | 3 | 6 | 1 | 100% |
 | `arkui_ace_engine` | 8 | 2 | 4 | 4 | 0 | 80% |
-| `ability_ability_runtime` | 5 | 0 | 0 | 5 | 0 | 100% |
+| `ability_ability_runtime` | 6 | 0 | 0 | 6 | 0 | 100% |
 | `arkcompiler_runtime_core` | 6 | 1 | 1 | 5 | 0 | 86% |
 | `multimedia_av_codec` | 6 | 0 | 0 | 5 | 1 | 100% |
 | `multimedia_player_framework` | 4 | 0 | 0 | 4 | 0 | 100% |
@@ -60,7 +60,7 @@
 | `telephony_core_service` | 1 | 0 | 1 | 0 | 0 | 100% |
 | `arkui_napi` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
-| **合计** | **101** | **16** | **23** | **75** | **3** | **86%** |
+| **合计** | **102** | **16** | **23** | **76** | **3** | **86%** |
 
 ## DTS 索引
 
@@ -132,6 +132,7 @@
 | `DTS2026080528903` | [OH-2026-GFX-007](../content/issues/OH-2026-GFX-007.md) | 代数 — 不变量 | MEDIUM | `graphic_graphic_2d` |
 | `DTS2026080530843` | [OH-2026-GFX-008](../content/issues/OH-2026-GFX-008.md) | 代数 — 不变量 | LOW | `graphic_graphic_2d` |
 | `DTS2026080608464` | [OH-2026-NET-005](../content/issues/OH-2026-NET-005.md) | 代数 — 不变量 | MEDIUM | `communication_netmanager_base` |
+| `DTS2026080812965` | [OH-2026-ABILITY-006](../content/issues/OH-2026-ABILITY-006.md) | 差分 | MEDIUM | `ability_ability_runtime` |
 | `DTS2026080813420` | [OH-2026-CAM-007](../content/issues/OH-2026-CAM-007.md) | 仅崩溃 | MEDIUM | `multimedia_camera_framework` |
 | `DTS2026080813622` | [OH-2026-CAM-008](../content/issues/OH-2026-CAM-008.md) | 差分 | MEDIUM | `multimedia_camera_framework` |
 | `DTS2026080813794` | [OH-2026-CAM-009](../content/issues/OH-2026-CAM-009.md) | 差分 | MEDIUM | `multimedia_camera_framework` |
@@ -202,6 +203,7 @@
 | `DTS2026072438019` | [OH-2026-AVCODEC-001](../content/issues/OH-2026-AVCODEC-001.md) | MEDIUM | byterange 终点与加宽安全加法一致 |
 | `DTS2026072921166` | [OH-2026-WM-002](../content/issues/OH-2026-WM-002.md) | MEDIUM | 级联装饰剥离与加宽无符号预言一致 |
 | `DTS2026073173354` | [OH-2026-ABILITY-004](../content/issues/OH-2026-ABILITY-004.md) | MEDIUM | 前缀匹配 ≡ 斜杠边界成员资格预言 |
+| `DTS2026080812965` | [OH-2026-ABILITY-006](../content/issues/OH-2026-ABILITY-006.md) | MEDIUM | rfind 未命中 ⇒ URI 不变，与姊妹 UriUpateLastPath 一致（无 npos 回绕） |
 | `DTS2026080813622` | [OH-2026-CAM-008](../content/issues/OH-2026-CAM-008.md) | MEDIUM | GetZoomRatioRange 边界 ≡ GetRAWZoomRatioRange 同类 |
 | `DTS2026080813794` | [OH-2026-CAM-009](../content/issues/OH-2026-CAM-009.md) | MEDIUM | 月亮 FOV 前瞻 ≡ sketch 规格 FOV 同类边界 |
 | `DTS2026081126994` | [OH-2026-IMG-005](../content/issues/OH-2026-IMG-005.md) | MEDIUM | 缩放/平移拼接 ≡ MulAddMul / 旋转路径同类 |
@@ -349,7 +351,7 @@
 
 维护者驳回的 DTS。只计入分母。
 
-**精确率** = 已确认 /（已确认 + 非问题）= **101 / (101 + 16) = 86.3%**。
+**精确率** = 已确认 /（已确认 + 非问题）= **102 / (102 + 16) = 86.4%**。
 
 | DTS | 项目 | 主题 | 为何非问题 |
 |-----|------|------|------------|
