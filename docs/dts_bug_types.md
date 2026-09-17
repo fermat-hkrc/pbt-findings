@@ -2,11 +2,11 @@
 
 Categorization of [`content/issues/`](../content/issues/) findings that carry a **DTS** ticket (`internal_issue_id`), grouped by the **pi-pbt property (oracle)** that found each ticket. CWE / failure-mode grouping is archived at the end of [`finding_precision_by_project.md`](finding_precision_by_project.md).
 
-- **Confirmed (FIXED)**: **100** — listed below (`CONFIRMED_FIXED` write-ups)
+- **Confirmed (FIXED)**: **101** — listed below (`CONFIRMED_FIXED` write-ups)
 - **Non-issue**: **16** — [catalog](#non-issues)
-- **Decided**: **116** = 100 + 16
-- **Precision**: **86.2%** = `100 / (100 + 16)` = confirmed / (confirmed + non-issues)
-- **Severity** (confirmed only): HIGH=22, MEDIUM=75, LOW=3
+- **Decided**: **117** = 101 + 16
+- **Precision**: **86.3%** = `101 / (101 + 16)` = confirmed / (confirmed + non-issues)
+- **Severity** (confirmed only): HIGH=23, MEDIUM=75, LOW=3
 - **Generated**: 2026-09-17
 
 ## Overview
@@ -17,14 +17,14 @@ Oracle taxonomy from [pi-pbt `docs/oracles.md`](https://github.com/fermat-hkrc/p
 | Property (oracle) | Count | HIGH | MEDIUM | LOW |
 |----------|------:|-----:|-------:|----:|
 | [State Machine](#state-machine) | 2 | 1 | 0 | 1 |
-| [Differential](#differential) | 32 | 1 | 30 | 1 |
+| [Differential](#differential) | 33 | 2 | 30 | 1 |
 | [Algebraic — Round-trip](#algebraic--round-trip) | 6 | 3 | 3 | 0 |
 | [Algebraic — Metamorphic](#algebraic--metamorphic) | 3 | 1 | 2 | 0 |
 | [Algebraic — Invariant](#algebraic--invariant) | 31 | 8 | 22 | 1 |
 | [Negative / Error Contract](#negative--error-contract) | 8 | 1 | 7 | 0 |
 | [Reference](#reference) | 5 | 1 | 4 | 0 |
 | [Crash-Only](#crash-only) | 13 | 6 | 7 | 0 |
-| **Total** | **100** | **22** | **75** | **3** |
+| **Total** | **101** | **23** | **75** | **3** |
 
 Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Idempotence ≻ Metamorphic ≻ Invariant ≻ Negative/Error) ≻ Reference ≻ Crash-Only. **Idempotence: 0** in this set.
 
@@ -40,7 +40,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `graphic_graphic_2d` | 10 | 0 | 3 | 6 | 1 | 100% |
 | `arkui_ace_engine` | 8 | 2 | 4 | 4 | 0 | 80% |
 | `ability_ability_runtime` | 5 | 0 | 0 | 5 | 0 | 100% |
-| `arkcompiler_runtime_core` | 5 | 1 | 0 | 5 | 0 | 83% |
+| `arkcompiler_runtime_core` | 6 | 1 | 1 | 5 | 0 | 86% |
 | `multimedia_av_codec` | 6 | 0 | 0 | 5 | 1 | 100% |
 | `multimedia_player_framework` | 4 | 0 | 0 | 4 | 0 | 100% |
 | `communication_bluetooth_service` | 2 | 0 | 2 | 0 | 0 | 100% |
@@ -60,7 +60,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `telephony_core_service` | 1 | 0 | 1 | 0 | 0 | 100% |
 | `arkui_napi` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
-| **Total** | **100** | **16** | **22** | **75** | **3** | **86%** |
+| **Total** | **101** | **16** | **23** | **75** | **3** | **86%** |
 
 ## DTS index
 
@@ -160,6 +160,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `DTS2026082254944` | [OH-2026-ABILITY-005](../content/issues/OH-2026-ABILITY-005.md) | Algebraic — Invariant | MEDIUM | `ability_ability_runtime` |
 | `DTS2026082261311` | [OH-2026-GFX-009](../content/issues/OH-2026-GFX-009.md) | Algebraic — Invariant | MEDIUM | `graphic_graphic_2d` |
 | `DTS2026082537775` | [OH-2026-STORAGE-002](../content/issues/OH-2026-STORAGE-002.md) | Differential | MEDIUM | `filemanagement_storage_service` |
+| `DTS2026082563048` | [ARK-2026-INT-003](../content/issues/ARK-2026-INT-003.md) | Differential | HIGH | `arkcompiler_runtime_core` |
 | `DTS2026082564627` | [OH-2026-TEL-001](../content/issues/OH-2026-TEL-001.md) | Crash-Only | HIGH | `telephony_core_service` |
 | `DTS2026082567022` | [OH-2026-CAM-013](../content/issues/OH-2026-CAM-013.md) | Negative / Error Contract | MEDIUM | `multimedia_camera_framework` |
 | `DTS2026083109843` | [OH-2026-NET-011](../content/issues/OH-2026-NET-011.md) | Differential | MEDIUM | `communication_netmanager_base` |
@@ -218,6 +219,7 @@ Candidate vs a same-job sibling or independent implementation of the same contra
 | `DTS2026082009479` | [OH-2026-PLAYER-004](../content/issues/OH-2026-PLAYER-004.md) | MEDIUM | GetPackageName ≡ full-string syspara sibling (no stringstream tokenize) |
 | `DTS2026082239652` | [OH-2026-CAM-012](../content/issues/OH-2026-CAM-012.md) | MEDIUM | IsUint8Regex accept ⇒ std::stoi does not throw |
 | `DTS2026082537775` | [OH-2026-STORAGE-002](../content/issues/OH-2026-STORAGE-002.md) | MEDIUM | StringToUint32 ≡ std::from_chars on every full-consume uint32 decimal |
+| `DTS2026082563048` | [ARK-2026-INT-003](../content/issues/ARK-2026-INT-003.md) | HIGH | ParseInt(full-consume long long decimal) ≡ independent strtoll (reject on errno==ERANGE) |
 | `DTS2026081715287` | [OH-2026-MEDIALIB-003](../content/issues/OH-2026-MEDIALIB-003.md) | MEDIUM | GetDateAddedMs sources GetDateAdded(), same as GetDateAdded sibling |
 | `DTS2026082012348` | [OH-2026-MEDIALIB-004](../content/issues/OH-2026-MEDIALIB-004.md) | MEDIUM | IsFileTablePath / IsPhotoTablePath ≡ prefix oracle (find == 0) |
 | `DTS2026072338862` | [OH-2026-AUDIO-001](../content/issues/OH-2026-AUDIO-001.md) | MEDIUM | LE24 unpack ≡ MixS24Volume unsigned assemble + sign-extend |
@@ -347,7 +349,7 @@ Authoritative spec / stdlib / IEEE / Unicode / pinning contract that this SUT cl
 
 Maintainer-rejected DTS. Counted in the denominator only.
 
-**Precision** = confirmed / (confirmed + non-issues) = **100 / (100 + 16) = 86.2%**.
+**Precision** = confirmed / (confirmed + non-issues) = **101 / (101 + 16) = 86.3%**.
 
 | DTS | Project | Theme | Why non-issue |
 |-----|---------|-------|---------------|

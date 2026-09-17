@@ -2,8 +2,8 @@
 
 How often PBT-filed **DTS** tickets were accepted as real bugs versus closed as non-issues, broken down by project.
 
-- **Precision:** **86.2%** (100 FIXED / 116 decided)
-- **False-positive rate:** **13.8%** (16 NON-ISSUE)
+- **Precision:** **86.3%** (101 FIXED / 117 decided)
+- **False-positive rate:** **13.7%** (16 NON-ISSUE)
 
 Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS tickets are omitted — their outcome (bug vs non-issue) is not yet known.
 
@@ -20,7 +20,7 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 **Sources**
 
 - DTS inventory: [`dts_bug_types.md`](./dts_bug_types.md) + [`content/issues/`](../content/issues/)
-- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**100** issues, all `CONFIRMED_FIXED`)
+- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**101** issues, all `CONFIRMED_FIXED`)
 - Non-issue write-ups: `~/cloned/*/pbt-out/bug_reports/non-issue/` (**16** DTS-stamped)
 
 - **Generated:** 2026-09-17
@@ -29,12 +29,12 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 100 | 86.2% |
-| NON-ISSUE | 16 | 13.8% |
-| **Total decided** | **116** | 100% |
+| FIXED | 101 | 86.3% |
+| NON-ISSUE | 16 | 13.7% |
+| **Total decided** | **117** | 100% |
 
-- **Precision:** **100/116 = 86.2%** — just under nine in ten closed tickets were real bugs.
-- **False-positive rate:** **16/116 = 13.8%**.
+- **Precision:** **101/117 = 86.3%** — just under nine in ten closed tickets were real bugs.
+- **False-positive rate:** **16/117 = 13.7%**.
 
 > Precision means *maintainer-accepted defect rate among dispositioned DTS*, not static-analysis alert rate. Open/submitted tickets are out of scope until closed.
 
@@ -49,7 +49,7 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`graphic_graphic_2d`](#graphic-graphic-2d) | 10 | 0 | 10 | 100% |
 | [`arkui_ace_engine`](#arkui-ace-engine) | 8 | 2 | 10 | 80% |
 | [`multimedia_image_framework`](#multimedia-image-framework) | 9 | 0 | 9 | 100% |
-| [`arkcompiler_runtime_core`](#arkcompiler-runtime-core) | 5 | 1 | 6 | 83% |
+| [`arkcompiler_runtime_core`](#arkcompiler-runtime-core) | 6 | 1 | 7 | 86% |
 | [`ability_ability_runtime`](#ability-ability-runtime) | 5 | 0 | 5 | 100% |
 | [`multimedia_av_codec`](#multimedia-av-codec) | 6 | 0 | 6 | 100% |
 | [`multimedia_media_foundation`](#multimedia-media-foundation) | 1 | 4 | 5 | 20% |
@@ -70,7 +70,7 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`filemanagement_storage_service`](#filemanagement-storage-service) | 2 | 0 | 2 | 100% |
 | [`telephony_core_service`](#telephony-core-service) | 1 | 0 | 1 | 100% |
 | [`multimedia_audio_framework`](#multimedia-audio-framework) | 1 | 1 | 2 | 50% |
-| **Total** | **100** | **16** | **116** | **86%** |
+| **Total** | **101** | **16** | **117** | **86%** |
 
 ## Precision tiers
 
@@ -85,7 +85,7 @@ These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 | Project | FIXED | NON-ISSUE | Precision | What non-issues teach |
 |---------|------:|----------:|----------:|----------------------|
 | `arkui_ace_engine` | 8 | 2 | 80% | Empty-grid `-mainGap` is stable formula; IsAllItemsMeasured `-idx` is irregular-only encoding never seen by that gate; real layout/math bugs still fixed. |
-| `arkcompiler_runtime_core` | 5 | 1 | 83% | SkipULeb128 empty/truncated is by-design (void helper, no error channel); real buffer/loop bugs still fixed. |
+| `arkcompiler_runtime_core` | 6 | 1 | 86% | SkipULeb128 empty/truncated is by-design (void helper, no error channel); real buffer/loop bugs still fixed. |
 | `communication_netmanager_base` | 11 | 2 | 85% | Helper semantics (ForkExec) and API role split (zoned IPv6) ≠ bugs; firewall/IP/mask defects accepted. |
 | `distributedhardware_device_manager` | 2 | 2 | 50% | cJSON int64 round-trip and ConvertStrToInt are dead/unshipped; PIN/rand bugs still fixed. |
 | `multimedia_av_session` | 2 | 1 | 67% | Call-type JSON omission = product policy; OOB crash in `GetAnonyTitle` still fixed. |
@@ -247,10 +247,10 @@ High-confidence project: **13** accepted fixes and **no** rejected DTS.
 
 | Metric | Value |
 |--------|------:|
-| FIXED | 5 |
+| FIXED | 6 |
 | NON-ISSUE | 1 |
-| Decided | 6 |
-| Precision | 83.3% |
+| Decided | 7 |
+| Precision | 85.7% |
 
 **FIXED DTS**
 
@@ -259,12 +259,13 @@ High-confidence project: **13** accepted fixes and **no** rejected DTS.
 - `DTS2026071433052` — [ARK-2026-LOOP-001](../content/issues/ARK-2026-LOOP-001.md): GetParams uint8_t loop eternal hang for argument counts in [256, 65535]
 - `DTS2026071807957` — [ARK-2026-BUF-001](../content/issues/ARK-2026-BUF-001.md): MemoryBufferWriter WriteByte/WriteBytes/AppendRange past-capacity OOB write returns true
 - `DTS2026073112258` — [ARK-2026-STR-001](../content/issues/ARK-2026-STR-001.md): RemoveSlashFromBothEnds("/") empty pop_back() (UB / corrupt size)
+- `DTS2026082563048` — [ARK-2026-INT-003](../content/issues/ARK-2026-INT-003.md): ParseInt treats strtoll overflow as success (fixed upstream by `bf74c199ec` / `!14824`)
 
 **NON-ISSUE DTS**
 
 - `DTS2026072517792` — SkipULeb128 empty/truncated OOB. *By design — void helper has no error channel; malformed ULEB is fatal.*
 
-Mixed outcomes: maintainers accepted **5** and rejected **1**. Net precision **83%**.
+Mixed outcomes: maintainers accepted **6** and rejected **1**. Net precision **86%**.
 
 ### `multimedia_image_framework`
 

@@ -2,11 +2,11 @@
 
 对 [`content/issues/`](../content/issues/) 中带有 **DTS** 工单号（`internal_issue_id`）的发现所做的归类，按检出该工单的 **pi-pbt 性质（预言机）** 分组。CWE / 失效模式分组归档在 [`finding_precision_by_project.md`](finding_precision_by_project.md) 文末。
 
-- **已确认（FIXED）**：**100** — 下列目录（`CONFIRMED_FIXED` 报告）
+- **已确认（FIXED）**：**101** — 下列目录（`CONFIRMED_FIXED` 报告）
 - **非问题（NON-ISSUE）**：**16** — [目录](#非问题)
-- **已判定**：**116** = 100 + 16
-- **精确率**：**86.2%** = `100 / (100 + 16)` = 已确认 /（已确认 + 非问题）
-- **严重级别**（仅已确认）：HIGH=22，MEDIUM=75，LOW=3
+- **已判定**：**117** = 101 + 16
+- **精确率**：**86.3%** = `101 / (101 + 16)` = 已确认 /（已确认 + 非问题）
+- **严重级别**（仅已确认）：HIGH=23，MEDIUM=75，LOW=3
 - **生成时间**：2026-09-17
 
 ## 概览
@@ -17,14 +17,14 @@
 | 性质（预言机） | 数量 | HIGH | MEDIUM | LOW |
 |----------|------:|-----:|-------:|----:|
 | [状态机](#状态机) | 2 | 1 | 0 | 1 |
-| [差分](#差分) | 32 | 1 | 30 | 1 |
+| [差分](#差分) | 33 | 2 | 30 | 1 |
 | [代数 — 往返](#代数--往返) | 6 | 3 | 3 | 0 |
 | [代数 — 蜕变](#代数--蜕变) | 3 | 1 | 2 | 0 |
 | [代数 — 不变量](#代数--不变量) | 31 | 8 | 22 | 1 |
 | [否定 / 错误契约](#否定--错误契约) | 8 | 1 | 7 | 0 |
 | [参考](#参考) | 5 | 1 | 4 | 0 |
 | [仅崩溃](#仅崩溃) | 13 | 6 | 7 | 0 |
-| **合计** | **100** | **22** | **75** | **3** |
+| **合计** | **101** | **23** | **75** | **3** |
 
 强度顺序：状态机 ≻ 差分 ≻ 代数（往返 ≻ 幂等 ≻ 蜕变 ≻ 不变量 ≻ 否定/错误）≻ 参考 ≻ 仅崩溃。本集合中**幂等：0**。
 
@@ -40,7 +40,7 @@
 | `graphic_graphic_2d` | 10 | 0 | 3 | 6 | 1 | 100% |
 | `arkui_ace_engine` | 8 | 2 | 4 | 4 | 0 | 80% |
 | `ability_ability_runtime` | 5 | 0 | 0 | 5 | 0 | 100% |
-| `arkcompiler_runtime_core` | 5 | 1 | 0 | 5 | 0 | 83% |
+| `arkcompiler_runtime_core` | 6 | 1 | 1 | 5 | 0 | 86% |
 | `multimedia_av_codec` | 6 | 0 | 0 | 5 | 1 | 100% |
 | `multimedia_player_framework` | 4 | 0 | 0 | 4 | 0 | 100% |
 | `communication_bluetooth_service` | 2 | 0 | 2 | 0 | 0 | 100% |
@@ -60,7 +60,7 @@
 | `telephony_core_service` | 1 | 0 | 1 | 0 | 0 | 100% |
 | `arkui_napi` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
-| **合计** | **100** | **16** | **22** | **75** | **3** | **86%** |
+| **合计** | **101** | **16** | **23** | **75** | **3** | **86%** |
 
 ## DTS 索引
 
@@ -160,6 +160,7 @@
 | `DTS2026082254944` | [OH-2026-ABILITY-005](../content/issues/OH-2026-ABILITY-005.md) | 代数 — 不变量 | MEDIUM | `ability_ability_runtime` |
 | `DTS2026082261311` | [OH-2026-GFX-009](../content/issues/OH-2026-GFX-009.md) | 代数 — 不变量 | MEDIUM | `graphic_graphic_2d` |
 | `DTS2026082537775` | [OH-2026-STORAGE-002](../content/issues/OH-2026-STORAGE-002.md) | 差分 | MEDIUM | `filemanagement_storage_service` |
+| `DTS2026082563048` | [ARK-2026-INT-003](../content/issues/ARK-2026-INT-003.md) | 差分 | HIGH | `arkcompiler_runtime_core` |
 | `DTS2026082564627` | [OH-2026-TEL-001](../content/issues/OH-2026-TEL-001.md) | 仅崩溃 | HIGH | `telephony_core_service` |
 | `DTS2026082567022` | [OH-2026-CAM-013](../content/issues/OH-2026-CAM-013.md) | 否定 / 错误契约 | MEDIUM | `multimedia_camera_framework` |
 | `DTS2026083109843` | [OH-2026-NET-011](../content/issues/OH-2026-NET-011.md) | 差分 | MEDIUM | `communication_netmanager_base` |
@@ -218,6 +219,7 @@
 | `DTS2026082009479` | [OH-2026-PLAYER-004](../content/issues/OH-2026-PLAYER-004.md) | MEDIUM | GetPackageName ≡ 整串 syspara 同类（不用 stringstream 分词） |
 | `DTS2026082239652` | [OH-2026-CAM-012](../content/issues/OH-2026-CAM-012.md) | MEDIUM | IsUint8Regex 接受 ⇒ std::stoi 不抛 |
 | `DTS2026082537775` | [OH-2026-STORAGE-002](../content/issues/OH-2026-STORAGE-002.md) | MEDIUM | StringToUint32 ≡ std::from_chars（每个完整消费的 uint32 十进制） |
+| `DTS2026082563048` | [ARK-2026-INT-003](../content/issues/ARK-2026-INT-003.md) | HIGH | ParseInt 完整消费的 long long 十进制 ≡ 独立 strtoll（errno==ERANGE 拒绝） |
 | `DTS2026081715287` | [OH-2026-MEDIALIB-003](../content/issues/OH-2026-MEDIALIB-003.md) | MEDIUM | GetDateAddedMs 取 GetDateAdded()，与 GetDateAdded 同类一致 |
 | `DTS2026082012348` | [OH-2026-MEDIALIB-004](../content/issues/OH-2026-MEDIALIB-004.md) | MEDIUM | IsFileTablePath / IsPhotoTablePath ≡ 前缀预言（find == 0） |
 | `DTS2026072338862` | [OH-2026-AUDIO-001](../content/issues/OH-2026-AUDIO-001.md) | MEDIUM | LE24 解包 ≡ MixS24Volume 无符号拼装 + 符号扩展 |
@@ -347,7 +349,7 @@
 
 维护者驳回的 DTS。只计入分母。
 
-**精确率** = 已确认 /（已确认 + 非问题）= **100 / (100 + 16) = 86.2%**。
+**精确率** = 已确认 /（已确认 + 非问题）= **101 / (101 + 16) = 86.3%**。
 
 | DTS | 项目 | 主题 | 为何非问题 |
 |-----|------|------|------------|

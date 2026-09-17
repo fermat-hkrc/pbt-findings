@@ -136,7 +136,7 @@
 | 132 | filemanagement_storage_service | StringToUint32 经有符号 int 解析并在 INT32_MAX 处截断 | 计算错误 | `services/storage_daemon/utils/file_utils.cpp` | 已确认并修复 |  | DTS2026082537775 |
 | 133 | multimodalinput_input | IsValidJsonPath 把任意 /data… 前缀当成允许路径 | 授权/访问控制 | `util/common/src/util.cpp` | 已提交 |  | DTS2026082549915 |
 | 134 | multimedia_audio_framework | ConvertChLayoutToPaChMap HOA 阶 ≥ 5 写穿 pa_channel_map | 缓冲区/越界访问 | `frameworks/native/audioeffect/src/audio_effect_chain_adapter.cpp` | 非问题 | 7.0 已不用 PulseAudio 引擎；该文件已从主干下掉 | DTS2026082554468 |
-| 135 | arkcompiler_runtime_core | ParseInt 把 strtoll 溢出当成成功 | 整数溢出/下溢 | `libpandabase/include/libpandabase/utils/string_helpers.h` | 已提交 |  | DTS2026082563048 |
+| 135 | arkcompiler_runtime_core | ParseInt 把 strtoll 溢出当成成功 | 整数溢出/下溢 | `libpandabase/include/libpandabase/utils/string_helpers.h` | 已确认并修复 |  | DTS2026082563048 |
 | 136 | telephony_core_service | Asn1Utils::BytesToInt 在 offset+length 的 uint32 回绕时段错误 | 整数溢出/下溢 | `utils/codec/src/asn1_utils.cpp` | 已确认并修复 |  | DTS2026082564627 |
 | 137 | multimedia_camera_framework | GetLogicCameraScreenStatus 对超出 int32 的数字串抛异常 | 坏输入未捕获异常/崩溃 | `services/camera_service/src/applist_manager/camera_applist_manager.cpp` | 已确认并修复 |  | DTS2026082567022 |
 | 138 | distributedhardware_device_manager | ConvertStrToInt 对溢出十进制返回正回绕值 | 整数溢出/下溢 | `common/src/dm_anonymous.cpp` | 非问题 | 死代码 / 无出货调用方 | DTS2026082568985 |
