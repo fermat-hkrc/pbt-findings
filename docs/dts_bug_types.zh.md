@@ -3,9 +3,9 @@
 对 [`content/issues/`](../content/issues/) 中带有 **DTS** 工单号（`internal_issue_id`）的发现所做的归类，按检出该工单的 **pi-pbt 性质（预言机）** 分组。CWE / 失效模式分组归档在 [`finding_precision_by_project.md`](finding_precision_by_project.md) 文末。
 
 - **已确认（FIXED）**：**102** — 下列目录（`CONFIRMED_FIXED` 报告）
-- **非问题（NON-ISSUE）**：**16** — [目录](#非问题)
-- **已判定**：**118** = 102 + 16
-- **精确率**：**86.4%** = `102 / (102 + 16)` = 已确认 /（已确认 + 非问题）
+- **非问题（NON-ISSUE）**：**17** — [目录](#非问题)
+- **已判定**：**119** = 102 + 17
+- **精确率**：**85.7%** = `102 / (102 + 17)` = 已确认 /（已确认 + 非问题）
 - **严重级别**（仅已确认）：HIGH=23，MEDIUM=76，LOW=3
 - **生成时间**：2026-09-17
 
@@ -56,11 +56,11 @@
 | `distributedhardware_distributed_hardware_fwk` | 1 | 0 | 0 | 1 | 0 | 100% |
 | `filemanagement_dfs_service` | 1 | 0 | 0 | 1 | 0 | 100% |
 | `filemanagement_storage_service` | 2 | 0 | 0 | 2 | 0 | 100% |
-| `multimedia_media_foundation` | 1 | 4 | 1 | 0 | 0 | 20% |
+| `multimedia_media_foundation` | 1 | 5 | 1 | 0 | 0 | 17% |
 | `telephony_core_service` | 1 | 0 | 1 | 0 | 0 | 100% |
 | `arkui_napi` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
-| **合计** | **102** | **16** | **23** | **76** | **3** | **86%** |
+| **合计** | **102** | **17** | **23** | **76** | **3** | **86%** |
 
 ## DTS 索引
 
@@ -351,7 +351,7 @@
 
 维护者驳回的 DTS。只计入分母。
 
-**精确率** = 已确认 /（已确认 + 非问题）= **102 / (102 + 16) = 86.4%**。
+**精确率** = 已确认 /（已确认 + 非问题）= **102 / (102 + 17) = 85.7%**。
 
 | DTS | 项目 | 主题 | 为何非问题 |
 |-----|------|------|------------|
@@ -367,12 +367,13 @@
 | `DTS2026072938754` | `multimedia_media_foundation` | Format::Stringify 在 bool 存储的 tag 上 SIGSEGV | 产品 `-O2` 无法复现；崩溃仅见于 host `-O0`。 |
 | `DTS2026081129774` | `multimedia_media_foundation` | DataPacker::IsEmpty 谓词取反 | 死代码 — 交付路径未使用。 |
 | `DTS2026081131247` | `multimedia_media_foundation` | OH_AVFormat GetString/Dump/GetKey 上限 + strcpy_s | 已交付 CAPI 契约 — 不能改。 |
+| `DTS2026081133240` | `multimedia_media_foundation` | ShareMemory Write/Read 向 ashmem 传入原始长度 | 不同职责 — HDI 视频帧 all-or-nothing；兄弟 AVMemory/Memory 为部分写入；传入 `length` 会截断。 |
 | `DTS2026082554468` | `multimedia_audio_framework` | ConvertChLayoutToPaChMap HOA 阶 ≥ 5 写穿 pa_channel_map | 7.0 已不用 PulseAudio 引擎；`audio_effect_chain_adapter.cpp` 已从主干下掉。 |
 | `DTS2026082568985` | `distributedhardware_device_manager` | ConvertStrToInt 对溢出十进制返回正回绕值 | 死代码 / 无出货调用方。 |
 | `DTS2026082738345` | `distributeddatamgr_datamgr_service` | DeviceMatrix::ConvertIndex 末尾 index-- 导致 uint16 回绕 | 版本布局适配 — 旧版 dynamicApps_ 少一位；回绕不在现行 ConvertDynamic 路径。 |
 | `DTS2026081715017` | `multimedia_media_library` | IsValidInteger 接受部分解析 | 设计如此 — 不完全消费（兼容 1.000）；ConvertToInt 才是全消费兄弟。 |
 
-来源：`~/cloned/*/pbt-out/bug_reports/non-issue/`（16 个文件）。
+来源：`~/cloned/*/pbt-out/bug_reports/non-issue/`（17 个文件）。
 
 ## 说明
 

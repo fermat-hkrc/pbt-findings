@@ -3,9 +3,9 @@
 Categorization of [`content/issues/`](../content/issues/) findings that carry a **DTS** ticket (`internal_issue_id`), grouped by the **pi-pbt property (oracle)** that found each ticket. CWE / failure-mode grouping is archived at the end of [`finding_precision_by_project.md`](finding_precision_by_project.md).
 
 - **Confirmed (FIXED)**: **102** — listed below (`CONFIRMED_FIXED` write-ups)
-- **Non-issue**: **16** — [catalog](#non-issues)
-- **Decided**: **118** = 102 + 16
-- **Precision**: **86.4%** = `102 / (102 + 16)` = confirmed / (confirmed + non-issues)
+- **Non-issue**: **17** — [catalog](#non-issues)
+- **Decided**: **119** = 102 + 17
+- **Precision**: **85.7%** = `102 / (102 + 17)` = confirmed / (confirmed + non-issues)
 - **Severity** (confirmed only): HIGH=23, MEDIUM=76, LOW=3
 - **Generated**: 2026-09-17
 
@@ -56,11 +56,11 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `distributedhardware_distributed_hardware_fwk` | 1 | 0 | 0 | 1 | 0 | 100% |
 | `filemanagement_dfs_service` | 1 | 0 | 0 | 1 | 0 | 100% |
 | `filemanagement_storage_service` | 2 | 0 | 0 | 2 | 0 | 100% |
-| `multimedia_media_foundation` | 1 | 4 | 1 | 0 | 0 | 20% |
+| `multimedia_media_foundation` | 1 | 5 | 1 | 0 | 0 | 17% |
 | `telephony_core_service` | 1 | 0 | 1 | 0 | 0 | 100% |
 | `arkui_napi` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
-| **Total** | **102** | **16** | **23** | **76** | **3** | **86%** |
+| **Total** | **102** | **17** | **23** | **76** | **3** | **86%** |
 
 ## DTS index
 
@@ -351,7 +351,7 @@ Authoritative spec / stdlib / IEEE / Unicode / pinning contract that this SUT cl
 
 Maintainer-rejected DTS. Counted in the denominator only.
 
-**Precision** = confirmed / (confirmed + non-issues) = **102 / (102 + 16) = 86.4%**.
+**Precision** = confirmed / (confirmed + non-issues) = **102 / (102 + 17) = 85.7%**.
 
 | DTS | Project | Theme | Why non-issue |
 |-----|---------|-------|---------------|
@@ -367,12 +367,13 @@ Maintainer-rejected DTS. Counted in the denominator only.
 | `DTS2026072938754` | `multimedia_media_foundation` | Format::Stringify SIGSEGV on bool-stored tag | Not reproduced on product `-O2`; crash only on host `-O0`. |
 | `DTS2026081129774` | `multimedia_media_foundation` | DataPacker::IsEmpty inverted | Dead code — unused on the shipped path. |
 | `DTS2026081131247` | `multimedia_media_foundation` | OH_AVFormat GetString/Dump/GetKey cap + strcpy_s | Shipped CAPI contract — incompatible to change. |
+| `DTS2026081133240` | `multimedia_media_foundation` | ShareMemory Write/Read pass raw size to ashmem | Different job — HDI frames all-or-nothing; sibling AVMemory/Memory partial I/O; passing `length` would truncate. |
 | `DTS2026082554468` | `multimedia_audio_framework` | ConvertChLayoutToPaChMap HOA order ≥ 5 overflows pa_channel_map | 7.0 dropped PulseAudio engine; `audio_effect_chain_adapter.cpp` removed from trunk. |
 | `DTS2026082568985` | `distributedhardware_device_manager` | ConvertStrToInt returns positive wrap of overflowing decimals | Dead code / no shipped callers. |
 | `DTS2026082738345` | `distributeddatamgr_datamgr_service` | DeviceMatrix::ConvertIndex trailing index-- uint16 wrap | Version-layout adapter — old dynamicApps_ has one fewer slot; wrap not on live ConvertDynamic path. |
 | `DTS2026081715017` | `multimedia_media_library` | IsValidInteger accepts partial parses | By design — incomplete consume (compat 1.000); ConvertToInt is the full-consume sibling. |
 
-Sources: `~/cloned/*/pbt-out/bug_reports/non-issue/` (16 files).
+Sources: `~/cloned/*/pbt-out/bug_reports/non-issue/` (17 files).
 
 ## Notes
 

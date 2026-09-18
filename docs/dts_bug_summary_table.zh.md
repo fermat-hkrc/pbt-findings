@@ -102,7 +102,7 @@
 | 98 | multimedia_image_framework | GetValidAlphaTypeByFormat 缺少 RGBA_U16 分支返回 UNKNOWN | 控制流错误 | `frameworks/innerkitsimpl/utils/src/image_utils.cpp` | 已确认并修复 |  | DTS2026081128460 |
 | 99 | multimedia_media_foundation | DataPacker::IsEmpty 谓词取反（有数据时返回 true） | 运算符/谓词错误 | `engine/pipeline/filters/demux/data_packer.cpp` | 非问题 | 函数体已死/不再使用；现行 demux/type-finder 不调用 | DTS2026081129774 |
 | 100 | multimedia_media_foundation | OH_AVFormat_GetStringValue / DumpInfo / GetKey 用 strcpy_s 失败关闭而非截断 | 控制流错误 | `src/capi/native_avformat.cpp` | 非问题 | 失败关闭（false / nullptr）是已交付 CAPI；改成 strncpy_s 截断不兼容 | DTS2026081131247 |
-| 101 | multimedia_media_foundation | ShareMemory::Write/Read 已夹紧 length 却向 Ashmem 传入原始长度 | 控制流错误 | `src/common/share_memory.cpp` | 已提交 |  | DTS2026081133240 |
+| 101 | multimedia_media_foundation | ShareMemory::Write/Read 已夹紧 length 却向 Ashmem 传入原始长度 | 控制流错误 | `src/common/share_memory.cpp` | 非问题 | HDI 视频帧是 all-or-nothing；兄弟 AVMemory/Memory 的部分写入是不同职责；传入 length 会截断帧 | DTS2026081133240 |
 | 102 | communication_netmanager_base | CheckIpv6InNet 缺少前缀边界 — 负数全匹配 / /129+ 越界 | 缓冲区/越界访问 | `services/netconnmanager/src/pac_functions.cpp` | 已确认并修复 |  | DTS2026081135903 |
 | 103 | communication_netmanager_base | Ip6RuleMap::GetNetworkAddress 在 prefixLen > 128 时越界 — netfirewall 位图错误合并 | 缓冲区/越界访问 | `services/netmanagernative/bpf/include/bitmap_manager.h` | 已确认并修复 |  | DTS2026081136698 |
 | 104 | multimedia_player_framework | TransRecorderStatus 复用器映射缺 START 且 STOP 键重复 | 计算错误 | `services/utils/media_utils.cpp` | 已确认并修复 |  | DTS2026081318473 |
