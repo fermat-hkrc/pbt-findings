@@ -2,8 +2,8 @@
 
 How often PBT-filed **DTS** tickets were accepted as real bugs versus closed as non-issues, broken down by project.
 
-- **Precision:** **84.3%** (102 FIXED / 121 decided)
-- **False-positive rate:** **15.7%** (19 NON-ISSUE)
+- **Precision:** **83.6%** (102 FIXED / 122 decided)
+- **False-positive rate:** **16.4%** (20 NON-ISSUE)
 
 Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS tickets are omitted — their outcome (bug vs non-issue) is not yet known.
 
@@ -21,20 +21,20 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 
 - DTS inventory: [`dts_bug_types.md`](./dts_bug_types.md) + [`content/issues/`](../content/issues/)
 - Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**102** issues, all `CONFIRMED_FIXED`)
-- Non-issue write-ups: `~/cloned/*/pbt-out/bug_reports/non-issue/` (**19** DTS-stamped)
+- Non-issue write-ups: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (**20** DTS-stamped)
 
-- **Generated:** 2026-09-17
+- **Generated:** 2026-09-18
 
 ### Global DTS scoreboard (decided only)
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 102 | 84.3% |
-| NON-ISSUE | 19 | 15.7% |
-| **Total decided** | **121** | 100% |
+| FIXED | 102 | 83.6% |
+| NON-ISSUE | 20 | 16.4% |
+| **Total decided** | **122** | 100% |
 
-- **Precision:** **102/121 = 84.3%** — about five in six closed tickets were real bugs.
-- **False-positive rate:** **19/121 = 15.7%**.
+- **Precision:** **102/122 = 83.6%** — about five in six closed tickets were real bugs.
+- **False-positive rate:** **20/122 = 16.4%**.
 
 > Precision means *maintainer-accepted defect rate among dispositioned DTS*, not static-analysis alert rate. Open/submitted tickets are out of scope until closed.
 
@@ -70,7 +70,8 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`filemanagement_storage_service`](#filemanagement-storage-service) | 2 | 0 | 2 | 100% |
 | [`telephony_core_service`](#telephony-core-service) | 1 | 0 | 1 | 100% |
 | [`multimedia_audio_framework`](#multimedia-audio-framework) | 1 | 1 | 2 | 50% |
-| **Total** | **102** | **19** | **121** | **84%** |
+| [`multimodalinput_input`](#multimodalinput-input) | 0 | 1 | 1 | 0% |
+| **Total** | **102** | **20** | **122** | **84%** |
 
 ## Precision tiers
 
@@ -97,11 +98,11 @@ These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 
 ### Tier C — Only NON-ISSUE (0 FIXED)
 
-None. (`multimedia_audio_framework` now has 1 FIXED + 1 NON-ISSUE; see Tier B.)
+`multimodalinput_input` (1 non-issue: IsValidJsonPath `/data` prefix spoof after `realpath`; no live spoof-band producer).
 
 ## Non-issue DTS catalog (all projects)
 
-All **19** maintainer-rejected tickets. Useful as negative examples for future filing.
+All **20** maintainer-rejected tickets. Useful as negative examples for future filing.
 
 | DTS | Project | Report theme | Rejection class |
 |-----|---------|--------------|-----------------|
@@ -124,13 +125,14 @@ All **19** maintainer-rejected tickets. Useful as negative examples for future f
 | `DTS2026082568985` | `distributedhardware_device_manager` | ConvertStrToInt returns positive wrap of overflowing decimals | Dead code / no shipped callers |
 | `DTS2026082738345` | `distributeddatamgr_datamgr_service` | DeviceMatrix::ConvertIndex trailing index-- uint16 wrap | By-design version-layout adapter |
 | `DTS2026081715017` | `multimedia_media_library` | IsValidInteger accepts partial parses | Different APIs, different jobs |
+| `DTS2026082549915` | `multimodalinput_input` | IsValidJsonPath `/data` prefix spoof | Unreachable under live callers |
 
 ### Rejection classes (count)
 
 | Class | Count | Implication for future PBT filings |
 |------:|------:|--------------------------------------|
 | By-design / product policy / stable contract | 6 | Validate *product* intent and call-graph impact, not only algebraic oddity |
-| Unreachable invariant / dead code | 7 | Constrain generators to **production domain**; prove a live caller |
+| Unreachable invariant / dead code | 8 | Constrain generators to **production domain**; prove a live caller (incl. path gates after `realpath`) |
 | Caller-owned or split-API contract | 5 | Read in-tree callers and sibling APIs before claiming inconsistency |
 | Flag-dependent / not reproduced | 1 | Match product build flags before filing a crash |
 
@@ -621,17 +623,32 @@ High-confidence project: **2** accepted fixes and **no** rejected DTS.
 
 - `DTS2026082554468` — ConvertChLayoutToPaChMap HOA order ≥ 5 overflows pa_channel_map. *7.0 dropped the PulseAudio engine; `audio_effect_chain_adapter.cpp` removed from trunk.*
 
+### `multimodalinput_input`
+
+| Metric | Value |
+|--------|------:|
+| FIXED | 0 |
+| NON-ISSUE | 1 |
+| Decided | 1 |
+| Precision | 0.0% |
+
+**NON-ISSUE DTS**
+
+- `DTS2026082549915` — IsValidJsonPath treats any `/data…` prefix as allowed (`DATA_PATH="/data"` bare compare). *Unreachable spoof band after `realpath`; in-tree callers use constants / `GetOneCfgFile` / hardcoded `/data/service/…`; creating `/database` needs privilege that already bypasses the gate; optional `"/data/"` hygiene only.*
+
+No FIXED DTS yet among dispositioned tickets (StreamBuffer and other filings may still be open/submitted).
+
 ## Relation to `content/issues/` write-ups
 
 This repo’s [`content/issues/`](../content/issues/) currently carries **99** DTS-linked reports, all status `CONFIRMED_FIXED`.
-That set is the **FIXED** count here. Non-issues come from `~/cloned/*/pbt-out/bug_reports/non-issue/`.
+That set is the **FIXED** count here. Non-issues come from `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/`.
 
 | Population | Count | Role |
 |------------|------:|------|
-| Decided DTS (FIXED + NON-ISSUE) | 116 | Ground truth for precision |
-| FIXED | 99 | Maintainer-accepted (`content/issues`) |
-| NON-ISSUE | 19 | Maintainer-rejected (cloned inventory) |
-| Write-ups in `content/issues` with DTS | 100 | Published confirmed bugs |
+| Decided DTS (FIXED + NON-ISSUE) | 122 | Ground truth for precision |
+| FIXED | 102 | Maintainer-accepted (scoreboard / `content/issues` inventory) |
+| NON-ISSUE | 20 | Maintainer-rejected (cloned + testing inventory) |
+| Write-ups in `content/issues` with DTS | 99+ | Published confirmed bugs (may lag scoreboard) |
 
 **Do not** compute precision from `content/issues` alone — it omits non-issues by design. Use this document (or dispositioned rows in `BUG_REPORTS.md`) for acceptance rate.
 
@@ -639,10 +656,10 @@ See also: [DTS tickets by detecting property](./dts_bug_types.md). Failure-mode 
 
 ## Takeaways
 
-1. **Overall precision is high (84.3%)** — PBT filings that reach a DTS decision are usually real defects.
-2. **False positives cluster in a few patterns** (19 tickets): by-design helpers, dead/unreachable / dropped-from-trunk code, caller-owned / split-API contracts, shipped CAPI / product omissions, flag-dependent crashes — not flaky reproduction.
+1. **Overall precision is high (83.6%)** — PBT filings that reach a DTS decision are usually real defects.
+2. **False positives cluster in a few patterns** (20 tickets): by-design helpers, dead/unreachable / dropped-from-trunk code, path-prefix gates with no live producer after `realpath`, caller-owned / split-API contracts, shipped CAPI / product omissions, flag-dependent crashes — not flaky reproduction.
 3. **Several large surfaces are clean so far** (e.g. `multimedia_camera_framework`, `multimedia_image_framework`, `graphic_graphic_2d` among high-volume FIXED with 0 NON-ISSUE).
-4. **Filing bar that non-issues imply:** prove a live production caller, state the product contract, and avoid “algebraic inconsistency across differently purposed APIs” without impact.
+4. **Filing bar that non-issues imply:** prove a live production caller, state the product contract, and avoid “algebraic inconsistency across differently purposed APIs” without impact. Sibling slash-terminated roots + a one-char fix still need a product-domain hit.
 
 ## Methodology notes
 
@@ -650,7 +667,7 @@ See also: [DTS tickets by detecting property](./dts_bug_types.md). Failure-mode 
 - Open/submitted tickets are excluded: outcome unknown, so they must not enter precision or false-positive rates.
 - Sibling write-ups sharing one DTS (e.g. dsoftbus NUL trio) count once.
 - Status labels follow the inventory (`FIXED` / `NON-ISSUE`), not git-commit archaeology.
-- FIXED counts follow `content/issues/` (`CONFIRMED_FIXED`). NON-ISSUE counts follow DTS-stamped reports under `~/cloned/*/pbt-out/bug_reports/non-issue/` (`BUG_REPORTS.md`).
+- FIXED counts follow `content/issues/` (`CONFIRMED_FIXED`) / DTS inventory. NON-ISSUE counts follow DTS-stamped reports under `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (`BUG_REPORTS.md`).
 - Non-DTS local reviews under `non-issue/` without a ticket are **excluded** (never filed → not false positives).
 
 

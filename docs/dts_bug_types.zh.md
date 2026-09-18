@@ -3,11 +3,11 @@
 对 [`content/issues/`](../content/issues/) 中带有 **DTS** 工单号（`internal_issue_id`）的发现所做的归类，按检出该工单的 **pi-pbt 性质（预言机）** 分组。CWE / 失效模式分组归档在 [`finding_precision_by_project.md`](finding_precision_by_project.md) 文末。
 
 - **已确认（FIXED）**：**102** — 下列目录（`CONFIRMED_FIXED` 报告）
-- **非问题（NON-ISSUE）**：**19** — [目录](#非问题)
-- **已判定**：**121** = 102 + 19
-- **精确率**：**84.3%** = `102 / (102 + 19)` = 已确认 /（已确认 + 非问题）
+- **非问题（NON-ISSUE）**：**20** — [目录](#非问题)
+- **已判定**：**122** = 102 + 20
+- **精确率**：**83.6%** = `102 / (102 + 20)` = 已确认 /（已确认 + 非问题）
 - **严重级别**（仅已确认）：HIGH=23，MEDIUM=76，LOW=3
-- **生成时间**：2026-09-17
+- **生成时间**：2026-09-18
 
 ## 概览
 
@@ -60,7 +60,8 @@
 | `telephony_core_service` | 1 | 0 | 1 | 0 | 0 | 100% |
 | `arkui_napi` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
-| **合计** | **102** | **19** | **23** | **76** | **3** | **84%** |
+| `multimodalinput_input` | 0 | 1 | 0 | 0 | 0 | 0% |
+| **合计** | **102** | **20** | **23** | **76** | **3** | **84%** |
 
 ## DTS 索引
 
@@ -351,7 +352,7 @@
 
 维护者驳回的 DTS。只计入分母。
 
-**精确率** = 已确认 /（已确认 + 非问题）= **102 / (102 + 19) = 84.3%**。
+**精确率** = 已确认 /（已确认 + 非问题）= **102 / (102 + 20) = 83.6%**。
 
 | DTS | 项目 | 主题 | 为何非问题 |
 |-----|------|------|------------|
@@ -374,8 +375,9 @@
 | `DTS2026082568985` | `distributedhardware_device_manager` | ConvertStrToInt 对溢出十进制返回正回绕值 | 死代码 / 无出货调用方。 |
 | `DTS2026082738345` | `distributeddatamgr_datamgr_service` | DeviceMatrix::ConvertIndex 末尾 index-- 导致 uint16 回绕 | 版本布局适配 — 旧版 dynamicApps_ 少一位；回绕不在现行 ConvertDynamic 路径。 |
 | `DTS2026081715017` | `multimedia_media_library` | IsValidInteger 接受部分解析 | 设计如此 — 不完全消费（兼容 1.000）；ConvertToInt 才是全消费兄弟。 |
+| `DTS2026082549915` | `multimodalinput_input` | IsValidJsonPath `/data` 前缀伪造 | 不可达 — 门控在 `realpath` 之后；树内路径为常量 / `GetOneCfgFile` / 硬编码 `/data/service/…`；无提权；可选 `"/data/"` 加固。 |
 
-来源：`~/cloned/*/pbt-out/bug_reports/non-issue/`（19 个文件）。
+来源：`~/cloned/*/pbt-out/bug_reports/non-issue/` 与 `~/testing/*/pbt-out/bug_reports/non-issue/`（20 个带 DTS 文件）。
 
 ## 说明
 
