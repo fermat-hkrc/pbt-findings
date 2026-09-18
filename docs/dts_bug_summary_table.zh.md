@@ -124,7 +124,7 @@
 | 120 | multimedia_media_library | IsFileTablePath / IsPhotoTablePath 将 ROOT_MEDIA_DIR 按子串查找，却从下标 0 做 substr | 控制流错误 | `frameworks/innerkitsimpl/media_library_helper/src/media_file_utils.cpp` | 已确认并修复 |  | DTS2026082012348 |
 | 121 | communication_dsoftbus | P2pV1Processor::ConnectGroup 守卫差一，3 段 group 配置时读 configs[3] | 缓冲区/越界访问 | `core/connection/wifi_direct_cpp/processor/p2p_v1_processor.cpp` | 已确认并修复 |  | DTS2026082023118 |
 | 122 | multimedia_media_foundation | Format 移动构造/赋值共享 meta_ 而非转移所有权 | 控制流错误 | `src/meta/format.cpp` | 已提交 |  | DTS2026082129239 |
-| 123 | arkui_ace_engine | GridLayoutInfo::FindItemCount 在区间起点落在跨行 continuation 时多计 | 计算错误 | `frameworks/core/components_ng/pattern/grid/grid_layout_info.cpp` | 已提交 |  | DTS2026082235533 |
+| 123 | arkui_ace_engine | GridLayoutInfo::FindItemCount 在区间起点落在跨行 continuation 时多计 | 计算错误 | `frameworks/core/components_ng/pattern/grid/grid_layout_info.cpp` | 非问题 | 不是给跨行布局用的；无负 id；连续所以 max-min+1；不规则走 GetIrregularOffset/Height | DTS2026082235533 |
 | 124 | arkui_ace_engine | Color::FromRGBO 对越界 opacity 做回绕而非钳位 | 整数溢出/下溢 | `frameworks/core/components/common/properties/color.cpp` | 非问题 | 内部打包函数；定义域 [0, 1]；钳位由调用方负责；强制钳位是非兼容（2 今天 254，改后 255） | DTS2026082235589 |
 | 125 | arkui_napi | napi_get_value_string_latin1 向 buf[bufsize] 多写一字节 | 差一 | `native_engine/native_api.cpp` | 已提交 |  | DTS2026082238400 |
 | 126 | arkui_napi | napi_check_object_type_tag 对 upper == 0 的标签误判为不匹配 | 运算符/谓词错误 | `native_engine/native_api.cpp` | 已确认并修复 |  | DTS2026082239182 |

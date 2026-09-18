@@ -28,14 +28,14 @@ Companion bug-type catalog: [arkui_ace_engine_dts_bug_types.md](./arkui_ace_engi
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 8 | 72.7% |
-| NON-ISSUE | 3 | 27.3% |
-| **Total decided** | **11** | 100% |
+| FIXED | 8 | 66.7% |
+| NON-ISSUE | 4 | 33.3% |
+| **Total decided** | **12** | 100% |
 
-- **Precision:** **8/11 = 72.7%**
-- **False-positive rate:** **3/11 = 27.3%**
+- **Precision:** **8/12 = 66.7%**
+- **False-positive rate:** **4/12 = 33.3%**
 
-Compared with the cross-repo decided baseline (**85.0%** precision), arkui_ace_engine is **below** (72.7%).
+Compared with the cross-repo decided baseline (**84.3%** precision), arkui_ace_engine is **below** (66.7%).
 
 ## FIXED DTS
 
@@ -83,8 +83,9 @@ Under `~/cloned/arkui_ace_engine/pbt-out/bug_reports/fixed/`:
 | `DTS2026071809266` | GridLayoutInfo::GetTotalHeightOfItemsInView returns -mainGap for empty / fully-pruned windows | Stable API contract (formula) |
 | `DTS2026072522059` | IsAllItemsMeasured false on span-marker last cell | Unreachable under live callers |
 | `DTS2026082235589` | Color::FromRGBO wraps out-of-range opacity instead of clamping | Caller-owned clamp (internal packer) |
+| `DTS2026082235533` | FindItemCount overcounts when the range starts on a multi-row continuation | Unreachable under live callers |
 
-**Reports:** `~/cloned/arkui_ace_engine/pbt-out/bug_reports/non-issue/GetTotalHeightOfItemsInView_NegMainGap.md`, `IsAllItemsMeasured_span_marker_false.md`, `fromrgbo_opacity_wrap.md`
+**Reports:** `~/cloned/arkui_ace_engine/pbt-out/bug_reports/non-issue/GetTotalHeightOfItemsInView_NegMainGap.md`, `IsAllItemsMeasured_span_marker_false.md`, `fromrgbo_opacity_wrap.md`, `finditemcount_continuation_overcount.md`
 
 ### Why closed
 
@@ -94,7 +95,9 @@ Under `~/cloned/arkui_ace_engine/pbt-out/bug_reports/fixed/`:
 
 **`DTS2026082235589`:** `FromRGBO` is an internal packer. Domain is `[0, 1]`; clamp is the caller’s job (canvas already clamps; `ParseColorString` rejects). In-range packing is already correct. Maintainers refuse a shared-API change because out-of-range mapping would shift (`opacity == 2` is alpha 254 today, 255 after). If a product symptom appears, clamp at that caller (`FromString` / `ChangeOpacity`), not inside `FromRGBO`.
 
-**Implication for future filings:** an algebraically odd empty-path return is not enough if it is the long-standing shared contract and callers couple to it. Prefer call-site impact / user-visible symptom before requesting a shared helper change. Also prove the matrix encoding under test is an input the live caller actually produces. Do not demand nearest-end clamp on an internal helper whose owners pin the domain on the caller — canvas already clamping is caller duty, not a missing helper clamp. Same `color.cpp` float→`uint8_t` class as LineColorTransition, but that one was a live decreasing-channel UB (FIXED).
+**`DTS2026082235533`:** `FindItemCount` is `max-min+1` for consecutive **positive** IDs on the regular/scroll path (`GetContentOffset` / `GetContentHeight`). Irregular layout uses `GetIrregularOffset` / `GetIrregularHeight` and never this helper. `-idx` continuations exist only on the filler matrix. PBT mixed two encodings (same class as `IsAllItemsMeasured`).
+
+**Implication for future filings:** an algebraically odd empty-path return is not enough if it is the long-standing shared contract and callers couple to it. Prefer call-site impact / user-visible symptom before requesting a shared helper change. Also prove the matrix encoding under test is an input the live caller actually produces. Do not demand nearest-end clamp on an internal helper whose owners pin the domain on the caller — canvas already clamping is caller duty, not a missing helper clamp. Same `color.cpp` float→`uint8_t` class as LineColorTransition, but that one was a live decreasing-channel UB (FIXED). Do not feed irregular-filler `-idx` into `FindItemCount` / `IsAllItemsMeasured`.
 
 ## Component mix (FIXED only)
 
@@ -118,7 +121,7 @@ Under `~/cloned/arkui_ace_engine/pbt-out/bug_reports/fixed/`:
 ## Takeaways
 
 1. **8 real bugs fixed** across grid layout, lazy grid, matrix storage, color transition, and DataPanel geometry — strong confirmed yield for one UI engine repo.
-2. **Precision 73%** on decided tickets: three non-issues (stable empty-height formula; `-idx` encoding never seen by `IsAllItemsMeasured`; FromRGBO caller-owned `[0, 1]` clamp) against eight fixes.
+2. **Precision 67%** on decided tickets: four non-issues (stable empty-height formula; `-idx` encoding never seen by `IsAllItemsMeasured` / `FindItemCount`; FromRGBO caller-owned `[0, 1]` clamp) against eight fixes.
 3. Dominant failure modes: **incorrect calculation**, **wrong control-flow sentinels**, plus **div-by-zero** and **UB cast**.
 4. Non-issue lessons are contract/call-graph sensitivity and production-domain encoding, not flaky reproduction — PBT still witnessed the raw returns as contract properties.
 

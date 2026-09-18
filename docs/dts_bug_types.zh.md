@@ -3,9 +3,9 @@
 对 [`content/issues/`](../content/issues/) 中带有 **DTS** 工单号（`internal_issue_id`）的发现所做的归类，按检出该工单的 **pi-pbt 性质（预言机）** 分组。CWE / 失效模式分组归档在 [`finding_precision_by_project.md`](finding_precision_by_project.md) 文末。
 
 - **已确认（FIXED）**：**102** — 下列目录（`CONFIRMED_FIXED` 报告）
-- **非问题（NON-ISSUE）**：**18** — [目录](#非问题)
-- **已判定**：**120** = 102 + 18
-- **精确率**：**85.0%** = `102 / (102 + 18)` = 已确认 /（已确认 + 非问题）
+- **非问题（NON-ISSUE）**：**19** — [目录](#非问题)
+- **已判定**：**121** = 102 + 19
+- **精确率**：**84.3%** = `102 / (102 + 19)` = 已确认 /（已确认 + 非问题）
 - **严重级别**（仅已确认）：HIGH=23，MEDIUM=76，LOW=3
 - **生成时间**：2026-09-17
 
@@ -38,7 +38,7 @@
 | `multimedia_image_framework` | 9 | 0 | 1 | 8 | 0 | 100% |
 | `communication_netmanager_base` | 11 | 2 | 3 | 8 | 0 | 85% |
 | `graphic_graphic_2d` | 10 | 0 | 3 | 6 | 1 | 100% |
-| `arkui_ace_engine` | 8 | 3 | 4 | 4 | 0 | 73% |
+| `arkui_ace_engine` | 8 | 4 | 4 | 4 | 0 | 67% |
 | `ability_ability_runtime` | 6 | 0 | 0 | 6 | 0 | 100% |
 | `arkcompiler_runtime_core` | 6 | 1 | 1 | 5 | 0 | 86% |
 | `multimedia_av_codec` | 6 | 0 | 0 | 5 | 1 | 100% |
@@ -60,7 +60,7 @@
 | `telephony_core_service` | 1 | 0 | 1 | 0 | 0 | 100% |
 | `arkui_napi` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
-| **合计** | **102** | **18** | **23** | **76** | **3** | **85%** |
+| **合计** | **102** | **19** | **23** | **76** | **3** | **84%** |
 
 ## DTS 索引
 
@@ -351,7 +351,7 @@
 
 维护者驳回的 DTS。只计入分母。
 
-**精确率** = 已确认 /（已确认 + 非问题）= **102 / (102 + 18) = 85.0%**。
+**精确率** = 已确认 /（已确认 + 非问题）= **102 / (102 + 19) = 84.3%**。
 
 | DTS | 项目 | 主题 | 为何非问题 |
 |-----|------|------|------------|
@@ -361,6 +361,7 @@
 | `DTS2026071725399` | `communication_netmanager_base` | 子进程非零退出时 ForkExec 仍 SUCCESS | 设计如此 — SUCCESS 表示子进程已创建。 |
 | `DTS2026071809266` | `arkui_ace_engine` | GetTotalHeightOfItemsInView 空网格 → `-mainGap` | 稳定公式契约；共享 API 未改。 |
 | `DTS2026072522059` | `arkui_ace_engine` | 跨度标记末单元格时 IsAllItemsMeasured 为 false | 调用处不见 `-idx`；不规则布局走 GetIrregularHeight。 |
+| `DTS2026082235533` | `arkui_ace_engine` | FindItemCount 在 continuation 起点多计 | 不是给跨行布局用的；无负 id；连续所以 max-min+1。不规则走 GetIrregularOffset/Height。 |
 | `DTS2026082235589` | `arkui_ace_engine` | Color::FromRGBO 对越界 opacity 回绕 | 调用方钳位 — 内部打包函数；定义域 `[0, 1]`；强制钳位是非兼容（`2` 今天 254，改后 255）。 |
 | `DTS2026072017450` | `communication_dsoftbus` | Hex 辅助函数未显式写 NUL | 调用方契约 — 零初始化的 `outBuf` 拥有终止符。 |
 | `DTS2026072517792` | `arkcompiler_runtime_core` | SkipULeb128 空/截断越界 | 设计如此 — `void` 辅助无错误通道；畸形 ULEB 视为致命；debug `ASSERT` 即停止点。 |
@@ -374,7 +375,7 @@
 | `DTS2026082738345` | `distributeddatamgr_datamgr_service` | DeviceMatrix::ConvertIndex 末尾 index-- 导致 uint16 回绕 | 版本布局适配 — 旧版 dynamicApps_ 少一位；回绕不在现行 ConvertDynamic 路径。 |
 | `DTS2026081715017` | `multimedia_media_library` | IsValidInteger 接受部分解析 | 设计如此 — 不完全消费（兼容 1.000）；ConvertToInt 才是全消费兄弟。 |
 
-来源：`~/cloned/*/pbt-out/bug_reports/non-issue/`（18 个文件）。
+来源：`~/cloned/*/pbt-out/bug_reports/non-issue/`（19 个文件）。
 
 ## 说明
 
