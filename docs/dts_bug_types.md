@@ -3,9 +3,9 @@
 Categorization of [`content/issues/`](../content/issues/) findings that carry a **DTS** ticket (`internal_issue_id`), grouped by the **pi-pbt property (oracle)** that found each ticket. CWE / failure-mode grouping is archived at the end of [`finding_precision_by_project.md`](finding_precision_by_project.md).
 
 - **Confirmed (FIXED)**: **102** — listed below (`CONFIRMED_FIXED` write-ups)
-- **Non-issue**: **20** — [catalog](#non-issues)
-- **Decided**: **122** = 102 + 20
-- **Precision**: **83.6%** = `102 / (102 + 20)` = confirmed / (confirmed + non-issues)
+- **Non-issue**: **21** — [catalog](#non-issues)
+- **Decided**: **123** = 102 + 21
+- **Precision**: **82.9%** = `102 / (102 + 21)` = confirmed / (confirmed + non-issues)
 - **Severity** (confirmed only): HIGH=23, MEDIUM=76, LOW=3
 - **Generated**: 2026-09-18
 
@@ -60,8 +60,8 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `telephony_core_service` | 1 | 0 | 1 | 0 | 0 | 100% |
 | `arkui_napi` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
-| `multimodalinput_input` | 0 | 1 | 0 | 0 | 0 | 0% |
-| **Total** | **102** | **20** | **23** | **76** | **3** | **84%** |
+| `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
+| **Total** | **102** | **21** | **23** | **76** | **3** | **83%** |
 
 ## DTS index
 
@@ -352,7 +352,7 @@ Authoritative spec / stdlib / IEEE / Unicode / pinning contract that this SUT cl
 
 Maintainer-rejected DTS. Counted in the denominator only.
 
-**Precision** = confirmed / (confirmed + non-issues) = **102 / (102 + 20) = 83.6%**.
+**Precision** = confirmed / (confirmed + non-issues) = **102 / (102 + 21) = 82.9%**.
 
 | DTS | Project | Theme | Why non-issue |
 |-----|---------|-------|---------------|
@@ -376,8 +376,9 @@ Maintainer-rejected DTS. Counted in the denominator only.
 | `DTS2026082738345` | `distributeddatamgr_datamgr_service` | DeviceMatrix::ConvertIndex trailing index-- uint16 wrap | Version-layout adapter — old dynamicApps_ has one fewer slot; wrap not on live ConvertDynamic path. |
 | `DTS2026081715017` | `multimedia_media_library` | IsValidInteger accepts partial parses | By design — incomplete consume (compat 1.000); ConvertToInt is the full-consume sibling. |
 | `DTS2026082549915` | `multimodalinput_input` | IsValidJsonPath `/data` prefix spoof | Unreachable — gate after `realpath`; in-tree paths are constants / `GetOneCfgFile` / hardcoded `/data/service/…`; no privesc; optional `"/data/"` hygiene only. |
+| `DTS2026072349266` | `multimodalinput_input` | StreamBuffer::Read(string) `rPos_` past `wPos_` via `strchr` | No object OOB (zero-fill `MAX+1`); `Write(string)` embeds NUL; multi-field decode fail-closes via `CHKRWER`; tail-string under trusted-peer; optional `memchr` hygiene. **Different free reason than** `DTS2026082549915`. |
 
-Sources: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (20 DTS-stamped).
+Sources: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (21 DTS-stamped).
 
 ## Notes
 

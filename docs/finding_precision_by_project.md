@@ -2,8 +2,8 @@
 
 How often PBT-filed **DTS** tickets were accepted as real bugs versus closed as non-issues, broken down by project.
 
-- **Precision:** **83.6%** (102 FIXED / 122 decided)
-- **False-positive rate:** **16.4%** (20 NON-ISSUE)
+- **Precision:** **82.9%** (102 FIXED / 123 decided)
+- **False-positive rate:** **17.1%** (21 NON-ISSUE)
 
 Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS tickets are omitted — their outcome (bug vs non-issue) is not yet known.
 
@@ -21,7 +21,7 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 
 - DTS inventory: [`dts_bug_types.md`](./dts_bug_types.md) + [`content/issues/`](../content/issues/)
 - Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**102** issues, all `CONFIRMED_FIXED`)
-- Non-issue write-ups: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (**20** DTS-stamped)
+- Non-issue write-ups: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (**21** DTS-stamped)
 
 - **Generated:** 2026-09-18
 
@@ -29,12 +29,12 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 102 | 83.6% |
-| NON-ISSUE | 20 | 16.4% |
-| **Total decided** | **122** | 100% |
+| FIXED | 102 | 82.9% |
+| NON-ISSUE | 21 | 17.1% |
+| **Total decided** | **123** | 100% |
 
-- **Precision:** **102/122 = 83.6%** — about five in six closed tickets were real bugs.
-- **False-positive rate:** **20/122 = 16.4%**.
+- **Precision:** **102/123 = 82.9%** — about five in six closed tickets were real bugs.
+- **False-positive rate:** **21/123 = 17.1%**.
 
 > Precision means *maintainer-accepted defect rate among dispositioned DTS*, not static-analysis alert rate. Open/submitted tickets are out of scope until closed.
 
@@ -70,8 +70,8 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`filemanagement_storage_service`](#filemanagement-storage-service) | 2 | 0 | 2 | 100% |
 | [`telephony_core_service`](#telephony-core-service) | 1 | 0 | 1 | 100% |
 | [`multimedia_audio_framework`](#multimedia-audio-framework) | 1 | 1 | 2 | 50% |
-| [`multimodalinput_input`](#multimodalinput-input) | 0 | 1 | 1 | 0% |
-| **Total** | **102** | **20** | **122** | **84%** |
+| [`multimodalinput_input`](#multimodalinput-input) | 0 | 2 | 2 | 0% |
+| **Total** | **102** | **21** | **123** | **83%** |
 
 ## Precision tiers
 
@@ -98,11 +98,11 @@ These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 
 ### Tier C — Only NON-ISSUE (0 FIXED)
 
-`multimodalinput_input` (1 non-issue: IsValidJsonPath `/data` prefix spoof after `realpath`; no live spoof-band producer).
+`multimodalinput_input` (2 non-issues: IsValidJsonPath `/data` prefix after `realpath`; StreamBuffer `Read(string)` `strchr` past unread — no object OOB, fail-closed multi-field).
 
 ## Non-issue DTS catalog (all projects)
 
-All **20** maintainer-rejected tickets. Useful as negative examples for future filing.
+All **21** maintainer-rejected tickets. Useful as negative examples for future filing.
 
 | DTS | Project | Report theme | Rejection class |
 |-----|---------|--------------|-----------------|
@@ -126,6 +126,7 @@ All **20** maintainer-rejected tickets. Useful as negative examples for future f
 | `DTS2026082738345` | `distributeddatamgr_datamgr_service` | DeviceMatrix::ConvertIndex trailing index-- uint16 wrap | By-design version-layout adapter |
 | `DTS2026081715017` | `multimedia_media_library` | IsValidInteger accepts partial parses | Different APIs, different jobs |
 | `DTS2026082549915` | `multimodalinput_input` | IsValidJsonPath `/data` prefix spoof | Unreachable under live callers |
+| `DTS2026072349266` | `multimodalinput_input` | StreamBuffer::Read(string) rPos past wPos via strchr | Framing residual / no object OOB + fail-closed |
 
 ### Rejection classes (count)
 
@@ -134,6 +135,7 @@ All **20** maintainer-rejected tickets. Useful as negative examples for future f
 | By-design / product policy / stable contract | 6 | Validate *product* intent and call-graph impact, not only algebraic oddity |
 | Unreachable invariant / dead code | 8 | Constrain generators to **production domain**; prove a live caller (incl. path gates after `realpath`) |
 | Caller-owned or split-API contract | 5 | Read in-tree callers and sibling APIs before claiming inconsistency |
+| Framing residual / no object OOB + fail-closed | 1 | Distinguish logical cursor past write-head inside a fixed zero-filled buffer from heap OOB; check `CHKRWER` recovery and trusted-peer assumptions before High |
 | Flag-dependent / not reproduced | 1 | Match product build flags before filing a crash |
 
 ## Per-project detail
@@ -628,15 +630,16 @@ High-confidence project: **2** accepted fixes and **no** rejected DTS.
 | Metric | Value |
 |--------|------:|
 | FIXED | 0 |
-| NON-ISSUE | 1 |
-| Decided | 1 |
+| NON-ISSUE | 2 |
+| Decided | 2 |
 | Precision | 0.0% |
 
 **NON-ISSUE DTS**
 
 - `DTS2026082549915` — IsValidJsonPath treats any `/data…` prefix as allowed (`DATA_PATH="/data"` bare compare). *Unreachable spoof band after `realpath`; in-tree callers use constants / `GetOneCfgFile` / hardcoded `/data/service/…`; creating `/database` needs privilege that already bypasses the gate; optional `"/data/"` hygiene only.*
+- `DTS2026072349266` — StreamBuffer::Read(string) advances `rPos_` past `wPos_` via unbounded `strchr`. *No object OOB (`szBuff_[MAX+1]=0`); `Write(string)` embeds NUL; multi-field decode fail-closes via `CHKRWER`; tail-string under trusted-peer; optional `memchr(UnreadSize())` hygiene. Free reason differs from path-unreachability above.*
 
-No FIXED DTS yet among dispositioned tickets (StreamBuffer and other filings may still be open/submitted).
+No FIXED DTS yet among dispositioned tickets.
 
 ## Relation to `content/issues/` write-ups
 
@@ -645,9 +648,9 @@ That set is the **FIXED** count here. Non-issues come from `~/cloned/*/pbt-out/b
 
 | Population | Count | Role |
 |------------|------:|------|
-| Decided DTS (FIXED + NON-ISSUE) | 122 | Ground truth for precision |
+| Decided DTS (FIXED + NON-ISSUE) | 123 | Ground truth for precision |
 | FIXED | 102 | Maintainer-accepted (scoreboard / `content/issues` inventory) |
-| NON-ISSUE | 20 | Maintainer-rejected (cloned + testing inventory) |
+| NON-ISSUE | 21 | Maintainer-rejected (cloned + testing inventory) |
 | Write-ups in `content/issues` with DTS | 99+ | Published confirmed bugs (may lag scoreboard) |
 
 **Do not** compute precision from `content/issues` alone — it omits non-issues by design. Use this document (or dispositioned rows in `BUG_REPORTS.md`) for acceptance rate.
@@ -656,10 +659,10 @@ See also: [DTS tickets by detecting property](./dts_bug_types.md). Failure-mode 
 
 ## Takeaways
 
-1. **Overall precision is high (83.6%)** — PBT filings that reach a DTS decision are usually real defects.
-2. **False positives cluster in a few patterns** (20 tickets): by-design helpers, dead/unreachable / dropped-from-trunk code, path-prefix gates with no live producer after `realpath`, caller-owned / split-API contracts, shipped CAPI / product omissions, flag-dependent crashes — not flaky reproduction.
+1. **Overall precision is high (82.9%)** — PBT filings that reach a DTS decision are usually real defects.
+2. **False positives cluster in a few patterns** (21 tickets): by-design helpers, dead/unreachable / dropped-from-trunk code, path-prefix gates with no live producer after `realpath`, framing residuals that are not object OOB and mostly fail-closed, caller-owned / split-API contracts, shipped CAPI / product omissions, flag-dependent crashes — not flaky reproduction.
 3. **Several large surfaces are clean so far** (e.g. `multimedia_camera_framework`, `multimedia_image_framework`, `graphic_graphic_2d` among high-volume FIXED with 0 NON-ISSUE).
-4. **Filing bar that non-issues imply:** prove a live production caller, state the product contract, and avoid “algebraic inconsistency across differently purposed APIs” without impact. Sibling slash-terminated roots + a one-char fix still need a product-domain hit.
+4. **Filing bar that non-issues imply:** prove a live production caller, state the product contract, and avoid “algebraic inconsistency across differently purposed APIs” without impact. Sibling slash-terminated roots + a one-char fix still need a product-domain hit. Do not equate logical cursor past `wPos_` inside a zero-filled fixed buffer with heap OOB.
 
 ## Methodology notes
 

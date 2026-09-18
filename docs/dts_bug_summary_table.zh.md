@@ -51,7 +51,7 @@
 | 47 | filemanagement_storage_service | SA 提供者在用户范围 IPC 上跳过 CheckUserIdRange | 检查不当 | `services/storage_daemon/ipc/src/storage_daemon_provider.cpp` | 已确认并修复 |  | DTS2026072335866 |
 | 48 | multimedia_audio_framework | CalculateMaxAmplitudeForPCM24Bit 经有符号 char 移位错误解码 LE24 | 计算错误 | `frameworks/native/audioutils/src/audio_utils.cpp` | 已确认并修复 |  | DTS2026072338862 |
 | 49 | window_window_manager | IsAspectRatioSatisfiedWithSizeLimits 装饰 uint32 下溢拒绝合法比例 | 整数溢出/下溢 | `utils/include/window_helper.h` | 已确认并修复 |  | DTS2026072347788 |
-| 50 | multimodalinput_input | StreamBuffer::Read(string) 经无界 strchr 使 rPos_ 越过 wPos_ | 缓冲区/越界访问 | `util/network/src/stream_buffer.cpp` | 已提交 |  | DTS2026072349266 |
+| 50 | multimodalinput_input | StreamBuffer::Read(string) 经无界 strchr 使 rPos_ 越过 wPos_ | 缓冲区/越界访问 | `util/network/src/stream_buffer.cpp` | 非问题 | 无对象级越界（零填充 MAX+1）；Write(string) 带 NUL；多字段 CHKRWER fail-closed；可选 memchr 加固 | DTS2026072349266 |
 | 51 | multimedia_av_codec | HLS 分段 byterange 的 offset_+length_-1 在 uint32_t 中回绕 → 丢弃/错误范围 | 整数溢出/下溢 | `services/media_engine/plugins/source/http_source/hls/hls_segment_manager.cpp` | 已确认并修复 |  | DTS2026072438019 |
 | 52 | multimedia_image_framework | PostProc::GetCropValue 在 top+height / left+width 的 int32 溢出时接受越界裁剪 | 整数溢出/下溢 | `frameworks/innerkitsimpl/converter/src/post_proc.cpp` | 已确认并修复 |  | DTS2026072438492 |
 | 53 | multimedia_media_library | GetFileIdStr 对仅含 bucket 的 URI 返回 bucket 名（npos+1 回绕） | 整数溢出/下溢 | `common/utils/src/media_uri_utils.cpp` | 已确认并修复 |  | DTS2026072454808 |
