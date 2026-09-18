@@ -28,14 +28,14 @@ Companion bug-type catalog: [arkui_ace_engine_dts_bug_types.md](./arkui_ace_engi
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 8 | 80.0% |
-| NON-ISSUE | 2 | 20.0% |
-| **Total decided** | **10** | 100% |
+| FIXED | 8 | 72.7% |
+| NON-ISSUE | 3 | 27.3% |
+| **Total decided** | **11** | 100% |
 
-- **Precision:** **8/10 = 80.0%**
-- **False-positive rate:** **2/10 = 20.0%**
+- **Precision:** **8/11 = 72.7%**
+- **False-positive rate:** **3/11 = 27.3%**
 
-Compared with the cross-repo decided baseline (**85.5%** precision), arkui_ace_engine is **slightly below** (80.0%).
+Compared with the cross-repo decided baseline (**85.0%** precision), arkui_ace_engine is **below** (72.7%).
 
 ## FIXED DTS
 
@@ -82,8 +82,9 @@ Under `~/cloned/arkui_ace_engine/pbt-out/bug_reports/fixed/`:
 |-----|--------------|-----------------|
 | `DTS2026071809266` | GridLayoutInfo::GetTotalHeightOfItemsInView returns -mainGap for empty / fully-pruned windows | Stable API contract (formula) |
 | `DTS2026072522059` | IsAllItemsMeasured false on span-marker last cell | Unreachable under live callers |
+| `DTS2026082235589` | Color::FromRGBO wraps out-of-range opacity instead of clamping | Caller-owned clamp (internal packer) |
 
-**Reports:** `~/cloned/arkui_ace_engine/pbt-out/bug_reports/non-issue/GetTotalHeightOfItemsInView_NegMainGap.md`, `IsAllItemsMeasured_span_marker_false.md`
+**Reports:** `~/cloned/arkui_ace_engine/pbt-out/bug_reports/non-issue/GetTotalHeightOfItemsInView_NegMainGap.md`, `IsAllItemsMeasured_span_marker_false.md`, `fromrgbo_opacity_wrap.md`
 
 ### Why closed
 
@@ -91,7 +92,9 @@ Under `~/cloned/arkui_ace_engine/pbt-out/bug_reports/fixed/`:
 
 **`DTS2026072522059`:** `-idx` span markers exist only on the irregular-filler matrix. That layout never calls `IsAllItemsMeasured` (`UseIrregularLayout()` → `GetIrregularHeight`). The two real callers run on `GridScrollWithOptions`, which stores the same positive index in every spanned cell. PBT mixed two disjoint encodings.
 
-**Implication for future filings:** an algebraically odd empty-path return is not enough if it is the long-standing shared contract and callers couple to it. Prefer call-site impact / user-visible symptom before requesting a shared helper change. Also prove the matrix encoding under test is an input the live caller actually produces.
+**`DTS2026082235589`:** `FromRGBO` is an internal packer. Domain is `[0, 1]`; clamp is the caller’s job (canvas already clamps; `ParseColorString` rejects). In-range packing is already correct. Maintainers refuse a shared-API change because out-of-range mapping would shift (`opacity == 2` is alpha 254 today, 255 after). If a product symptom appears, clamp at that caller (`FromString` / `ChangeOpacity`), not inside `FromRGBO`.
+
+**Implication for future filings:** an algebraically odd empty-path return is not enough if it is the long-standing shared contract and callers couple to it. Prefer call-site impact / user-visible symptom before requesting a shared helper change. Also prove the matrix encoding under test is an input the live caller actually produces. Do not demand nearest-end clamp on an internal helper whose owners pin the domain on the caller — canvas already clamping is caller duty, not a missing helper clamp. Same `color.cpp` float→`uint8_t` class as LineColorTransition, but that one was a live decreasing-channel UB (FIXED).
 
 ## Component mix (FIXED only)
 
@@ -115,7 +118,7 @@ Under `~/cloned/arkui_ace_engine/pbt-out/bug_reports/fixed/`:
 ## Takeaways
 
 1. **8 real bugs fixed** across grid layout, lazy grid, matrix storage, color transition, and DataPanel geometry — strong confirmed yield for one UI engine repo.
-2. **Precision 80%** on decided tickets: two non-issues (stable empty-height formula; `-idx` encoding never seen by `IsAllItemsMeasured`) against eight fixes.
+2. **Precision 73%** on decided tickets: three non-issues (stable empty-height formula; `-idx` encoding never seen by `IsAllItemsMeasured`; FromRGBO caller-owned `[0, 1]` clamp) against eight fixes.
 3. Dominant failure modes: **incorrect calculation**, **wrong control-flow sentinels**, plus **div-by-zero** and **UB cast**.
 4. Non-issue lessons are contract/call-graph sensitivity and production-domain encoding, not flaky reproduction — PBT still witnessed the raw returns as contract properties.
 
