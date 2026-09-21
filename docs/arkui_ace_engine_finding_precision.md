@@ -19,23 +19,23 @@ Companion bug-type catalog: [arkui_ace_engine_dts_bug_types.md](./arkui_ace_engi
 **Sources**
 
 - `~/cloned/arkui_ace_engine/pbt-out/bug_reports/{fixed,non-issue}/`
-- [`content/issues/OH-2026-ARKUI-*.md`](../content/issues/) (**8** confirmed write-ups)
+- [`content/issues/OH-2026-ARKUI-*.md`](../content/issues/) (**9** confirmed write-ups)
 - Cross-repo context: [finding_precision_by_project.md](./finding_precision_by_project.md)
 
-- **Generated:** 2026-09-11
+- **Generated:** 2026-09-21
 
 ## Scoreboard (decided only)
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 8 | 66.7% |
-| NON-ISSUE | 4 | 33.3% |
-| **Total decided** | **12** | 100% |
+| FIXED | 9 | 69.2% |
+| NON-ISSUE | 4 | 30.8% |
+| **Total decided** | **13** | 100% |
 
-- **Precision:** **8/12 = 66.7%**
-- **False-positive rate:** **4/12 = 33.3%**
+- **Precision:** **9/13 = 69.2%**
+- **False-positive rate:** **4/13 = 30.8%**
 
-Compared with the cross-repo decided baseline (**82.9%** precision), arkui_ace_engine is **below** (66.7%).
+Compared with the cross-repo decided baseline (**83.1%** precision), arkui_ace_engine is **below** (69.2%).
 
 ## FIXED DTS
 
@@ -49,6 +49,7 @@ Compared with the cross-repo decided baseline (**82.9%** precision), arkui_ace_e
 | `DTS2026070856858` | [OH-2026-ARKUI-006](../content/issues/OH-2026-ARKUI-006.md) | MEDIUM | CWE-758 | Color::LineColorTransition UB cast on decreasing channel (legacy DataPanel gradient) |
 | `DTS2026072325132` | [OH-2026-ARKUI-007](../content/issues/OH-2026-ARKUI-007.md) | HIGH | CWE-369 | GetIrregularHeight divides by zero → +inf content height when itemRatio == 0 |
 | `DTS2026073116282` | [OH-2026-ARKUI-008](../content/issues/OH-2026-ARKUI-008.md) | MEDIUM | CWE-682 | DataPanel GetPaintPath computes NaN circleAngle via unguarded asin when stroke collapses radius |
+| `DTS2026091012206` | [OH-2026-ARKUI-009](../content/issues/OH-2026-ARKUI-009.md) | HIGH | CWE-787 | Matrix3N::SetEntry / MatrixN3::SetEntry missing negative-index guard (OOB write / crash) |
 
 <details><summary>Summaries</summary>
 
@@ -60,6 +61,7 @@ Compared with the cross-repo decided baseline (**82.9%** precision), arkui_ace_e
 - **OH-2026-ARKUI-006** (`DTS2026070856858`): `Color::LineColorTransition` interpolates two colors by casting the **channel delta alone** to `uint8_t` before adding the start channel:
 - **OH-2026-ARKUI-007** (`DTS2026072325132`): `GridLayoutInfo::GetIrregularHeight` estimates total lines as `(lastKnownLine + 1) / itemRatio` where `itemRatio = (FindEndIdx(lastKnownLine).itemIdx + 1) / childrenCount`. When the line is missing from `gridMatrix_`, `FindEndIdx` return...
 - **OH-2026-ARKUI-008** (`DTS2026073116282`): `DataPanelModifier::GetPaintPath()` computes circle-cap angle as unguarded `asin(thickness*0.5/(radius-thickness*0.5))`. Stroke at or above half the min side drives `radius <= 0` → NaN `circleAngle`.
+- **OH-2026-ARKUI-009** (`DTS2026091012206`): `Matrix3N::SetEntry` / `MatrixN3::SetEntry` reject only `row/col >= bound`. Negative `int32_t` becomes a huge `size_t` subscript → SIGSEGV / heap abort. Same-file `Matrix3` and 4×N / N×4 siblings already reject negatives.
 
 </details>
 
@@ -75,6 +77,7 @@ Under `~/cloned/arkui_ace_engine/pbt-out/bug_reports/fixed/`:
 - `DTS2026070856858` — `fixed/line_color_transition_no_clamp.md`
 - `DTS2026072325132` — `fixed/GetIrregularHeight_itemRatio_div_zero_inf.md`
 - `DTS2026073116282` — `fixed/data_panel_circle_angle_asin_nan.md`
+- `DTS2026091012206` — `fixed/Matrix3N_SetEntry_negative_index.md`
 
 ## NON-ISSUE DTS
 
@@ -105,6 +108,7 @@ Under `~/cloned/arkui_ace_engine/pbt-out/bug_reports/fixed/`:
 |-----------|------:|
 | `frameworks/core/components_ng/pattern/grid/grid_layout_info.cpp` | 3 |
 | `frameworks/base/geometry/matrix4.cpp` | 1 |
+| `frameworks/base/geometry/matrix3.cpp` | 1 |
 | `frameworks/core/components/common/properties/color.cpp` | 1 |
 | `frameworks/core/components_ng/pattern/data_panel/data_panel_modifier.cpp` | 1 |
 | `frameworks/core/components_ng/pattern/grid/grid_item_drag_manager.cpp` | 1 |
@@ -114,15 +118,15 @@ Under `~/cloned/arkui_ace_engine/pbt-out/bug_reports/fixed/`:
 
 | Severity | Count |
 |----------|------:|
-| HIGH | 4 |
+| HIGH | 5 |
 | MEDIUM | 4 |
 | LOW | 0 |
 
 ## Takeaways
 
-1. **8 real bugs fixed** across grid layout, lazy grid, matrix storage, color transition, and DataPanel geometry — strong confirmed yield for one UI engine repo.
-2. **Precision 67%** on decided tickets: four non-issues (stable empty-height formula; `-idx` encoding never seen by `IsAllItemsMeasured` / `FindItemCount`; FromRGBO caller-owned `[0, 1]` clamp) against eight fixes.
-3. Dominant failure modes: **incorrect calculation**, **wrong control-flow sentinels**, plus **div-by-zero** and **UB cast**.
+1. **9 real bugs fixed** across grid layout, lazy grid, matrix storage, color transition, DataPanel geometry, and 3×N / N×3 OOB SetEntry — strong confirmed yield for one UI engine repo.
+2. **Precision 69%** on decided tickets: four non-issues (stable empty-height formula; `-idx` encoding never seen by `IsAllItemsMeasured` / `FindItemCount`; FromRGBO caller-owned `[0, 1]` clamp) against nine fixes.
+3. Dominant failure modes: **incorrect calculation**, **wrong control-flow sentinels**, plus **div-by-zero**, **UB cast**, and **OOB write**.
 4. Non-issue lessons are contract/call-graph sensitivity and production-domain encoding, not flaky reproduction — PBT still witnessed the raw returns as contract properties.
 
 ## Methodology notes

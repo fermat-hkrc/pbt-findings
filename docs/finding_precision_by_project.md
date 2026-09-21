@@ -2,8 +2,8 @@
 
 How often PBT-filed **DTS** tickets were accepted as real bugs versus closed as non-issues, broken down by project.
 
-- **Precision:** **82.9%** (102 FIXED / 123 decided)
-- **False-positive rate:** **17.1%** (21 NON-ISSUE)
+- **Precision:** **83.1%** (103 FIXED / 124 decided)
+- **False-positive rate:** **16.9%** (21 NON-ISSUE)
 
 Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS tickets are omitted — their outcome (bug vs non-issue) is not yet known.
 
@@ -20,21 +20,21 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 **Sources**
 
 - DTS inventory: [`dts_bug_types.md`](./dts_bug_types.md) + [`content/issues/`](../content/issues/)
-- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**102** issues, all `CONFIRMED_FIXED`)
+- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**103** issues, all `CONFIRMED_FIXED`)
 - Non-issue write-ups: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (**21** DTS-stamped)
 
-- **Generated:** 2026-09-18
+- **Generated:** 2026-09-21
 
 ### Global DTS scoreboard (decided only)
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 102 | 82.9% |
-| NON-ISSUE | 21 | 17.1% |
-| **Total decided** | **123** | 100% |
+| FIXED | 103 | 83.1% |
+| NON-ISSUE | 21 | 16.9% |
+| **Total decided** | **124** | 100% |
 
-- **Precision:** **102/123 = 82.9%** — about five in six closed tickets were real bugs.
-- **False-positive rate:** **21/123 = 17.1%**.
+- **Precision:** **103/124 = 83.1%** — about five in six closed tickets were real bugs.
+- **False-positive rate:** **21/124 = 16.9%**.
 
 > Precision means *maintainer-accepted defect rate among dispositioned DTS*, not static-analysis alert rate. Open/submitted tickets are out of scope until closed.
 
@@ -47,7 +47,7 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`multimedia_camera_framework`](#multimedia-camera-framework) | 13 | 0 | 13 | 100% |
 | [`communication_netmanager_base`](#communication-netmanager-base) | 11 | 2 | 13 | 85% |
 | [`graphic_graphic_2d`](#graphic-graphic-2d) | 10 | 0 | 10 | 100% |
-| [`arkui_ace_engine`](#arkui-ace-engine) | 8 | 4 | 12 | 67% |
+| [`arkui_ace_engine`](#arkui-ace-engine) | 9 | 4 | 13 | 69% |
 | [`multimedia_image_framework`](#multimedia-image-framework) | 9 | 0 | 9 | 100% |
 | [`arkcompiler_runtime_core`](#arkcompiler-runtime-core) | 6 | 1 | 7 | 86% |
 | [`ability_ability_runtime`](#ability-ability-runtime) | 6 | 0 | 6 | 100% |
@@ -71,7 +71,7 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`telephony_core_service`](#telephony-core-service) | 1 | 0 | 1 | 100% |
 | [`multimedia_audio_framework`](#multimedia-audio-framework) | 1 | 1 | 2 | 50% |
 | [`multimodalinput_input`](#multimodalinput-input) | 0 | 2 | 2 | 0% |
-| **Total** | **102** | **21** | **123** | **83%** |
+| **Total** | **103** | **21** | **124** | **83%** |
 
 ## Precision tiers
 
@@ -85,7 +85,7 @@ These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 
 | Project | FIXED | NON-ISSUE | Precision | What non-issues teach |
 |---------|------:|----------:|----------:|----------------------|
-| `arkui_ace_engine` | 8 | 4 | 67% | Empty-grid `-mainGap` is stable formula; IsAllItemsMeasured / FindItemCount `-idx` is irregular-only encoding never seen by those helpers; FromRGBO out-of-range wrap is caller-owned clamp on an internal packer; real layout/math bugs still fixed. |
+| `arkui_ace_engine` | 9 | 4 | 69% | Empty-grid `-mainGap` is stable formula; IsAllItemsMeasured / FindItemCount `-idx` is irregular-only encoding never seen by those helpers; FromRGBO out-of-range wrap is caller-owned clamp on an internal packer; real layout/math/OOB bugs still fixed. |
 | `arkcompiler_runtime_core` | 6 | 1 | 86% | SkipULeb128 empty/truncated is by-design (void helper, no error channel); real buffer/loop bugs still fixed. |
 | `communication_netmanager_base` | 11 | 2 | 85% | Helper semantics (ForkExec) and API role split (zoned IPv6) ≠ bugs; firewall/IP/mask defects accepted. |
 | `distributedhardware_device_manager` | 2 | 2 | 50% | cJSON int64 round-trip and ConvertStrToInt are dead/unshipped; PIN/rand bugs still fixed. |
@@ -170,10 +170,10 @@ High-confidence project: **10** accepted fixes and **no** rejected DTS.
 
 | Metric | Value |
 |--------|------:|
-| FIXED | 8 |
+| FIXED | 9 |
 | NON-ISSUE | 4 |
-| Decided | 12 |
-| Precision | 66.7% |
+| Decided | 13 |
+| Precision | 69.2% |
 
 **FIXED DTS**
 
@@ -185,6 +185,7 @@ High-confidence project: **10** accepted fixes and **no** rejected DTS.
 - `DTS2026070856858` — [OH-2026-ARKUI-006](../content/issues/OH-2026-ARKUI-006.md): Color::LineColorTransition UB cast on decreasing channel (legacy DataPanel gradient)
 - `DTS2026072325132` — [OH-2026-ARKUI-007](../content/issues/OH-2026-ARKUI-007.md): GetIrregularHeight divides by zero → +inf content height when itemRatio == 0
 - `DTS2026073116282` — [OH-2026-ARKUI-008](../content/issues/OH-2026-ARKUI-008.md): DataPanel GetPaintPath computes NaN circleAngle via unguarded asin when stroke collapses radius
+- `DTS2026091012206` — [OH-2026-ARKUI-009](../content/issues/OH-2026-ARKUI-009.md): Matrix3N::SetEntry / MatrixN3::SetEntry missing negative-index guard (OOB write / crash)
 
 **NON-ISSUE DTS**
 
@@ -193,7 +194,7 @@ High-confidence project: **10** accepted fixes and **no** rejected DTS.
 - `DTS2026082235589` — Color::FromRGBO wraps out-of-range opacity. *Internal packer; domain `[0, 1]`; clamp is caller-owned; forcing clamp is compat (`2` is 254 today, 255 after).*
 - `DTS2026082235533` — FindItemCount overcounts on continuation start. *Not for irregular layout; no negative IDs; consecutive max-min+1; irregular uses GetIrregularOffset/Height.*
 
-Mixed outcomes: maintainers accepted **8** and rejected **4**. Net precision **67%**.
+Mixed outcomes: maintainers accepted **9** and rejected **4**. Net precision **69%**.
 
 ### `communication_netmanager_base`
 
@@ -643,15 +644,15 @@ No FIXED DTS yet among dispositioned tickets.
 
 ## Relation to `content/issues/` write-ups
 
-This repo’s [`content/issues/`](../content/issues/) currently carries **99** DTS-linked reports, all status `CONFIRMED_FIXED`.
+This repo’s [`content/issues/`](../content/issues/) currently carries **103** DTS-linked reports, all status `CONFIRMED_FIXED`.
 That set is the **FIXED** count here. Non-issues come from `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/`.
 
 | Population | Count | Role |
 |------------|------:|------|
-| Decided DTS (FIXED + NON-ISSUE) | 123 | Ground truth for precision |
-| FIXED | 102 | Maintainer-accepted (scoreboard / `content/issues` inventory) |
+| Decided DTS (FIXED + NON-ISSUE) | 124 | Ground truth for precision |
+| FIXED | 103 | Maintainer-accepted (scoreboard / `content/issues` inventory) |
 | NON-ISSUE | 21 | Maintainer-rejected (cloned + testing inventory) |
-| Write-ups in `content/issues` with DTS | 99+ | Published confirmed bugs (may lag scoreboard) |
+| Write-ups in `content/issues` with DTS | 103 | Published confirmed bugs |
 
 **Do not** compute precision from `content/issues` alone — it omits non-issues by design. Use this document (or dispositioned rows in `BUG_REPORTS.md`) for acceptance rate.
 
@@ -659,7 +660,7 @@ See also: [DTS tickets by detecting property](./dts_bug_types.md). Failure-mode 
 
 ## Takeaways
 
-1. **Overall precision is high (82.9%)** — PBT filings that reach a DTS decision are usually real defects.
+1. **Overall precision is high (83.1%)** — PBT filings that reach a DTS decision are usually real defects.
 2. **False positives cluster in a few patterns** (21 tickets): by-design helpers, dead/unreachable / dropped-from-trunk code, path-prefix gates with no live producer after `realpath`, framing residuals that are not object OOB and mostly fail-closed, caller-owned / split-API contracts, shipped CAPI / product omissions, flag-dependent crashes — not flaky reproduction.
 3. **Several large surfaces are clean so far** (e.g. `multimedia_camera_framework`, `multimedia_image_framework`, `graphic_graphic_2d` among high-volume FIXED with 0 NON-ISSUE).
 4. **Filing bar that non-issues imply:** prove a live production caller, state the product contract, and avoid “algebraic inconsistency across differently purposed APIs” without impact. Sibling slash-terminated roots + a one-char fix still need a product-domain hit. Do not equate logical cursor past `wPos_` inside a zero-filled fixed buffer with heap OOB.

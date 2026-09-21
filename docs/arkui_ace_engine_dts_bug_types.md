@@ -5,11 +5,11 @@ Categorization of **confirmed fixed** DTS findings in `arkui_ace_engine`, groupe
 Scoped to this repo only. Companion precision report: [arkui_ace_engine_finding_precision.md](./arkui_ace_engine_finding_precision.md).
 
 - **Repo:** `arkui_ace_engine`
-- **Confirmed fixed (DTS + write-up):** **8**
+- **Confirmed fixed (DTS + write-up):** **9**
 - **Status:** all listed tickets are `CONFIRMED_FIXED`
-- **Severity:** HIGH=4, MEDIUM=4, LOW=0
+- **Severity:** HIGH=5, MEDIUM=4, LOW=0
 - **Sources:** [`content/issues/OH-2026-ARKUI-*.md`](../content/issues/), `~/cloned/arkui_ace_engine/pbt-out/bug_reports/fixed/`
-- **Generated:** 2026-09-11
+- **Generated:** 2026-09-21
 
 ## Overview
 
@@ -19,7 +19,8 @@ Scoped to this repo only. Companion precision report: [arkui_ace_engine_finding_
 | [Arithmetic — Divide by Zero](#arithmetic-divide-by-zero) | 1 | 1 | 0 | 0 |
 | [Logic — Incorrect Control Flow](#logic-incorrect-control-flow) | 2 | 2 | 0 | 0 |
 | [Undefined Behavior](#undefined-behavior) | 1 | 0 | 1 | 0 |
-| **Total** | **8** | **4** | **4** | **0** |
+| [Memory — Buffer / OOB Access](#memory--buffer--oob-access) | 1 | 1 | 0 | 0 |
+| **Total** | **9** | **5** | **4** | **0** |
 
 ### By family
 
@@ -28,6 +29,7 @@ Scoped to this repo only. Companion precision report: [arkui_ace_engine_finding_
 | Arithmetic & Numeric | 5 |
 | Logic | 2 |
 | Undefined Behavior | 1 |
+| Memory / Buffer | 1 |
 
 ## DTS index
 
@@ -41,6 +43,7 @@ Scoped to this repo only. Companion precision report: [arkui_ace_engine_finding_
 | `DTS2026070856858` | [OH-2026-ARKUI-006](../content/issues/OH-2026-ARKUI-006.md) | Undefined Behavior | MEDIUM | `frameworks/core/components/common/properties/color.cpp` |
 | `DTS2026072325132` | [OH-2026-ARKUI-007](../content/issues/OH-2026-ARKUI-007.md) | Arithmetic — Divide by Zero | HIGH | `frameworks/core/components_ng/pattern/grid/grid_layout_info.cpp` |
 | `DTS2026073116282` | [OH-2026-ARKUI-008](../content/issues/OH-2026-ARKUI-008.md) | Arithmetic — Incorrect Calculation | MEDIUM | `frameworks/core/components_ng/pattern/data_panel/data_panel_modifier.cpp` |
+| `DTS2026091012206` | [OH-2026-ARKUI-009](../content/issues/OH-2026-ARKUI-009.md) | Memory — Buffer / OOB Access | HIGH | `frameworks/base/geometry/matrix3.cpp` |
 
 ## Arithmetic — Incorrect Calculation
 
@@ -106,6 +109,20 @@ Relies on UB (e.g. out-of-range cast) with environment-dependent fallout.
 
 </details>
 
+## Memory — Buffer / OOB Access
+
+Missing lower-bound index guard on a public `std::vector` writer → OOB write / crash.
+
+| DTS | ID | Severity | CWE | Component | Title |
+|-----|----|----------|-----|-----------|-------|
+| `DTS2026091012206` | [OH-2026-ARKUI-009](../content/issues/OH-2026-ARKUI-009.md) | HIGH | CWE-787 (Out-of-bounds Write) | `frameworks/base/geometry/matrix3.cpp` | Matrix3N::SetEntry / MatrixN3::SetEntry missing negative-index guard (OOB write / crash) |
+
+<details><summary>Summaries</summary>
+
+- **OH-2026-ARKUI-009** (`DTS2026091012206`): `Matrix3N::SetEntry` / `MatrixN3::SetEntry` reject only `row/col >= bound`. Negative `int32_t` becomes a huge `size_t` subscript → SIGSEGV / heap abort. Same-file `Matrix3` and 4×N / N×4 siblings already reject negatives.
+
+</details>
+
 ## CWE frequency
 
 | CWE | Name | Count |
@@ -114,6 +131,7 @@ Relies on UB (e.g. out-of-range cast) with environment-dependent fallout.
 | CWE-670 | Always-Incorrect Control Flow Implementation | 2 |
 | CWE-369 | Divide By Zero | 1 |
 | CWE-758 | Reliance on Undefined, Unspecified, or Implementation-Defined Behavior | 1 |
+| CWE-787 | Out-of-bounds Write | 1 |
 
 ## Notes
 

@@ -2,12 +2,12 @@
 
 Categorization of [`content/issues/`](../content/issues/) findings that carry a **DTS** ticket (`internal_issue_id`), grouped by the **pi-pbt property (oracle)** that found each ticket. CWE / failure-mode grouping is archived at the end of [`finding_precision_by_project.md`](finding_precision_by_project.md).
 
-- **Confirmed (FIXED)**: **102** — listed below (`CONFIRMED_FIXED` write-ups)
+- **Confirmed (FIXED)**: **103** — listed below (`CONFIRMED_FIXED` write-ups)
 - **Non-issue**: **21** — [catalog](#non-issues)
-- **Decided**: **123** = 102 + 21
-- **Precision**: **82.9%** = `102 / (102 + 21)` = confirmed / (confirmed + non-issues)
-- **Severity** (confirmed only): HIGH=23, MEDIUM=76, LOW=3
-- **Generated**: 2026-09-18
+- **Decided**: **124** = 103 + 21
+- **Precision**: **83.1%** = `103 / (103 + 21)` = confirmed / (confirmed + non-issues)
+- **Severity** (confirmed only): HIGH=24, MEDIUM=76, LOW=3
+- **Generated**: 2026-09-21
 
 ## Overview
 
@@ -16,7 +16,7 @@ Oracle taxonomy from [pi-pbt `docs/oracles.md`](https://github.com/fermat-hkrc/p
 
 | Property (oracle) | Count | HIGH | MEDIUM | LOW |
 |----------|------:|-----:|-------:|----:|
-| [State Machine](#state-machine) | 2 | 1 | 0 | 1 |
+| [State Machine](#state-machine) | 3 | 2 | 0 | 1 |
 | [Differential](#differential) | 34 | 2 | 31 | 1 |
 | [Algebraic — Round-trip](#algebraic--round-trip) | 6 | 3 | 3 | 0 |
 | [Algebraic — Metamorphic](#algebraic--metamorphic) | 3 | 1 | 2 | 0 |
@@ -24,7 +24,7 @@ Oracle taxonomy from [pi-pbt `docs/oracles.md`](https://github.com/fermat-hkrc/p
 | [Negative / Error Contract](#negative--error-contract) | 8 | 1 | 7 | 0 |
 | [Reference](#reference) | 5 | 1 | 4 | 0 |
 | [Crash-Only](#crash-only) | 13 | 6 | 7 | 0 |
-| **Total** | **102** | **23** | **76** | **3** |
+| **Total** | **103** | **24** | **76** | **3** |
 
 Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Idempotence ≻ Metamorphic ≻ Invariant ≻ Negative/Error) ≻ Reference ≻ Crash-Only. **Idempotence: 0** in this set.
 
@@ -38,7 +38,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `multimedia_image_framework` | 9 | 0 | 1 | 8 | 0 | 100% |
 | `communication_netmanager_base` | 11 | 2 | 3 | 8 | 0 | 85% |
 | `graphic_graphic_2d` | 10 | 0 | 3 | 6 | 1 | 100% |
-| `arkui_ace_engine` | 8 | 4 | 4 | 4 | 0 | 67% |
+| `arkui_ace_engine` | 9 | 4 | 5 | 4 | 0 | 69% |
 | `ability_ability_runtime` | 6 | 0 | 0 | 6 | 0 | 100% |
 | `arkcompiler_runtime_core` | 6 | 1 | 1 | 5 | 0 | 86% |
 | `multimedia_av_codec` | 6 | 0 | 0 | 5 | 1 | 100% |
@@ -61,7 +61,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `arkui_napi` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **Total** | **102** | **21** | **23** | **76** | **3** | **83%** |
+| **Total** | **103** | **21** | **24** | **76** | **3** | **83%** |
 
 ## DTS index
 
@@ -168,6 +168,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `DTS2026083109843` | [OH-2026-NET-011](../content/issues/OH-2026-NET-011.md) | Differential | MEDIUM | `communication_netmanager_base` |
 | `DTS2026090130983` | [OH-2026-AVCODEC-006](../content/issues/OH-2026-AVCODEC-006.md) | Algebraic — Invariant | MEDIUM | `multimedia_av_codec` |
 | `DTS2026090527401` | [OH-2026-GFX-010](../content/issues/OH-2026-GFX-010.md) | Differential | HIGH | `graphic_graphic_2d` |
+| `DTS2026091012206` | [OH-2026-ARKUI-009](../content/issues/OH-2026-ARKUI-009.md) | State Machine | HIGH | `arkui_ace_engine` |
 | `DTS2608260052510` | [OH-2026-MEDIALIB-005](../content/issues/OH-2026-MEDIALIB-005.md) | Crash-Only | HIGH | `multimedia_media_library` |
 
 ## Detecting property (oracle)
@@ -184,6 +185,7 @@ Operation sequences vs an independent model (lifecycle / collection).
 |-----|----|----------|------------------|
 | `DTS2026070238028` | [OH-2026-CAM-001](../content/issues/OH-2026-CAM-001.md) | LOW | FixedSizeList ≡ bounded FIFO model across add/remove |
 | `DTS2026073012747` | [OH-2026-PB-002](../content/issues/OH-2026-PB-002.md) | HIGH | any worker stop (incl. timeout) clears isRunning |
+| `DTS2026091012206` | [OH-2026-ARKUI-009](../content/issues/OH-2026-ARKUI-009.md) | HIGH | SetEntry sequence ≡ 3×N / N×3 model (reject negatives, no write) |
 
 <a id="differential"></a>
 
@@ -352,7 +354,7 @@ Authoritative spec / stdlib / IEEE / Unicode / pinning contract that this SUT cl
 
 Maintainer-rejected DTS. Counted in the denominator only.
 
-**Precision** = confirmed / (confirmed + non-issues) = **102 / (102 + 21) = 82.9%**.
+**Precision** = confirmed / (confirmed + non-issues) = **103 / (103 + 21) = 83.1%**.
 
 | DTS | Project | Theme | Why non-issue |
 |-----|---------|-------|---------------|

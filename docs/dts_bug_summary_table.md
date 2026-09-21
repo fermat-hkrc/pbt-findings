@@ -152,7 +152,7 @@
 | 148 | arkui_ace_engine | MediaQueryer::MatchCondition drops AND-group when it is not the last OR-clause | Incorrect Control Flow | `frameworks/bridge/common/media_query/media_queryer.cpp` | Submitted |  | DTS2026090919800 |
 | 149 | arkui_ace_engine | CheckColorAlpha casts unit alpha to uint8_t before scaling to 255 | Incorrect Calculation | `frameworks/core/components_ng/svg/parse/svg_attributes_parser.cpp` | Submitted |  | DTS2026090920220 |
 | 150 | arkui_ace_engine | BubbleLayoutAlgorithm::GetP2 asin domain break → NaN arrow clip path | Incorrect Calculation | `frameworks/core/components_ng/pattern/bubble/bubble_layout_algorithm.cpp` | Submitted |  | DTS2026090922585 |
-| 151 | arkui_ace_engine | Matrix3N::SetEntry / MatrixN3::SetEntry missing negative-index guard (OOB write / crash) | Buffer / OOB Access | `frameworks/base/geometry/matrix3.cpp` | Submitted |  | DTS2026091012206 |
+| 151 | arkui_ace_engine | Matrix3N::SetEntry / MatrixN3::SetEntry missing negative-index guard (OOB write / crash) | Buffer / OOB Access | `frameworks/base/geometry/matrix3.cpp` | Confirmed and Fixed |  | DTS2026091012206 |
 | 152 | arkui_ace_engine | Quaternion::Slerp at t=0 returns -this when from·to < 0 | Incorrect Calculation | `frameworks/base/geometry/quaternion.cpp` | Submitted |  | DTS2026091029544 |
 | 153 | arkui_ace_engine | MediaQueryer::MatchCondition never matches min-/max- features with an explicit `px` unit | Incorrect Control Flow | `frameworks/bridge/common/media_query/media_queryer.cpp` | Submitted |  | DTS2026091412083 |
 | 154 | arkui_ace_engine | GridLayoutInfo::FindEndIdx skips item 0 and falls back to {0,0,0} | Incorrect Control Flow | `frameworks/core/components_ng/pattern/grid/grid_layout_info.cpp` | Submitted |  | DTS2026091425514 |

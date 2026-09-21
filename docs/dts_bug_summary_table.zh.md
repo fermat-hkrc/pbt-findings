@@ -152,7 +152,7 @@
 | 148 | arkui_ace_engine | MediaQueryer::MatchCondition 在 AND 组不是最后一个 OR 子句时丢弃该 AND 组 | 控制流错误 | `frameworks/bridge/common/media_query/media_queryer.cpp` | 已提交 |  | DTS2026090919800 |
 | 149 | arkui_ace_engine | CheckColorAlpha 在缩放到 255 之前把单位 alpha 转成 uint8_t | 计算错误 | `frameworks/core/components_ng/svg/parse/svg_attributes_parser.cpp` | 已提交 |  | DTS2026090920220 |
 | 150 | arkui_ace_engine | BubbleLayoutAlgorithm::GetP2 asin 定义域破坏 → NaN 箭头裁剪路径 | 计算错误 | `frameworks/core/components_ng/pattern/bubble/bubble_layout_algorithm.cpp` | 已提交 |  | DTS2026090922585 |
-| 151 | arkui_ace_engine | Matrix3N::SetEntry / MatrixN3::SetEntry 缺少负索引守卫（越界写 / 崩溃） | 缓冲区/越界访问 | `frameworks/base/geometry/matrix3.cpp` | 已提交 |  | DTS2026091012206 |
+| 151 | arkui_ace_engine | Matrix3N::SetEntry / MatrixN3::SetEntry 缺少负索引守卫（越界写 / 崩溃） | 缓冲区/越界访问 | `frameworks/base/geometry/matrix3.cpp` | 已确认并修复 |  | DTS2026091012206 |
 | 152 | arkui_ace_engine | Quaternion::Slerp 在 t=0 且 from·to < 0 时返回 -this | 计算错误 | `frameworks/base/geometry/quaternion.cpp` | 已提交 |  | DTS2026091029544 |
 | 153 | arkui_ace_engine | MediaQueryer::MatchCondition 对带显式 `px` 的 min-/max- 特征永远不匹配 | 控制流错误 | `frameworks/bridge/common/media_query/media_queryer.cpp` | 已提交 |  | DTS2026091412083 |
 | 154 | arkui_ace_engine | GridLayoutInfo::FindEndIdx 跳过 item 0 并回落到 {0,0,0} | 控制流错误 | `frameworks/core/components_ng/pattern/grid/grid_layout_info.cpp` | 已提交 |  | DTS2026091425514 |
