@@ -2,11 +2,11 @@
 
 对 [`content/issues/`](../content/issues/) 中带有 **DTS** 工单号（`internal_issue_id`）的发现所做的归类，按检出该工单的 **pi-pbt 性质（预言机）** 分组。CWE / 失效模式分组归档在 [`finding_precision_by_project.md`](finding_precision_by_project.md) 文末。
 
-- **已确认（FIXED）**：**104** — 下列目录（`CONFIRMED_FIXED` 报告）
+- **已确认（FIXED）**：**105** — 下列目录（`CONFIRMED_FIXED` 报告）
 - **非问题（NON-ISSUE）**：**21** — [目录](#非问题)
-- **已判定**：**125** = 104 + 21
-- **精确率**：**83.2%** = `104 / (104 + 21)` = 已确认 /（已确认 + 非问题）
-- **严重级别**（仅已确认）：HIGH=24，MEDIUM=77，LOW=3
+- **已判定**：**126** = 105 + 21
+- **精确率**：**83.3%** = `105 / (105 + 21)` = 已确认 /（已确认 + 非问题）
+- **严重级别**（仅已确认）：HIGH=24，MEDIUM=78，LOW=3
 - **生成时间**：2026-09-22
 
 ## 概览
@@ -21,10 +21,10 @@
 | [代数 — 往返](#代数--往返) | 6 | 3 | 3 | 0 |
 | [代数 — 蜕变](#代数--蜕变) | 3 | 1 | 2 | 0 |
 | [代数 — 不变量](#代数--不变量) | 31 | 8 | 22 | 1 |
-| [否定 / 错误契约](#否定--错误契约) | 9 | 1 | 8 | 0 |
+| [否定 / 错误契约](#否定--错误契约) | 10 | 1 | 9 | 0 |
 | [参考](#参考) | 5 | 1 | 4 | 0 |
 | [仅崩溃](#仅崩溃) | 13 | 6 | 7 | 0 |
-| **合计** | **104** | **24** | **77** | **3** |
+| **合计** | **105** | **24** | **78** | **3** |
 
 强度顺序：状态机 ≻ 差分 ≻ 代数（往返 ≻ 幂等 ≻ 蜕变 ≻ 不变量 ≻ 否定/错误）≻ 参考 ≻ 仅崩溃。本集合中**幂等：0**。
 
@@ -51,7 +51,7 @@
 | `multimedia_media_library` | 5 | 1 | 1 | 4 | 0 | 83% |
 | `window_window_manager` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `commonlibrary_rust_ylong_http` | 1 | 0 | 1 | 0 | 0 | 100% |
-| `communication_dsoftbus` | 1 | 1 | 0 | 1 | 0 | 50% |
+| `communication_dsoftbus` | 2 | 1 | 0 | 2 | 0 | 67% |
 | `distributeddatamgr_datamgr_service` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `distributedhardware_distributed_hardware_fwk` | 1 | 0 | 0 | 1 | 0 | 100% |
 | `filemanagement_dfs_service` | 1 | 0 | 0 | 1 | 0 | 100% |
@@ -61,7 +61,7 @@
 | `arkui_napi` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **合计** | **104** | **21** | **24** | **77** | **3** | **83%** |
+| **合计** | **105** | **21** | **24** | **78** | **3** | **83%** |
 
 ## DTS 索引
 
@@ -167,6 +167,7 @@
 | `DTS2026082564627` | [OH-2026-TEL-001](../content/issues/OH-2026-TEL-001.md) | 仅崩溃 | HIGH | `telephony_core_service` |
 | `DTS2026082567022` | [OH-2026-CAM-013](../content/issues/OH-2026-CAM-013.md) | 否定 / 错误契约 | MEDIUM | `multimedia_camera_framework` |
 | `DTS2026083109843` | [OH-2026-NET-011](../content/issues/OH-2026-NET-011.md) | 差分 | MEDIUM | `communication_netmanager_base` |
+| `DTS2026083116823` | [OH-2026-DSOFTBUS-002](../content/issues/OH-2026-DSOFTBUS-002.md) | 否定 / 错误契约 | MEDIUM | `communication_dsoftbus` |
 | `DTS2026090130983` | [OH-2026-AVCODEC-006](../content/issues/OH-2026-AVCODEC-006.md) | 代数 — 不变量 | MEDIUM | `multimedia_av_codec` |
 | `DTS2026090527401` | [OH-2026-GFX-010](../content/issues/OH-2026-GFX-010.md) | 差分 | HIGH | `graphic_graphic_2d` |
 | `DTS2026091012206` | [OH-2026-ARKUI-009](../content/issues/OH-2026-ARKUI-009.md) | 状态机 | HIGH | `arkui_ace_engine` |
@@ -315,6 +316,7 @@
 | `DTS2026072515209` | [OH-2026-ABILITY-007](../content/issues/OH-2026-ABILITY-007.md) | MEDIUM | 过短/空 normalized import 路径 ⇒ ERR_STARTUP_INVALID_VALUE，不抛 |
 | `DTS2026072935286` | [OH-2026-AVCODEC-002](../content/issues/OH-2026-AVCODEC-002.md) | MEDIUM | 截断的 %X 不被解码为字节 |
 | `DTS2026082567022` | [OH-2026-CAM-013](../content/issues/OH-2026-CAM-013.md) | MEDIUM | 溢出/下溢数字串 → CAMERA_INVALID_STATE，不抛 |
+| `DTS2026083116823` | [OH-2026-DSOFTBUS-002](../content/issues/OH-2026-DSOFTBUS-002.md) | MEDIUM | 非十六进制 / 残留 / >0xFF 的 MAC token ⇒ ≠ SOFTBUS_OK |
 
 <a id="参考"></a>
 
@@ -356,7 +358,7 @@
 
 维护者驳回的 DTS。只计入分母。
 
-**精确率** = 已确认 /（已确认 + 非问题）= **104 / (104 + 21) = 83.2%**。
+**精确率** = 已确认 /（已确认 + 非问题）= **105 / (105 + 21) = 83.3%**。
 
 | DTS | 项目 | 主题 | 为何非问题 |
 |-----|------|------|------------|

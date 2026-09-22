@@ -145,7 +145,7 @@
 | 141 | communication_wifi | RemoveData 拿整段缓冲区去和 key 切片比较 | 运算符/谓词错误 | `wifi/services/wifi_standard/wifi_framework/wifi_manage/wifi_p2p/wifi_p2p_dns_txt_record.cpp` | 已提交 |  | DTS2026082741568 |
 | 142 | communication_netmanager_base | StrToInt / StrToUint / StrToUint64 把前导零十进制当八进制解析 | 计算错误 | `utils/common_utils/src/netmanager_base_common_utils.cpp` | 已确认并修复 |  | DTS2026083107415 |
 | 143 | communication_netmanager_base | GetMtu 把 sysfs 的 "1500\n" 交给 StrToInt → 总是 -1 | 检查不当 | `services/netmanagernative/src/manager/interface_manager.cpp` | 已确认并修复 |  | DTS2026083109843 |
-| 144 | communication_dsoftbus | ConvertBtMacToBinary 忽略 strtoul 残留与 uint8 溢出 | 检查不当 | `core/common/utils/softbus_utils.c` | 已提交 |  | DTS2026083116823 |
+| 144 | communication_dsoftbus | ConvertBtMacToBinary 忽略 strtoul 残留与 uint8 溢出 | 检查不当 | `core/common/utils/softbus_utils.c` | 已确认并修复 |  | DTS2026083116823 |
 | 145 | multimedia_av_codec | DashStrToNonNegativeDouble 接受 NaN（`result < 0` 漏掉无序比较） | 运算符/谓词错误 | `services/media_engine/plugins/source/http_source/dash/mpd_parser/dash_mpd_util.cpp` | 已确认并修复 |  | DTS2026090130983 |
 | 146 | telephony_core_service | CountTrailingZeros 在多于一个比特置位时算错 | 计算错误 | `utils/codec/src/asn1_utils.cpp` | 已提交 |  | DTS2026090526221 |
 | 147 | graphic_graphic_2d | DrawPixelMapMeshBuilderProcess 把网格的列和行对调了 | 计算错误 | `rosen/modules/2d_graphics/drawing_ndk/drawing_utils/drawing_canvas_utils.cpp` | 已确认并修复 |  | DTS2026090527401 |

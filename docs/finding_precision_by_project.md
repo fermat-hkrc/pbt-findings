@@ -2,8 +2,8 @@
 
 How often PBT-filed **DTS** tickets were accepted as real bugs versus closed as non-issues, broken down by project.
 
-- **Precision:** **83.2%** (104 FIXED / 125 decided)
-- **False-positive rate:** **16.8%** (21 NON-ISSUE)
+- **Precision:** **83.3%** (105 FIXED / 126 decided)
+- **False-positive rate:** **16.7%** (21 NON-ISSUE)
 
 Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS tickets are omitted — their outcome (bug vs non-issue) is not yet known.
 
@@ -20,7 +20,7 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 **Sources**
 
 - DTS inventory: [`dts_bug_types.md`](./dts_bug_types.md) + [`content/issues/`](../content/issues/)
-- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**104** issues, all `CONFIRMED_FIXED`)
+- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**105** issues, all `CONFIRMED_FIXED`)
 - Non-issue write-ups: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (**21** DTS-stamped)
 
 - **Generated:** 2026-09-22
@@ -29,12 +29,12 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 104 | 83.2% |
-| NON-ISSUE | 21 | 16.8% |
-| **Total decided** | **125** | 100% |
+| FIXED | 105 | 83.3% |
+| NON-ISSUE | 21 | 16.7% |
+| **Total decided** | **126** | 100% |
 
-- **Precision:** **104/125 = 83.2%** — about five in six closed tickets were real bugs.
-- **False-positive rate:** **21/125 = 16.8%**.
+- **Precision:** **105/126 = 83.3%** — about five in six closed tickets were real bugs.
+- **False-positive rate:** **21/126 = 16.7%**.
 
 > Precision means *maintainer-accepted defect rate among dispositioned DTS*, not static-analysis alert rate. Open/submitted tickets are out of scope until closed.
 
@@ -62,7 +62,7 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`distributeddatamgr_pasteboard`](#distributeddatamgr-pasteboard) | 2 | 0 | 2 | 100% |
 | [`window_window_manager`](#window-window-manager) | 2 | 0 | 2 | 100% |
 | [`arkui_napi`](#arkui-napi) | 2 | 0 | 2 | 100% |
-| [`communication_dsoftbus`](#communication-dsoftbus) | 1 | 1 | 2 | 50% |
+| [`communication_dsoftbus`](#communication-dsoftbus) | 2 | 1 | 3 | 67% |
 | [`distributeddatamgr_datamgr_service`](#distributeddatamgr-datamgr-service) | 1 | 1 | 2 | 50% |
 | [`commonlibrary_rust_ylong_http`](#commonlibrary-rust-ylong-http) | 1 | 0 | 1 | 100% |
 | [`distributedhardware_distributed_hardware_fwk`](#distributedhardware-distributed-hardware-fwk) | 1 | 0 | 1 | 100% |
@@ -71,7 +71,7 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`telephony_core_service`](#telephony-core-service) | 1 | 0 | 1 | 100% |
 | [`multimedia_audio_framework`](#multimedia-audio-framework) | 1 | 1 | 2 | 50% |
 | [`multimodalinput_input`](#multimodalinput-input) | 0 | 2 | 2 | 0% |
-| **Total** | **104** | **21** | **125** | **83%** |
+| **Total** | **105** | **21** | **126** | **83%** |
 
 ## Precision tiers
 
@@ -91,7 +91,7 @@ These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 | `distributedhardware_device_manager` | 2 | 2 | 50% | cJSON int64 round-trip and ConvertStrToInt are dead/unshipped; PIN/rand bugs still fixed. |
 | `multimedia_av_session` | 2 | 1 | 67% | Call-type JSON omission = product policy; OOB crash in `GetAnonyTitle` still fixed. |
 | `multimedia_media_library` | 5 | 1 | 83% | Incomplete consume is the IsValidInteger contract (compat 1.000); ConvertToInt is the full-consume sibling; GetTimeIdFromUri / GetFileIdStr / GetDateAddedMs / IsFileTablePath / GetVirtualPath still fixed. |
-| `communication_dsoftbus` | 1 | 1 | 50% | Hex NUL write is caller-owned; ConnectGroup freq OOB still fixed. |
+| `communication_dsoftbus` | 2 | 1 | 67% | Hex NUL write is caller-owned; ConnectGroup freq OOB and ConvertBtMacToBinary leftover still fixed. |
 | `distributeddatamgr_datamgr_service` | 1 | 1 | 50% | ConvertIndex `index--` is a v1/v2 layout adapter, not a wrap bug; IsValidPath `..` still fixed. |
 | `multimedia_media_foundation` | 1 | 5 | 17% | Abstract OOB / dead inverted predicate / shipped CAPI cap / `-O0`-only crash / ShareMemory sibling-I/O rejected; live `Format::Stringify` null-deref fixed. |
 | `multimedia_audio_framework` | 1 | 1 | 50% | PulseAudio HOA `pa_channel_map` overflow dropped with the 7.0 engine; live `CalculateMaxAmplitudeForPCM24Bit` LE24 decode still fixed. |
@@ -552,20 +552,21 @@ Mixed outcomes: maintainers accepted **2** and rejected **1**. Net precision **6
 
 | Metric | Value |
 |--------|------:|
-| FIXED | 1 |
+| FIXED | 2 |
 | NON-ISSUE | 1 |
-| Decided | 2 |
-| Precision | 50.0% |
+| Decided | 3 |
+| Precision | 66.7% |
 
 **FIXED DTS**
 
 - `DTS2026082023118` — [OH-2026-DSOFTBUS-001](../content/issues/OH-2026-DSOFTBUS-001.md): P2pV1Processor::ConnectGroup off-by-one guard reads configs[3] on a 3-token group config
+- `DTS2026083116823` — [OH-2026-DSOFTBUS-002](../content/issues/OH-2026-DSOFTBUS-002.md): ConvertBtMacToBinary ignores strtoul leftover and uint8 overflow
 
 **NON-ISSUE DTS**
 
 - `DTS2026072017450` — Hex helpers omit explicit NUL write. *Caller contract — zero-init outBuf owns terminator.*
 
-Mixed outcomes: maintainers accepted **1** and rejected **1**. Net precision **50%**.
+Mixed outcomes: maintainers accepted **2** and rejected **1**. Net precision **67%**.
 
 ### `communication_bluetooth_service`
 
@@ -645,15 +646,15 @@ No FIXED DTS yet among dispositioned tickets.
 
 ## Relation to `content/issues/` write-ups
 
-This repo’s [`content/issues/`](../content/issues/) currently carries **104** DTS-linked reports, all status `CONFIRMED_FIXED`.
+This repo’s [`content/issues/`](../content/issues/) currently carries **105** DTS-linked reports, all status `CONFIRMED_FIXED`.
 That set is the **FIXED** count here. Non-issues come from `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/`.
 
 | Population | Count | Role |
 |------------|------:|------|
-| Decided DTS (FIXED + NON-ISSUE) | 125 | Ground truth for precision |
-| FIXED | 104 | Maintainer-accepted (scoreboard / `content/issues` inventory) |
+| Decided DTS (FIXED + NON-ISSUE) | 126 | Ground truth for precision |
+| FIXED | 105 | Maintainer-accepted (scoreboard / `content/issues` inventory) |
 | NON-ISSUE | 21 | Maintainer-rejected (cloned + testing inventory) |
-| Write-ups in `content/issues` with DTS | 104 | Published confirmed bugs |
+| Write-ups in `content/issues` with DTS | 105 | Published confirmed bugs |
 
 **Do not** compute precision from `content/issues` alone — it omits non-issues by design. Use this document (or dispositioned rows in `BUG_REPORTS.md`) for acceptance rate.
 
@@ -661,7 +662,7 @@ See also: [DTS tickets by detecting property](./dts_bug_types.md). Failure-mode 
 
 ## Takeaways
 
-1. **Overall precision is high (83.2%)** — PBT filings that reach a DTS decision are usually real defects.
+1. **Overall precision is high (83.3%)** — PBT filings that reach a DTS decision are usually real defects.
 2. **False positives cluster in a few patterns** (21 tickets): by-design helpers, dead/unreachable / dropped-from-trunk code, path-prefix gates with no live producer after `realpath`, framing residuals that are not object OOB and mostly fail-closed, caller-owned / split-API contracts, shipped CAPI / product omissions, flag-dependent crashes — not flaky reproduction.
 3. **Several large surfaces are clean so far** (e.g. `multimedia_camera_framework`, `multimedia_image_framework`, `graphic_graphic_2d` among high-volume FIXED with 0 NON-ISSUE).
 4. **Filing bar that non-issues imply:** prove a live production caller, state the product contract, and avoid “algebraic inconsistency across differently purposed APIs” without impact. Sibling slash-terminated roots + a one-char fix still need a product-domain hit. Do not equate logical cursor past `wPos_` inside a zero-filled fixed buffer with heap OOB.
@@ -697,14 +698,14 @@ Moved out of [`dts_bug_types.md`](./dts_bug_types.md) (that file is now the dete
 | [Logic — Unchecked Return Value](#logic-unchecked-return-value) | 1 | 0 | 1 | 0 |
 | [Undefined Behavior](#undefined-behavior) | 2 | 1 | 1 | 0 |
 | [State / Lifecycle — Incomplete Cleanup or Stuck State](#state-lifecycle-incomplete-cleanup-or-stuck-state) | 1 | 1 | 0 | 0 |
-| [Input Validation — Improper Checks](#input-validation-improper-checks) | 3 | 0 | 2 | 1 |
+| [Input Validation — Improper Checks](#input-validation-improper-checks) | 4 | 0 | 3 | 1 |
 | [Input Validation — Uncaught Exception / Crash on Bad Input](#input-validation-uncaught-exception-crash-on-bad-input) | 2 | 0 | 2 | 0 |
 | [Input Validation — Path Traversal](#input-validation-path-traversal) | 1 | 0 | 1 | 0 |
 | [Input Validation — Encoding / Unicode](#input-validation-encoding-unicode) | 1 | 0 | 1 | 0 |
 | [Security — Authorization / Access Control](#security-authorization-access-control) | 3 | 1 | 2 | 0 |
 | [Security — Certificate Validation](#security-certificate-validation) | 1 | 1 | 0 | 0 |
 | [Security — Information Leakage](#security-information-leakage) | 1 | 0 | 1 | 0 |
-| **Total** | **73** | **15** | **56** | **2** |
+| **Total** | **74** | **15** | **57** | **2** |
 
 ## DTS index (bug type)
 
@@ -783,6 +784,7 @@ Moved out of [`dts_bug_types.md`](./dts_bug_types.md) (that file is now the dete
 | `DTS2026081424330` | [OH-2026-IMG-006](../content/issues/OH-2026-IMG-006.md) | Arithmetic — Incorrect Calculation | MEDIUM | `multimedia_image_framework` |
 | `DTS2026081713997` | [OH-2026-AVCODEC-003](../content/issues/OH-2026-AVCODEC-003.md) | Arithmetic — Incorrect Calculation | MEDIUM | `multimedia_av_codec` |
 | `DTS2026082023118` | [OH-2026-DSOFTBUS-001](../content/issues/OH-2026-DSOFTBUS-001.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `communication_dsoftbus` |
+| `DTS2026083116823` | [OH-2026-DSOFTBUS-002](../content/issues/OH-2026-DSOFTBUS-002.md) | Input Validation — Improper Checks | MEDIUM | `communication_dsoftbus` |
 
 
 ## Arithmetic & Numeric Bugs
@@ -1080,12 +1082,14 @@ Validators accept malformed or out-of-contract values.
 | `DTS2026071809730` | [OH-2026-ABILITY-002](../content/issues/OH-2026-ABILITY-002.md) | MEDIUM | CWE-1287 (Improper Validation of Specified Type of Input) | `frameworks/native/ability/native/data_uri_utils.cpp` · `ability_ability_runtime` | DataUriUtils::IsNumber accepts floats; GetId silently truncates to integer prefix |
 | `DTS2026072335866` | [OH-2026-STORAGE-001](../content/issues/OH-2026-STORAGE-001.md) | MEDIUM | CWE-20 (Improper Input Validation) | `services/storage_daemon/ipc/src/storage_daemon_provider.cpp` · `filemanagement_storage_service` | SA providers skip CheckUserIdRange on user-scoped IPC |
 | `DTS2026070238028` | [OH-2026-CAM-001](../content/issues/OH-2026-CAM-001.md) | LOW | CWE-129 (Improper Validation of Array Index) | `common/utils/fixed_size_list.h` · `multimedia_camera_framework` | FixedSizeList::remove_at corrupts ring buffer after wraparound, losing live elements |
+| `DTS2026083116823` | [OH-2026-DSOFTBUS-002](../content/issues/OH-2026-DSOFTBUS-002.md) | MEDIUM | CWE-20 (Improper Input Validation) | `core/common/utils/softbus_utils.c` · `communication_dsoftbus` | ConvertBtMacToBinary ignores strtoul leftover and uint8 overflow |
 
 <details><summary>Summaries</summary>
 
 - **OH-2026-ABILITY-002** (`DTS2026071809730`): `INTEGER_REGEX` accepts decimal floats via an optional fractional group, so `IsNumber("12.5")` returns **true**. Public `GetId` gates on `IsNumber` and returns `std::atoll(lastPath)`, which truncates the float to its integer prefix: `"12...
 - **OH-2026-STORAGE-001** (`DTS2026072335866`): Shared SA gate `CheckUserIdRange` (`userId ∈ [START_USER_ID=0, MAX_USER_ID=10738]`, fail with **`E_USERID_RANGE`**) is missing on **10** user-scoped provider entries: **7** Daemon + **3** Manager. Out-of-range `userId` is accepted and fo...
 - **OH-2026-CAM-001** (`DTS2026070238028`): `FixedSizeList::remove_at` unconditionally rewinds the write pointer (`index`) by 1 after any removal. After the internal circular buffer has wrapped, the rewound pointer lands on a slot holding a live element. The next `add` overwrites ...
+- **OH-2026-DSOFTBUS-002** (`DTS2026083116823`): `ConvertBtMacToBinary` `strtoul`s each colon token with `endptr` unused and stores into `uint8_t` with no range check. `"Z0"` / `"0g"` / `"100"` return `SOFTBUS_OK`; `"…:0g"` bypasses the all-zero MAC reject. BLE/BR treat `OK` as a usable `BT_ADDR`.
 
 </details>
 
