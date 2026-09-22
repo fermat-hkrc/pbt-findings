@@ -10,32 +10,34 @@ Companion bug-type catalog: [arkui_ace_engine_dts_bug_types.md](./arkui_ace_engi
 
 | Term | Meaning |
 |------|---------|
-| **FIXED** | DTS accepted; fix landed / confirmed fixed |
+| **FIXED** | DTS accepted **and fixed** (`CONFIRMED_FIXED`) |
+| **CONFIRMED** | DTS accepted as a real bug; **not fixed yet** (`CONFIRMED_REAL`) |
 | **NON-ISSUE** | DTS closed as not a product bug |
-| **Decided** | `FIXED + NON-ISSUE` |
-| **Precision** | `FIXED / (FIXED + NON-ISSUE)` |
-| **False-positive rate** | `NON-ISSUE / (FIXED + NON-ISSUE)` |
+| **Decided** | `FIXED + CONFIRMED + NON-ISSUE` |
+| **Precision** | `(FIXED + CONFIRMED) / (FIXED + CONFIRMED + NON-ISSUE)` |
+| **False-positive rate** | `NON-ISSUE / (FIXED + CONFIRMED + NON-ISSUE)` |
 
 **Sources**
 
-- `~/cloned/arkui_ace_engine/pbt-out/bug_reports/{fixed,non-issue}/`
-- [`content/issues/OH-2026-ARKUI-*.md`](../content/issues/) (**9** confirmed write-ups)
+- `~/cloned/arkui_ace_engine/pbt-out/bug_reports/{fixed,confirmed,non-issue}/` and `~/testing/arkui_ace_engine/pbt-out/bug_reports/`
+- [`content/issues/OH-2026-ARKUI-*.md`](../content/issues/) (**10** = 9 fixed + 1 confirmed)
 - Cross-repo context: [finding_precision_by_project.md](./finding_precision_by_project.md)
 
-- **Generated:** 2026-09-21
+- **Generated:** 2026-09-22
 
 ## Scoreboard (decided only)
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 9 | 69.2% |
-| NON-ISSUE | 4 | 30.8% |
-| **Total decided** | **13** | 100% |
+| FIXED | 9 | 64.3% |
+| CONFIRMED (awaiting fix) | 1 | 7.1% |
+| NON-ISSUE | 4 | 28.6% |
+| **Total decided** | **14** | 100% |
 
-- **Precision:** **9/13 = 69.2%**
-- **False-positive rate:** **4/13 = 30.8%**
+- **Precision:** **(9+1)/14 = 71.4%**
+- **False-positive rate:** **4/14 = 28.6%**
 
-Compared with the cross-repo decided baseline (**83.5%** precision), arkui_ace_engine is **below** (69.2%).
+Compared with the cross-repo decided baseline (**83.6%** precision), arkui_ace_engine is **below** (71.4%).
 
 ## FIXED DTS
 
@@ -78,6 +80,16 @@ Under `~/cloned/arkui_ace_engine/pbt-out/bug_reports/fixed/`:
 - `DTS2026072325132` — `fixed/GetIrregularHeight_itemRatio_div_zero_inf.md`
 - `DTS2026073116282` — `fixed/data_panel_circle_angle_asin_nan.md`
 - `DTS2026091012206` — `fixed/Matrix3N_SetEntry_negative_index.md`
+
+## CONFIRMED DTS (awaiting fix)
+
+| DTS | Issue ID | Severity | CWE | Title |
+|-----|----------|----------|-----|-------|
+| `DTS2609150153371` | [OH-2026-ARKUI-010](../content/issues/OH-2026-ARKUI-010.md) | MEDIUM | CWE-682 | CalculateStartCachedCount overcounts when the last regular line is partial |
+
+- **OH-2026-ARKUI-010** (`DTS2609150153371`): `CalculateStartCachedCountByIrregular` returns `budget * crossCount` when `diff >= budget * C`, ignoring a partial last regular line. Full-line model wants `rem + (budget-1)*C`. Extra preload above the viewport; confirmed, not fixed yet.
+
+Local report: `~/testing/arkui_ace_engine/pbt-out/bug_reports/confirmed/calculate_start_cached_count_partial_last_line.md`
 
 ## NON-ISSUE DTS
 

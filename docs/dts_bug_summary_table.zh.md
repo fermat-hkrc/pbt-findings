@@ -161,4 +161,4 @@
 | 157 | arkui_ace_engine | LazyGridLayoutInfo::SetSpace 在 lanes > 1 时把已滚动窗口放高一行 | 差一 | `frameworks/core/components_ng/pattern/lazy_grid_layout/lazy_grid_layout_info.cpp` | 已提交 |  | DTS2609150107715 |
 | 158 | arkui_ace_engine | LazyGridLayoutInfo::UpdatePosMapEnd 在末行不完整时把 totalMainSize_ 留在上一行终点 | 计算错误 | `frameworks/core/components_ng/pattern/lazy_grid_layout/lazy_grid_layout_info.cpp` | 已提交 |  | DTS2609150123188 |
 | 159 | arkui_ace_engine | 反向 GetTargetIndexInfoWithBenchMark 在未填满的末行之后另起一行 | 控制流错误 | `frameworks/core/components_ng/pattern/grid/grid_scroll/grid_scroll_with_options_layout_algorithm.cpp` | 已提交 |  | DTS2609150153174 |
-| 160 | arkui_ace_engine | CalculateStartCachedCount 在末条规则行未满时多计 | 计算错误 | `frameworks/core/components_ng/pattern/grid/grid_scroll/grid_scroll_with_options_layout_algorithm.cpp` | 已提交 |  | DTS2609150153371 |
+| 160 | arkui_ace_engine | CalculateStartCachedCount 在末条规则行未满时多计 | 计算错误 | `frameworks/core/components_ng/pattern/grid/grid_scroll/grid_scroll_with_options_layout_algorithm.cpp` | 已确认 |  | DTS2609150153371 |

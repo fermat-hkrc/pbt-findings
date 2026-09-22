@@ -183,11 +183,12 @@ export function getStats(): Stats {
   const confirmed = issues.filter(
     (i) => i.status === "CONFIRMED_REAL" || i.status === "CONFIRMED_FIXED"
   ).length;
+  const fixed = issues.filter((i) => i.status === "CONFIRMED_FIXED").length;
 
   return {
     total: issues.length,
     confirmed,
-    fixed: 0,
+    fixed,
     repos: Object.keys(byRepo).length,
     byCwe,
     byStatus,

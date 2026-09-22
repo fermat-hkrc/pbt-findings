@@ -2,8 +2,8 @@
 
 How often PBT-filed **DTS** tickets were accepted as real bugs versus closed as non-issues, broken down by project.
 
-- **Precision:** **83.5%** (106 FIXED / 127 decided)
-- **False-positive rate:** **16.5%** (21 NON-ISSUE)
+- **Precision:** **83.6%** ((106 FIXED + 1 CONFIRMED) / 128 decided)
+- **False-positive rate:** **16.4%** (21 NON-ISSUE)
 
 Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS tickets are omitted — their outcome (bug vs non-issue) is not yet known.
 
@@ -11,16 +11,18 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 
 | Term | Meaning |
 |------|---------|
-| **FIXED** | DTS accepted; fix landed (or confirmed fixed in tree) |
+| **FIXED** | DTS accepted **and fixed** (`CONFIRMED_FIXED`) |
+| **CONFIRMED** | DTS accepted as a real bug; **not fixed yet** (`CONFIRMED_REAL`) |
+| **REAL** | `FIXED + CONFIRMED` — maintainer-accepted defects |
 | **NON-ISSUE** | DTS closed as not a product bug (by design, unreachable, dead code, caller contract, etc.) |
-| **Decided** | `FIXED + NON-ISSUE` (terminal maintainer outcomes only) |
-| **Precision** | `FIXED / (FIXED + NON-ISSUE)` — share of closed tickets that were real bugs |
-| **False-positive rate** | `NON-ISSUE / (FIXED + NON-ISSUE)` |
+| **Decided** | `FIXED + CONFIRMED + NON-ISSUE` (terminal maintainer outcomes) |
+| **Precision** | `(FIXED + CONFIRMED) / (FIXED + CONFIRMED + NON-ISSUE)` — share of decided tickets that were real bugs |
+| **False-positive rate** | `NON-ISSUE / (FIXED + CONFIRMED + NON-ISSUE)` |
 
 **Sources**
 
 - DTS inventory: [`dts_bug_types.md`](./dts_bug_types.md) + [`content/issues/`](../content/issues/)
-- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**106** issues, all `CONFIRMED_FIXED`)
+- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**107** = 106 `CONFIRMED_FIXED` + 1 `CONFIRMED_REAL`)
 - Non-issue write-ups: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (**21** DTS-stamped)
 
 - **Generated:** 2026-09-22
@@ -29,49 +31,50 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 106 | 83.5% |
-| NON-ISSUE | 21 | 16.5% |
-| **Total decided** | **127** | 100% |
+| FIXED | 106 | 82.8% |
+| CONFIRMED (awaiting fix) | 1 | 0.8% |
+| NON-ISSUE | 21 | 16.4% |
+| **Total decided** | **128** | 100% |
 
-- **Precision:** **106/127 = 83.5%** — about five in six closed tickets were real bugs.
-- **False-positive rate:** **21/127 = 16.5%**.
+- **Precision:** **(106+1)/128 = 83.6%** — about five in six closed tickets were real bugs.
+- **False-positive rate:** **21/128 = 16.4%**.
 
-> Precision means *maintainer-accepted defect rate among dispositioned DTS*, not static-analysis alert rate. Open/submitted tickets are out of scope until closed.
+> Precision means *maintainer-accepted defect rate among dispositioned DTS* (fixed **or** confirmed-unfixed), not static-analysis alert rate. Open/submitted tickets are out of scope until closed.
 
 ## Per-project scoreboard
 
 Projects with at least one decided DTS, ordered by decided volume, then precision.
 
-| Project | FIXED | NON-ISSUE | Decided | Precision |
-|---------|------:|----------:|--------:|----------:|
-| [`multimedia_camera_framework`](#multimedia-camera-framework) | 13 | 0 | 13 | 100% |
-| [`communication_netmanager_base`](#communication-netmanager-base) | 11 | 2 | 13 | 85% |
-| [`graphic_graphic_2d`](#graphic-graphic-2d) | 10 | 0 | 10 | 100% |
-| [`arkui_ace_engine`](#arkui-ace-engine) | 9 | 4 | 13 | 69% |
-| [`multimedia_image_framework`](#multimedia-image-framework) | 9 | 0 | 9 | 100% |
-| [`arkcompiler_runtime_core`](#arkcompiler-runtime-core) | 6 | 1 | 7 | 86% |
-| [`ability_ability_runtime`](#ability-ability-runtime) | 7 | 0 | 7 | 100% |
-| [`multimedia_av_codec`](#multimedia-av-codec) | 6 | 0 | 6 | 100% |
-| [`multimedia_media_foundation`](#multimedia-media-foundation) | 1 | 5 | 6 | 17% |
-| [`multimedia_player_framework`](#multimedia-player-framework) | 4 | 0 | 4 | 100% |
-| [`distributedhardware_device_manager`](#distributedhardware-device-manager) | 2 | 2 | 4 | 50% |
-| [`multimedia_av_session`](#multimedia-av-session) | 2 | 1 | 3 | 67% |
-| [`multimedia_media_library`](#multimedia-media-library) | 5 | 1 | 6 | 83% |
-| [`communication_bluetooth_service`](#communication-bluetooth-service) | 2 | 0 | 2 | 100% |
-| [`communication_wifi`](#communication-wifi) | 2 | 0 | 2 | 100% |
-| [`distributeddatamgr_pasteboard`](#distributeddatamgr-pasteboard) | 2 | 0 | 2 | 100% |
-| [`window_window_manager`](#window-window-manager) | 3 | 0 | 3 | 100% |
-| [`arkui_napi`](#arkui-napi) | 2 | 0 | 2 | 100% |
-| [`communication_dsoftbus`](#communication-dsoftbus) | 2 | 1 | 3 | 67% |
-| [`distributeddatamgr_datamgr_service`](#distributeddatamgr-datamgr-service) | 1 | 1 | 2 | 50% |
-| [`commonlibrary_rust_ylong_http`](#commonlibrary-rust-ylong-http) | 1 | 0 | 1 | 100% |
-| [`distributedhardware_distributed_hardware_fwk`](#distributedhardware-distributed-hardware-fwk) | 1 | 0 | 1 | 100% |
-| [`filemanagement_dfs_service`](#filemanagement-dfs-service) | 1 | 0 | 1 | 100% |
-| [`filemanagement_storage_service`](#filemanagement-storage-service) | 2 | 0 | 2 | 100% |
-| [`telephony_core_service`](#telephony-core-service) | 1 | 0 | 1 | 100% |
-| [`multimedia_audio_framework`](#multimedia-audio-framework) | 1 | 1 | 2 | 50% |
-| [`multimodalinput_input`](#multimodalinput-input) | 0 | 2 | 2 | 0% |
-| **Total** | **106** | **21** | **127** | **83%** |
+| Project | FIXED | CONFIRMED | NON-ISSUE | Decided | Precision |
+|---------|------:|----------:|----------:|--------:|----------:|
+| [`multimedia_camera_framework`](#multimedia-camera-framework) | 13 | 0 | 0 | 13 | 100% |
+| [`communication_netmanager_base`](#communication-netmanager-base) | 11 | 0 | 2 | 13 | 85% |
+| [`graphic_graphic_2d`](#graphic-graphic-2d) | 10 | 0 | 0 | 10 | 100% |
+| [`arkui_ace_engine`](#arkui-ace-engine) | 9 | 1 | 4 | 14 | 71% |
+| [`multimedia_image_framework`](#multimedia-image-framework) | 9 | 0 | 0 | 9 | 100% |
+| [`arkcompiler_runtime_core`](#arkcompiler-runtime-core) | 6 | 0 | 1 | 7 | 86% |
+| [`ability_ability_runtime`](#ability-ability-runtime) | 7 | 0 | 0 | 7 | 100% |
+| [`multimedia_av_codec`](#multimedia-av-codec) | 6 | 0 | 0 | 6 | 100% |
+| [`multimedia_media_foundation`](#multimedia-media-foundation) | 1 | 0 | 5 | 6 | 17% |
+| [`multimedia_player_framework`](#multimedia-player-framework) | 4 | 0 | 0 | 4 | 100% |
+| [`distributedhardware_device_manager`](#distributedhardware-device-manager) | 2 | 0 | 2 | 4 | 50% |
+| [`multimedia_av_session`](#multimedia-av-session) | 2 | 0 | 1 | 3 | 67% |
+| [`multimedia_media_library`](#multimedia-media-library) | 5 | 0 | 1 | 6 | 83% |
+| [`communication_bluetooth_service`](#communication-bluetooth-service) | 2 | 0 | 0 | 2 | 100% |
+| [`communication_wifi`](#communication-wifi) | 2 | 0 | 0 | 2 | 100% |
+| [`distributeddatamgr_pasteboard`](#distributeddatamgr-pasteboard) | 2 | 0 | 0 | 2 | 100% |
+| [`window_window_manager`](#window-window-manager) | 3 | 0 | 0 | 3 | 100% |
+| [`arkui_napi`](#arkui-napi) | 2 | 0 | 0 | 2 | 100% |
+| [`communication_dsoftbus`](#communication-dsoftbus) | 2 | 0 | 1 | 3 | 67% |
+| [`distributeddatamgr_datamgr_service`](#distributeddatamgr-datamgr-service) | 1 | 0 | 1 | 2 | 50% |
+| [`commonlibrary_rust_ylong_http`](#commonlibrary-rust-ylong-http) | 1 | 0 | 0 | 1 | 100% |
+| [`distributedhardware_distributed_hardware_fwk`](#distributedhardware-distributed-hardware-fwk) | 1 | 0 | 0 | 1 | 100% |
+| [`filemanagement_dfs_service`](#filemanagement-dfs-service) | 1 | 0 | 0 | 1 | 100% |
+| [`filemanagement_storage_service`](#filemanagement-storage-service) | 2 | 0 | 0 | 2 | 100% |
+| [`telephony_core_service`](#telephony-core-service) | 1 | 0 | 0 | 1 | 100% |
+| [`multimedia_audio_framework`](#multimedia-audio-framework) | 1 | 0 | 1 | 2 | 50% |
+| [`multimodalinput_input`](#multimodalinput-input) | 0 | 0 | 2 | 2 | 0% |
+| **Total** | **106** | **1** | **21** | **128** | **84%** |
 
 ## Precision tiers
 
@@ -85,7 +88,7 @@ These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 
 | Project | FIXED | NON-ISSUE | Precision | What non-issues teach |
 |---------|------:|----------:|----------:|----------------------|
-| `arkui_ace_engine` | 9 | 4 | 69% | Empty-grid `-mainGap` is stable formula; IsAllItemsMeasured / FindItemCount `-idx` is irregular-only encoding never seen by those helpers; FromRGBO out-of-range wrap is caller-owned clamp on an internal packer; real layout/math/OOB bugs still fixed. |
+| `arkui_ace_engine` | 9 fixed + 1 confirmed | 4 | 71% | Empty-grid `-mainGap` is stable formula; IsAllItemsMeasured / FindItemCount `-idx` is irregular-only encoding never seen by those helpers; FromRGBO out-of-range wrap is caller-owned clamp on an internal packer; real layout/math/OOB bugs still fixed/confirmed. |
 | `arkcompiler_runtime_core` | 6 | 1 | 86% | SkipULeb128 empty/truncated is by-design (void helper, no error channel); real buffer/loop bugs still fixed. |
 | `communication_netmanager_base` | 11 | 2 | 85% | Helper semantics (ForkExec) and API role split (zoned IPv6) ≠ bugs; firewall/IP/mask defects accepted. |
 | `distributedhardware_device_manager` | 2 | 2 | 50% | cJSON int64 round-trip and ConvertStrToInt are dead/unshipped; PIN/rand bugs still fixed. |
@@ -171,9 +174,10 @@ High-confidence project: **10** accepted fixes and **no** rejected DTS.
 | Metric | Value |
 |--------|------:|
 | FIXED | 9 |
+| CONFIRMED (awaiting fix) | 1 |
 | NON-ISSUE | 4 |
-| Decided | 13 |
-| Precision | 69.2% |
+| Decided | 14 |
+| Precision | 71.4% |
 
 **FIXED DTS**
 
@@ -187,6 +191,10 @@ High-confidence project: **10** accepted fixes and **no** rejected DTS.
 - `DTS2026073116282` — [OH-2026-ARKUI-008](../content/issues/OH-2026-ARKUI-008.md): DataPanel GetPaintPath computes NaN circleAngle via unguarded asin when stroke collapses radius
 - `DTS2026091012206` — [OH-2026-ARKUI-009](../content/issues/OH-2026-ARKUI-009.md): Matrix3N::SetEntry / MatrixN3::SetEntry missing negative-index guard (OOB write / crash)
 
+**CONFIRMED DTS** (accepted; not fixed yet)
+
+- `DTS2609150153371` — [OH-2026-ARKUI-010](../content/issues/OH-2026-ARKUI-010.md): CalculateStartCachedCount overcounts when the last regular line is partial
+
 **NON-ISSUE DTS**
 
 - `DTS2026071809266` — GetTotalHeightOfItemsInView empty → -mainGap. *Long-standing formula contract; shared API unchanged.*
@@ -194,7 +202,7 @@ High-confidence project: **10** accepted fixes and **no** rejected DTS.
 - `DTS2026082235589` — Color::FromRGBO wraps out-of-range opacity. *Internal packer; domain `[0, 1]`; clamp is caller-owned; forcing clamp is compat (`2` is 254 today, 255 after).*
 - `DTS2026082235533` — FindItemCount overcounts on continuation start. *Not for irregular layout; no negative IDs; consecutive max-min+1; irregular uses GetIrregularOffset/Height.*
 
-Mixed outcomes: maintainers accepted **9** and rejected **4**. Net precision **69%**.
+Mixed outcomes: maintainers accepted **10** (9 fixed + 1 confirmed) and rejected **4**. Net precision **71%**.
 
 ### `communication_netmanager_base`
 
@@ -647,15 +655,16 @@ No FIXED DTS yet among dispositioned tickets.
 
 ## Relation to `content/issues/` write-ups
 
-This repo’s [`content/issues/`](../content/issues/) currently carries **106** DTS-linked reports, all status `CONFIRMED_FIXED`.
-That set is the **FIXED** count here. Non-issues come from `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/`.
+This repo’s [`content/issues/`](../content/issues/) currently carries **107** DTS-linked reports (**106** `CONFIRMED_FIXED` + **1** `CONFIRMED_REAL`).
+`CONFIRMED_FIXED` is the **FIXED** count; `CONFIRMED_REAL` is **CONFIRMED** (awaiting fix). Non-issues come from `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/`.
 
 | Population | Count | Role |
 |------------|------:|------|
-| Decided DTS (FIXED + NON-ISSUE) | 127 | Ground truth for precision |
-| FIXED | 106 | Maintainer-accepted (scoreboard / `content/issues` inventory) |
+| Decided DTS (FIXED + CONFIRMED + NON-ISSUE) | 128 | Ground truth for precision |
+| FIXED | 106 | Maintainer-accepted and fixed |
+| CONFIRMED | 1 | Maintainer-accepted, not fixed yet |
 | NON-ISSUE | 21 | Maintainer-rejected (cloned + testing inventory) |
-| Write-ups in `content/issues` with DTS | 106 | Published confirmed bugs |
+| Write-ups in `content/issues` with DTS | 107 | Published confirmed bugs (fixed or awaiting fix) |
 
 **Do not** compute precision from `content/issues` alone — it omits non-issues by design. Use this document (or dispositioned rows in `BUG_REPORTS.md`) for acceptance rate.
 
@@ -663,18 +672,19 @@ See also: [DTS tickets by detecting property](./dts_bug_types.md). Failure-mode 
 
 ## Takeaways
 
-1. **Overall precision is high (83.5%)** — PBT filings that reach a DTS decision are usually real defects.
+1. **Overall precision is high (83.6%)** — PBT filings that reach a DTS decision are usually real defects.
 2. **False positives cluster in a few patterns** (21 tickets): by-design helpers, dead/unreachable / dropped-from-trunk code, path-prefix gates with no live producer after `realpath`, framing residuals that are not object OOB and mostly fail-closed, caller-owned / split-API contracts, shipped CAPI / product omissions, flag-dependent crashes — not flaky reproduction.
 3. **Several large surfaces are clean so far** (e.g. `multimedia_camera_framework`, `multimedia_image_framework`, `graphic_graphic_2d` among high-volume FIXED with 0 NON-ISSUE).
 4. **Filing bar that non-issues imply:** prove a live production caller, state the product contract, and avoid “algebraic inconsistency across differently purposed APIs” without impact. Sibling slash-terminated roots + a one-char fix still need a product-domain hit. Do not equate logical cursor past `wPos_` inside a zero-filled fixed buffer with heap OOB.
 
 ## Methodology notes
 
-- One row per unique DTS ID from `BUG_REPORTS.md` (EN reports), **restricted to FIXED and NON-ISSUE**.
+- One row per unique DTS ID from `BUG_REPORTS.md` (EN reports), **restricted to FIXED, CONFIRMED (unfixed), and NON-ISSUE**.
 - Open/submitted tickets are excluded: outcome unknown, so they must not enter precision or false-positive rates.
 - Sibling write-ups sharing one DTS (e.g. dsoftbus NUL trio) count once.
-- Status labels follow the inventory (`FIXED` / `NON-ISSUE`), not git-commit archaeology.
-- FIXED counts follow `content/issues/` (`CONFIRMED_FIXED`) / DTS inventory. NON-ISSUE counts follow DTS-stamped reports under `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (`BUG_REPORTS.md`).
+- Status labels follow the inventory (`FIXED` / `CONFIRMED` / `NON-ISSUE`), not git-commit archaeology.
+- **Precision** = `(FIXED + CONFIRMED) / (FIXED + CONFIRMED + NON-ISSUE)`.
+- FIXED = `content/issues/` with `CONFIRMED_FIXED`. CONFIRMED = `CONFIRMED_REAL` (accepted, not fixed yet). NON-ISSUE = DTS-stamped reports under `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/`.
 - Non-DTS local reviews under `non-issue/` without a ticket are **excluded** (never filed → not false positives).
 
 
@@ -687,7 +697,7 @@ Moved out of [`dts_bug_types.md`](./dts_bug_types.md) (that file is now the dete
 | Bug type | Count | HIGH | MEDIUM | LOW |
 |----------|------:|-----:|-------:|----:|
 | [Arithmetic — Integer Overflow / Underflow](#arithmetic-integer-overflow-underflow) | 11 | 1 | 10 | 0 |
-| [Arithmetic — Incorrect Calculation](#arithmetic-incorrect-calculation) | 15 | 3 | 11 | 1 |
+| [Arithmetic — Incorrect Calculation](#arithmetic-incorrect-calculation) | 16 | 3 | 12 | 1 |
 | [Arithmetic — Divide by Zero](#arithmetic-divide-by-zero) | 3 | 1 | 2 | 0 |
 | [Arithmetic — Off-by-One](#arithmetic-off-by-one) | 3 | 1 | 2 | 0 |
 | [Memory Safety — Buffer / OOB Access](#memory-safety-buffer-oob-access) | 13 | 1 | 12 | 0 |
@@ -706,7 +716,7 @@ Moved out of [`dts_bug_types.md`](./dts_bug_types.md) (that file is now the dete
 | [Security — Authorization / Access Control](#security-authorization-access-control) | 3 | 1 | 2 | 0 |
 | [Security — Certificate Validation](#security-certificate-validation) | 1 | 1 | 0 | 0 |
 | [Security — Information Leakage](#security-information-leakage) | 1 | 0 | 1 | 0 |
-| **Total** | **75** | **16** | **57** | **2** |
+| **Total** | **76** | **16** | **58** | **2** |
 
 ## DTS index (bug type)
 
@@ -787,6 +797,7 @@ Moved out of [`dts_bug_types.md`](./dts_bug_types.md) (that file is now the dete
 | `DTS2026081713997` | [OH-2026-AVCODEC-003](../content/issues/OH-2026-AVCODEC-003.md) | Arithmetic — Incorrect Calculation | MEDIUM | `multimedia_av_codec` |
 | `DTS2026082023118` | [OH-2026-DSOFTBUS-001](../content/issues/OH-2026-DSOFTBUS-001.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `communication_dsoftbus` |
 | `DTS2026083116823` | [OH-2026-DSOFTBUS-002](../content/issues/OH-2026-DSOFTBUS-002.md) | Input Validation — Improper Checks | MEDIUM | `communication_dsoftbus` |
+| `DTS2609150153371` | [OH-2026-ARKUI-010](../content/issues/OH-2026-ARKUI-010.md) | Arithmetic — Incorrect Calculation | MEDIUM | `arkui_ace_engine` |
 
 
 ## Arithmetic & Numeric Bugs
@@ -846,6 +857,7 @@ Wrong formula, operand, rounding, or matrix/color/geometry math that breaks inva
 | `DTS2026081424330` | [OH-2026-IMG-006](../content/issues/OH-2026-IMG-006.md) | MEDIUM | CWE-682 (Incorrect Calculation) | `frameworks/innerkitsimpl/converter/include/pixel_convert.h` · `multimedia_image_framework` | HalfToFloat maps half +0 (0x0000) to 2^-15 instead of 0.0f |
 | `DTS2026081713997` | [OH-2026-AVCODEC-003](../content/issues/OH-2026-AVCODEC-003.md) | MEDIUM | CWE-682 (Incorrect Calculation) | `services/media_engine/plugins/source/http_source/hls/hls_tags.cpp` · `multimedia_av_codec` | ValuesListTag::ParseAttributes TITLE includes the leading comma |
 | `DTS2026073116282` | [OH-2026-ARKUI-008](../content/issues/OH-2026-ARKUI-008.md) | MEDIUM | CWE-682 (Incorrect Calculation) | `frameworks/core/components_ng/pattern/data_panel/data_panel_modifier.cpp` · `arkui_ace_engine` | DataPanel GetPaintPath unguarded asin → NaN circleAngle when stroke collapses radius |
+| `DTS2609150153371` | [OH-2026-ARKUI-010](../content/issues/OH-2026-ARKUI-010.md) | MEDIUM | CWE-682 (Incorrect Calculation) | `frameworks/core/components_ng/pattern/grid/grid_scroll/grid_scroll_with_options_layout_algorithm.cpp` · `arkui_ace_engine` | CalculateStartCachedCount overcounts when the last regular line is partial |
 
 <details><summary>Summaries</summary>
 
@@ -864,6 +876,7 @@ Wrong formula, operand, rounding, or matrix/color/geometry math that breaks inva
 - **OH-2026-IMG-006** (`DTS2026081424330`): `HalfToFloat` applies normals-only exponent rebase `((mag << 13) + 0x38000000)` to every input. Half ±0 magnitude is 0 → invents `0x38000000` = `2^-15` instead of `0.0f`.
 - **OH-2026-AVCODEC-003** (`DTS2026081713997`): `ValuesListTag::ParseAttributes` splits HLS `#EXTINF:duration,title`. DURATION uses `substr(0, pos)` (excludes comma); TITLE uses `substr(pos)` (includes comma) → every titled segment TITLE starts with `,`.
 - **OH-2026-ARKUI-008** (`DTS2026073116282`): `DataPanelModifier::GetPaintPath` computes `circleAngle` via unguarded `asin(thickness/2 / (radius - thickness/2))`. Stroke ≥ half min-side drives `radius <= 0` → NaN angle / broken arcs.
+- **OH-2026-ARKUI-010** (`DTS2609150153371`): `CalculateStartCachedCountByIrregular` returns `budget * crossCount` when `diff >= budget * C`, ignoring a partial last regular line (`diff % C != 0`). Full-line model wants `rem + (budget-1)*C`. Confirmed, not fixed yet.
 
 </details>
 

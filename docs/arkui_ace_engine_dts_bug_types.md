@@ -5,9 +5,10 @@ Categorization of **confirmed fixed** DTS findings in `arkui_ace_engine`, groupe
 Scoped to this repo only. Companion precision report: [arkui_ace_engine_finding_precision.md](./arkui_ace_engine_finding_precision.md).
 
 - **Repo:** `arkui_ace_engine`
-- **Confirmed fixed (DTS + write-up):** **9**
-- **Status:** all listed tickets are `CONFIRMED_FIXED`
-- **Severity:** HIGH=5, MEDIUM=4, LOW=0
+- **Confirmed fixed (DTS + write-up):** **9** (`CONFIRMED_FIXED`)
+- **Confirmed awaiting fix:** **1** (`CONFIRMED_REAL` — [OH-2026-ARKUI-010](../content/issues/OH-2026-ARKUI-010.md))
+- **Status:** fixed tickets are `CONFIRMED_FIXED`; one ticket is `CONFIRMED_REAL`
+- **Severity** (fixed + confirmed): HIGH=5, MEDIUM=5, LOW=0
 - **Sources:** [`content/issues/OH-2026-ARKUI-*.md`](../content/issues/), `~/cloned/arkui_ace_engine/pbt-out/bug_reports/fixed/`
 - **Generated:** 2026-09-21
 
@@ -15,18 +16,18 @@ Scoped to this repo only. Companion precision report: [arkui_ace_engine_finding_
 
 | Bug type | Count | HIGH | MEDIUM | LOW |
 |----------|------:|-----:|-------:|----:|
-| [Arithmetic — Incorrect Calculation](#arithmetic-incorrect-calculation) | 4 | 1 | 3 | 0 |
+| [Arithmetic — Incorrect Calculation](#arithmetic-incorrect-calculation) | 5 | 1 | 4 | 0 |
 | [Arithmetic — Divide by Zero](#arithmetic-divide-by-zero) | 1 | 1 | 0 | 0 |
 | [Logic — Incorrect Control Flow](#logic-incorrect-control-flow) | 2 | 2 | 0 | 0 |
 | [Undefined Behavior](#undefined-behavior) | 1 | 0 | 1 | 0 |
 | [Memory — Buffer / OOB Access](#memory--buffer--oob-access) | 1 | 1 | 0 | 0 |
-| **Total** | **9** | **5** | **4** | **0** |
+| **Total** | **10** | **5** | **5** | **0** |
 
 ### By family
 
 | Family | Count |
 |--------|------:|
-| Arithmetic & Numeric | 5 |
+| Arithmetic & Numeric | 6 |
 | Logic | 2 |
 | Undefined Behavior | 1 |
 | Memory / Buffer | 1 |
@@ -44,6 +45,7 @@ Scoped to this repo only. Companion precision report: [arkui_ace_engine_finding_
 | `DTS2026072325132` | [OH-2026-ARKUI-007](../content/issues/OH-2026-ARKUI-007.md) | Arithmetic — Divide by Zero | HIGH | `frameworks/core/components_ng/pattern/grid/grid_layout_info.cpp` |
 | `DTS2026073116282` | [OH-2026-ARKUI-008](../content/issues/OH-2026-ARKUI-008.md) | Arithmetic — Incorrect Calculation | MEDIUM | `frameworks/core/components_ng/pattern/data_panel/data_panel_modifier.cpp` |
 | `DTS2026091012206` | [OH-2026-ARKUI-009](../content/issues/OH-2026-ARKUI-009.md) | Memory — Buffer / OOB Access | HIGH | `frameworks/base/geometry/matrix3.cpp` |
+| `DTS2609150153371` | [OH-2026-ARKUI-010](../content/issues/OH-2026-ARKUI-010.md) | Arithmetic — Incorrect Calculation | MEDIUM | `frameworks/core/components_ng/pattern/grid/grid_scroll/grid_scroll_with_options_layout_algorithm.cpp` |
 
 ## Arithmetic — Incorrect Calculation
 
@@ -55,6 +57,7 @@ Wrong formula, operand, or matrix/layout math that breaks geometric or color inv
 | `DTS2026061256925` | [OH-2026-ARKUI-001](../content/issues/OH-2026-ARKUI-001.md) | MEDIUM | CWE-682 (Incorrect Calculation) | `frameworks/core/components_ng/pattern/grid/grid_layout_info.cpp` | GridLayoutInfo::GetContentHeightOfRegularGrid returns negative height for empty grids with positive gap |
 | `DTS2026062427183` | [OH-2026-ARKUI-003](../content/issues/OH-2026-ARKUI-003.md) | MEDIUM | CWE-682 (Incorrect Calculation) | `frameworks/base/geometry/matrix4.cpp` | Matrix4::SetEntry uses opposite storage order from Get/Set, breaking off-diagonal round-trips |
 | `DTS2026073116282` | [OH-2026-ARKUI-008](../content/issues/OH-2026-ARKUI-008.md) | MEDIUM | CWE-682 (Incorrect Calculation) | `frameworks/core/components_ng/pattern/data_panel/data_panel_modifier.cpp` | DataPanel GetPaintPath computes NaN circleAngle via unguarded asin ratio when stroke collapses radius to 0 |
+| `DTS2609150153371` | [OH-2026-ARKUI-010](../content/issues/OH-2026-ARKUI-010.md) | MEDIUM | CWE-682 (Incorrect Calculation) | `frameworks/core/components_ng/pattern/grid/grid_scroll/grid_scroll_with_options_layout_algorithm.cpp` | CalculateStartCachedCount overcounts when the last regular line is partial |
 
 <details><summary>Summaries</summary>
 
@@ -62,6 +65,7 @@ Wrong formula, operand, or matrix/layout math that breaks geometric or color inv
 - **OH-2026-ARKUI-001** (`DTS2026061256925`): `GridLayoutInfo::GetContentHeightOfRegularGrid()` returns a negative content height when the grid has zero items and `mainGap` is positive. The empty-grid case falls through the modulo branch and subtracts `mainGap` from zero, violating ...
 - **OH-2026-ARKUI-003** (`DTS2026062427183`): `Matrix4::SetEntry(row, col, value)` writes to `matrix4x4_[row][col]`, but `Matrix4::Get(row, col)` and `Matrix4::Set(row, col, value)` read/write `matrix4x4_[col][row]`. Off-diagonal writes therefore do not round-trip: a value written t...
 - **OH-2026-ARKUI-008** (`DTS2026073116282`): `DataPanelModifier::GetPaintPath()` computes circle-cap angle as `asin(thickness*0.5/(radius-thickness*0.5))` with no domain guard. Stroke at or above half the min side drives `radius <= 0` → `|sine| > 1` / `0/0` → NaN `circleAngle` that poisons the arc.
+- **OH-2026-ARKUI-010** (`DTS2609150153371`): `CalculateStartCachedCountByIrregular` returns `budget * crossCount` on a partial last regular line; full-line model wants `rem + (budget-1)*C`. Confirmed, not fixed yet.
 
 </details>
 
@@ -127,7 +131,7 @@ Missing lower-bound index guard on a public `std::vector` writer → OOB write /
 
 | CWE | Name | Count |
 |-----|------|------:|
-| CWE-682 | Incorrect Calculation | 4 |
+| CWE-682 | Incorrect Calculation | 5 |
 | CWE-670 | Always-Incorrect Control Flow Implementation | 2 |
 | CWE-369 | Divide By Zero | 1 |
 | CWE-758 | Reliance on Undefined, Unspecified, or Implementation-Defined Behavior | 1 |

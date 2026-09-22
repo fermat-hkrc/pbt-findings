@@ -2,11 +2,12 @@
 
 对 [`content/issues/`](../content/issues/) 中带有 **DTS** 工单号（`internal_issue_id`）的发现所做的归类，按检出该工单的 **pi-pbt 性质（预言机）** 分组。CWE / 失效模式分组归档在 [`finding_precision_by_project.md`](finding_precision_by_project.md) 文末。
 
-- **已确认（FIXED）**：**106** — 下列目录（`CONFIRMED_FIXED` 报告）
+- **已确认并修复（FIXED）**：**106** — `CONFIRMED_FIXED` 报告如下
+- **已确认（待修复）**：**1** — `CONFIRMED_REAL`（[OH-2026-ARKUI-010](../content/issues/OH-2026-ARKUI-010.md)）
 - **非问题（NON-ISSUE）**：**21** — [目录](#非问题)
-- **已判定**：**127** = 106 + 21
-- **精确率**：**83.5%** = `106 / (106 + 21)` = 已确认 /（已确认 + 非问题）
-- **严重级别**（仅已确认）：HIGH=25，MEDIUM=78，LOW=3
+- **已判定**：**128** = 106 + 1 + 21
+- **精确率**：**83.6%** = `(106 + 1) / (106 + 1 + 21)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
+- **严重级别**（已修复 + 已确认）：HIGH=25，MEDIUM=79，LOW=3
 - **生成时间**：2026-09-22
 
 ## 概览
@@ -20,17 +21,17 @@
 | [差分](#差分) | 34 | 2 | 31 | 1 |
 | [代数 — 往返](#代数--往返) | 6 | 3 | 3 | 0 |
 | [代数 — 蜕变](#代数--蜕变) | 3 | 1 | 2 | 0 |
-| [代数 — 不变量](#代数--不变量) | 31 | 8 | 22 | 1 |
+| [代数 — 不变量](#代数--不变量) | 32 | 8 | 23 | 1 |
 | [否定 / 错误契约](#否定--错误契约) | 11 | 2 | 9 | 0 |
 | [参考](#参考) | 5 | 1 | 4 | 0 |
 | [仅崩溃](#仅崩溃) | 13 | 6 | 7 | 0 |
-| **合计** | **106** | **25** | **78** | **3** |
+| **合计** | **107** | **25** | **79** | **3** |
 
 强度顺序：状态机 ≻ 差分 ≻ 代数（往返 ≻ 幂等 ≻ 蜕变 ≻ 不变量 ≻ 否定/错误）≻ 参考 ≻ 仅崩溃。本集合中**幂等：0**。
 
 ### 按模块
 
-`FIXED` = 本目录。`NI` = [非问题](#非问题)。**精确率** = `FIXED / (FIXED + NI)`。
+`REAL` = 已修复 + 已确认（本目录）。`NI` = [非问题](#非问题)。**精确率** = `(FIXED + CONFIRMED) / (FIXED + CONFIRMED + NI)`。
 
 | 模块 | FIXED | NI | HIGH | MEDIUM | LOW | 精确率 |
 |--------|------:|---:|-----:|-------:|----:|----------:|
@@ -38,7 +39,7 @@
 | `multimedia_image_framework` | 9 | 0 | 1 | 8 | 0 | 100% |
 | `communication_netmanager_base` | 11 | 2 | 3 | 8 | 0 | 85% |
 | `graphic_graphic_2d` | 10 | 0 | 3 | 6 | 1 | 100% |
-| `arkui_ace_engine` | 9 | 4 | 5 | 4 | 0 | 69% |
+| `arkui_ace_engine` | 10 | 4 | 5 | 5 | 0 | 71% |
 | `ability_ability_runtime` | 7 | 0 | 0 | 7 | 0 | 100% |
 | `arkcompiler_runtime_core` | 6 | 1 | 1 | 5 | 0 | 86% |
 | `multimedia_av_codec` | 6 | 0 | 0 | 5 | 1 | 100% |
@@ -61,7 +62,7 @@
 | `arkui_napi` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **合计** | **106** | **21** | **25** | **78** | **3** | **83%** |
+| **合计** | **107** | **21** | **25** | **79** | **3** | **84%** |
 
 ## DTS 索引
 
@@ -172,6 +173,7 @@
 | `DTS2026090130983` | [OH-2026-AVCODEC-006](../content/issues/OH-2026-AVCODEC-006.md) | 代数 — 不变量 | MEDIUM | `multimedia_av_codec` |
 | `DTS2026090527401` | [OH-2026-GFX-010](../content/issues/OH-2026-GFX-010.md) | 差分 | HIGH | `graphic_graphic_2d` |
 | `DTS2026091012206` | [OH-2026-ARKUI-009](../content/issues/OH-2026-ARKUI-009.md) | 状态机 | HIGH | `arkui_ace_engine` |
+| `DTS2609150153371` | [OH-2026-ARKUI-010](../content/issues/OH-2026-ARKUI-010.md) | 代数 — 不变量 | MEDIUM | `arkui_ace_engine` |
 | `DTS2608260052510` | [OH-2026-MEDIALIB-005](../content/issues/OH-2026-MEDIALIB-005.md) | 仅崩溃 | HIGH | `multimedia_media_library` |
 
 ## 检测性质（预言机）
@@ -299,6 +301,7 @@
 | `DTS2026082254944` | [OH-2026-ABILITY-005](../content/issues/OH-2026-ABILITY-005.md) | MEDIUM | ConvertStringToUint32 接受 [0, UINT32_MAX] 内任意完整消费的十进制 |
 | `DTS2026082261311` | [OH-2026-GFX-009](../content/issues/OH-2026-GFX-009.md) | MEDIUM | 同色域 IsNearEqual 比较解码后的通道计数，而非联合体原始位 |
 | `DTS2026090130983` | [OH-2026-AVCODEC-006](../content/issues/OH-2026-AVCODEC-006.md) | MEDIUM | 成功 ⇒ result ≥ 0（NaN 无序，不是非负） |
+| `DTS2609150153371` | [OH-2026-ARKUI-010](../content/issues/OH-2026-ARKUI-010.md) | MEDIUM | 末条规则行未满 ⇒ start-cache = rem+(budget-1)*C（不是 budget*C） |
 
 <a id="否定--错误契约"></a>
 
@@ -360,7 +363,7 @@
 
 维护者驳回的 DTS。只计入分母。
 
-**精确率** = 已确认 /（已确认 + 非问题）= **106 / (106 + 21) = 83.5%**。
+**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(106 + 1) / (106 + 1 + 21) = 83.6%**。
 
 | DTS | 项目 | 主题 | 为何非问题 |
 |-----|------|------|------------|
