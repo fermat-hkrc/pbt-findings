@@ -58,7 +58,7 @@
 | 54 | multimedia_player_framework | XmlParser::Destroy 双重释放 mDoc_（析构未置空再次进入） | 双重释放 | `services/utils/xml_parse.cpp` | 已确认并修复 |  | DTS2026072457284 |
 | 55 | graphic_graphic_2d | IsUtf8 在 signed-char 主机上接受 UTF-8 代理项 | 编码/Unicode | `rosen/modules/2d_graphics/src/drawing/utils/string_util.cpp` | 已确认并修复 |  | DTS2026072513315 |
 | 56 | ability_ability_runtime | DialogAbilityInfo::ParseURI 的 catch 在末字段 stoi 失败后越界索引 uriVec | 缓冲区/越界访问 | `services/abilitymgr/src/dialog_session/dialog_session_info.cpp` | 已确认并修复 |  | DTS2026072514260 |
-| 57 | ability_ability_runtime | ParseNormalizedOhmUrl 过短 import 路径 substr 抛出 std::out_of_range | 坏输入未捕获异常/崩溃 | `frameworks/native/appkit/app_startup/preload_so_startup_task.cpp` | 已提交 |  | DTS2026072515209 |
+| 57 | ability_ability_runtime | ParseNormalizedOhmUrl 过短 import 路径 substr 抛出 std::out_of_range | 坏输入未捕获异常/崩溃 | `frameworks/native/appkit/app_startup/preload_so_startup_task.cpp` | 已确认并修复 |  | DTS2026072515209 |
 | 58 | arkcompiler_runtime_core | SkipULeb128 空/截断输入越界读 + size_t 下溢 | 缓冲区/越界访问 | `static_core/libarkfile/helpers.h` | 非问题 | 辅助函数为 void；畸形 ULEB 对 VM 视为致命；debug ASSERT 即停止点 | DTS2026072517792 |
 | 59 | arkui_ace_engine | 跨度标记末单元格时 IsAllItemsMeasured 为 false | 控制流错误 | `frameworks/core/components_ng/pattern/grid/grid_layout_info.cpp` | 非问题 | 调用处不见 `-idx`；不规则布局走 GetIrregularHeight，不经此门禁 | DTS2026072522059 |
 | 60 | multimedia_camera_framework | UpdateDeviceDeferredability 照片 pair 遍历在奇数 item.count 上越界 | 缓冲区/越界访问 | `frameworks/native/camera/base/src/session/capture_session.cpp` | 已提交 |  | DTS2026072716582 |
