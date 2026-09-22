@@ -35,7 +35,7 @@ Companion bug-type catalog: [arkui_ace_engine_dts_bug_types.md](./arkui_ace_engi
 - **Precision:** **9/13 = 69.2%**
 - **False-positive rate:** **4/13 = 30.8%**
 
-Compared with the cross-repo decided baseline (**83.3%** precision), arkui_ace_engine is **below** (69.2%).
+Compared with the cross-repo decided baseline (**83.5%** precision), arkui_ace_engine is **below** (69.2%).
 
 ## FIXED DTS
 

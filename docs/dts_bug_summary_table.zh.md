@@ -69,7 +69,7 @@
 | 65 | multimedia_camera_framework | OHOS_ABILITY_EQUIVALENT_FOCUS pair 遍历在奇数 item.count 上越界 | 缓冲区/越界访问 | `services/camera_service/src/hcapture_session.cpp` | 已提交 |  | DTS2026072832082 |
 | 66 | ability_ability_runtime | PhotoEditor SaveEditedContent 在无扩展名时用整段 URI 当 MIME | 控制流错误 | `frameworks/native/ability/native/photo_editor_extension_ability/photo_editor_extension_context.cpp` | 已提交 |  | DTS2026072919806 |
 | 67 | window_window_manager | ComputeRectByAspectRatio 级联装饰条带 uint32 下溢 | 整数溢出/下溢 | `wmserver/src/window_layout_policy_cascade.cpp` | 已确认并修复 |  | DTS2026072921166 |
-| 68 | window_window_manager | IsFloatingNumber 接受无数字 token → 未捕获的 std::stof 抛出 | 坏输入未捕获异常/崩溃 | `utils/include/window_helper.h` | 已提交 |  | DTS2026072924028 |
+| 68 | window_window_manager | IsFloatingNumber 接受无数字 token → 未捕获的 std::stof 抛出 | 坏输入未捕获异常/崩溃 | `utils/include/window_helper.h` | 已确认并修复 |  | DTS2026072924028 |
 | 69 | multimedia_av_codec | UriDecode 转义守卫差一，把截断的 %X 解成控制字节 | 差一 | `services/media_engine/plugins/source/http_source/hls/hls_tags.cpp` | 已确认并修复 |  | DTS2026072935286 |
 | 70 | multimedia_media_foundation | Format::Stringify 对已注册 tag 把 bool AnyCast 成 int32 时 SIGSEGV | 未定义行为 | `src/meta/format.cpp` | 非问题 | 主机 -O0 会陷入；产品/UT -O2 不会；维护者配置无法复现崩溃 | DTS2026072938754 |
 | 71 | distributeddatamgr_pasteboard | SetCurrentDistributedData 超时后 isRunning 卡住，永久关闭跨设备剪贴板发布 | 清理不完整或卡住 | `services/core/src/pasteboard_service.cpp` | 已确认并修复 |  | DTS2026073012747 |

@@ -2,8 +2,8 @@
 
 How often PBT-filed **DTS** tickets were accepted as real bugs versus closed as non-issues, broken down by project.
 
-- **Precision:** **83.3%** (105 FIXED / 126 decided)
-- **False-positive rate:** **16.7%** (21 NON-ISSUE)
+- **Precision:** **83.5%** (106 FIXED / 127 decided)
+- **False-positive rate:** **16.5%** (21 NON-ISSUE)
 
 Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS tickets are omitted — their outcome (bug vs non-issue) is not yet known.
 
@@ -20,7 +20,7 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 **Sources**
 
 - DTS inventory: [`dts_bug_types.md`](./dts_bug_types.md) + [`content/issues/`](../content/issues/)
-- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**105** issues, all `CONFIRMED_FIXED`)
+- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**106** issues, all `CONFIRMED_FIXED`)
 - Non-issue write-ups: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (**21** DTS-stamped)
 
 - **Generated:** 2026-09-22
@@ -29,12 +29,12 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 105 | 83.3% |
-| NON-ISSUE | 21 | 16.7% |
-| **Total decided** | **126** | 100% |
+| FIXED | 106 | 83.5% |
+| NON-ISSUE | 21 | 16.5% |
+| **Total decided** | **127** | 100% |
 
-- **Precision:** **105/126 = 83.3%** — about five in six closed tickets were real bugs.
-- **False-positive rate:** **21/126 = 16.7%**.
+- **Precision:** **106/127 = 83.5%** — about five in six closed tickets were real bugs.
+- **False-positive rate:** **21/127 = 16.5%**.
 
 > Precision means *maintainer-accepted defect rate among dispositioned DTS*, not static-analysis alert rate. Open/submitted tickets are out of scope until closed.
 
@@ -60,7 +60,7 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`communication_bluetooth_service`](#communication-bluetooth-service) | 2 | 0 | 2 | 100% |
 | [`communication_wifi`](#communication-wifi) | 2 | 0 | 2 | 100% |
 | [`distributeddatamgr_pasteboard`](#distributeddatamgr-pasteboard) | 2 | 0 | 2 | 100% |
-| [`window_window_manager`](#window-window-manager) | 2 | 0 | 2 | 100% |
+| [`window_window_manager`](#window-window-manager) | 3 | 0 | 3 | 100% |
 | [`arkui_napi`](#arkui-napi) | 2 | 0 | 2 | 100% |
 | [`communication_dsoftbus`](#communication-dsoftbus) | 2 | 1 | 3 | 67% |
 | [`distributeddatamgr_datamgr_service`](#distributeddatamgr-datamgr-service) | 1 | 1 | 2 | 50% |
@@ -71,13 +71,13 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`telephony_core_service`](#telephony-core-service) | 1 | 0 | 1 | 100% |
 | [`multimedia_audio_framework`](#multimedia-audio-framework) | 1 | 1 | 2 | 50% |
 | [`multimodalinput_input`](#multimodalinput-input) | 0 | 2 | 2 | 0% |
-| **Total** | **105** | **21** | **126** | **83%** |
+| **Total** | **106** | **21** | **127** | **83%** |
 
 ## Precision tiers
 
 ### Tier A — Perfect precision (100%, ≥1 FIXED, 0 NON-ISSUE)
 
-`multimedia_camera_framework` (13 fixed), `graphic_graphic_2d` (10 fixed), `multimedia_image_framework` (9 fixed), `ability_ability_runtime` (7 fixed), `multimedia_av_codec` (6 fixed), `multimedia_player_framework` (4 fixed), `arkui_napi` (2 fixed), `communication_bluetooth_service` (2 fixed), `communication_wifi` (2 fixed), `distributeddatamgr_pasteboard` (2 fixed), `filemanagement_storage_service` (2 fixed), `window_window_manager` (2 fixed), `commonlibrary_rust_ylong_http` (1 fixed), `distributedhardware_distributed_hardware_fwk` (1 fixed), `filemanagement_dfs_service` (1 fixed), `telephony_core_service` (1 fixed)
+`multimedia_camera_framework` (13 fixed), `graphic_graphic_2d` (10 fixed), `multimedia_image_framework` (9 fixed), `ability_ability_runtime` (7 fixed), `multimedia_av_codec` (6 fixed), `multimedia_player_framework` (4 fixed), `window_window_manager` (3 fixed), `arkui_napi` (2 fixed), `communication_bluetooth_service` (2 fixed), `communication_wifi` (2 fixed), `distributeddatamgr_pasteboard` (2 fixed), `filemanagement_storage_service` (2 fixed), `commonlibrary_rust_ylong_http` (1 fixed), `distributedhardware_distributed_hardware_fwk` (1 fixed), `filemanagement_dfs_service` (1 fixed), `telephony_core_service` (1 fixed)
 
 These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 
@@ -512,15 +512,16 @@ Mixed outcomes: maintainers accepted **2** and rejected **1**. Net precision **6
 
 | Metric | Value |
 |--------|------:|
-| FIXED | 2 |
+| FIXED | 3 |
 | NON-ISSUE | 0 |
-| Decided | 2 |
+| Decided | 3 |
 | Precision | 100.0% |
 
 **FIXED DTS**
 
 - `DTS2026072347788` — [OH-2026-WM-001](../content/issues/OH-2026-WM-001.md): IsAspectRatioSatisfiedWithSizeLimits decor uint32 underflow rejects valid ratios
 - `DTS2026072921166` — [OH-2026-WM-002](../content/issues/OH-2026-WM-002.md): ComputeRectByAspectRatio cascade decor strip uint32 underflow
+- `DTS2026072924028` — [OH-2026-WM-003](../content/issues/OH-2026-WM-003.md): IsFloatingNumber accepts digit-less tokens → uncaught std::stof throw
 
 ### `commonlibrary_rust_ylong_http`
 
@@ -646,15 +647,15 @@ No FIXED DTS yet among dispositioned tickets.
 
 ## Relation to `content/issues/` write-ups
 
-This repo’s [`content/issues/`](../content/issues/) currently carries **105** DTS-linked reports, all status `CONFIRMED_FIXED`.
+This repo’s [`content/issues/`](../content/issues/) currently carries **106** DTS-linked reports, all status `CONFIRMED_FIXED`.
 That set is the **FIXED** count here. Non-issues come from `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/`.
 
 | Population | Count | Role |
 |------------|------:|------|
-| Decided DTS (FIXED + NON-ISSUE) | 126 | Ground truth for precision |
-| FIXED | 105 | Maintainer-accepted (scoreboard / `content/issues` inventory) |
+| Decided DTS (FIXED + NON-ISSUE) | 127 | Ground truth for precision |
+| FIXED | 106 | Maintainer-accepted (scoreboard / `content/issues` inventory) |
 | NON-ISSUE | 21 | Maintainer-rejected (cloned + testing inventory) |
-| Write-ups in `content/issues` with DTS | 105 | Published confirmed bugs |
+| Write-ups in `content/issues` with DTS | 106 | Published confirmed bugs |
 
 **Do not** compute precision from `content/issues` alone — it omits non-issues by design. Use this document (or dispositioned rows in `BUG_REPORTS.md`) for acceptance rate.
 
@@ -662,7 +663,7 @@ See also: [DTS tickets by detecting property](./dts_bug_types.md). Failure-mode 
 
 ## Takeaways
 
-1. **Overall precision is high (83.3%)** — PBT filings that reach a DTS decision are usually real defects.
+1. **Overall precision is high (83.5%)** — PBT filings that reach a DTS decision are usually real defects.
 2. **False positives cluster in a few patterns** (21 tickets): by-design helpers, dead/unreachable / dropped-from-trunk code, path-prefix gates with no live producer after `realpath`, framing residuals that are not object OOB and mostly fail-closed, caller-owned / split-API contracts, shipped CAPI / product omissions, flag-dependent crashes — not flaky reproduction.
 3. **Several large surfaces are clean so far** (e.g. `multimedia_camera_framework`, `multimedia_image_framework`, `graphic_graphic_2d` among high-volume FIXED with 0 NON-ISSUE).
 4. **Filing bar that non-issues imply:** prove a live production caller, state the product contract, and avoid “algebraic inconsistency across differently purposed APIs” without impact. Sibling slash-terminated roots + a one-char fix still need a product-domain hit. Do not equate logical cursor past `wPos_` inside a zero-filled fixed buffer with heap OOB.
@@ -699,13 +700,13 @@ Moved out of [`dts_bug_types.md`](./dts_bug_types.md) (that file is now the dete
 | [Undefined Behavior](#undefined-behavior) | 2 | 1 | 1 | 0 |
 | [State / Lifecycle — Incomplete Cleanup or Stuck State](#state-lifecycle-incomplete-cleanup-or-stuck-state) | 1 | 1 | 0 | 0 |
 | [Input Validation — Improper Checks](#input-validation-improper-checks) | 4 | 0 | 3 | 1 |
-| [Input Validation — Uncaught Exception / Crash on Bad Input](#input-validation-uncaught-exception-crash-on-bad-input) | 2 | 0 | 2 | 0 |
+| [Input Validation — Uncaught Exception / Crash on Bad Input](#input-validation-uncaught-exception-crash-on-bad-input) | 3 | 1 | 2 | 0 |
 | [Input Validation — Path Traversal](#input-validation-path-traversal) | 1 | 0 | 1 | 0 |
 | [Input Validation — Encoding / Unicode](#input-validation-encoding-unicode) | 1 | 0 | 1 | 0 |
 | [Security — Authorization / Access Control](#security-authorization-access-control) | 3 | 1 | 2 | 0 |
 | [Security — Certificate Validation](#security-certificate-validation) | 1 | 1 | 0 | 0 |
 | [Security — Information Leakage](#security-information-leakage) | 1 | 0 | 1 | 0 |
-| **Total** | **74** | **15** | **57** | **2** |
+| **Total** | **75** | **16** | **57** | **2** |
 
 ## DTS index (bug type)
 
@@ -757,6 +758,7 @@ Moved out of [`dts_bug_types.md`](./dts_bug_types.md) (that file is now the dete
 | `DTS2026072717921` | [OH-2026-CAM-005](../content/issues/OH-2026-CAM-005.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `multimedia_camera_framework` |
 | `DTS2026072750511` | [OH-2026-NET-004](../content/issues/OH-2026-NET-004.md) | Control Flow — Infinite Loop / Hang | MEDIUM | `communication_netmanager_base` |
 | `DTS2026072921166` | [OH-2026-WM-002](../content/issues/OH-2026-WM-002.md) | Arithmetic — Integer Overflow / Underflow | MEDIUM | `window_window_manager` |
+| `DTS2026072924028` | [OH-2026-WM-003](../content/issues/OH-2026-WM-003.md) | Input Validation — Uncaught Exception / Crash on Bad Input | HIGH | `window_window_manager` |
 | `DTS2026072935286` | [OH-2026-AVCODEC-002](../content/issues/OH-2026-AVCODEC-002.md) | Arithmetic — Off-by-One | MEDIUM | `multimedia_av_codec` |
 | `DTS2026073013382` | [OH-2026-IMG-009](../content/issues/OH-2026-IMG-009.md) | Arithmetic — Integer Overflow / Underflow | MEDIUM | `multimedia_image_framework` |
 | `DTS2026073015200` | [OH-2026-IMG-003](../content/issues/OH-2026-IMG-003.md) | Logic — Incorrect Operator / Predicate | HIGH | `multimedia_image_framework` |
@@ -1101,11 +1103,14 @@ Parsers throw/abort on values that passed a weak pre-check.
 |-----|----|----------|-----|------------------|-------|
 | `DTS2026071303295` | [OH-2026-CAM-006](../content/issues/OH-2026-CAM-006.md) | MEDIUM | CWE-248 (Uncaught Exception) | `services/camera_service/src/camera_util.cpp` · `multimedia_camera_framework` | IsDoubleRegex guard too permissive → uncaught std::stoi throw in SetParameters |
 | `DTS2026071411883` | [OH-2026-CAM-003](../content/issues/OH-2026-CAM-003.md) | MEDIUM | CWE-248 (Uncaught Exception) | `services/camera_service/src/hcapture_session.cpp` · `multimedia_camera_framework` | UpdateBasicInfoForStream uncaught std::stoi out_of_range on accepted integer values |
+| `DTS2026072924028` | [OH-2026-WM-003](../content/issues/OH-2026-WM-003.md) | HIGH | CWE-248 (Uncaught Exception) | `utils/include/window_helper.h` · `window_window_manager` | IsFloatingNumber accepts digit-less tokens → uncaught std::stof throw |
 
 <details><summary>Summaries</summary>
 
 - **OH-2026-CAM-006** (`DTS2026071303295`): `IsDoubleRegex` accepts the double grammar via `operator>>(double&)` / `strtod`, then `HCameraService::SetParameters` calls unguarded `std::stoi` on the same string for `META_TYPE_BYTE` (and the same pattern fans out across `SetParameter...
 - **OH-2026-CAM-003** (`DTS2026071411883`): `HCaptureSession::UpdateBasicInfoForStream` gates each non-string plugin code with `isIntegerRegex(pair.second)` and then feeds that same string to `std::stoi`. But `isIntegerRegex` only checks the shape `^-?[0-9]+$` with **no magnitude ...
+
+- **OH-2026-WM-003** (`DTS2026072924028`): `IsFloatingNumber` returns true for digit-less `"."` / `"-"` / `"-."` (no hasDigit). Config parsers then bare-`std::stof` with no try/catch → uncaught `invalid_argument`. Sibling `ScreenSettingHelper::IsNumber` already requires a digit.
 
 </details>
 
@@ -1197,7 +1202,7 @@ Masking/redaction fails; secrets or addresses reach logs.
 | CWE-369 | Divide By Zero | 3 |
 | CWE-835 | Loop with Unreachable Exit Condition ('Infinite Loop') | 3 |
 | CWE-193 | Off-by-one Error | 2 |
-| CWE-248 | Uncaught Exception | 2 |
+| CWE-248 | Uncaught Exception | 3 |
 | CWE-758 | Reliance on Undefined, Unspecified, or Implementation-Defined Behavior | 2 |
 | CWE-1287 | Improper Validation of Specified Type of Input | 1 |
 | CWE-129 | Improper Validation of Array Index | 1 |

@@ -2,11 +2,11 @@
 
 Categorization of [`content/issues/`](../content/issues/) findings that carry a **DTS** ticket (`internal_issue_id`), grouped by the **pi-pbt property (oracle)** that found each ticket. CWE / failure-mode grouping is archived at the end of [`finding_precision_by_project.md`](finding_precision_by_project.md).
 
-- **Confirmed (FIXED)**: **105** — listed below (`CONFIRMED_FIXED` write-ups)
+- **Confirmed (FIXED)**: **106** — listed below (`CONFIRMED_FIXED` write-ups)
 - **Non-issue**: **21** — [catalog](#non-issues)
-- **Decided**: **126** = 105 + 21
-- **Precision**: **83.3%** = `105 / (105 + 21)` = confirmed / (confirmed + non-issues)
-- **Severity** (confirmed only): HIGH=24, MEDIUM=78, LOW=3
+- **Decided**: **127** = 106 + 21
+- **Precision**: **83.5%** = `106 / (106 + 21)` = confirmed / (confirmed + non-issues)
+- **Severity** (confirmed only): HIGH=25, MEDIUM=78, LOW=3
 - **Generated**: 2026-09-22
 
 ## Overview
@@ -21,10 +21,10 @@ Oracle taxonomy from [pi-pbt `docs/oracles.md`](https://github.com/fermat-hkrc/p
 | [Algebraic — Round-trip](#algebraic--round-trip) | 6 | 3 | 3 | 0 |
 | [Algebraic — Metamorphic](#algebraic--metamorphic) | 3 | 1 | 2 | 0 |
 | [Algebraic — Invariant](#algebraic--invariant) | 31 | 8 | 22 | 1 |
-| [Negative / Error Contract](#negative--error-contract) | 10 | 1 | 9 | 0 |
+| [Negative / Error Contract](#negative--error-contract) | 11 | 2 | 9 | 0 |
 | [Reference](#reference) | 5 | 1 | 4 | 0 |
 | [Crash-Only](#crash-only) | 13 | 6 | 7 | 0 |
-| **Total** | **105** | **24** | **78** | **3** |
+| **Total** | **106** | **25** | **78** | **3** |
 
 Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Idempotence ≻ Metamorphic ≻ Invariant ≻ Negative/Error) ≻ Reference ≻ Crash-Only. **Idempotence: 0** in this set.
 
@@ -49,7 +49,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `distributedhardware_device_manager` | 2 | 2 | 2 | 0 | 0 | 50% |
 | `multimedia_av_session` | 2 | 1 | 1 | 1 | 0 | 67% |
 | `multimedia_media_library` | 5 | 1 | 1 | 4 | 0 | 83% |
-| `window_window_manager` | 2 | 0 | 0 | 2 | 0 | 100% |
+| `window_window_manager` | 3 | 0 | 1 | 2 | 0 | 100% |
 | `commonlibrary_rust_ylong_http` | 1 | 0 | 1 | 0 | 0 | 100% |
 | `communication_dsoftbus` | 2 | 1 | 0 | 2 | 0 | 67% |
 | `distributeddatamgr_datamgr_service` | 1 | 1 | 0 | 1 | 0 | 50% |
@@ -61,7 +61,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `arkui_napi` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **Total** | **105** | **21** | **24** | **78** | **3** | **83%** |
+| **Total** | **106** | **21** | **25** | **78** | **3** | **83%** |
 
 ## DTS index
 
@@ -121,6 +121,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `DTS2026072717921` | [OH-2026-CAM-005](../content/issues/OH-2026-CAM-005.md) | Crash-Only | MEDIUM | `multimedia_camera_framework` |
 | `DTS2026072750511` | [OH-2026-NET-004](../content/issues/OH-2026-NET-004.md) | Algebraic — Invariant | MEDIUM | `communication_netmanager_base` |
 | `DTS2026072921166` | [OH-2026-WM-002](../content/issues/OH-2026-WM-002.md) | Differential | MEDIUM | `window_window_manager` |
+| `DTS2026072924028` | [OH-2026-WM-003](../content/issues/OH-2026-WM-003.md) | Negative / Error Contract | HIGH | `window_window_manager` |
 | `DTS2026072935286` | [OH-2026-AVCODEC-002](../content/issues/OH-2026-AVCODEC-002.md) | Negative / Error Contract | MEDIUM | `multimedia_av_codec` |
 | `DTS2026073013382` | [OH-2026-IMG-009](../content/issues/OH-2026-IMG-009.md) | Algebraic — Invariant | MEDIUM | `multimedia_image_framework` |
 | `DTS2026073015200` | [OH-2026-IMG-003](../content/issues/OH-2026-IMG-003.md) | Algebraic — Round-trip | HIGH | `multimedia_image_framework` |
@@ -316,6 +317,7 @@ Inputs outside the valid domain are rejected as specified.
 | `DTS2026072515209` | [OH-2026-ABILITY-007](../content/issues/OH-2026-ABILITY-007.md) | MEDIUM | short/empty normalized import path ⇒ ERR_STARTUP_INVALID_VALUE, no throw |
 | `DTS2026072935286` | [OH-2026-AVCODEC-002](../content/issues/OH-2026-AVCODEC-002.md) | MEDIUM | truncated %X is not decoded as a byte |
 | `DTS2026082567022` | [OH-2026-CAM-013](../content/issues/OH-2026-CAM-013.md) | MEDIUM | overflow/underflow digit string → CAMERA_INVALID_STATE, no throw |
+| `DTS2026072924028` | [OH-2026-WM-003](../content/issues/OH-2026-WM-003.md) | HIGH | digit-less float token ⇒ IsFloatingNumber false (no stof throw) |
 | `DTS2026083116823` | [OH-2026-DSOFTBUS-002](../content/issues/OH-2026-DSOFTBUS-002.md) | MEDIUM | non-hex / leftover / >0xFF MAC token ⇒ ≠ SOFTBUS_OK |
 
 <a id="reference"></a>
@@ -358,7 +360,7 @@ Authoritative spec / stdlib / IEEE / Unicode / pinning contract that this SUT cl
 
 Maintainer-rejected DTS. Counted in the denominator only.
 
-**Precision** = confirmed / (confirmed + non-issues) = **105 / (105 + 21) = 83.3%**.
+**Precision** = confirmed / (confirmed + non-issues) = **106 / (106 + 21) = 83.5%**.
 
 | DTS | Project | Theme | Why non-issue |
 |-----|---------|-------|---------------|
