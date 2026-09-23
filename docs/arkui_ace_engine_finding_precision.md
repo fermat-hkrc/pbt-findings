@@ -20,7 +20,7 @@ Companion bug-type catalog: [arkui_ace_engine_dts_bug_types.md](./arkui_ace_engi
 **Sources**
 
 - `~/cloned/arkui_ace_engine/pbt-out/bug_reports/{fixed,confirmed,non-issue}/` and `~/testing/arkui_ace_engine/pbt-out/bug_reports/`
-- [`content/issues/OH-2026-ARKUI-*.md`](../content/issues/) (**11** = 10 fixed + 1 confirmed)
+- [`content/issues/OH-2026-ARKUI-*.md`](../content/issues/) (**12** = 10 fixed + 2 confirmed)
 - Cross-repo context: [finding_precision_by_project.md](./finding_precision_by_project.md)
 
 - **Generated:** 2026-09-22
@@ -29,15 +29,15 @@ Companion bug-type catalog: [arkui_ace_engine_dts_bug_types.md](./arkui_ace_engi
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 10 | 66.7% |
-| CONFIRMED (awaiting fix) | 1 | 6.7% |
-| NON-ISSUE | 4 | 26.7% |
-| **Total decided** | **15** | 100% |
+| FIXED | 10 | 62.5% |
+| CONFIRMED (awaiting fix) | 2 | 12.5% |
+| NON-ISSUE | 4 | 25.0% |
+| **Total decided** | **16** | 100% |
 
-- **Precision:** **(10+1)/15 = 73.3%**
-- **False-positive rate:** **4/15 = 26.7%**
+- **Precision:** **(10+2)/16 = 75.0%**
+- **False-positive rate:** **4/16 = 25.0%**
 
-Compared with the cross-repo decided baseline (**83.7%** precision), arkui_ace_engine is **below** (73.3%).
+Compared with the cross-repo decided baseline (**83.8%** precision), arkui_ace_engine is **below** (75.0%).
 
 ## FIXED DTS
 
@@ -89,10 +89,12 @@ Under `~/cloned/arkui_ace_engine/pbt-out/bug_reports/fixed/`:
 | DTS | Issue ID | Severity | CWE | Title |
 |-----|----------|----------|-----|-------|
 | `DTS2609150153371` | [OH-2026-ARKUI-010](../content/issues/OH-2026-ARKUI-010.md) | MEDIUM | CWE-682 | CalculateStartCachedCount overcounts when the last regular line is partial |
+| `DTS2609150153174` | [OH-2026-ARKUI-012](../content/issues/OH-2026-ARKUI-012.md) | MEDIUM | CWE-670 | Backward GetTargetIndexInfoWithBenchMark starts a new line after a partial last matrix line |
 
 - **OH-2026-ARKUI-010** (`DTS2609150153371`): `CalculateStartCachedCountByIrregular` returns `budget * crossCount` when `diff >= budget * C`, ignoring a partial last regular line. Full-line model wants `rem + (budget-1)*C`. Extra preload above the viewport; confirmed, not fixed yet.
+- **OH-2026-ARKUI-012** (`DTS2609150153174`): Backward `GetTargetIndexInfoWithBenchMark` always seeds `lastLine+1` / `lastItem+1`. A leftover last matrix line still owns `lastItem+1`; `scrollToIndex` starts one main line too far down. Confirmed, not fixed yet.
 
-Local report: `~/testing/arkui_ace_engine/pbt-out/bug_reports/confirmed/calculate_start_cached_count_partial_last_line.md`
+Local reports: `~/cloned/arkui_ace_engine/pbt-out/bug_reports/confirmed/calculate_start_cached_count_partial_last_line.md`, `get_target_index_info_backward_partial_last_line.md`
 
 ## NON-ISSUE DTS
 
@@ -140,8 +142,8 @@ Local report: `~/testing/arkui_ace_engine/pbt-out/bug_reports/confirmed/calculat
 
 ## Takeaways
 
-1. **10 real bugs fixed** (+ 1 confirmed awaiting fix) across grid layout, lazy grid, matrix storage, color transition, DataPanel/bubble `asin` geometry, and 3×N / N×3 OOB SetEntry — strong confirmed yield for one UI engine repo.
-2. **Precision 73%** on decided tickets: four non-issues (stable empty-height formula; `-idx` encoding never seen by `IsAllItemsMeasured` / `FindItemCount`; FromRGBO caller-owned `[0, 1]` clamp) against ten fixes and one confirmed.
+1. **10 real bugs fixed** (+ 2 confirmed awaiting fix) across grid layout, lazy grid, matrix storage, color transition, DataPanel/bubble `asin` geometry, 3×N / N×3 OOB SetEntry, and partial-last-line scroll/cache — strong confirmed yield for one UI engine repo.
+2. **Precision 75%** on decided tickets: four non-issues (stable empty-height formula; `-idx` encoding never seen by `IsAllItemsMeasured` / `FindItemCount`; FromRGBO caller-owned `[0, 1]` clamp) against ten fixes and two confirmed.
 3. Dominant failure modes: **incorrect calculation**, **wrong control-flow sentinels**, plus **div-by-zero**, **UB cast**, **OOB write**, and unguarded **`asin`**.
 4. Non-issue lessons are contract/call-graph sensitivity and production-domain encoding, not flaky reproduction — PBT still witnessed the raw returns as contract properties.
 

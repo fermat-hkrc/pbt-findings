@@ -9,11 +9,11 @@ A live dashboard tracking bugs and vulnerabilities discovered through **Property
 | Status | Count |
 |--------|------:|
 | Confirmed and Fixed | 107 |
-| Confirmed (awaiting fix) | 1 |
-| Submitted | 31 |
+| Confirmed (awaiting fix) | 2 |
+| Submitted | 30 |
 | Non-issue | 21 |
 
-**Precision** (decided DTS): **83.7%** = `(107 fixed + 1 confirmed) / (107 + 1 + 21)`
+**Precision** (decided DTS): **83.8%** = `(107 fixed + 2 confirmed) / (107 + 2 + 21)`
 
 ## What is this?
 

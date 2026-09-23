@@ -6,9 +6,9 @@ Scoped to this repo only. Companion precision report: [arkui_ace_engine_finding_
 
 - **Repo:** `arkui_ace_engine`
 - **Confirmed fixed (DTS + write-up):** **10** (`CONFIRMED_FIXED`)
-- **Confirmed awaiting fix:** **1** (`CONFIRMED_REAL` — [OH-2026-ARKUI-010](../content/issues/OH-2026-ARKUI-010.md))
-- **Status:** fixed tickets are `CONFIRMED_FIXED`; one ticket is `CONFIRMED_REAL`
-- **Severity** (fixed + confirmed): HIGH=5, MEDIUM=6, LOW=0
+- **Confirmed awaiting fix:** **2** (`CONFIRMED_REAL` — [OH-2026-ARKUI-010](../content/issues/OH-2026-ARKUI-010.md), [OH-2026-ARKUI-012](../content/issues/OH-2026-ARKUI-012.md))
+- **Status:** fixed tickets are `CONFIRMED_FIXED`; two tickets are `CONFIRMED_REAL`
+- **Severity** (fixed + confirmed): HIGH=5, MEDIUM=7, LOW=0
 - **Sources:** [`content/issues/OH-2026-ARKUI-*.md`](../content/issues/), `~/cloned/arkui_ace_engine/pbt-out/bug_reports/fixed/`
 - **Generated:** 2026-09-21
 
@@ -18,17 +18,17 @@ Scoped to this repo only. Companion precision report: [arkui_ace_engine_finding_
 |----------|------:|-----:|-------:|----:|
 | [Arithmetic — Incorrect Calculation](#arithmetic-incorrect-calculation) | 6 | 1 | 5 | 0 |
 | [Arithmetic — Divide by Zero](#arithmetic-divide-by-zero) | 1 | 1 | 0 | 0 |
-| [Logic — Incorrect Control Flow](#logic-incorrect-control-flow) | 2 | 2 | 0 | 0 |
+| [Logic — Incorrect Control Flow](#logic-incorrect-control-flow) | 3 | 2 | 1 | 0 |
 | [Undefined Behavior](#undefined-behavior) | 1 | 0 | 1 | 0 |
 | [Memory — Buffer / OOB Access](#memory--buffer--oob-access) | 1 | 1 | 0 | 0 |
-| **Total** | **11** | **5** | **6** | **0** |
+| **Total** | **12** | **5** | **7** | **0** |
 
 ### By family
 
 | Family | Count |
 |--------|------:|
 | Arithmetic & Numeric | 7 |
-| Logic | 2 |
+| Logic | 3 |
 | Undefined Behavior | 1 |
 | Memory / Buffer | 1 |
 
@@ -46,6 +46,7 @@ Scoped to this repo only. Companion precision report: [arkui_ace_engine_finding_
 | `DTS2026073116282` | [OH-2026-ARKUI-008](../content/issues/OH-2026-ARKUI-008.md) | Arithmetic — Incorrect Calculation | MEDIUM | `frameworks/core/components_ng/pattern/data_panel/data_panel_modifier.cpp` |
 | `DTS2026090922585` | [OH-2026-ARKUI-011](../content/issues/OH-2026-ARKUI-011.md) | Arithmetic — Incorrect Calculation | MEDIUM | `frameworks/core/components_ng/pattern/bubble/bubble_layout_algorithm.cpp` |
 | `DTS2026091012206` | [OH-2026-ARKUI-009](../content/issues/OH-2026-ARKUI-009.md) | Memory — Buffer / OOB Access | HIGH | `frameworks/base/geometry/matrix3.cpp` |
+| `DTS2609150153174` | [OH-2026-ARKUI-012](../content/issues/OH-2026-ARKUI-012.md) | Logic — Incorrect Control Flow | MEDIUM | `frameworks/core/components_ng/pattern/grid/grid_scroll/grid_scroll_with_options_layout_algorithm.cpp` |
 | `DTS2609150153371` | [OH-2026-ARKUI-010](../content/issues/OH-2026-ARKUI-010.md) | Arithmetic — Incorrect Calculation | MEDIUM | `frameworks/core/components_ng/pattern/grid/grid_scroll/grid_scroll_with_options_layout_algorithm.cpp` |
 
 ## Arithmetic — Incorrect Calculation
@@ -94,11 +95,13 @@ Wrong branch, sentinel, or iterator selection that returns success/identity inco
 |-----|----|----------|-----|-----------|-------|
 | `DTS2026061512035` | [OH-2026-ARKUI-002](../content/issues/OH-2026-ARKUI-002.md) | HIGH | CWE-670 (Always-Incorrect Control Flow Implementation) | `frameworks/core/components_ng/pattern/grid/grid_layout_info.cpp` | GridLayoutInfo::FindInMatrix returns wrong iterator for index=0 when item 0 is absent |
 | `DTS2026062427889` | [OH-2026-ARKUI-004](../content/issues/OH-2026-ARKUI-004.md) | HIGH | CWE-670 (Always-Incorrect Control Flow Implementation) | `frameworks/core/components_ng/pattern/grid/grid_item_drag_manager.cpp` | GridItemDragManager::FindAvailableColumn returns 0 instead of -1 for impossible span when row is absent |
+| `DTS2609150153174` | [OH-2026-ARKUI-012](../content/issues/OH-2026-ARKUI-012.md) | MEDIUM | CWE-670 (Always-Incorrect Control Flow Implementation) | `frameworks/core/components_ng/pattern/grid/grid_scroll/grid_scroll_with_options_layout_algorithm.cpp` | Backward GetTargetIndexInfoWithBenchMark starts a new line after a partial last matrix line |
 
 <details><summary>Summaries</summary>
 
 - **OH-2026-ARKUI-002** (`DTS2026061512035`): `GridLayoutInfo::FindInMatrix(0)` unconditionally returns `gridMatrix_.begin()` instead of searching for item `0`. When the matrix is non-empty but starts at a row index greater than `0`, `begin()` points to a row that does not contain i...
 - **OH-2026-ARKUI-004** (`DTS2026062427889`): `GridItemDragManager::FindAvailableColumn(matrix, row, colSpan, crossCount)` returns the first free column for an item of width `colSpan` within a grid of `crossCount` columns. When the target `row` is absent from the matrix, the functio...
+- **OH-2026-ARKUI-012** (`DTS2609150153174`): Backward `GetTargetIndexInfoWithBenchMark` always seeds `lastLine+1` / `lastItem+1`. A leftover last matrix line still owns `lastItem+1`; `scrollToIndex` starts one main line too far down. Confirmed, not fixed yet.
 
 </details>
 
@@ -135,7 +138,7 @@ Missing lower-bound index guard on a public `std::vector` writer → OOB write /
 | CWE | Name | Count |
 |-----|------|------:|
 | CWE-682 | Incorrect Calculation | 6 |
-| CWE-670 | Always-Incorrect Control Flow Implementation | 2 |
+| CWE-670 | Always-Incorrect Control Flow Implementation | 3 |
 | CWE-369 | Divide By Zero | 1 |
 | CWE-758 | Reliance on Undefined, Unspecified, or Implementation-Defined Behavior | 1 |
 | CWE-787 | Out-of-bounds Write | 1 |

@@ -2,8 +2,8 @@
 
 How often PBT-filed **DTS** tickets were accepted as real bugs versus closed as non-issues, broken down by project.
 
-- **Precision:** **83.7%** ((107 FIXED + 1 CONFIRMED) / 129 decided)
-- **False-positive rate:** **16.3%** (21 NON-ISSUE)
+- **Precision:** **83.8%** ((107 FIXED + 2 CONFIRMED) / 130 decided)
+- **False-positive rate:** **16.2%** (21 NON-ISSUE)
 
 Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS tickets are omitted — their outcome (bug vs non-issue) is not yet known.
 
@@ -22,7 +22,7 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 **Sources**
 
 - DTS inventory: [`dts_bug_types.md`](./dts_bug_types.md) + [`content/issues/`](../content/issues/)
-- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**108** = 107 `CONFIRMED_FIXED` + 1 `CONFIRMED_REAL`)
+- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**109** = 107 `CONFIRMED_FIXED` + 2 `CONFIRMED_REAL`)
 - Non-issue write-ups: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (**21** DTS-stamped)
 
 - **Generated:** 2026-09-22
@@ -31,13 +31,13 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 107 | 82.9% |
-| CONFIRMED (awaiting fix) | 1 | 0.8% |
-| NON-ISSUE | 21 | 16.3% |
-| **Total decided** | **129** | 100% |
+| FIXED | 107 | 82.3% |
+| CONFIRMED (awaiting fix) | 2 | 1.5% |
+| NON-ISSUE | 21 | 16.2% |
+| **Total decided** | **130** | 100% |
 
-- **Precision:** **(107+1)/129 = 83.7%** — about five in six closed tickets were real bugs.
-- **False-positive rate:** **21/129 = 16.3%**.
+- **Precision:** **(107+2)/130 = 83.8%** — about five in six closed tickets were real bugs.
+- **False-positive rate:** **21/130 = 16.2%**.
 
 > Precision means *maintainer-accepted defect rate among dispositioned DTS* (fixed **or** confirmed-unfixed), not static-analysis alert rate. Open/submitted tickets are out of scope until closed.
 
@@ -50,7 +50,7 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`multimedia_camera_framework`](#multimedia-camera-framework) | 13 | 0 | 0 | 13 | 100% |
 | [`communication_netmanager_base`](#communication-netmanager-base) | 11 | 0 | 2 | 13 | 85% |
 | [`graphic_graphic_2d`](#graphic-graphic-2d) | 10 | 0 | 0 | 10 | 100% |
-| [`arkui_ace_engine`](#arkui-ace-engine) | 10 | 1 | 4 | 15 | 73% |
+| [`arkui_ace_engine`](#arkui-ace-engine) | 10 | 2 | 4 | 16 | 75% |
 | [`multimedia_image_framework`](#multimedia-image-framework) | 9 | 0 | 0 | 9 | 100% |
 | [`arkcompiler_runtime_core`](#arkcompiler-runtime-core) | 6 | 0 | 1 | 7 | 86% |
 | [`ability_ability_runtime`](#ability-ability-runtime) | 7 | 0 | 0 | 7 | 100% |
@@ -74,7 +74,7 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`telephony_core_service`](#telephony-core-service) | 1 | 0 | 0 | 1 | 100% |
 | [`multimedia_audio_framework`](#multimedia-audio-framework) | 1 | 0 | 1 | 2 | 50% |
 | [`multimodalinput_input`](#multimodalinput-input) | 0 | 0 | 2 | 2 | 0% |
-| **Total** | **107** | **1** | **21** | **129** | **84%** |
+| **Total** | **107** | **2** | **21** | **130** | **84%** |
 
 ## Precision tiers
 
@@ -88,7 +88,7 @@ These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 
 | Project | FIXED | NON-ISSUE | Precision | What non-issues teach |
 |---------|------:|----------:|----------:|----------------------|
-| `arkui_ace_engine` | 10 fixed + 1 confirmed | 4 | 73% | Empty-grid `-mainGap` is stable formula; IsAllItemsMeasured / FindItemCount `-idx` is irregular-only encoding never seen by those helpers; FromRGBO out-of-range wrap is caller-owned clamp on an internal packer; real layout/math/OOB/asin bugs still fixed/confirmed. |
+| `arkui_ace_engine` | 10 fixed + 2 confirmed | 4 | 75% | Empty-grid `-mainGap` is stable formula; IsAllItemsMeasured / FindItemCount `-idx` is irregular-only encoding never seen by those helpers; FromRGBO out-of-range wrap is caller-owned clamp on an internal packer; real layout/math/OOB/asin bugs still fixed/confirmed. |
 | `arkcompiler_runtime_core` | 6 | 1 | 86% | SkipULeb128 empty/truncated is by-design (void helper, no error channel); real buffer/loop bugs still fixed. |
 | `communication_netmanager_base` | 11 | 2 | 85% | Helper semantics (ForkExec) and API role split (zoned IPv6) ≠ bugs; firewall/IP/mask defects accepted. |
 | `distributedhardware_device_manager` | 2 | 2 | 50% | cJSON int64 round-trip and ConvertStrToInt are dead/unshipped; PIN/rand bugs still fixed. |
@@ -174,10 +174,10 @@ High-confidence project: **10** accepted fixes and **no** rejected DTS.
 | Metric | Value |
 |--------|------:|
 | FIXED | 10 |
-| CONFIRMED (awaiting fix) | 1 |
+| CONFIRMED (awaiting fix) | 2 |
 | NON-ISSUE | 4 |
-| Decided | 15 |
-| Precision | 73.3% |
+| Decided | 16 |
+| Precision | 75.0% |
 
 **FIXED DTS**
 
@@ -195,6 +195,7 @@ High-confidence project: **10** accepted fixes and **no** rejected DTS.
 **CONFIRMED DTS** (accepted; not fixed yet)
 
 - `DTS2609150153371` — [OH-2026-ARKUI-010](../content/issues/OH-2026-ARKUI-010.md): CalculateStartCachedCount overcounts when the last regular line is partial
+- `DTS2609150153174` — [OH-2026-ARKUI-012](../content/issues/OH-2026-ARKUI-012.md): Backward GetTargetIndexInfoWithBenchMark starts a new line after a partial last matrix line
 
 **NON-ISSUE DTS**
 
@@ -203,7 +204,7 @@ High-confidence project: **10** accepted fixes and **no** rejected DTS.
 - `DTS2026082235589` — Color::FromRGBO wraps out-of-range opacity. *Internal packer; domain `[0, 1]`; clamp is caller-owned; forcing clamp is compat (`2` is 254 today, 255 after).*
 - `DTS2026082235533` — FindItemCount overcounts on continuation start. *Not for irregular layout; no negative IDs; consecutive max-min+1; irregular uses GetIrregularOffset/Height.*
 
-Mixed outcomes: maintainers accepted **11** (10 fixed + 1 confirmed) and rejected **4**. Net precision **73%**.
+Mixed outcomes: maintainers accepted **12** (10 fixed + 2 confirmed) and rejected **4**. Net precision **75%**.
 
 ### `communication_netmanager_base`
 
@@ -656,16 +657,16 @@ No FIXED DTS yet among dispositioned tickets.
 
 ## Relation to `content/issues/` write-ups
 
-This repo’s [`content/issues/`](../content/issues/) currently carries **108** DTS-linked reports (**107** `CONFIRMED_FIXED` + **1** `CONFIRMED_REAL`).
+This repo’s [`content/issues/`](../content/issues/) currently carries **109** DTS-linked reports (**107** `CONFIRMED_FIXED` + **2** `CONFIRMED_REAL`).
 `CONFIRMED_FIXED` is the **FIXED** count; `CONFIRMED_REAL` is **CONFIRMED** (awaiting fix). Non-issues come from `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/`.
 
 | Population | Count | Role |
 |------------|------:|------|
-| Decided DTS (FIXED + CONFIRMED + NON-ISSUE) | 129 | Ground truth for precision |
+| Decided DTS (FIXED + CONFIRMED + NON-ISSUE) | 130 | Ground truth for precision |
 | FIXED | 107 | Maintainer-accepted and fixed |
-| CONFIRMED | 1 | Maintainer-accepted, not fixed yet |
+| CONFIRMED | 2 | Maintainer-accepted, not fixed yet |
 | NON-ISSUE | 21 | Maintainer-rejected (cloned + testing inventory) |
-| Write-ups in `content/issues` with DTS | 108 | Published confirmed bugs (fixed or awaiting fix) |
+| Write-ups in `content/issues` with DTS | 109 | Published confirmed bugs (fixed or awaiting fix) |
 
 **Do not** compute precision from `content/issues` alone — it omits non-issues by design. Use this document (or dispositioned rows in `BUG_REPORTS.md`) for acceptance rate.
 
@@ -673,7 +674,7 @@ See also: [DTS tickets by detecting property](./dts_bug_types.md). Failure-mode 
 
 ## Takeaways
 
-1. **Overall precision is high (83.7%)** — PBT filings that reach a DTS decision are usually real defects.
+1. **Overall precision is high (83.8%)** — PBT filings that reach a DTS decision are usually real defects.
 2. **False positives cluster in a few patterns** (21 tickets): by-design helpers, dead/unreachable / dropped-from-trunk code, path-prefix gates with no live producer after `realpath`, framing residuals that are not object OOB and mostly fail-closed, caller-owned / split-API contracts, shipped CAPI / product omissions, flag-dependent crashes — not flaky reproduction.
 3. **Several large surfaces are clean so far** (e.g. `multimedia_camera_framework`, `multimedia_image_framework`, `graphic_graphic_2d` among high-volume FIXED with 0 NON-ISSUE).
 4. **Filing bar that non-issues imply:** prove a live production caller, state the product contract, and avoid “algebraic inconsistency across differently purposed APIs” without impact. Sibling slash-terminated roots + a one-char fix still need a product-domain hit. Do not equate logical cursor past `wPos_` inside a zero-filled fixed buffer with heap OOB.
