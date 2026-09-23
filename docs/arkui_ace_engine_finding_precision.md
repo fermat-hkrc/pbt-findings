@@ -20,7 +20,7 @@ Companion bug-type catalog: [arkui_ace_engine_dts_bug_types.md](./arkui_ace_engi
 **Sources**
 
 - `~/cloned/arkui_ace_engine/pbt-out/bug_reports/{fixed,confirmed,non-issue}/` and `~/testing/arkui_ace_engine/pbt-out/bug_reports/`
-- [`content/issues/OH-2026-ARKUI-*.md`](../content/issues/) (**10** = 9 fixed + 1 confirmed)
+- [`content/issues/OH-2026-ARKUI-*.md`](../content/issues/) (**11** = 10 fixed + 1 confirmed)
 - Cross-repo context: [finding_precision_by_project.md](./finding_precision_by_project.md)
 
 - **Generated:** 2026-09-22
@@ -29,15 +29,15 @@ Companion bug-type catalog: [arkui_ace_engine_dts_bug_types.md](./arkui_ace_engi
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 9 | 64.3% |
-| CONFIRMED (awaiting fix) | 1 | 7.1% |
-| NON-ISSUE | 4 | 28.6% |
-| **Total decided** | **14** | 100% |
+| FIXED | 10 | 66.7% |
+| CONFIRMED (awaiting fix) | 1 | 6.7% |
+| NON-ISSUE | 4 | 26.7% |
+| **Total decided** | **15** | 100% |
 
-- **Precision:** **(9+1)/14 = 71.4%**
-- **False-positive rate:** **4/14 = 28.6%**
+- **Precision:** **(10+1)/15 = 73.3%**
+- **False-positive rate:** **4/15 = 26.7%**
 
-Compared with the cross-repo decided baseline (**83.6%** precision), arkui_ace_engine is **below** (71.4%).
+Compared with the cross-repo decided baseline (**83.7%** precision), arkui_ace_engine is **below** (73.3%).
 
 ## FIXED DTS
 
@@ -52,6 +52,7 @@ Compared with the cross-repo decided baseline (**83.6%** precision), arkui_ace_e
 | `DTS2026072325132` | [OH-2026-ARKUI-007](../content/issues/OH-2026-ARKUI-007.md) | HIGH | CWE-369 | GetIrregularHeight divides by zero → +inf content height when itemRatio == 0 |
 | `DTS2026073116282` | [OH-2026-ARKUI-008](../content/issues/OH-2026-ARKUI-008.md) | MEDIUM | CWE-682 | DataPanel GetPaintPath computes NaN circleAngle via unguarded asin when stroke collapses radius |
 | `DTS2026091012206` | [OH-2026-ARKUI-009](../content/issues/OH-2026-ARKUI-009.md) | HIGH | CWE-787 | Matrix3N::SetEntry / MatrixN3::SetEntry missing negative-index guard (OOB write / crash) |
+| `DTS2026090922585` | [OH-2026-ARKUI-011](../content/issues/OH-2026-ARKUI-011.md) | MEDIUM | CWE-682 | BubbleLayoutAlgorithm::GetP2 asin domain break → NaN arrow clip path |
 
 <details><summary>Summaries</summary>
 
@@ -64,6 +65,7 @@ Compared with the cross-repo decided baseline (**83.6%** precision), arkui_ace_e
 - **OH-2026-ARKUI-007** (`DTS2026072325132`): `GridLayoutInfo::GetIrregularHeight` estimates total lines as `(lastKnownLine + 1) / itemRatio` where `itemRatio = (FindEndIdx(lastKnownLine).itemIdx + 1) / childrenCount`. When the line is missing from `gridMatrix_`, `FindEndIdx` return...
 - **OH-2026-ARKUI-008** (`DTS2026073116282`): `DataPanelModifier::GetPaintPath()` computes circle-cap angle as unguarded `asin(thickness*0.5/(radius-thickness*0.5))`. Stroke at or above half the min side drives `radius <= 0` → NaN `circleAngle`.
 - **OH-2026-ARKUI-009** (`DTS2026091012206`): `Matrix3N::SetEntry` / `MatrixN3::SetEntry` reject only `row/col >= bound`. Negative `int32_t` becomes a huge `size_t` subscript → SIGSEGV / heap abort. Same-file `Matrix3` and 4×N / N×4 siblings already reject negatives.
+- **OH-2026-ARKUI-011** (`DTS2026090922585`): `GetP2` calls `asin(r/side)` with no `|r| < |side|` guard. JS-legal tiny arrows (`1×1` vs production `r=2`) yield NaN P2 / clip path. Same class as DataPanel `DTS2026073116282`.
 
 </details>
 
@@ -80,6 +82,7 @@ Under `~/cloned/arkui_ace_engine/pbt-out/bug_reports/fixed/`:
 - `DTS2026072325132` — `fixed/GetIrregularHeight_itemRatio_div_zero_inf.md`
 - `DTS2026073116282` — `fixed/data_panel_circle_angle_asin_nan.md`
 - `DTS2026091012206` — `fixed/Matrix3N_SetEntry_negative_index.md`
+- `DTS2026090922585` — `fixed/getp2_asin_nan_tiny_arrow.md`
 
 ## CONFIRMED DTS (awaiting fix)
 
@@ -123,6 +126,7 @@ Local report: `~/testing/arkui_ace_engine/pbt-out/bug_reports/confirmed/calculat
 | `frameworks/base/geometry/matrix3.cpp` | 1 |
 | `frameworks/core/components/common/properties/color.cpp` | 1 |
 | `frameworks/core/components_ng/pattern/data_panel/data_panel_modifier.cpp` | 1 |
+| `frameworks/core/components_ng/pattern/bubble/bubble_layout_algorithm.cpp` | 1 |
 | `frameworks/core/components_ng/pattern/grid/grid_item_drag_manager.cpp` | 1 |
 | `frameworks/core/components_ng/pattern/lazy_grid_layout/lazy_grid_layout_info.cpp` | 1 |
 
@@ -131,14 +135,14 @@ Local report: `~/testing/arkui_ace_engine/pbt-out/bug_reports/confirmed/calculat
 | Severity | Count |
 |----------|------:|
 | HIGH | 5 |
-| MEDIUM | 4 |
+| MEDIUM | 5 |
 | LOW | 0 |
 
 ## Takeaways
 
-1. **9 real bugs fixed** across grid layout, lazy grid, matrix storage, color transition, DataPanel geometry, and 3×N / N×3 OOB SetEntry — strong confirmed yield for one UI engine repo.
-2. **Precision 69%** on decided tickets: four non-issues (stable empty-height formula; `-idx` encoding never seen by `IsAllItemsMeasured` / `FindItemCount`; FromRGBO caller-owned `[0, 1]` clamp) against nine fixes.
-3. Dominant failure modes: **incorrect calculation**, **wrong control-flow sentinels**, plus **div-by-zero**, **UB cast**, and **OOB write**.
+1. **10 real bugs fixed** (+ 1 confirmed awaiting fix) across grid layout, lazy grid, matrix storage, color transition, DataPanel/bubble `asin` geometry, and 3×N / N×3 OOB SetEntry — strong confirmed yield for one UI engine repo.
+2. **Precision 73%** on decided tickets: four non-issues (stable empty-height formula; `-idx` encoding never seen by `IsAllItemsMeasured` / `FindItemCount`; FromRGBO caller-owned `[0, 1]` clamp) against ten fixes and one confirmed.
+3. Dominant failure modes: **incorrect calculation**, **wrong control-flow sentinels**, plus **div-by-zero**, **UB cast**, **OOB write**, and unguarded **`asin`**.
 4. Non-issue lessons are contract/call-graph sensitivity and production-domain encoding, not flaky reproduction — PBT still witnessed the raw returns as contract properties.
 
 ## Methodology notes
