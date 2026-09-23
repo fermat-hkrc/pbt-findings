@@ -149,16 +149,16 @@
 | 145 | multimedia_av_codec | DashStrToNonNegativeDouble 接受 NaN（`result < 0` 漏掉无序比较） | 运算符/谓词错误 | `services/media_engine/plugins/source/http_source/dash/mpd_parser/dash_mpd_util.cpp` | 已确认并修复 |  | DTS2026090130983 |
 | 146 | telephony_core_service | CountTrailingZeros 在多于一个比特置位时算错 | 计算错误 | `utils/codec/src/asn1_utils.cpp` | 已提交 |  | DTS2026090526221 |
 | 147 | graphic_graphic_2d | DrawPixelMapMeshBuilderProcess 把网格的列和行对调了 | 计算错误 | `rosen/modules/2d_graphics/drawing_ndk/drawing_utils/drawing_canvas_utils.cpp` | 已确认并修复 |  | DTS2026090527401 |
-| 148 | arkui_ace_engine | MediaQueryer::MatchCondition 在 AND 组不是最后一个 OR 子句时丢弃该 AND 组 | 控制流错误 | `frameworks/bridge/common/media_query/media_queryer.cpp` | 已提交 |  | DTS2026090919800 |
-| 149 | arkui_ace_engine | CheckColorAlpha 在缩放到 255 之前把单位 alpha 转成 uint8_t | 计算错误 | `frameworks/core/components_ng/svg/parse/svg_attributes_parser.cpp` | 已提交 |  | DTS2026090920220 |
+| 148 | arkui_ace_engine | MediaQueryer::MatchCondition 在 AND 组不是最后一个 OR 子句时丢弃该 AND 组 | 控制流错误 | `frameworks/bridge/common/media_query/media_queryer.cpp` | 已确认 |  | DTS2026090919800 |
+| 149 | arkui_ace_engine | CheckColorAlpha 在缩放到 255 之前把单位 alpha 转成 uint8_t | 计算错误 | `frameworks/core/components_ng/svg/parse/svg_attributes_parser.cpp` | 已确认 |  | DTS2026090920220 |
 | 150 | arkui_ace_engine | BubbleLayoutAlgorithm::GetP2 asin 定义域破坏 → NaN 箭头裁剪路径 | 计算错误 | `frameworks/core/components_ng/pattern/bubble/bubble_layout_algorithm.cpp` | 已确认并修复 |  | DTS2026090922585 |
 | 151 | arkui_ace_engine | Matrix3N::SetEntry / MatrixN3::SetEntry 缺少负索引守卫（越界写 / 崩溃） | 缓冲区/越界访问 | `frameworks/base/geometry/matrix3.cpp` | 已确认并修复 |  | DTS2026091012206 |
-| 152 | arkui_ace_engine | Quaternion::Slerp 在 t=0 且 from·to < 0 时返回 -this | 计算错误 | `frameworks/base/geometry/quaternion.cpp` | 已提交 |  | DTS2026091029544 |
-| 153 | arkui_ace_engine | MediaQueryer::MatchCondition 对带显式 `px` 的 min-/max- 特征永远不匹配 | 控制流错误 | `frameworks/bridge/common/media_query/media_queryer.cpp` | 已提交 |  | DTS2026091412083 |
-| 154 | arkui_ace_engine | GridLayoutInfo::FindEndIdx 跳过 item 0 并回落到 {0,0,0} | 控制流错误 | `frameworks/core/components_ng/pattern/grid/grid_layout_info.cpp` | 已提交 |  | DTS2026091425514 |
-| 155 | arkui_ace_engine | LazyGridLayoutInfo::UpdatePosMap 在只改 gap 时把整段 body 增量写进 adjustOffset.start | 计算错误 | `frameworks/core/components_ng/pattern/lazy_grid_layout/lazy_grid_layout_info.cpp` | 已提交 |  | DTS2026091437627 |
+| 152 | arkui_ace_engine | Quaternion::Slerp 在 t=0 且 from·to < 0 时返回 -this | 计算错误 | `frameworks/base/geometry/quaternion.cpp` | 已确认 |  | DTS2026091029544 |
+| 153 | arkui_ace_engine | MediaQueryer::MatchCondition 对带显式 `px` 的 min-/max- 特征永远不匹配 | 控制流错误 | `frameworks/bridge/common/media_query/media_queryer.cpp` | 已确认 |  | DTS2026091412083 |
+| 154 | arkui_ace_engine | GridLayoutInfo::FindEndIdx 跳过 item 0 并回落到 {0,0,0} | 控制流错误 | `frameworks/core/components_ng/pattern/grid/grid_layout_info.cpp` | 已确认 |  | DTS2026091425514 |
+| 155 | arkui_ace_engine | LazyGridLayoutInfo::UpdatePosMap 在只改 gap 时把整段 body 增量写进 adjustOffset.start | 计算错误 | `frameworks/core/components_ng/pattern/lazy_grid_layout/lazy_grid_layout_info.cpp` | 已确认 |  | DTS2026091437627 |
 | 156 | communication_netmanager_base | ExtractDomainFormUrl 把 :port 留在 DNS 域名里 | 控制流错误 | `utils/common_utils/src/netmanager_base_common_utils.cpp` | 已提交 |  | DTS2026091437628 |
-| 157 | arkui_ace_engine | LazyGridLayoutInfo::SetSpace 在 lanes > 1 时把已滚动窗口放高一行 | 差一 | `frameworks/core/components_ng/pattern/lazy_grid_layout/lazy_grid_layout_info.cpp` | 已提交 |  | DTS2609150107715 |
-| 158 | arkui_ace_engine | LazyGridLayoutInfo::UpdatePosMapEnd 在末行不完整时把 totalMainSize_ 留在上一行终点 | 计算错误 | `frameworks/core/components_ng/pattern/lazy_grid_layout/lazy_grid_layout_info.cpp` | 已提交 |  | DTS2609150123188 |
+| 157 | arkui_ace_engine | LazyGridLayoutInfo::SetSpace 在 lanes > 1 时把已滚动窗口放高一行 | 差一 | `frameworks/core/components_ng/pattern/lazy_grid_layout/lazy_grid_layout_info.cpp` | 已确认并修复 |  | DTS2609150107715 |
+| 158 | arkui_ace_engine | LazyGridLayoutInfo::UpdatePosMapEnd 在末行不完整时把 totalMainSize_ 留在上一行终点 | 计算错误 | `frameworks/core/components_ng/pattern/lazy_grid_layout/lazy_grid_layout_info.cpp` | 已确认并修复 |  | DTS2609150123188 |
 | 159 | arkui_ace_engine | 反向 GetTargetIndexInfoWithBenchMark 在未填满的末行之后另起一行 | 控制流错误 | `frameworks/core/components_ng/pattern/grid/grid_scroll/grid_scroll_with_options_layout_algorithm.cpp` | 已确认 |  | DTS2609150153174 |
 | 160 | arkui_ace_engine | CalculateStartCachedCount 在末条规则行未满时多计 | 计算错误 | `frameworks/core/components_ng/pattern/grid/grid_scroll/grid_scroll_with_options_layout_algorithm.cpp` | 已确认 |  | DTS2609150153371 |

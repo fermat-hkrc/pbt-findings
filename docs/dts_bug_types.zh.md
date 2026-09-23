@@ -2,12 +2,12 @@
 
 对 [`content/issues/`](../content/issues/) 中带有 **DTS** 工单号（`internal_issue_id`）的发现所做的归类，按检出该工单的 **pi-pbt 性质（预言机）** 分组。CWE / 失效模式分组归档在 [`finding_precision_by_project.md`](finding_precision_by_project.md) 文末。
 
-- **已确认并修复（FIXED）**：**107** — `CONFIRMED_FIXED` 报告如下
-- **已确认（待修复）**：**2** — `CONFIRMED_REAL`（[OH-2026-ARKUI-010](../content/issues/OH-2026-ARKUI-010.md)、[OH-2026-ARKUI-012](../content/issues/OH-2026-ARKUI-012.md)）
+- **已确认并修复（FIXED）**：**109** — `CONFIRMED_FIXED` 报告如下
+- **已确认（待修复）**：**8** — `CONFIRMED_REAL`（OH-2026-ARKUI-010、012–018）
 - **非问题（NON-ISSUE）**：**21** — [目录](#非问题)
-- **已判定**：**130** = 107 + 2 + 21
-- **精确率**：**83.8%** = `(107 + 2) / (107 + 2 + 21)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
-- **严重级别**（已修复 + 已确认）：HIGH=25，MEDIUM=81，LOW=3
+- **已判定**：**138** = 109 + 8 + 21
+- **精确率**：**84.8%** = `(109 + 8) / (109 + 8 + 21)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
+- **严重级别**（已修复 + 已确认）：HIGH=28，MEDIUM=86，LOW=3
 - **生成时间**：2026-09-22
 
 ## 概览
@@ -18,14 +18,14 @@
 | 性质（预言机） | 数量 | HIGH | MEDIUM | LOW |
 |----------|------:|-----:|-------:|----:|
 | [状态机](#状态机) | 3 | 2 | 0 | 1 |
-| [差分](#差分) | 34 | 2 | 31 | 1 |
+| [差分](#差分) | 35 | 3 | 31 | 1 |
 | [代数 — 往返](#代数--往返) | 6 | 3 | 3 | 0 |
-| [代数 — 蜕变](#代数--蜕变) | 4 | 1 | 3 | 0 |
-| [代数 — 不变量](#代数--不变量) | 33 | 8 | 24 | 1 |
+| [代数 — 蜕变](#代数--蜕变) | 6 | 1 | 5 | 0 |
+| [代数 — 不变量](#代数--不变量) | 38 | 10 | 27 | 1 |
 | [否定 / 错误契约](#否定--错误契约) | 11 | 2 | 9 | 0 |
 | [参考](#参考) | 5 | 1 | 4 | 0 |
 | [仅崩溃](#仅崩溃) | 13 | 6 | 7 | 0 |
-| **合计** | **109** | **25** | **81** | **3** |
+| **合计** | **117** | **28** | **86** | **3** |
 
 强度顺序：状态机 ≻ 差分 ≻ 代数（往返 ≻ 幂等 ≻ 蜕变 ≻ 不变量 ≻ 否定/错误）≻ 参考 ≻ 仅崩溃。本集合中**幂等：0**。
 
@@ -39,7 +39,7 @@
 | `multimedia_image_framework` | 9 | 0 | 1 | 8 | 0 | 100% |
 | `communication_netmanager_base` | 11 | 2 | 3 | 8 | 0 | 85% |
 | `graphic_graphic_2d` | 10 | 0 | 3 | 6 | 1 | 100% |
-| `arkui_ace_engine` | 12 | 4 | 5 | 7 | 0 | 75% |
+| `arkui_ace_engine` | 20 | 4 | 8 | 12 | 0 | 83% |
 | `ability_ability_runtime` | 7 | 0 | 0 | 7 | 0 | 100% |
 | `arkcompiler_runtime_core` | 6 | 1 | 1 | 5 | 0 | 86% |
 | `multimedia_av_codec` | 6 | 0 | 0 | 5 | 1 | 100% |
@@ -62,7 +62,7 @@
 | `arkui_napi` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **合计** | **109** | **21** | **25** | **81** | **3** | **84%** |
+| **合计** | **117** | **21** | **28** | **86** | **3** | **85%** |
 
 ## DTS 索引
 
@@ -172,8 +172,16 @@
 | `DTS2026083116823` | [OH-2026-DSOFTBUS-002](../content/issues/OH-2026-DSOFTBUS-002.md) | 否定 / 错误契约 | MEDIUM | `communication_dsoftbus` |
 | `DTS2026090130983` | [OH-2026-AVCODEC-006](../content/issues/OH-2026-AVCODEC-006.md) | 代数 — 不变量 | MEDIUM | `multimedia_av_codec` |
 | `DTS2026090527401` | [OH-2026-GFX-010](../content/issues/OH-2026-GFX-010.md) | 差分 | HIGH | `graphic_graphic_2d` |
+| `DTS2026090919800` | [OH-2026-ARKUI-013](../content/issues/OH-2026-ARKUI-013.md) | 代数 — 不变量 | HIGH | `arkui_ace_engine` |
+| `DTS2026090920220` | [OH-2026-ARKUI-014](../content/issues/OH-2026-ARKUI-014.md) | 差分 | HIGH | `arkui_ace_engine` |
 | `DTS2026090922585` | [OH-2026-ARKUI-011](../content/issues/OH-2026-ARKUI-011.md) | 代数 — 不变量 | MEDIUM | `arkui_ace_engine` |
 | `DTS2026091012206` | [OH-2026-ARKUI-009](../content/issues/OH-2026-ARKUI-009.md) | 状态机 | HIGH | `arkui_ace_engine` |
+| `DTS2026091029544` | [OH-2026-ARKUI-015](../content/issues/OH-2026-ARKUI-015.md) | 代数 — 蜕变 | MEDIUM | `arkui_ace_engine` |
+| `DTS2026091412083` | [OH-2026-ARKUI-016](../content/issues/OH-2026-ARKUI-016.md) | 代数 — 不变量 | HIGH | `arkui_ace_engine` |
+| `DTS2026091425514` | [OH-2026-ARKUI-017](../content/issues/OH-2026-ARKUI-017.md) | 代数 — 不变量 | MEDIUM | `arkui_ace_engine` |
+| `DTS2026091437627` | [OH-2026-ARKUI-018](../content/issues/OH-2026-ARKUI-018.md) | 代数 — 不变量 | MEDIUM | `arkui_ace_engine` |
+| `DTS2609150107715` | [OH-2026-ARKUI-019](../content/issues/OH-2026-ARKUI-019.md) | 代数 — 不变量 | MEDIUM | `arkui_ace_engine` |
+| `DTS2609150123188` | [OH-2026-ARKUI-020](../content/issues/OH-2026-ARKUI-020.md) | 代数 — 蜕变 | MEDIUM | `arkui_ace_engine` |
 | `DTS2609150153174` | [OH-2026-ARKUI-012](../content/issues/OH-2026-ARKUI-012.md) | 代数 — 蜕变 | MEDIUM | `arkui_ace_engine` |
 | `DTS2609150153371` | [OH-2026-ARKUI-010](../content/issues/OH-2026-ARKUI-010.md) | 代数 — 不变量 | MEDIUM | `arkui_ace_engine` |
 | `DTS2608260052510` | [OH-2026-MEDIALIB-005](../content/issues/OH-2026-MEDIALIB-005.md) | 仅崩溃 | HIGH | `multimedia_media_library` |
@@ -236,6 +244,7 @@
 | `DTS2026082012348` | [OH-2026-MEDIALIB-004](../content/issues/OH-2026-MEDIALIB-004.md) | MEDIUM | IsFileTablePath / IsPhotoTablePath ≡ 前缀预言（find == 0） |
 | `DTS2026072338862` | [OH-2026-AUDIO-001](../content/issues/OH-2026-AUDIO-001.md) | MEDIUM | LE24 解包 ≡ MixS24Volume 无符号拼装 + 符号扩展 |
 | `DTS2026090527401` | [OH-2026-GFX-010](../content/issues/OH-2026-GFX-010.md) | HIGH | NDK 网格遍历 ≡ JS/ANI DrawingPixelMapMesh（先按行再按列） |
+| `DTS2026090920220` | [OH-2026-ARKUI-014](../content/issues/OH-2026-ARKUI-014.md) | HIGH | CheckColorAlpha(rgba 单位 α) ≡ FromRGBO |
 
 <a id="代数--往返"></a>
 
@@ -263,6 +272,8 @@
 | `DTS2026062430430` | [OH-2026-GFX-001](../content/issues/OH-2026-GFX-001.md) | HIGH | Point3 加法交换律：a+b == b+a |
 | `DTS2026071430826` | [OH-2026-GFX-004](../content/issues/OH-2026-GFX-004.md) | MEDIUM | (p*s).xyz == p.xyz*s；p/=s 与 p/s 一致 |
 | `DTS2026081318473` | [OH-2026-PLAYER-002](../content/issues/OH-2026-PLAYER-002.md) | MEDIUM | 复用器 START/STOP 映射名与编码器族对称 |
+| `DTS2026091029544` | [OH-2026-ARKUI-015](../content/issues/OH-2026-ARKUI-015.md) | MEDIUM | Slerp(from, to, 0) == from（即使 from·to < 0） |
+| `DTS2609150123188` | [OH-2026-ARKUI-020](../content/issues/OH-2026-ARKUI-020.md) | MEDIUM | 覆盖 totalMainSize_ ≡ last.endPos（≡ UpdateTotalMainSize） |
 | `DTS2609150153174` | [OH-2026-ARKUI-012](../content/issues/OH-2026-ARKUI-012.md) | MEDIUM | 反向种子 ≡ 从 0 填格（未满末行） |
 
 <a id="代数--不变量"></a>
@@ -306,6 +317,11 @@
 | `DTS2026090130983` | [OH-2026-AVCODEC-006](../content/issues/OH-2026-AVCODEC-006.md) | MEDIUM | 成功 ⇒ result ≥ 0（NaN 无序，不是非负） |
 | `DTS2609150153371` | [OH-2026-ARKUI-010](../content/issues/OH-2026-ARKUI-010.md) | MEDIUM | 末条规则行未满 ⇒ start-cache = rem+(budget-1)*C（不是 budget*C） |
 | `DTS2026090922585` | [OH-2026-ARKUI-011](../content/issues/OH-2026-ARKUI-011.md) | MEDIUM | 生产 r=2 时 JS (W,H)>0 的 GetP2 输出有限 |
+| `DTS2026090919800` | [OH-2026-ARKUI-013](../content/issues/OH-2026-ARKUI-013.md) | HIGH | (A)and(B)or(C) ≡ (A&&B)\|\|C |
+| `DTS2026091412083` | [OH-2026-ARKUI-016](../content/issues/OH-2026-ARKUI-016.md) | HIGH | (max-height:n px) ≡ h <= n |
+| `DTS2026091425514` | [OH-2026-ARKUI-017](../content/issues/OH-2026-ARKUI-017.md) | MEDIUM | 末 origin val>=0 在真实 (y,x)；未命中 → {-1,-1,-1} |
+| `DTS2026091437627` | [OH-2026-ARKUI-018](../content/issues/OH-2026-ARKUI-018.md) | MEDIUM | 只改 gap 且顶边未动 ⇒ start==0，end==Δtotal |
+| `DTS2609150107715` | [OH-2026-ARKUI-019](../content/issues/OH-2026-ARKUI-019.md) | MEDIUM | SetSpace 首键 startPos == (index/lanes)*(H+G) |
 
 <a id="否定--错误契约"></a>
 
@@ -367,7 +383,7 @@
 
 维护者驳回的 DTS。只计入分母。
 
-**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(107 + 2) / (107 + 2 + 21) = 83.8%**。
+**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(109 + 8) / (109 + 8 + 21) = 84.8%**。
 
 | DTS | 项目 | 主题 | 为何非问题 |
 |-----|------|------|------------|
