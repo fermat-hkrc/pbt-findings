@@ -2,12 +2,12 @@
 
 对 [`content/issues/`](../content/issues/) 中带有 **DTS** 工单号（`internal_issue_id`）的发现所做的归类，按检出该工单的 **pi-pbt 性质（预言机）** 分组。CWE / 失效模式分组归档在 [`finding_precision_by_project.md`](finding_precision_by_project.md) 文末。
 
-- **已确认并修复（FIXED）**：**115** — `CONFIRMED_FIXED` 报告如下
+- **已确认并修复（FIXED）**：**117** — `CONFIRMED_FIXED` 报告如下
 - **已确认（待修复）**：**8** — `CONFIRMED_REAL`（OH-2026-ARKUI-010、012–018）
 - **非问题（NON-ISSUE）**：**22** — [目录](#非问题)
-- **已判定**：**145** = 115 + 8 + 22
-- **精确率**：**84.8%** = `(115 + 8) / (115 + 8 + 22)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
-- **严重级别**（已修复 + 已确认）：HIGH=28，MEDIUM=92，LOW=3
+- **已判定**：**147** = 117 + 8 + 22
+- **精确率**：**85.0%** = `(117 + 8) / (117 + 8 + 22)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
+- **严重级别**（已修复 + 已确认）：HIGH=28，MEDIUM=94，LOW=3
 - **生成时间**：2026-09-22
 
 ## 概览
@@ -21,11 +21,11 @@
 | [差分](#差分) | 35 | 3 | 31 | 1 |
 | [代数 — 往返](#代数--往返) | 6 | 3 | 3 | 0 |
 | [代数 — 蜕变](#代数--蜕变) | 6 | 1 | 5 | 0 |
-| [代数 — 不变量](#代数--不变量) | 42 | 10 | 31 | 1 |
+| [代数 — 不变量](#代数--不变量) | 44 | 10 | 33 | 1 |
 | [否定 / 错误契约](#否定--错误契约) | 11 | 2 | 9 | 0 |
 | [参考](#参考) | 5 | 1 | 4 | 0 |
 | [仅崩溃](#仅崩溃) | 15 | 6 | 9 | 0 |
-| **合计** | **123** | **28** | **92** | **3** |
+| **合计** | **125** | **28** | **94** | **3** |
 
 强度顺序：状态机 ≻ 差分 ≻ 代数（往返 ≻ 幂等 ≻ 蜕变 ≻ 不变量 ≻ 否定/错误）≻ 参考 ≻ 仅崩溃。本集合中**幂等：0**。
 
@@ -41,7 +41,7 @@
 | `graphic_graphic_2d` | 10 | 0 | 3 | 6 | 1 | 100% |
 | `arkui_ace_engine` | 20 | 5 | 8 | 12 | 0 | 80% |
 | `ability_ability_runtime` | 7 | 0 | 0 | 7 | 0 | 100% |
-| `arkcompiler_runtime_core` | 7 | 1 | 1 | 6 | 0 | 88% |
+| `arkcompiler_runtime_core` | 9 | 1 | 1 | 8 | 0 | 90% |
 | `multimedia_av_codec` | 6 | 0 | 0 | 5 | 1 | 100% |
 | `multimedia_player_framework` | 4 | 0 | 0 | 4 | 0 | 100% |
 | `communication_bluetooth_service` | 2 | 0 | 2 | 0 | 0 | 100% |
@@ -62,7 +62,7 @@
 | `arkui_napi` | 3 | 0 | 0 | 3 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **合计** | **123** | **22** | **28** | **92** | **3** | **85%** |
+| **合计** | **125** | **22** | **28** | **94** | **3** | **85%** |
 
 ## DTS 索引
 
@@ -139,6 +139,8 @@
 | `DTS2026080530843` | [OH-2026-GFX-008](../content/issues/OH-2026-GFX-008.md) | 代数 — 不变量 | LOW | `graphic_graphic_2d` |
 | `DTS2026080608464` | [OH-2026-NET-005](../content/issues/OH-2026-NET-005.md) | 代数 — 不变量 | MEDIUM | `communication_netmanager_base` |
 | `DTS2026080754676` | [ARK-2026-BUF-002](../content/issues/ARK-2026-BUF-002.md) | 代数 — 不变量 | MEDIUM | `arkcompiler_runtime_core` |
+| `DTS2026080810178` | [ARK-2026-BUF-003](../content/issues/ARK-2026-BUF-003.md) | 代数 — 不变量 | MEDIUM | `arkcompiler_runtime_core` |
+| `DTS2026080810367` | [ARK-2026-BUF-004](../content/issues/ARK-2026-BUF-004.md) | 代数 — 不变量 | MEDIUM | `arkcompiler_runtime_core` |
 | `DTS2026080812965` | [OH-2026-ABILITY-006](../content/issues/OH-2026-ABILITY-006.md) | 差分 | MEDIUM | `ability_ability_runtime` |
 | `DTS2026080813420` | [OH-2026-CAM-007](../content/issues/OH-2026-CAM-007.md) | 仅崩溃 | MEDIUM | `multimedia_camera_framework` |
 | `DTS2026080813622` | [OH-2026-CAM-008](../content/issues/OH-2026-CAM-008.md) | 差分 | MEDIUM | `multimedia_camera_framework` |
@@ -317,6 +319,8 @@
 | `DTS2026080530843` | [OH-2026-GFX-008](../content/issues/OH-2026-GFX-008.md) | LOW | Dump 独立打印 cubicCoffB 与 cubicCoffC |
 | `DTS2026080608464` | [OH-2026-NET-005](../content/issues/OH-2026-NET-005.md) | MEDIUM | 范围止于 255.255.255.255 时 GetIp4AndMask 终止 |
 | `DTS2026080754676` | [ARK-2026-BUF-002](../content/issues/ARK-2026-BUF-002.md) | MEDIUM | 短/空 Span 上 Read<WIDTH> 不使 Size() 下溢 |
+| `DTS2026080810178` | [ARK-2026-BUF-003](../content/issues/ARK-2026-BUF-003.md) | MEDIUM | 空 Span 上 EnumerateTaggedValues 不读 sp[0] |
+| `DTS2026080810367` | [ARK-2026-BUF-004](../content/issues/ARK-2026-BUF-004.md) | MEDIUM | 空 Span 上 GetOptionalTaggedValue 返回 nullopt 且不读 sp[0] |
 | `DTS2026080813827` | [OH-2026-CAM-010](../content/issues/OH-2026-CAM-010.md) | MEDIUM | TLV 剩余长度覆盖声称的 3×num 点 |
 | `DTS2026080813868` | [OH-2026-CAM-011](../content/issues/OH-2026-CAM-011.md) | MEDIUM | 长度前缀 payload 落在剩余 count 内 |
 | `DTS2026082254944` | [OH-2026-ABILITY-005](../content/issues/OH-2026-ABILITY-005.md) | MEDIUM | ConvertStringToUint32 接受 [0, UINT32_MAX] 内任意完整消费的十进制 |
@@ -395,7 +399,7 @@
 
 维护者驳回的 DTS。只计入分母。
 
-**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(115 + 8) / (115 + 8 + 22) = 84.8%**。
+**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(117 + 8) / (117 + 8 + 22) = 85.0%**。
 
 | DTS | 项目 | 主题 | 为何非问题 |
 |-----|------|------|------------|

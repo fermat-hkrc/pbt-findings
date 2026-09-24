@@ -2,12 +2,12 @@
 
 Categorization of [`content/issues/`](../content/issues/) findings that carry a **DTS** ticket (`internal_issue_id`), grouped by the **pi-pbt property (oracle)** that found each ticket. CWE / failure-mode grouping is archived at the end of [`finding_precision_by_project.md`](finding_precision_by_project.md).
 
-- **Confirmed (FIXED)**: **115** — `CONFIRMED_FIXED` write-ups below
+- **Confirmed (FIXED)**: **117** — `CONFIRMED_FIXED` write-ups below
 - **Confirmed (awaiting fix)**: **8** — `CONFIRMED_REAL` (OH-2026-ARKUI-010, 012–018)
 - **Non-issue**: **22** — [catalog](#non-issues)
-- **Decided**: **145** = 115 + 8 + 22
-- **Precision**: **84.8%** = `(115 + 8) / (115 + 8 + 22)` = (fixed + confirmed) / (fixed + confirmed + non-issues)
-- **Severity** (fixed + confirmed): HIGH=28, MEDIUM=92, LOW=3
+- **Decided**: **147** = 117 + 8 + 22
+- **Precision**: **85.0%** = `(117 + 8) / (117 + 8 + 22)` = (fixed + confirmed) / (fixed + confirmed + non-issues)
+- **Severity** (fixed + confirmed): HIGH=28, MEDIUM=94, LOW=3
 - **Generated**: 2026-09-22
 
 ## Overview
@@ -21,11 +21,11 @@ Oracle taxonomy from [pi-pbt `docs/oracles.md`](https://github.com/fermat-hkrc/p
 | [Differential](#differential) | 35 | 3 | 31 | 1 |
 | [Algebraic — Round-trip](#algebraic--round-trip) | 6 | 3 | 3 | 0 |
 | [Algebraic — Metamorphic](#algebraic--metamorphic) | 6 | 1 | 5 | 0 |
-| [Algebraic — Invariant](#algebraic--invariant) | 42 | 10 | 31 | 1 |
+| [Algebraic — Invariant](#algebraic--invariant) | 44 | 10 | 33 | 1 |
 | [Negative / Error Contract](#negative--error-contract) | 11 | 2 | 9 | 0 |
 | [Reference](#reference) | 5 | 1 | 4 | 0 |
 | [Crash-Only](#crash-only) | 15 | 6 | 9 | 0 |
-| **Total** | **123** | **28** | **92** | **3** |
+| **Total** | **125** | **28** | **94** | **3** |
 
 Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Idempotence ≻ Metamorphic ≻ Invariant ≻ Negative/Error) ≻ Reference ≻ Crash-Only. **Idempotence: 0** in this set.
 
@@ -41,7 +41,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `graphic_graphic_2d` | 10 | 0 | 3 | 6 | 1 | 100% |
 | `arkui_ace_engine` | 20 | 5 | 8 | 12 | 0 | 80% |
 | `ability_ability_runtime` | 7 | 0 | 0 | 7 | 0 | 100% |
-| `arkcompiler_runtime_core` | 7 | 1 | 1 | 6 | 0 | 88% |
+| `arkcompiler_runtime_core` | 9 | 1 | 1 | 8 | 0 | 90% |
 | `multimedia_av_codec` | 6 | 0 | 0 | 5 | 1 | 100% |
 | `multimedia_player_framework` | 4 | 0 | 0 | 4 | 0 | 100% |
 | `communication_bluetooth_service` | 2 | 0 | 2 | 0 | 0 | 100% |
@@ -62,7 +62,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `arkui_napi` | 3 | 0 | 0 | 3 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **Total** | **123** | **22** | **28** | **92** | **3** | **85%** |
+| **Total** | **125** | **22** | **28** | **94** | **3** | **85%** |
 
 ## DTS index
 
@@ -139,6 +139,8 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `DTS2026080530843` | [OH-2026-GFX-008](../content/issues/OH-2026-GFX-008.md) | Algebraic — Invariant | LOW | `graphic_graphic_2d` |
 | `DTS2026080608464` | [OH-2026-NET-005](../content/issues/OH-2026-NET-005.md) | Algebraic — Invariant | MEDIUM | `communication_netmanager_base` |
 | `DTS2026080754676` | [ARK-2026-BUF-002](../content/issues/ARK-2026-BUF-002.md) | Algebraic — Invariant | MEDIUM | `arkcompiler_runtime_core` |
+| `DTS2026080810178` | [ARK-2026-BUF-003](../content/issues/ARK-2026-BUF-003.md) | Algebraic — Invariant | MEDIUM | `arkcompiler_runtime_core` |
+| `DTS2026080810367` | [ARK-2026-BUF-004](../content/issues/ARK-2026-BUF-004.md) | Algebraic — Invariant | MEDIUM | `arkcompiler_runtime_core` |
 | `DTS2026080812965` | [OH-2026-ABILITY-006](../content/issues/OH-2026-ABILITY-006.md) | Differential | MEDIUM | `ability_ability_runtime` |
 | `DTS2026080813420` | [OH-2026-CAM-007](../content/issues/OH-2026-CAM-007.md) | Crash-Only | MEDIUM | `multimedia_camera_framework` |
 | `DTS2026080813622` | [OH-2026-CAM-008](../content/issues/OH-2026-CAM-008.md) | Differential | MEDIUM | `multimedia_camera_framework` |
@@ -317,6 +319,8 @@ A source-grounded input transform implies a relation on outputs (`a+b==b+a`, nam
 | `DTS2026080530843` | [OH-2026-GFX-008](../content/issues/OH-2026-GFX-008.md) | LOW | Dump prints cubicCoffB and cubicCoffC independently |
 | `DTS2026080608464` | [OH-2026-NET-005](../content/issues/OH-2026-NET-005.md) | MEDIUM | GetIp4AndMask terminates when the range ends at 255.255.255.255 |
 | `DTS2026080754676` | [ARK-2026-BUF-002](../content/issues/ARK-2026-BUF-002.md) | MEDIUM | short/empty span Read<WIDTH> does not underflow Size() |
+| `DTS2026080810178` | [ARK-2026-BUF-003](../content/issues/ARK-2026-BUF-003.md) | MEDIUM | empty span EnumerateTaggedValues does not read sp[0] |
+| `DTS2026080810367` | [ARK-2026-BUF-004](../content/issues/ARK-2026-BUF-004.md) | MEDIUM | empty span GetOptionalTaggedValue returns nullopt without sp[0] |
 | `DTS2026080813827` | [OH-2026-CAM-010](../content/issues/OH-2026-CAM-010.md) | MEDIUM | TLV remaining length covers claimed 3×num points |
 | `DTS2026080813868` | [OH-2026-CAM-011](../content/issues/OH-2026-CAM-011.md) | MEDIUM | length-prefix payload fits in remaining count |
 | `DTS2026082254944` | [OH-2026-ABILITY-005](../content/issues/OH-2026-ABILITY-005.md) | MEDIUM | ConvertStringToUint32 accepts any full-consume decimal in [0, UINT32_MAX] |
@@ -395,7 +399,7 @@ Authoritative spec / stdlib / IEEE / Unicode / pinning contract that this SUT cl
 
 Maintainer-rejected DTS. Counted in the denominator only.
 
-**Precision** = (fixed + confirmed) / (fixed + confirmed + non-issues) = **(115 + 8) / (115 + 8 + 22) = 84.8%**.
+**Precision** = (fixed + confirmed) / (fixed + confirmed + non-issues) = **(117 + 8) / (117 + 8 + 22) = 85.0%**.
 
 | DTS | Project | Theme | Why non-issue |
 |-----|---------|-------|---------------|
