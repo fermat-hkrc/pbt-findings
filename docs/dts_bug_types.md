@@ -2,12 +2,12 @@
 
 Categorization of [`content/issues/`](../content/issues/) findings that carry a **DTS** ticket (`internal_issue_id`), grouped by the **pi-pbt property (oracle)** that found each ticket. CWE / failure-mode grouping is archived at the end of [`finding_precision_by_project.md`](finding_precision_by_project.md).
 
-- **Confirmed (FIXED)**: **113** — `CONFIRMED_FIXED` write-ups below
+- **Confirmed (FIXED)**: **114** — `CONFIRMED_FIXED` write-ups below
 - **Confirmed (awaiting fix)**: **8** — `CONFIRMED_REAL` (OH-2026-ARKUI-010, 012–018)
 - **Non-issue**: **22** — [catalog](#non-issues)
-- **Decided**: **143** = 113 + 8 + 22
-- **Precision**: **84.6%** = `(113 + 8) / (113 + 8 + 22)` = (fixed + confirmed) / (fixed + confirmed + non-issues)
-- **Severity** (fixed + confirmed): HIGH=28, MEDIUM=90, LOW=3
+- **Decided**: **144** = 114 + 8 + 22
+- **Precision**: **84.7%** = `(114 + 8) / (114 + 8 + 22)` = (fixed + confirmed) / (fixed + confirmed + non-issues)
+- **Severity** (fixed + confirmed): HIGH=28, MEDIUM=91, LOW=3
 - **Generated**: 2026-09-22
 
 ## Overview
@@ -21,11 +21,11 @@ Oracle taxonomy from [pi-pbt `docs/oracles.md`](https://github.com/fermat-hkrc/p
 | [Differential](#differential) | 35 | 3 | 31 | 1 |
 | [Algebraic — Round-trip](#algebraic--round-trip) | 6 | 3 | 3 | 0 |
 | [Algebraic — Metamorphic](#algebraic--metamorphic) | 6 | 1 | 5 | 0 |
-| [Algebraic — Invariant](#algebraic--invariant) | 40 | 10 | 29 | 1 |
+| [Algebraic — Invariant](#algebraic--invariant) | 41 | 10 | 30 | 1 |
 | [Negative / Error Contract](#negative--error-contract) | 11 | 2 | 9 | 0 |
 | [Reference](#reference) | 5 | 1 | 4 | 0 |
 | [Crash-Only](#crash-only) | 15 | 6 | 9 | 0 |
-| **Total** | **121** | **28** | **90** | **3** |
+| **Total** | **122** | **28** | **91** | **3** |
 
 Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Idempotence ≻ Metamorphic ≻ Invariant ≻ Negative/Error) ≻ Reference ≻ Crash-Only. **Idempotence: 0** in this set.
 
@@ -59,10 +59,10 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `filemanagement_storage_service` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `multimedia_media_foundation` | 2 | 5 | 1 | 1 | 0 | 29% |
 | `telephony_core_service` | 1 | 0 | 1 | 0 | 0 | 100% |
-| `arkui_napi` | 2 | 0 | 0 | 2 | 0 | 100% |
+| `arkui_napi` | 3 | 0 | 0 | 3 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **Total** | **121** | **22** | **28** | **90** | **3** | **85%** |
+| **Total** | **122** | **22** | **28** | **91** | **3** | **85%** |
 
 ## DTS index
 
@@ -153,6 +153,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `DTS2026081417372` | [OH-2026-IMG-010](../content/issues/OH-2026-IMG-010.md) | Reference | MEDIUM | `multimedia_image_framework` |
 | `DTS2026081421810` | [OH-2026-IMG-007](../content/issues/OH-2026-IMG-007.md) | Differential | MEDIUM | `multimedia_image_framework` |
 | `DTS2026081424330` | [OH-2026-IMG-006](../content/issues/OH-2026-IMG-006.md) | Reference | MEDIUM | `multimedia_image_framework` |
+| `DTS2026081440197` | [OH-2026-NAPI-003](../content/issues/OH-2026-NAPI-003.md) | Algebraic — Invariant | MEDIUM | `arkui_napi` |
 | `DTS2026081506434` | [OH-2026-NAPI-001](../content/issues/OH-2026-NAPI-001.md) | Differential | MEDIUM | `arkui_napi` |
 | `DTS2026081703440` | [OH-2026-PLAYER-003](../content/issues/OH-2026-PLAYER-003.md) | Differential | MEDIUM | `multimedia_player_framework` |
 | `DTS2026081706437` | [OH-2026-AVCODEC-005](../content/issues/OH-2026-AVCODEC-005.md) | Differential | LOW | `multimedia_av_codec` |
@@ -328,6 +329,7 @@ A source-grounded input transform implies a relation on outputs (`a+b==b+a`, nam
 | `DTS2609150107715` | [OH-2026-ARKUI-019](../content/issues/OH-2026-ARKUI-019.md) | MEDIUM | SetSpace first key startPos == (index/lanes)*(H+G) |
 | `DTS2026082129239` | [OH-2026-MF-002](../content/issues/OH-2026-MF-002.md) | MEDIUM | post-move Put on src does not rewrite dst (unique meta_) |
 | `DTS2026082249247` | [OH-2026-IMG-011](../content/issues/OH-2026-IMG-011.md) | MEDIUM | overflow or non-positive size ⇒ IsSizeSupportDma false |
+| `DTS2026081440197` | [OH-2026-NAPI-003](../content/issues/OH-2026-NAPI-003.md) | MEDIUM | Close(nullptr) leaves depth unchanged (no size_t underflow) |
 
 <a id="negative--error-contract"></a>
 
@@ -391,7 +393,7 @@ Authoritative spec / stdlib / IEEE / Unicode / pinning contract that this SUT cl
 
 Maintainer-rejected DTS. Counted in the denominator only.
 
-**Precision** = (fixed + confirmed) / (fixed + confirmed + non-issues) = **(113 + 8) / (113 + 8 + 22) = 84.6%**.
+**Precision** = (fixed + confirmed) / (fixed + confirmed + non-issues) = **(114 + 8) / (114 + 8 + 22) = 84.7%**.
 
 | DTS | Project | Theme | Why non-issue |
 |-----|---------|-------|---------------|
