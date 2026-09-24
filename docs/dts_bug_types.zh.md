@@ -4,11 +4,11 @@
 
 - **已确认并修复（FIXED）**：**119** — `CONFIRMED_FIXED` 报告如下
 - **已确认（待修复）**：**7** — `CONFIRMED_REAL`（OH-2026-ARKUI-010、012–017）
-- **非问题（NON-ISSUE）**：**23** — [目录](#非问题)
-- **已判定**：**149** = 119 + 7 + 23
-- **精确率**：**84.6%** = `(119 + 7) / (119 + 7 + 23)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
+- **非问题（NON-ISSUE）**：**24** — [目录](#非问题)
+- **已判定**：**150** = 119 + 7 + 24
+- **精确率**：**84.0%** = `(119 + 7) / (119 + 7 + 24)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
 - **严重级别**（已修复 + 已确认）：HIGH=28，MEDIUM=95，LOW=3
-- **生成时间**：2026-09-23
+- **生成时间**：2026-09-24
 
 ## 概览
 
@@ -43,7 +43,7 @@
 | `ability_ability_runtime` | 7 | 0 | 0 | 7 | 0 | 100% |
 | `arkcompiler_runtime_core` | 11 | 1 | 1 | 10 | 0 | 92% |
 | `multimedia_av_codec` | 6 | 0 | 0 | 5 | 1 | 100% |
-| `multimedia_player_framework` | 4 | 0 | 0 | 4 | 0 | 100% |
+| `multimedia_player_framework` | 4 | 1 | 0 | 4 | 0 | 80% |
 | `communication_bluetooth_service` | 2 | 0 | 2 | 0 | 0 | 100% |
 | `communication_wifi` | 2 | 0 | 1 | 1 | 0 | 100% |
 | `distributeddatamgr_pasteboard` | 2 | 0 | 1 | 1 | 0 | 100% |
@@ -62,7 +62,7 @@
 | `arkui_napi` | 3 | 0 | 0 | 3 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **合计** | **126** | **23** | **28** | **95** | **3** | **85%** |
+| **合计** | **126** | **24** | **28** | **95** | **3** | **84%** |
 
 ## DTS 索引
 
@@ -401,7 +401,7 @@
 
 维护者驳回的 DTS。只计入分母。
 
-**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(119 + 7) / (119 + 7 + 23) = 84.6%**。
+**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(119 + 7) / (119 + 7 + 24) = 84.0%**。
 
 | DTS | 项目 | 主题 | 为何非问题 |
 |-----|------|------|------------|
@@ -425,11 +425,12 @@
 | `DTS2026082554468` | `multimedia_audio_framework` | ConvertChLayoutToPaChMap HOA 阶 ≥ 5 写穿 pa_channel_map | 7.0 已不用 PulseAudio 引擎；`audio_effect_chain_adapter.cpp` 已从主干下掉。 |
 | `DTS2026082568985` | `distributedhardware_device_manager` | ConvertStrToInt 对溢出十进制返回正回绕值 | 死代码 / 无出货调用方。 |
 | `DTS2026082738345` | `distributeddatamgr_datamgr_service` | DeviceMatrix::ConvertIndex 末尾 index-- 导致 uint16 回绕 | 版本布局适配 — 旧版 dynamicApps_ 少一位；回绕不在现行 ConvertDynamic 路径。 |
+| `DTS2026081702025` | `multimedia_player_framework` | AVCSErrorToMSError 将 OBTAIN_MEM 映射为 UNKNOWN | 修改错误码涉及非兼容性变更。 |
 | `DTS2026081715017` | `multimedia_media_library` | IsValidInteger 接受部分解析 | 设计如此 — 不完全消费（兼容 1.000）；ConvertToInt 才是全消费兄弟。 |
 | `DTS2026082549915` | `multimodalinput_input` | IsValidJsonPath `/data` 前缀伪造 | 不可达 — 门控在 `realpath` 之后；树内路径为常量 / `GetOneCfgFile` / 硬编码 `/data/service/…`；无提权；可选 `"/data/"` 加固。 |
 | `DTS2026072349266` | `multimodalinput_input` | StreamBuffer::Read(string) 经 `strchr` 使 `rPos_` 越过 `wPos_` | 无对象级越界（零填充 `MAX+1`）；`Write(string)` 带 NUL；多字段 `CHKRWER` fail-closed；链尾字符串归受信对端；可选 `memchr` 加固。**与** `DTS2026082549915` **免责来源不同**。 |
 
-来源：`~/cloned/*/pbt-out/bug_reports/non-issue/` 与 `~/testing/*/pbt-out/bug_reports/non-issue/`（23 个带 DTS 文件）。
+来源：`~/cloned/*/pbt-out/bug_reports/non-issue/` 与 `~/testing/*/pbt-out/bug_reports/non-issue/`（24 个带 DTS 文件）。
 
 ## 说明
 

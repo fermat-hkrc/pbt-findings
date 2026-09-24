@@ -2,8 +2,8 @@
 
 How often PBT-filed **DTS** tickets were accepted as real bugs versus closed as non-issues, broken down by project.
 
-- **Precision:** **84.6%** ((119 FIXED + 7 CONFIRMED) / 149 decided)
-- **False-positive rate:** **15.4%** (23 NON-ISSUE)
+- **Precision:** **84.0%** ((119 FIXED + 7 CONFIRMED) / 150 decided)
+- **False-positive rate:** **16.0%** (24 NON-ISSUE)
 
 Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS tickets are omitted — their outcome (bug vs non-issue) is not yet known.
 
@@ -23,21 +23,21 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 
 - DTS inventory: [`dts_bug_types.md`](./dts_bug_types.md) + [`content/issues/`](../content/issues/)
 - Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**126** = 119 `CONFIRMED_FIXED` + 7 `CONFIRMED_REAL`)
-- Non-issue write-ups: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (**23** DTS-stamped)
+- Non-issue write-ups: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (**24** DTS-stamped)
 
-- **Generated:** 2026-09-23
+- **Generated:** 2026-09-24
 
 ### Global DTS scoreboard (decided only)
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 119 | 79.9% |
+| FIXED | 119 | 79.3% |
 | CONFIRMED (awaiting fix) | 7 | 4.7% |
-| NON-ISSUE | 23 | 15.4% |
-| **Total decided** | **149** | 100% |
+| NON-ISSUE | 24 | 16.0% |
+| **Total decided** | **150** | 100% |
 
-- **Precision:** **(119+7)/149 = 84.6%** — about five in six closed tickets were real bugs.
-- **False-positive rate:** **23/149 = 15.4%**.
+- **Precision:** **(119+7)/150 = 84.0%** — about five in six closed tickets were real bugs.
+- **False-positive rate:** **24/150 = 16.0%**.
 
 > Precision means *maintainer-accepted defect rate among dispositioned DTS* (fixed **or** confirmed-unfixed), not static-analysis alert rate. Open/submitted tickets are out of scope until closed.
 
@@ -56,7 +56,7 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`ability_ability_runtime`](#ability-ability-runtime) | 7 | 0 | 0 | 7 | 100% |
 | [`multimedia_av_codec`](#multimedia-av-codec) | 6 | 0 | 0 | 6 | 100% |
 | [`multimedia_media_foundation`](#multimedia-media-foundation) | 2 | 0 | 5 | 7 | 29% |
-| [`multimedia_player_framework`](#multimedia-player-framework) | 4 | 0 | 0 | 4 | 100% |
+| [`multimedia_player_framework`](#multimedia-player-framework) | 4 | 0 | 1 | 5 | 80% |
 | [`distributedhardware_device_manager`](#distributedhardware-device-manager) | 2 | 0 | 2 | 4 | 50% |
 | [`multimedia_av_session`](#multimedia-av-session) | 2 | 0 | 1 | 3 | 67% |
 | [`multimedia_media_library`](#multimedia-media-library) | 5 | 0 | 1 | 6 | 83% |
@@ -74,13 +74,13 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`telephony_core_service`](#telephony-core-service) | 1 | 0 | 0 | 1 | 100% |
 | [`multimedia_audio_framework`](#multimedia-audio-framework) | 1 | 0 | 1 | 2 | 50% |
 | [`multimodalinput_input`](#multimodalinput-input) | 0 | 0 | 2 | 2 | 0% |
-| **Total** | **119** | **7** | **23** | **149** | **85%** |
+| **Total** | **119** | **7** | **24** | **150** | **84%** |
 
 ## Precision tiers
 
 ### Tier A — Perfect precision (100%, ≥1 FIXED, 0 NON-ISSUE)
 
-`multimedia_camera_framework` (15 fixed), `graphic_graphic_2d` (10 fixed), `multimedia_image_framework` (10 fixed), `ability_ability_runtime` (7 fixed), `multimedia_av_codec` (6 fixed), `multimedia_player_framework` (4 fixed), `window_window_manager` (3 fixed), `arkui_napi` (3 fixed), `communication_bluetooth_service` (2 fixed), `communication_wifi` (2 fixed), `distributeddatamgr_pasteboard` (2 fixed), `filemanagement_storage_service` (2 fixed), `commonlibrary_rust_ylong_http` (1 fixed), `distributedhardware_distributed_hardware_fwk` (1 fixed), `filemanagement_dfs_service` (1 fixed), `telephony_core_service` (1 fixed)
+`multimedia_camera_framework` (15 fixed), `graphic_graphic_2d` (10 fixed), `multimedia_image_framework` (10 fixed), `ability_ability_runtime` (7 fixed), `multimedia_av_codec` (6 fixed), `window_window_manager` (3 fixed), `arkui_napi` (3 fixed), `communication_bluetooth_service` (2 fixed), `communication_wifi` (2 fixed), `distributeddatamgr_pasteboard` (2 fixed), `filemanagement_storage_service` (2 fixed), `commonlibrary_rust_ylong_http` (1 fixed), `distributedhardware_distributed_hardware_fwk` (1 fixed), `filemanagement_dfs_service` (1 fixed), `telephony_core_service` (1 fixed)
 
 These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 
@@ -94,6 +94,7 @@ These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 | `distributedhardware_device_manager` | 2 | 2 | 50% | cJSON int64 round-trip and ConvertStrToInt are dead/unshipped; PIN/rand bugs still fixed. |
 | `multimedia_av_session` | 2 | 1 | 67% | Call-type JSON omission = product policy; OOB crash in `GetAnonyTitle` still fixed. |
 | `multimedia_media_library` | 5 | 1 | 83% | Incomplete consume is the IsValidInteger contract (compat 1.000); ConvertToInt is the full-consume sibling; GetTimeIdFromUri / GetFileIdStr / GetDateAddedMs / IsFileTablePath / GetVirtualPath still fixed. |
+| `multimedia_player_framework` | 4 | 1 | 80% | Shipped `MSERR_*` mapping is frozen (compat); XmlParser double-free / TransRecorderStatus / MSExtErrorToString / GetPackageName still fixed. |
 | `communication_dsoftbus` | 2 | 1 | 67% | Hex NUL write is caller-owned; ConnectGroup freq OOB and ConvertBtMacToBinary leftover still fixed. |
 | `distributeddatamgr_datamgr_service` | 1 | 1 | 50% | ConvertIndex `index--` is a v1/v2 layout adapter, not a wrap bug; IsValidPath `..` still fixed. |
 | `multimedia_media_foundation` | 2 | 5 | 29% | Abstract OOB / dead inverted predicate / shipped CAPI cap / `-O0`-only crash / ShareMemory sibling-I/O rejected; live `Format::Stringify` null-deref and Format move `meta_` share fixed. |
@@ -105,7 +106,7 @@ These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 
 ## Non-issue DTS catalog (all projects)
 
-All **23** maintainer-rejected tickets. Useful as negative examples for future filing.
+All **24** maintainer-rejected tickets. Useful as negative examples for future filing.
 
 | DTS | Project | Report theme | Rejection class |
 |-----|---------|--------------|-----------------|
@@ -129,6 +130,7 @@ All **23** maintainer-rejected tickets. Useful as negative examples for future f
 | `DTS2026082554468` | `multimedia_audio_framework` | ConvertChLayoutToPaChMap HOA order ≥ 5 overflows pa_channel_map | Dead code / removed from 7.0 trunk |
 | `DTS2026082568985` | `distributedhardware_device_manager` | ConvertStrToInt returns positive wrap of overflowing decimals | Dead code / no shipped callers |
 | `DTS2026082738345` | `distributeddatamgr_datamgr_service` | DeviceMatrix::ConvertIndex trailing index-- uint16 wrap | By-design version-layout adapter |
+| `DTS2026081702025` | `multimedia_player_framework` | AVCSErrorToMSError OBTAIN_MEM → UNKNOWN | Shipped MSERR mapping (incompatible to change) |
 | `DTS2026081715017` | `multimedia_media_library` | IsValidInteger accepts partial parses | Different APIs, different jobs |
 | `DTS2026082549915` | `multimodalinput_input` | IsValidJsonPath `/data` prefix spoof | Unreachable under live callers |
 | `DTS2026072349266` | `multimodalinput_input` | StreamBuffer::Read(string) rPos past wPos via strchr | Framing residual / no object OOB + fail-closed |
@@ -137,7 +139,7 @@ All **23** maintainer-rejected tickets. Useful as negative examples for future f
 
 | Class | Count | Implication for future PBT filings |
 |------:|------:|--------------------------------------|
-| By-design / product policy / stable contract | 7 | Validate *product* intent and call-graph impact, not only algebraic oddity |
+| By-design / product policy / stable contract | 8 | Validate *product* intent and call-graph impact, not only algebraic oddity |
 | Unreachable invariant / dead code | 8 | Constrain generators to **production domain**; prove a live caller (incl. path gates after `realpath`) |
 | Caller-owned or split-API contract | 5 | Read in-tree callers and sibling APIs before claiming inconsistency |
 | Framing residual / no object OOB + fail-closed | 1 | Distinguish logical cursor past write-head inside a fixed zero-filled buffer from heap OOB; check `CHKRWER` recovery and trusted-peer assumptions before High |
@@ -527,9 +529,9 @@ Mixed outcomes: maintainers accepted **2** and rejected **1**. Net precision **6
 | Metric | Value |
 |--------|------:|
 | FIXED | 4 |
-| NON-ISSUE | 0 |
-| Decided | 4 |
-| Precision | 100.0% |
+| NON-ISSUE | 1 |
+| Decided | 5 |
+| Precision | 80.0% |
 
 **FIXED DTS**
 
@@ -537,6 +539,10 @@ Mixed outcomes: maintainers accepted **2** and rejected **1**. Net precision **6
 - `DTS2026081318473` — [OH-2026-PLAYER-002](../content/issues/OH-2026-PLAYER-002.md): TransRecorderStatus muxer map missing START + duplicate STOP key
 - `DTS2026081703440` — [OH-2026-PLAYER-003](../content/issues/OH-2026-PLAYER-003.md): MSExtErrorToString subtracts the wrong enum base on the extend fall-through
 - `DTS2026082009479` — [OH-2026-PLAYER-004](../content/issues/OH-2026-PLAYER-004.md): GetPackageName tokenizes syspara via stringstream >> (drops whitespace / multi-token)
+
+**NON-ISSUE DTS**
+
+- `DTS2026081702025` — AVCSErrorToMSError maps OBTAIN_MEM to UNKNOWN. *Shipped public `MSERR_*` — remapping is a compatibility-breaking change.*
 
 ### `window_window_manager`
 

@@ -4,11 +4,11 @@ Categorization of [`content/issues/`](../content/issues/) findings that carry a 
 
 - **Confirmed (FIXED)**: **119** — `CONFIRMED_FIXED` write-ups below
 - **Confirmed (awaiting fix)**: **7** — `CONFIRMED_REAL` (OH-2026-ARKUI-010, 012–017)
-- **Non-issue**: **23** — [catalog](#non-issues)
-- **Decided**: **149** = 119 + 7 + 23
-- **Precision**: **84.6%** = `(119 + 7) / (119 + 7 + 23)` = (fixed + confirmed) / (fixed + confirmed + non-issues)
+- **Non-issue**: **24** — [catalog](#non-issues)
+- **Decided**: **150** = 119 + 7 + 24
+- **Precision**: **84.0%** = `(119 + 7) / (119 + 7 + 24)` = (fixed + confirmed) / (fixed + confirmed + non-issues)
 - **Severity** (fixed + confirmed): HIGH=28, MEDIUM=95, LOW=3
-- **Generated**: 2026-09-23
+- **Generated**: 2026-09-24
 
 ## Overview
 
@@ -43,7 +43,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `ability_ability_runtime` | 7 | 0 | 0 | 7 | 0 | 100% |
 | `arkcompiler_runtime_core` | 11 | 1 | 1 | 10 | 0 | 92% |
 | `multimedia_av_codec` | 6 | 0 | 0 | 5 | 1 | 100% |
-| `multimedia_player_framework` | 4 | 0 | 0 | 4 | 0 | 100% |
+| `multimedia_player_framework` | 4 | 1 | 0 | 4 | 0 | 80% |
 | `communication_bluetooth_service` | 2 | 0 | 2 | 0 | 0 | 100% |
 | `communication_wifi` | 2 | 0 | 1 | 1 | 0 | 100% |
 | `distributeddatamgr_pasteboard` | 2 | 0 | 1 | 1 | 0 | 100% |
@@ -62,7 +62,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `arkui_napi` | 3 | 0 | 0 | 3 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **Total** | **126** | **23** | **28** | **95** | **3** | **85%** |
+| **Total** | **126** | **24** | **28** | **95** | **3** | **84%** |
 
 ## DTS index
 
@@ -401,7 +401,7 @@ Authoritative spec / stdlib / IEEE / Unicode / pinning contract that this SUT cl
 
 Maintainer-rejected DTS. Counted in the denominator only.
 
-**Precision** = (fixed + confirmed) / (fixed + confirmed + non-issues) = **(119 + 7) / (119 + 7 + 23) = 84.6%**.
+**Precision** = (fixed + confirmed) / (fixed + confirmed + non-issues) = **(119 + 7) / (119 + 7 + 24) = 84.0%**.
 
 | DTS | Project | Theme | Why non-issue |
 |-----|---------|-------|---------------|
@@ -425,11 +425,12 @@ Maintainer-rejected DTS. Counted in the denominator only.
 | `DTS2026082554468` | `multimedia_audio_framework` | ConvertChLayoutToPaChMap HOA order ≥ 5 overflows pa_channel_map | 7.0 dropped PulseAudio engine; `audio_effect_chain_adapter.cpp` removed from trunk. |
 | `DTS2026082568985` | `distributedhardware_device_manager` | ConvertStrToInt returns positive wrap of overflowing decimals | Dead code / no shipped callers. |
 | `DTS2026082738345` | `distributeddatamgr_datamgr_service` | DeviceMatrix::ConvertIndex trailing index-- uint16 wrap | Version-layout adapter — old dynamicApps_ has one fewer slot; wrap not on live ConvertDynamic path. |
+| `DTS2026081702025` | `multimedia_player_framework` | AVCSErrorToMSError OBTAIN_MEM → UNKNOWN | Shipped public `MSERR_*` — remapping is a compatibility-breaking change. |
 | `DTS2026081715017` | `multimedia_media_library` | IsValidInteger accepts partial parses | By design — incomplete consume (compat 1.000); ConvertToInt is the full-consume sibling. |
 | `DTS2026082549915` | `multimodalinput_input` | IsValidJsonPath `/data` prefix spoof | Unreachable — gate after `realpath`; in-tree paths are constants / `GetOneCfgFile` / hardcoded `/data/service/…`; no privesc; optional `"/data/"` hygiene only. |
 | `DTS2026072349266` | `multimodalinput_input` | StreamBuffer::Read(string) `rPos_` past `wPos_` via `strchr` | No object OOB (zero-fill `MAX+1`); `Write(string)` embeds NUL; multi-field decode fail-closes via `CHKRWER`; tail-string under trusted-peer; optional `memchr` hygiene. **Different free reason than** `DTS2026082549915`. |
 
-Sources: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (23 DTS-stamped).
+Sources: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (24 DTS-stamped).
 
 ## Notes
 
