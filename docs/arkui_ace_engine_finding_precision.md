@@ -29,15 +29,15 @@ Companion bug-type catalog: [arkui_ace_engine_dts_bug_types.md](./arkui_ace_engi
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 12 | 50.0% |
-| CONFIRMED (awaiting fix) | 8 | 33.3% |
-| NON-ISSUE | 4 | 16.7% |
-| **Total decided** | **24** | 100% |
+| FIXED | 12 | 48.0% |
+| CONFIRMED (awaiting fix) | 8 | 32.0% |
+| NON-ISSUE | 5 | 20.0% |
+| **Total decided** | **25** | 100% |
 
-- **Precision:** **(12+8)/24 = 83.3%**
-- **False-positive rate:** **4/24 = 16.7%**
+- **Precision:** **(12+8)/25 = 80.0%**
+- **False-positive rate:** **5/25 = 20.0%**
 
-Compared with the cross-repo decided baseline (**85.2%** precision), arkui_ace_engine is **slightly below** (83.3%).
+Compared with the cross-repo decided baseline (**84.6%** precision), arkui_ace_engine is **below** (80.0%).
 
 ## FIXED DTS
 
@@ -116,8 +116,9 @@ Local reports: `~/cloned/arkui_ace_engine/pbt-out/bug_reports/confirmed/calculat
 | `DTS2026072522059` | IsAllItemsMeasured false on span-marker last cell | Unreachable under live callers |
 | `DTS2026082235589` | Color::FromRGBO wraps out-of-range opacity instead of clamping | Caller-owned clamp (internal packer) |
 | `DTS2026082235533` | FindItemCount overcounts when the range starts on a multi-row continuation | Unreachable under live callers |
+| `DTS2026073119063` | GetDistanceToBottom returns LayoutInfinity when height map extends past endMainLineIndex_ | By-design irregular-span sentinel |
 
-**Reports:** `~/cloned/arkui_ace_engine/pbt-out/bug_reports/non-issue/GetTotalHeightOfItemsInView_NegMainGap.md`, `IsAllItemsMeasured_span_marker_false.md`, `fromrgbo_opacity_wrap.md`, `finditemcount_continuation_overcount.md`
+**Reports:** `~/cloned/arkui_ace_engine/pbt-out/bug_reports/non-issue/GetTotalHeightOfItemsInView_NegMainGap.md`, `IsAllItemsMeasured_span_marker_false.md`, `fromrgbo_opacity_wrap.md`, `finditemcount_continuation_overcount.md`; `~/testing/arkui_ace_engine/pbt-out/bug_reports/non-issue/GetDistanceToBottom_prefetch_layout_infinity.md`
 
 ### Why closed
 
@@ -129,7 +130,9 @@ Local reports: `~/cloned/arkui_ace_engine/pbt-out/bug_reports/confirmed/calculat
 
 **`DTS2026082235533`:** `FindItemCount` is `max-min+1` for consecutive **positive** IDs on the regular/scroll path (`GetContentOffset` / `GetContentHeight`). Irregular layout uses `GetIrregularOffset` / `GetIrregularHeight` and never this helper. `-idx` continuations exist only on the filler matrix. PBT mixed two encodings (same class as `IsAllItemsMeasured`).
 
-**Implication for future filings:** an algebraically odd empty-path return is not enough if it is the long-standing shared contract and callers couple to it. Prefer call-site impact / user-visible symptom before requesting a shared helper change. Also prove the matrix encoding under test is an input the live caller actually produces. Do not demand nearest-end clamp on an internal helper whose owners pin the domain on the caller — canvas already clamping is caller duty, not a missing helper clamp. Same `color.cpp` float→`uint8_t` class as LineColorTransition, but that one was a live decreasing-channel UB (FIXED). Do not feed irregular-filler `-idx` into `FindItemCount` / `IsAllItemsMeasured`.
+**`DTS2026073119063`:** `GetDistanceToBottom` third guard (`endMainLineIndex_ < lineHeightMap_.rbegin()->first` → `LayoutInfinity`) is the irregular/custom end sentinel: leftover span rows of the last in-view item still sit below the viewport. Maintainers: 有意为之; old callers (`offsetEnd_`, `IsOutOfEnd(irregular)`, `GetEndOffset`) treat ∞ / large positive as not at end. PBT’s extra-key witness is span remainder, not prefetch dirt (`PreloadItems` runs after `UpdateLayoutInfo`). Dropping the guard would mark a still-extending last item as at end.
+
+**Implication for future filings:** an algebraically odd empty-path return is not enough if it is the long-standing shared contract and callers couple to it. Prefer call-site impact / user-visible symptom before requesting a shared helper change. Also prove the matrix encoding under test is an input the live caller actually produces. Do not demand nearest-end clamp on an internal helper whose owners pin the domain on the caller — canvas already clamping is caller duty, not a missing helper clamp. Same `color.cpp` float→`uint8_t` class as LineColorTransition, but that one was a live decreasing-channel UB (FIXED). Do not feed irregular-filler `-idx` into `FindItemCount` / `IsAllItemsMeasured`. Do not treat extra `lineHeightMap_` keys past `endMainLineIndex_` as prefetch dirt — that is the irregular span-remainder signal.
 
 ## Component mix (FIXED only)
 
@@ -155,7 +158,7 @@ Local reports: `~/cloned/arkui_ace_engine/pbt-out/bug_reports/confirmed/calculat
 ## Takeaways
 
 1. **12 real bugs fixed** (+ 8 confirmed awaiting fix) across grid layout, lazy grid, media query, SVG alpha, quaternion slerp, matrix storage, color/asin geometry, and partial-last-line scroll/cache — strong confirmed yield for one UI engine repo.
-2. **Precision 83%** on decided tickets: four non-issues (stable empty-height formula; `-idx` encoding never seen by `IsAllItemsMeasured` / `FindItemCount`; FromRGBO caller-owned `[0, 1]` clamp) against twelve fixes and eight confirmed.
+2. **Precision 80%** on decided tickets: five non-issues (stable empty-height formula; `-idx` encoding never seen by `IsAllItemsMeasured` / `FindItemCount`; FromRGBO caller-owned `[0, 1]` clamp; GetDistanceToBottom LayoutInfinity is the irregular last-item span sentinel) against twelve fixes and eight confirmed.
 3. Dominant failure modes: **incorrect calculation**, **wrong control-flow sentinels**, plus **div-by-zero**, **UB cast**, **OOB write**, and unguarded **`asin`**.
 4. Non-issue lessons are contract/call-graph sensitivity and production-domain encoding, not flaky reproduction — PBT still witnessed the raw returns as contract properties.
 

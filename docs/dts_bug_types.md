@@ -4,9 +4,9 @@ Categorization of [`content/issues/`](../content/issues/) findings that carry a 
 
 - **Confirmed (FIXED)**: **113** — `CONFIRMED_FIXED` write-ups below
 - **Confirmed (awaiting fix)**: **8** — `CONFIRMED_REAL` (OH-2026-ARKUI-010, 012–018)
-- **Non-issue**: **21** — [catalog](#non-issues)
-- **Decided**: **142** = 113 + 8 + 21
-- **Precision**: **85.2%** = `(113 + 8) / (113 + 8 + 21)` = (fixed + confirmed) / (fixed + confirmed + non-issues)
+- **Non-issue**: **22** — [catalog](#non-issues)
+- **Decided**: **143** = 113 + 8 + 22
+- **Precision**: **84.6%** = `(113 + 8) / (113 + 8 + 22)` = (fixed + confirmed) / (fixed + confirmed + non-issues)
 - **Severity** (fixed + confirmed): HIGH=28, MEDIUM=90, LOW=3
 - **Generated**: 2026-09-22
 
@@ -39,7 +39,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `multimedia_image_framework` | 10 | 0 | 1 | 9 | 0 | 100% |
 | `communication_netmanager_base` | 11 | 2 | 3 | 8 | 0 | 85% |
 | `graphic_graphic_2d` | 10 | 0 | 3 | 6 | 1 | 100% |
-| `arkui_ace_engine` | 20 | 4 | 8 | 12 | 0 | 83% |
+| `arkui_ace_engine` | 20 | 5 | 8 | 12 | 0 | 80% |
 | `ability_ability_runtime` | 7 | 0 | 0 | 7 | 0 | 100% |
 | `arkcompiler_runtime_core` | 6 | 1 | 1 | 5 | 0 | 86% |
 | `multimedia_av_codec` | 6 | 0 | 0 | 5 | 1 | 100% |
@@ -62,7 +62,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `arkui_napi` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **Total** | **121** | **21** | **28** | **90** | **3** | **85%** |
+| **Total** | **121** | **22** | **28** | **90** | **3** | **85%** |
 
 ## DTS index
 
@@ -391,7 +391,7 @@ Authoritative spec / stdlib / IEEE / Unicode / pinning contract that this SUT cl
 
 Maintainer-rejected DTS. Counted in the denominator only.
 
-**Precision** = (fixed + confirmed) / (fixed + confirmed + non-issues) = **(113 + 8) / (113 + 8 + 21) = 85.2%**.
+**Precision** = (fixed + confirmed) / (fixed + confirmed + non-issues) = **(113 + 8) / (113 + 8 + 22) = 84.6%**.
 
 | DTS | Project | Theme | Why non-issue |
 |-----|---------|-------|---------------|
@@ -401,6 +401,7 @@ Maintainer-rejected DTS. Counted in the denominator only.
 | `DTS2026071725399` | `communication_netmanager_base` | ForkExec SUCCESS on non-zero child exit | By design — SUCCESS means the child was created. |
 | `DTS2026071809266` | `arkui_ace_engine` | GetTotalHeightOfItemsInView empty → `-mainGap` | Stable formula contract; shared API unchanged. |
 | `DTS2026072522059` | `arkui_ace_engine` | IsAllItemsMeasured false on span-marker last cell | Callers never see `-idx`; irregular layout uses GetIrregularHeight. |
+| `DTS2026073119063` | `arkui_ace_engine` | GetDistanceToBottom → LayoutInfinity when map extends past endMainLineIndex_ | By design — irregular last-item leftover rows; ∞ is the not-at-end sentinel; old callers depend on it. |
 | `DTS2026082235533` | `arkui_ace_engine` | FindItemCount overcounts on continuation start | Not for irregular layout; no negative IDs; consecutive max-min+1. Irregular uses GetIrregularOffset/Height. |
 | `DTS2026082235589` | `arkui_ace_engine` | Color::FromRGBO wraps out-of-range opacity | Caller-owned clamp — internal packer; domain `[0, 1]`; forcing clamp is compat (`2` is 254 today, 255 after). |
 | `DTS2026072017450` | `communication_dsoftbus` | Hex helpers omit explicit NUL write | Caller-owned contract — zero-init `outBuf` owns the terminator. |
@@ -417,7 +418,7 @@ Maintainer-rejected DTS. Counted in the denominator only.
 | `DTS2026082549915` | `multimodalinput_input` | IsValidJsonPath `/data` prefix spoof | Unreachable — gate after `realpath`; in-tree paths are constants / `GetOneCfgFile` / hardcoded `/data/service/…`; no privesc; optional `"/data/"` hygiene only. |
 | `DTS2026072349266` | `multimodalinput_input` | StreamBuffer::Read(string) `rPos_` past `wPos_` via `strchr` | No object OOB (zero-fill `MAX+1`); `Write(string)` embeds NUL; multi-field decode fail-closes via `CHKRWER`; tail-string under trusted-peer; optional `memchr` hygiene. **Different free reason than** `DTS2026082549915`. |
 
-Sources: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (21 DTS-stamped).
+Sources: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (22 DTS-stamped).
 
 ## Notes
 

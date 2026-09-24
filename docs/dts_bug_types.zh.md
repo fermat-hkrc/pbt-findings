@@ -4,9 +4,9 @@
 
 - **已确认并修复（FIXED）**：**113** — `CONFIRMED_FIXED` 报告如下
 - **已确认（待修复）**：**8** — `CONFIRMED_REAL`（OH-2026-ARKUI-010、012–018）
-- **非问题（NON-ISSUE）**：**21** — [目录](#非问题)
-- **已判定**：**142** = 113 + 8 + 21
-- **精确率**：**85.2%** = `(113 + 8) / (113 + 8 + 21)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
+- **非问题（NON-ISSUE）**：**22** — [目录](#非问题)
+- **已判定**：**143** = 113 + 8 + 22
+- **精确率**：**84.6%** = `(113 + 8) / (113 + 8 + 22)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
 - **严重级别**（已修复 + 已确认）：HIGH=28，MEDIUM=90，LOW=3
 - **生成时间**：2026-09-22
 
@@ -39,7 +39,7 @@
 | `multimedia_image_framework` | 10 | 0 | 1 | 9 | 0 | 100% |
 | `communication_netmanager_base` | 11 | 2 | 3 | 8 | 0 | 85% |
 | `graphic_graphic_2d` | 10 | 0 | 3 | 6 | 1 | 100% |
-| `arkui_ace_engine` | 20 | 4 | 8 | 12 | 0 | 83% |
+| `arkui_ace_engine` | 20 | 5 | 8 | 12 | 0 | 80% |
 | `ability_ability_runtime` | 7 | 0 | 0 | 7 | 0 | 100% |
 | `arkcompiler_runtime_core` | 6 | 1 | 1 | 5 | 0 | 86% |
 | `multimedia_av_codec` | 6 | 0 | 0 | 5 | 1 | 100% |
@@ -62,7 +62,7 @@
 | `arkui_napi` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **合计** | **121** | **21** | **28** | **90** | **3** | **85%** |
+| **合计** | **121** | **22** | **28** | **90** | **3** | **85%** |
 
 ## DTS 索引
 
@@ -391,7 +391,7 @@
 
 维护者驳回的 DTS。只计入分母。
 
-**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(113 + 8) / (113 + 8 + 21) = 85.2%**。
+**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(113 + 8) / (113 + 8 + 22) = 84.6%**。
 
 | DTS | 项目 | 主题 | 为何非问题 |
 |-----|------|------|------------|
@@ -401,6 +401,7 @@
 | `DTS2026071725399` | `communication_netmanager_base` | 子进程非零退出时 ForkExec 仍 SUCCESS | 设计如此 — SUCCESS 表示子进程已创建。 |
 | `DTS2026071809266` | `arkui_ace_engine` | GetTotalHeightOfItemsInView 空网格 → `-mainGap` | 稳定公式契约；共享 API 未改。 |
 | `DTS2026072522059` | `arkui_ace_engine` | 跨度标记末单元格时 IsAllItemsMeasured 为 false | 调用处不见 `-idx`；不规则布局走 GetIrregularHeight。 |
+| `DTS2026073119063` | `arkui_ace_engine` | GetDistanceToBottom 高度表超出 endMainLineIndex_ 返回 LayoutInfinity | 有意为之 — 不规则末 item 跨行未到底的哨兵；老调用依赖。 |
 | `DTS2026082235533` | `arkui_ace_engine` | FindItemCount 在 continuation 起点多计 | 不是给跨行布局用的；无负 id；连续所以 max-min+1。不规则走 GetIrregularOffset/Height。 |
 | `DTS2026082235589` | `arkui_ace_engine` | Color::FromRGBO 对越界 opacity 回绕 | 调用方钳位 — 内部打包函数；定义域 `[0, 1]`；强制钳位是非兼容（`2` 今天 254，改后 255）。 |
 | `DTS2026072017450` | `communication_dsoftbus` | Hex 辅助函数未显式写 NUL | 调用方契约 — 零初始化的 `outBuf` 拥有终止符。 |
@@ -417,7 +418,7 @@
 | `DTS2026082549915` | `multimodalinput_input` | IsValidJsonPath `/data` 前缀伪造 | 不可达 — 门控在 `realpath` 之后；树内路径为常量 / `GetOneCfgFile` / 硬编码 `/data/service/…`；无提权；可选 `"/data/"` 加固。 |
 | `DTS2026072349266` | `multimodalinput_input` | StreamBuffer::Read(string) 经 `strchr` 使 `rPos_` 越过 `wPos_` | 无对象级越界（零填充 `MAX+1`）；`Write(string)` 带 NUL；多字段 `CHKRWER` fail-closed；链尾字符串归受信对端；可选 `memchr` 加固。**与** `DTS2026082549915` **免责来源不同**。 |
 
-来源：`~/cloned/*/pbt-out/bug_reports/non-issue/` 与 `~/testing/*/pbt-out/bug_reports/non-issue/`（21 个带 DTS 文件）。
+来源：`~/cloned/*/pbt-out/bug_reports/non-issue/` 与 `~/testing/*/pbt-out/bug_reports/non-issue/`（22 个带 DTS 文件）。
 
 ## 说明
 

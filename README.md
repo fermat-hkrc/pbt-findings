@@ -10,10 +10,10 @@ A live dashboard tracking bugs and vulnerabilities discovered through **Property
 |--------|------:|
 | Confirmed and Fixed | 113 |
 | Confirmed (awaiting fix) | 8 |
-| Submitted | 18 |
-| Non-issue | 21 |
+| Submitted | 17 |
+| Non-issue | 22 |
 
-**Precision** (decided DTS): **85.2%** = `(113 fixed + 8 confirmed) / (113 + 8 + 21)`
+**Precision** (decided DTS): **84.6%** = `(113 fixed + 8 confirmed) / (113 + 8 + 22)`
 
 ## What is this?
 

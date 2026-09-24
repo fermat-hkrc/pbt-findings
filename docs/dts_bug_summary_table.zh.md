@@ -79,7 +79,7 @@
 | 75 | communication_wifi | GetCurStateName 对空 mStateVector 越界读 — mStateVector[-1] 上 SEGV | 缓冲区/越界访问 | `wifi/base/state_machine/src/state_machine.cpp` | 已确认并修复 |  | DTS2026073028465 |
 | 76 | arkcompiler_runtime_core | RemoveSlashFromBothEnds("/") 变为空后 pop_back()（UB / size 损坏） | 控制流错误 | `panda_guard/util/string_util.cpp` | 已确认并修复 |  | DTS2026073112258 |
 | 77 | arkui_ace_engine | DataPanel GetPaintPath 在描边把半径压到 0 时无守卫 asin 比值得到 NaN circleAngle | 计算错误 | `frameworks/core/components_ng/pattern/data_panel/data_panel_modifier.cpp` | 已确认并修复 |  | DTS2026073116282 |
-| 78 | arkui_ace_engine | GetDistanceToBottom 在高度表超出 endMainLineIndex_ 时返回 LayoutInfinity | 控制流错误 | `frameworks/core/components_ng/pattern/grid/grid_layout_info.cpp` | 已提交 |  | DTS2026073119063 |
+| 78 | arkui_ace_engine | GetDistanceToBottom 在高度表超出 endMainLineIndex_ 时返回 LayoutInfinity | 控制流错误 | `frameworks/core/components_ng/pattern/grid/grid_layout_info.cpp` | 非问题 | 不规则末 item 跨行未到底的有意哨兵；老调用依赖 | DTS2026073119063 |
 | 79 | graphic_graphic_2d | UpdateDrawingProperties 永久空操作（枚举与字符串列表长度不一致） | 控制流错误 | `rosen/modules/2d_graphics/src/drawing/config/DrawingConfig.cpp` | 已确认并修复 |  | DTS2026073129863 |
 | 80 | ability_ability_runtime | CheckFileManagerUriPermission 匹配 Download/Desktop/Documents 前缀无 '/' 边界 | 授权/访问控制 | `services/uripermmgr/src/file_permission_manager.cpp` | 已确认并修复 |  | DTS2026073173354 |
 | 81 | multimedia_av_session | TransformStrToInt64 溢出抛异常；有符号串因从 0 扫描被拒绝 | 坏输入未捕获异常/崩溃 | `services/session/server/softbus/softbus_session_utils.h` | 已确认并修复 |  | DTS2026080300753 |
