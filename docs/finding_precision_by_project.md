@@ -213,7 +213,7 @@ High-confidence project: **10** accepted fixes and **no** rejected DTS.
 - `DTS2026082235589` — Color::FromRGBO wraps out-of-range opacity. *Internal packer; domain `[0, 1]`; clamp is caller-owned; forcing clamp is compat (`2` is 254 today, 255 after).*
 - `DTS2026082235533` — FindItemCount overcounts on continuation start. *Not for irregular layout; no negative IDs; consecutive max-min+1; irregular uses GetIrregularOffset/Height.*
 - `DTS2026073119063` — GetDistanceToBottom → LayoutInfinity when map extends past endMainLineIndex_. *Irregular last-item leftover rows; ∞ is the intentional not-at-end sentinel; old callers depend on it.*
-- `DTS2026091437627` — [OH-2026-ARKUI-018](../content/issues/OH-2026-ARKUI-018.md): UpdatePosMap gap-only body delta on adjustOffset.start. *Isolated helper; live path is measure + scroll compensation; `start=0` oracle rejected.*
+- `DTS2026091437627` — UpdatePosMap gap-only body delta on adjustOffset.start. *Isolated helper; live path is measure + scroll compensation; `start=0` oracle rejected.*
 
 Mixed outcomes: maintainers accepted **19** (12 fixed + 7 confirmed) and rejected **6**. Net precision **76%**.
 

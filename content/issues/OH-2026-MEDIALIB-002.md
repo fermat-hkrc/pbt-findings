@@ -114,7 +114,8 @@ offset.emplace_back(stoi(uri.substr(indexEnd + string(CONST_ML_URI_OFFSET).lengt
 ```
 
 That closes the three throw witnesses. Partial tokens like `"42abc"` still
-pass the gate (separate `IsValidInteger` ticket).
+pass the gate: `IsValidInteger` is prefix-consume by design (compat `1.000`;
+`DTS2026081715017` NON-ISSUE). Strict whole-string parse is `ConvertToInt`.
 
 ## References
 
