@@ -129,7 +129,7 @@
 | 125 | arkui_napi | napi_get_value_string_latin1 向 buf[bufsize] 多写一字节 | 差一 | `native_engine/native_api.cpp` | 已提交 |  | DTS2026082238400 |
 | 126 | arkui_napi | napi_check_object_type_tag 对 upper == 0 的标签误判为不匹配 | 运算符/谓词错误 | `native_engine/native_api.cpp` | 已确认并修复 |  | DTS2026082239182 |
 | 127 | multimedia_camera_framework | IsUint8Regex 对超出 int32 的数字串抛异常 | 坏输入未捕获异常/崩溃 | `services/camera_service/src/camera_util.cpp` | 已确认并修复 |  | DTS2026082239652 |
-| 128 | multimedia_image_framework | IsSizeSupportDma 接受面积不是合法 int32 乘积的尺寸 | 整数溢出/下溢 | `frameworks/innerkitsimpl/utils/src/image_utils.cpp` | 已提交 |  | DTS2026082249247 |
+| 128 | multimedia_image_framework | IsSizeSupportDma 接受面积不是合法 int32 乘积的尺寸 | 整数溢出/下溢 | `frameworks/innerkitsimpl/utils/src/image_utils.cpp` | 已确认并修复 |  | DTS2026082249247 |
 | 129 | ability_ability_runtime | GetAppMemorySize / IsRamConstrainedDevice 向 GetParameter 传入空缓冲区 | 空指针解引用 | `services/abilitymgr/src/ability_manager_service.cpp` | 已提交 |  | DTS2026082252519 |
 | 130 | ability_ability_runtime | ConvertStringToUint32 用有符号 stoi 解析（丢弃 >INT_MAX，接受 "8a" 与 "-1"） | 计算错误 | `frameworks/native/ability/native/resource_config_helper.cpp` | 已确认并修复 |  | DTS2026082254944 |
 | 131 | graphic_graphic_2d | RSColor::IsNearEqual 比较的是 BT2020 float16 位型，不是通道计数 | 计算错误 | `rosen/modules/render_service_base/src/common/rs_color.cpp` | 已确认并修复 |  | DTS2026082261311 |
