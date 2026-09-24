@@ -2,12 +2,12 @@
 
 对 [`content/issues/`](../content/issues/) 中带有 **DTS** 工单号（`internal_issue_id`）的发现所做的归类，按检出该工单的 **pi-pbt 性质（预言机）** 分组。CWE / 失效模式分组归档在 [`finding_precision_by_project.md`](finding_precision_by_project.md) 文末。
 
-- **已确认并修复（FIXED）**：**111** — `CONFIRMED_FIXED` 报告如下
+- **已确认并修复（FIXED）**：**113** — `CONFIRMED_FIXED` 报告如下
 - **已确认（待修复）**：**8** — `CONFIRMED_REAL`（OH-2026-ARKUI-010、012–018）
 - **非问题（NON-ISSUE）**：**21** — [目录](#非问题)
-- **已判定**：**140** = 111 + 8 + 21
-- **精确率**：**85.0%** = `(111 + 8) / (111 + 8 + 21)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
-- **严重级别**（已修复 + 已确认）：HIGH=28，MEDIUM=88，LOW=3
+- **已判定**：**142** = 113 + 8 + 21
+- **精确率**：**85.2%** = `(113 + 8) / (113 + 8 + 21)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
+- **严重级别**（已修复 + 已确认）：HIGH=28，MEDIUM=90，LOW=3
 - **生成时间**：2026-09-22
 
 ## 概览
@@ -24,8 +24,8 @@
 | [代数 — 不变量](#代数--不变量) | 40 | 10 | 29 | 1 |
 | [否定 / 错误契约](#否定--错误契约) | 11 | 2 | 9 | 0 |
 | [参考](#参考) | 5 | 1 | 4 | 0 |
-| [仅崩溃](#仅崩溃) | 13 | 6 | 7 | 0 |
-| **合计** | **119** | **28** | **88** | **3** |
+| [仅崩溃](#仅崩溃) | 15 | 6 | 9 | 0 |
+| **合计** | **121** | **28** | **90** | **3** |
 
 强度顺序：状态机 ≻ 差分 ≻ 代数（往返 ≻ 幂等 ≻ 蜕变 ≻ 不变量 ≻ 否定/错误）≻ 参考 ≻ 仅崩溃。本集合中**幂等：0**。
 
@@ -35,7 +35,7 @@
 
 | 模块 | FIXED | NI | HIGH | MEDIUM | LOW | 精确率 |
 |--------|------:|---:|-----:|-------:|----:|----------:|
-| `multimedia_camera_framework` | 13 | 0 | 0 | 12 | 1 | 100% |
+| `multimedia_camera_framework` | 15 | 0 | 0 | 14 | 1 | 100% |
 | `multimedia_image_framework` | 10 | 0 | 1 | 9 | 0 | 100% |
 | `communication_netmanager_base` | 11 | 2 | 3 | 8 | 0 | 85% |
 | `graphic_graphic_2d` | 10 | 0 | 3 | 6 | 1 | 100% |
@@ -62,7 +62,7 @@
 | `arkui_napi` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **合计** | **119** | **21** | **28** | **88** | **3** | **85%** |
+| **合计** | **121** | **21** | **28** | **90** | **3** | **85%** |
 
 ## DTS 索引
 
@@ -119,8 +119,10 @@
 | `DTS2026072513315` | [OH-2026-GFX-005](../content/issues/OH-2026-GFX-005.md) | 参考 | MEDIUM | `graphic_graphic_2d` |
 | `DTS2026072514260` | [OH-2026-ABILITY-003](../content/issues/OH-2026-ABILITY-003.md) | 仅崩溃 | MEDIUM | `ability_ability_runtime` |
 | `DTS2026072515209` | [OH-2026-ABILITY-007](../content/issues/OH-2026-ABILITY-007.md) | 否定 / 错误契约 | MEDIUM | `ability_ability_runtime` |
+| `DTS2026072716582` | [OH-2026-CAM-014](../content/issues/OH-2026-CAM-014.md) | 仅崩溃 | MEDIUM | `multimedia_camera_framework` |
 | `DTS2026072717921` | [OH-2026-CAM-005](../content/issues/OH-2026-CAM-005.md) | 仅崩溃 | MEDIUM | `multimedia_camera_framework` |
 | `DTS2026072750511` | [OH-2026-NET-004](../content/issues/OH-2026-NET-004.md) | 代数 — 不变量 | MEDIUM | `communication_netmanager_base` |
+| `DTS2026072832082` | [OH-2026-CAM-015](../content/issues/OH-2026-CAM-015.md) | 仅崩溃 | MEDIUM | `multimedia_camera_framework` |
 | `DTS2026072921166` | [OH-2026-WM-002](../content/issues/OH-2026-WM-002.md) | 差分 | MEDIUM | `window_window_manager` |
 | `DTS2026072924028` | [OH-2026-WM-003](../content/issues/OH-2026-WM-003.md) | 否定 / 错误契约 | HIGH | `window_window_manager` |
 | `DTS2026072935286` | [OH-2026-AVCODEC-002](../content/issues/OH-2026-AVCODEC-002.md) | 否定 / 错误契约 | MEDIUM | `multimedia_av_codec` |
@@ -376,7 +378,9 @@
 | `DTS2026071806709` | [OH-2026-WIFI-001](../content/issues/OH-2026-WIFI-001.md) | MEDIUM | 空指针 / 过短 hex 不使 HexString2Byte 崩溃 |
 | `DTS2026072457284` | [OH-2026-PLAYER-001](../content/issues/OH-2026-PLAYER-001.md) | MEDIUM | Destroy + 析构不双重释放 |
 | `DTS2026072514260` | [OH-2026-ABILITY-003](../content/issues/OH-2026-ABILITY-003.md) | MEDIUM | ParseURI 的 catch 不越界索引 uriVec |
+| `DTS2026072716582` | [OH-2026-CAM-014](../content/issues/OH-2026-CAM-014.md) | MEDIUM | 奇数 count 延迟照片成对遍历不越界 |
 | `DTS2026072717921` | [OH-2026-CAM-005](../content/issues/OH-2026-CAM-005.md) | MEDIUM | 奇数 count 成对遍历不越界 |
+| `DTS2026072832082` | [OH-2026-CAM-015](../content/issues/OH-2026-CAM-015.md) | MEDIUM | 奇数 count 等效对焦成对遍历不越界 |
 | `DTS2026073020799` | [OH-2026-DEVMGR-004](../content/issues/OH-2026-DEVMGR-004.md) | HIGH | GenerateRandNum 采样合法分布（无 SIGSEGV） |
 | `DTS2026073028465` | [OH-2026-WIFI-002](../content/issues/OH-2026-WIFI-002.md) | HIGH | 空 mStateVector 上 GetCurStateName 不越界 |
 | `DTS2026080813420` | [OH-2026-CAM-007](../content/issues/OH-2026-CAM-007.md) | MEDIUM | 短/奇数 HIGH_QUALITY_SUPPORT 不越界 |
@@ -387,7 +391,7 @@
 
 维护者驳回的 DTS。只计入分母。
 
-**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(111 + 8) / (111 + 8 + 21) = 85.0%**。
+**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(113 + 8) / (113 + 8 + 21) = 85.2%**。
 
 | DTS | 项目 | 主题 | 为何非问题 |
 |-----|------|------|------------|

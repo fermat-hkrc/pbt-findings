@@ -2,12 +2,12 @@
 
 Categorization of [`content/issues/`](../content/issues/) findings that carry a **DTS** ticket (`internal_issue_id`), grouped by the **pi-pbt property (oracle)** that found each ticket. CWE / failure-mode grouping is archived at the end of [`finding_precision_by_project.md`](finding_precision_by_project.md).
 
-- **Confirmed (FIXED)**: **111** — `CONFIRMED_FIXED` write-ups below
+- **Confirmed (FIXED)**: **113** — `CONFIRMED_FIXED` write-ups below
 - **Confirmed (awaiting fix)**: **8** — `CONFIRMED_REAL` (OH-2026-ARKUI-010, 012–018)
 - **Non-issue**: **21** — [catalog](#non-issues)
-- **Decided**: **140** = 111 + 8 + 21
-- **Precision**: **85.0%** = `(111 + 8) / (111 + 8 + 21)` = (fixed + confirmed) / (fixed + confirmed + non-issues)
-- **Severity** (fixed + confirmed): HIGH=28, MEDIUM=88, LOW=3
+- **Decided**: **142** = 113 + 8 + 21
+- **Precision**: **85.2%** = `(113 + 8) / (113 + 8 + 21)` = (fixed + confirmed) / (fixed + confirmed + non-issues)
+- **Severity** (fixed + confirmed): HIGH=28, MEDIUM=90, LOW=3
 - **Generated**: 2026-09-22
 
 ## Overview
@@ -24,8 +24,8 @@ Oracle taxonomy from [pi-pbt `docs/oracles.md`](https://github.com/fermat-hkrc/p
 | [Algebraic — Invariant](#algebraic--invariant) | 40 | 10 | 29 | 1 |
 | [Negative / Error Contract](#negative--error-contract) | 11 | 2 | 9 | 0 |
 | [Reference](#reference) | 5 | 1 | 4 | 0 |
-| [Crash-Only](#crash-only) | 13 | 6 | 7 | 0 |
-| **Total** | **119** | **28** | **88** | **3** |
+| [Crash-Only](#crash-only) | 15 | 6 | 9 | 0 |
+| **Total** | **121** | **28** | **90** | **3** |
 
 Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Idempotence ≻ Metamorphic ≻ Invariant ≻ Negative/Error) ≻ Reference ≻ Crash-Only. **Idempotence: 0** in this set.
 
@@ -35,7 +35,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 
 | Module | FIXED | NI | HIGH | MEDIUM | LOW | Precision |
 |--------|------:|---:|-----:|-------:|----:|----------:|
-| `multimedia_camera_framework` | 13 | 0 | 0 | 12 | 1 | 100% |
+| `multimedia_camera_framework` | 15 | 0 | 0 | 14 | 1 | 100% |
 | `multimedia_image_framework` | 10 | 0 | 1 | 9 | 0 | 100% |
 | `communication_netmanager_base` | 11 | 2 | 3 | 8 | 0 | 85% |
 | `graphic_graphic_2d` | 10 | 0 | 3 | 6 | 1 | 100% |
@@ -62,7 +62,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `arkui_napi` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **Total** | **119** | **21** | **28** | **88** | **3** | **85%** |
+| **Total** | **121** | **21** | **28** | **90** | **3** | **85%** |
 
 ## DTS index
 
@@ -119,8 +119,10 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `DTS2026072513315` | [OH-2026-GFX-005](../content/issues/OH-2026-GFX-005.md) | Reference | MEDIUM | `graphic_graphic_2d` |
 | `DTS2026072514260` | [OH-2026-ABILITY-003](../content/issues/OH-2026-ABILITY-003.md) | Crash-Only | MEDIUM | `ability_ability_runtime` |
 | `DTS2026072515209` | [OH-2026-ABILITY-007](../content/issues/OH-2026-ABILITY-007.md) | Negative / Error Contract | MEDIUM | `ability_ability_runtime` |
+| `DTS2026072716582` | [OH-2026-CAM-014](../content/issues/OH-2026-CAM-014.md) | Crash-Only | MEDIUM | `multimedia_camera_framework` |
 | `DTS2026072717921` | [OH-2026-CAM-005](../content/issues/OH-2026-CAM-005.md) | Crash-Only | MEDIUM | `multimedia_camera_framework` |
 | `DTS2026072750511` | [OH-2026-NET-004](../content/issues/OH-2026-NET-004.md) | Algebraic — Invariant | MEDIUM | `communication_netmanager_base` |
+| `DTS2026072832082` | [OH-2026-CAM-015](../content/issues/OH-2026-CAM-015.md) | Crash-Only | MEDIUM | `multimedia_camera_framework` |
 | `DTS2026072921166` | [OH-2026-WM-002](../content/issues/OH-2026-WM-002.md) | Differential | MEDIUM | `window_window_manager` |
 | `DTS2026072924028` | [OH-2026-WM-003](../content/issues/OH-2026-WM-003.md) | Negative / Error Contract | HIGH | `window_window_manager` |
 | `DTS2026072935286` | [OH-2026-AVCODEC-002](../content/issues/OH-2026-AVCODEC-002.md) | Negative / Error Contract | MEDIUM | `multimedia_av_codec` |
@@ -376,7 +378,9 @@ Authoritative spec / stdlib / IEEE / Unicode / pinning contract that this SUT cl
 | `DTS2026071806709` | [OH-2026-WIFI-001](../content/issues/OH-2026-WIFI-001.md) | MEDIUM | null / short hex does not crash HexString2Byte |
 | `DTS2026072457284` | [OH-2026-PLAYER-001](../content/issues/OH-2026-PLAYER-001.md) | MEDIUM | Destroy + destructor does not double-free |
 | `DTS2026072514260` | [OH-2026-ABILITY-003](../content/issues/OH-2026-ABILITY-003.md) | MEDIUM | ParseURI catch never indexes uriVec past end |
+| `DTS2026072716582` | [OH-2026-CAM-014](../content/issues/OH-2026-CAM-014.md) | MEDIUM | odd-count deferred-photo pair walk must not OOB |
 | `DTS2026072717921` | [OH-2026-CAM-005](../content/issues/OH-2026-CAM-005.md) | MEDIUM | odd-count pair walk must not OOB |
+| `DTS2026072832082` | [OH-2026-CAM-015](../content/issues/OH-2026-CAM-015.md) | MEDIUM | odd-count equivalent-focus pair walk must not OOB |
 | `DTS2026073020799` | [OH-2026-DEVMGR-004](../content/issues/OH-2026-DEVMGR-004.md) | HIGH | GenerateRandNum samples a valid distribution (no SIGSEGV) |
 | `DTS2026073028465` | [OH-2026-WIFI-002](../content/issues/OH-2026-WIFI-002.md) | HIGH | empty mStateVector GetCurStateName does not OOB |
 | `DTS2026080813420` | [OH-2026-CAM-007](../content/issues/OH-2026-CAM-007.md) | MEDIUM | short/odd HIGH_QUALITY_SUPPORT must not OOB |
@@ -387,7 +391,7 @@ Authoritative spec / stdlib / IEEE / Unicode / pinning contract that this SUT cl
 
 Maintainer-rejected DTS. Counted in the denominator only.
 
-**Precision** = (fixed + confirmed) / (fixed + confirmed + non-issues) = **(111 + 8) / (111 + 8 + 21) = 85.0%**.
+**Precision** = (fixed + confirmed) / (fixed + confirmed + non-issues) = **(113 + 8) / (113 + 8 + 21) = 85.2%**.
 
 | DTS | Project | Theme | Why non-issue |
 |-----|---------|-------|---------------|
