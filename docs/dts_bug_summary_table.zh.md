@@ -118,7 +118,7 @@
 | 114 | multimedia_av_codec | ValuesListTag::ParseAttributes 的 TITLE 含前导逗号 | 计算错误 | `services/media_engine/plugins/source/http_source/hls/hls_tags.cpp` | 已确认并修复 |  | DTS2026081713997 |
 | 115 | multimedia_media_library | MediaFileUtils::IsValidInteger 接受部分解析（缺少 ptr == end 检查） | 检查不当 | `frameworks/innerkitsimpl/media_library_helper/src/media_file_utils.cpp` | 非问题 | 不完全消费是契约（兼容 1.000）；ConvertToInt 才是全消费兄弟 | DTS2026081715017 |
 | 116 | multimedia_media_library | GetDateAddedMs 调用了 GetDateModified（复制粘贴） | 控制流错误 | `frameworks/native/c_api/media_asset_impl.cpp` | 已确认并修复 |  | DTS2026081715287 |
-| 117 | arkcompiler_runtime_core | Utf16ToUTF8Bytes 用 LOW_AGENT_MASK（0xDC00）做 AND 而非 0x3FF；低代理项恒为 0xDC00 | 编码/Unicode | `static_core/plugins/ets/runtime/intrinsics/helpers/array_buffer_helper.cpp` | 已提交 |  | DTS2026081716365 |
+| 117 | arkcompiler_runtime_core | Utf16ToUTF8Bytes 用 LOW_AGENT_MASK（0xDC00）做 AND 而非 0x3FF；低代理项恒为 0xDC00 | 编码/Unicode | `static_core/plugins/ets/runtime/intrinsics/helpers/array_buffer_helper.cpp` | 已确认并修复 |  | DTS2026081716365 |
 | 118 | multimedia_av_codec | GraphicPixelFmtToVideoPixelFmt 把 YCRCB_P010 映射成 NV12（应为 NV21） | 计算错误 | `frameworks/native/capi/avcodec/preprocessor_format_utils.cpp` | 已确认并修复 |  | DTS2026082007640 |
 | 119 | multimedia_player_framework | GetPackageName 经 stringstream >> 分词系统参数（丢弃空白 / 截断多 token） | 控制流错误 | `services/utils/media_utils.cpp` | 已确认并修复 |  | DTS2026082009479 |
 | 120 | multimedia_media_library | IsFileTablePath / IsPhotoTablePath 将 ROOT_MEDIA_DIR 按子串查找，却从下标 0 做 substr | 控制流错误 | `frameworks/innerkitsimpl/media_library_helper/src/media_file_utils.cpp` | 已确认并修复 |  | DTS2026082012348 |

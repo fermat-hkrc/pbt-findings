@@ -2,12 +2,12 @@
 
 对 [`content/issues/`](../content/issues/) 中带有 **DTS** 工单号（`internal_issue_id`）的发现所做的归类，按检出该工单的 **pi-pbt 性质（预言机）** 分组。CWE / 失效模式分组归档在 [`finding_precision_by_project.md`](finding_precision_by_project.md) 文末。
 
-- **已确认并修复（FIXED）**：**118** — `CONFIRMED_FIXED` 报告如下
+- **已确认并修复（FIXED）**：**119** — `CONFIRMED_FIXED` 报告如下
 - **已确认（待修复）**：**8** — `CONFIRMED_REAL`（OH-2026-ARKUI-010、012–018）
 - **非问题（NON-ISSUE）**：**22** — [目录](#非问题)
-- **已判定**：**148** = 118 + 8 + 22
-- **精确率**：**85.1%** = `(118 + 8) / (118 + 8 + 22)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
-- **严重级别**（已修复 + 已确认）：HIGH=28，MEDIUM=95，LOW=3
+- **已判定**：**149** = 119 + 8 + 22
+- **精确率**：**85.2%** = `(119 + 8) / (119 + 8 + 22)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
+- **严重级别**（已修复 + 已确认）：HIGH=28，MEDIUM=96，LOW=3
 - **生成时间**：2026-09-22
 
 ## 概览
@@ -18,14 +18,14 @@
 | 性质（预言机） | 数量 | HIGH | MEDIUM | LOW |
 |----------|------:|-----:|-------:|----:|
 | [状态机](#状态机) | 3 | 2 | 0 | 1 |
-| [差分](#差分) | 35 | 3 | 31 | 1 |
+| [差分](#差分) | 36 | 3 | 32 | 1 |
 | [代数 — 往返](#代数--往返) | 6 | 3 | 3 | 0 |
 | [代数 — 蜕变](#代数--蜕变) | 6 | 1 | 5 | 0 |
 | [代数 — 不变量](#代数--不变量) | 45 | 10 | 34 | 1 |
 | [否定 / 错误契约](#否定--错误契约) | 11 | 2 | 9 | 0 |
 | [参考](#参考) | 5 | 1 | 4 | 0 |
 | [仅崩溃](#仅崩溃) | 15 | 6 | 9 | 0 |
-| **合计** | **126** | **28** | **95** | **3** |
+| **合计** | **127** | **28** | **96** | **3** |
 
 强度顺序：状态机 ≻ 差分 ≻ 代数（往返 ≻ 幂等 ≻ 蜕变 ≻ 不变量 ≻ 否定/错误）≻ 参考 ≻ 仅崩溃。本集合中**幂等：0**。
 
@@ -41,7 +41,7 @@
 | `graphic_graphic_2d` | 10 | 0 | 3 | 6 | 1 | 100% |
 | `arkui_ace_engine` | 20 | 5 | 8 | 12 | 0 | 80% |
 | `ability_ability_runtime` | 7 | 0 | 0 | 7 | 0 | 100% |
-| `arkcompiler_runtime_core` | 10 | 1 | 1 | 9 | 0 | 91% |
+| `arkcompiler_runtime_core` | 11 | 1 | 1 | 10 | 0 | 92% |
 | `multimedia_av_codec` | 6 | 0 | 0 | 5 | 1 | 100% |
 | `multimedia_player_framework` | 4 | 0 | 0 | 4 | 0 | 100% |
 | `communication_bluetooth_service` | 2 | 0 | 2 | 0 | 0 | 100% |
@@ -62,7 +62,7 @@
 | `arkui_napi` | 3 | 0 | 0 | 3 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **合计** | **126** | **22** | **28** | **95** | **3** | **85%** |
+| **合计** | **127** | **22** | **28** | **96** | **3** | **85%** |
 
 ## DTS 索引
 
@@ -162,6 +162,7 @@
 | `DTS2026081703440` | [OH-2026-PLAYER-003](../content/issues/OH-2026-PLAYER-003.md) | 差分 | MEDIUM | `multimedia_player_framework` |
 | `DTS2026081706437` | [OH-2026-AVCODEC-005](../content/issues/OH-2026-AVCODEC-005.md) | 差分 | LOW | `multimedia_av_codec` |
 | `DTS2026081713997` | [OH-2026-AVCODEC-003](../content/issues/OH-2026-AVCODEC-003.md) | 差分 | MEDIUM | `multimedia_av_codec` |
+| `DTS2026081716365` | [ARK-2026-ENC-001](../content/issues/ARK-2026-ENC-001.md) | 差分 | MEDIUM | `arkcompiler_runtime_core` |
 | `DTS2026081715287` | [OH-2026-MEDIALIB-003](../content/issues/OH-2026-MEDIALIB-003.md) | 差分 | MEDIUM | `multimedia_media_library` |
 | `DTS2026082007640` | [OH-2026-AVCODEC-004](../content/issues/OH-2026-AVCODEC-004.md) | 差分 | MEDIUM | `multimedia_av_codec` |
 | `DTS2026082009479` | [OH-2026-PLAYER-004](../content/issues/OH-2026-PLAYER-004.md) | 差分 | MEDIUM | `multimedia_player_framework` |
@@ -241,6 +242,7 @@
 | `DTS2026081421810` | [OH-2026-IMG-007](../content/issues/OH-2026-IMG-007.md) | MEDIUM | IsLegalAxis 与 int64 加宽预言一致 |
 | `DTS2026081703440` | [OH-2026-PLAYER-003](../content/issues/OH-2026-PLAYER-003.md) | MEDIUM | Ext 扩展偏移用 Ext 基数，与 MSErrorToString 同类一致 |
 | `DTS2026081713997` | [OH-2026-AVCODEC-003](../content/issues/OH-2026-AVCODEC-003.md) | MEDIUM | TITLE 不含逗号，与 DURATION 同类一致 |
+| `DTS2026081716365` | [ARK-2026-ENC-001](../content/issues/ARK-2026-ENC-001.md) | MEDIUM | 低代理项 ≡ (residual & 0x3FF) \| 0xDC00（兄弟 LOWER_10_BITS_MASK） |
 | `DTS2026082007640` | [OH-2026-AVCODEC-004](../content/issues/OH-2026-AVCODEC-004.md) | MEDIUM | YCRCB_P010 → NV21，与 8-bit YCRCB_420_SP 同类一致 |
 | `DTS2026082023118` | [OH-2026-DSOFTBUS-001](../content/issues/OH-2026-DSOFTBUS-001.md) | MEDIUM | ConnectGroup 长度守卫 ≡ P2pConnectGroup 同类（size ≥ MODE） |
 | `DTS2026081506434` | [OH-2026-NAPI-001](../content/issues/OH-2026-NAPI-001.md) | MEDIUM | IsType ≡ dynamic_cast（拒绝无关类型；自身转换成功） |
@@ -401,7 +403,7 @@
 
 维护者驳回的 DTS。只计入分母。
 
-**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(118 + 8) / (118 + 8 + 22) = 85.1%**。
+**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(119 + 8) / (119 + 8 + 22) = 85.2%**。
 
 | DTS | 项目 | 主题 | 为何非问题 |
 |-----|------|------|------------|
