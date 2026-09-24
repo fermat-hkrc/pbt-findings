@@ -91,7 +91,7 @@
 | 87 | filemanagement_dfs_service | MessageHandler ctor sizes send buffer from uncapped URI length | Integer Overflow / Underflow | `services/cloudsyncservice/src/transport/message_handler.cpp` | Submitted |  | DTS2026080809055 |
 | 88 | arkcompiler_runtime_core | Static EnumerateTaggedValues empty span sp[0] OOB | Buffer / OOB Access | `static_core/libarkfile/helpers.h` | Confirmed and Fixed |  | DTS2026080810178 |
 | 89 | arkcompiler_runtime_core | Static GetOptionalTaggedValue empty span sp[0] OOB | Buffer / OOB Access | `static_core/libarkfile/helpers.h` | Confirmed and Fixed |  | DTS2026080810367 |
-| 90 | arkcompiler_runtime_core | File::GetSpanFromId offset past fileSize → size_t underflow | Integer Overflow / Underflow | `static_core/libarkfile/file.h` | Submitted |  | DTS2026080812034 |
+| 90 | arkcompiler_runtime_core | File::GetSpanFromId offset past fileSize → size_t underflow | Integer Overflow / Underflow | `static_core/libarkfile/file.h` | Confirmed and Fixed |  | DTS2026080812034 |
 | 91 | ability_ability_runtime | DataUriUtils::AttachId missing rfind npos guard before replace | Integer Overflow / Underflow | `frameworks/native/ability/native/data_uri_utils.cpp` | Confirmed and Fixed |  | DTS2026080812965 |
 | 92 | multimedia_camera_framework | HIGH_QUALITY_SUPPORT pair walk / default u8[1] OOB on short or odd count | Buffer / OOB Access | `frameworks/native/camera/base/src/output/photo_output.cpp` | Confirmed and Fixed |  | DTS2026080813420 |
 | 93 | multimedia_camera_framework | GetZoomRatioRange step-3 FOV read missing sibling bound | Buffer / OOB Access | `frameworks/native/camera/base/src/session/capture_session.cpp` | Confirmed and Fixed |  | DTS2026080813622 |

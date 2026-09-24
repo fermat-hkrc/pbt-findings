@@ -91,7 +91,7 @@
 | 87 | filemanagement_dfs_service | MessageHandler 构造按无上限 URI 长度计算发送缓冲 | 整数溢出/下溢 | `services/cloudsyncservice/src/transport/message_handler.cpp` | 已提交 |  | DTS2026080809055 |
 | 88 | arkcompiler_runtime_core | 静态 EnumerateTaggedValues 空 Span sp[0] 越界 | 缓冲区/越界访问 | `static_core/libarkfile/helpers.h` | 已确认并修复 |  | DTS2026080810178 |
 | 89 | arkcompiler_runtime_core | 静态 GetOptionalTaggedValue 空 Span sp[0] 越界 | 缓冲区/越界访问 | `static_core/libarkfile/helpers.h` | 已确认并修复 |  | DTS2026080810367 |
-| 90 | arkcompiler_runtime_core | File::GetSpanFromId 偏移超过 fileSize → size_t 下溢 | 整数溢出/下溢 | `static_core/libarkfile/file.h` | 已提交 |  | DTS2026080812034 |
+| 90 | arkcompiler_runtime_core | File::GetSpanFromId 偏移超过 fileSize → size_t 下溢 | 整数溢出/下溢 | `static_core/libarkfile/file.h` | 已确认并修复 |  | DTS2026080812034 |
 | 91 | ability_ability_runtime | DataUriUtils::AttachId 在 rfind 后缺少 npos 守卫再 replace | 整数溢出/下溢 | `frameworks/native/ability/native/data_uri_utils.cpp` | 已确认并修复 |  | DTS2026080812965 |
 | 92 | multimedia_camera_framework | HIGH_QUALITY_SUPPORT 成对遍历 / 默认 u8[1] 在短或奇数 count 时越界 | 缓冲区/越界访问 | `frameworks/native/camera/base/src/output/photo_output.cpp` | 已确认并修复 |  | DTS2026080813420 |
 | 93 | multimedia_camera_framework | GetZoomRatioRange 步长 3 的 FOV 读取缺少兄弟函数边界 | 缓冲区/越界访问 | `frameworks/native/camera/base/src/session/capture_session.cpp` | 已确认并修复 |  | DTS2026080813622 |

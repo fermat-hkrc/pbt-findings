@@ -2,8 +2,8 @@
 
 How often PBT-filed **DTS** tickets were accepted as real bugs versus closed as non-issues, broken down by project.
 
-- **Precision:** **85.0%** ((117 FIXED + 8 CONFIRMED) / 147 decided)
-- **False-positive rate:** **15.0%** (22 NON-ISSUE)
+- **Precision:** **85.1%** ((118 FIXED + 8 CONFIRMED) / 148 decided)
+- **False-positive rate:** **14.9%** (22 NON-ISSUE)
 
 Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS tickets are omitted — their outcome (bug vs non-issue) is not yet known.
 
@@ -22,7 +22,7 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 **Sources**
 
 - DTS inventory: [`dts_bug_types.md`](./dts_bug_types.md) + [`content/issues/`](../content/issues/)
-- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**125** = 117 `CONFIRMED_FIXED` + 8 `CONFIRMED_REAL`)
+- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**126** = 118 `CONFIRMED_FIXED` + 8 `CONFIRMED_REAL`)
 - Non-issue write-ups: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (**22** DTS-stamped)
 
 - **Generated:** 2026-09-22
@@ -31,13 +31,13 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 117 | 79.6% |
+| FIXED | 118 | 79.7% |
 | CONFIRMED (awaiting fix) | 8 | 5.4% |
-| NON-ISSUE | 22 | 15.0% |
-| **Total decided** | **147** | 100% |
+| NON-ISSUE | 22 | 14.9% |
+| **Total decided** | **148** | 100% |
 
-- **Precision:** **(117+8)/147 = 85.0%** — about five in six closed tickets were real bugs.
-- **False-positive rate:** **22/147 = 15.0%**.
+- **Precision:** **(118+8)/148 = 85.1%** — about five in six closed tickets were real bugs.
+- **False-positive rate:** **22/148 = 14.9%**.
 
 > Precision means *maintainer-accepted defect rate among dispositioned DTS* (fixed **or** confirmed-unfixed), not static-analysis alert rate. Open/submitted tickets are out of scope until closed.
 
@@ -52,7 +52,7 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`graphic_graphic_2d`](#graphic-graphic-2d) | 10 | 0 | 0 | 10 | 100% |
 | [`arkui_ace_engine`](#arkui-ace-engine) | 12 | 8 | 5 | 25 | 80% |
 | [`multimedia_image_framework`](#multimedia-image-framework) | 10 | 0 | 0 | 10 | 100% |
-| [`arkcompiler_runtime_core`](#arkcompiler-runtime-core) | 9 | 0 | 1 | 10 | 90% |
+| [`arkcompiler_runtime_core`](#arkcompiler-runtime-core) | 10 | 0 | 1 | 11 | 91% |
 | [`ability_ability_runtime`](#ability-ability-runtime) | 7 | 0 | 0 | 7 | 100% |
 | [`multimedia_av_codec`](#multimedia-av-codec) | 6 | 0 | 0 | 6 | 100% |
 | [`multimedia_media_foundation`](#multimedia-media-foundation) | 2 | 0 | 5 | 7 | 29% |
@@ -74,7 +74,7 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`telephony_core_service`](#telephony-core-service) | 1 | 0 | 0 | 1 | 100% |
 | [`multimedia_audio_framework`](#multimedia-audio-framework) | 1 | 0 | 1 | 2 | 50% |
 | [`multimodalinput_input`](#multimodalinput-input) | 0 | 0 | 2 | 2 | 0% |
-| **Total** | **117** | **8** | **22** | **147** | **85%** |
+| **Total** | **118** | **8** | **22** | **148** | **85%** |
 
 ## Precision tiers
 
@@ -89,7 +89,7 @@ These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 | Project | FIXED | NON-ISSUE | Precision | What non-issues teach |
 |---------|------:|----------:|----------:|----------------------|
 | `arkui_ace_engine` | 12 fixed + 8 confirmed | 5 | 80% | Empty-grid `-mainGap` is stable formula; IsAllItemsMeasured / FindItemCount `-idx` is irregular-only encoding never seen by those helpers; FromRGBO out-of-range wrap is caller-owned clamp on an internal packer; GetDistanceToBottom LayoutInfinity is the irregular last-item span sentinel; real layout/math/OOB/asin bugs still fixed/confirmed. |
-| `arkcompiler_runtime_core` | 9 | 1 | 90% | SkipULeb128 empty/truncated is by-design (void helper, no error channel); real buffer/loop bugs still fixed. |
+| `arkcompiler_runtime_core` | 10 | 1 | 91% | SkipULeb128 empty/truncated is by-design (void helper, no error channel); real buffer/loop bugs still fixed. |
 | `communication_netmanager_base` | 11 | 2 | 85% | Helper semantics (ForkExec) and API role split (zoned IPv6) ≠ bugs; firewall/IP/mask defects accepted. |
 | `distributedhardware_device_manager` | 2 | 2 | 50% | cJSON int64 round-trip and ConvertStrToInt are dead/unshipped; PIN/rand bugs still fixed. |
 | `multimedia_av_session` | 2 | 1 | 67% | Call-type JSON omission = product policy; OOB crash in `GetAnonyTitle` still fixed. |
@@ -279,10 +279,10 @@ High-confidence project: **15** accepted fixes and **no** rejected DTS.
 
 | Metric | Value |
 |--------|------:|
-| FIXED | 9 |
+| FIXED | 10 |
 | NON-ISSUE | 1 |
-| Decided | 10 |
-| Precision | 90.0% |
+| Decided | 11 |
+| Precision | 90.9% |
 
 **FIXED DTS**
 
@@ -294,13 +294,14 @@ High-confidence project: **15** accepted fixes and **no** rejected DTS.
 - `DTS2026080754676` — [ARK-2026-BUF-002](../content/issues/ARK-2026-BUF-002.md): Static helpers::Read<WIDTH> short span → OOB read + size_t underflow (fixed in internal system)
 - `DTS2026080810178` — [ARK-2026-BUF-003](../content/issues/ARK-2026-BUF-003.md): Static EnumerateTaggedValues empty span sp[0] OOB (fixed in internal system)
 - `DTS2026080810367` — [ARK-2026-BUF-004](../content/issues/ARK-2026-BUF-004.md): Static GetOptionalTaggedValue empty span sp[0] OOB (fixed in internal system)
+- `DTS2026080812034` — [ARK-2026-INT-004](../content/issues/ARK-2026-INT-004.md): File::GetSpanFromId offset past fileSize → size_t underflow (fixed in internal system)
 - `DTS2026082563048` — [ARK-2026-INT-003](../content/issues/ARK-2026-INT-003.md): ParseInt treats strtoll overflow as success (fixed upstream by `bf74c199ec` / `!14824`)
 
 **NON-ISSUE DTS**
 
 - `DTS2026072517792` — SkipULeb128 empty/truncated OOB. *By design — void helper has no error channel; malformed ULEB is fatal.*
 
-Mixed outcomes: maintainers accepted **9** and rejected **1**. Net precision **90%**.
+Mixed outcomes: maintainers accepted **10** and rejected **1**. Net precision **91%**.
 
 ### `multimedia_image_framework`
 
@@ -675,16 +676,16 @@ No FIXED DTS yet among dispositioned tickets.
 
 ## Relation to `content/issues/` write-ups
 
-This repo’s [`content/issues/`](../content/issues/) currently carries **125** DTS-linked reports (**117** `CONFIRMED_FIXED` + **8** `CONFIRMED_REAL`).
+This repo’s [`content/issues/`](../content/issues/) currently carries **126** DTS-linked reports (**118** `CONFIRMED_FIXED` + **8** `CONFIRMED_REAL`).
 `CONFIRMED_FIXED` is the **FIXED** count; `CONFIRMED_REAL` is **CONFIRMED** (awaiting fix). Non-issues come from `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/`.
 
 | Population | Count | Role |
 |------------|------:|------|
-| Decided DTS (FIXED + CONFIRMED + NON-ISSUE) | 147 | Ground truth for precision |
-| FIXED | 117 | Maintainer-accepted and fixed |
+| Decided DTS (FIXED + CONFIRMED + NON-ISSUE) | 148 | Ground truth for precision |
+| FIXED | 118 | Maintainer-accepted and fixed |
 | CONFIRMED | 8 | Maintainer-accepted, not fixed yet |
 | NON-ISSUE | 22 | Maintainer-rejected (cloned + testing inventory) |
-| Write-ups in `content/issues` with DTS | 125 | Published confirmed bugs (fixed or awaiting fix) |
+| Write-ups in `content/issues` with DTS | 126 | Published confirmed bugs (fixed or awaiting fix) |
 
 **Do not** compute precision from `content/issues` alone — it omits non-issues by design. Use this document (or dispositioned rows in `BUG_REPORTS.md`) for acceptance rate.
 
@@ -692,7 +693,7 @@ See also: [DTS tickets by detecting property](./dts_bug_types.md). Failure-mode 
 
 ## Takeaways
 
-1. **Overall precision is high (85.0%)** — PBT filings that reach a DTS decision are usually real defects.
+1. **Overall precision is high (85.1%)** — PBT filings that reach a DTS decision are usually real defects.
 2. **False positives cluster in a few patterns** (22 tickets): by-design helpers, dead/unreachable / dropped-from-trunk code, path-prefix gates with no live producer after `realpath`, framing residuals that are not object OOB and mostly fail-closed, caller-owned / split-API contracts, shipped CAPI / product omissions, flag-dependent crashes — not flaky reproduction.
 3. **Several large surfaces are clean so far** (e.g. `multimedia_camera_framework`, `multimedia_image_framework`, `graphic_graphic_2d` among high-volume FIXED with 0 NON-ISSUE).
 4. **Filing bar that non-issues imply:** prove a live production caller, state the product contract, and avoid “algebraic inconsistency across differently purposed APIs” without impact. Sibling slash-terminated roots + a one-char fix still need a product-domain hit. Do not equate logical cursor past `wPos_` inside a zero-filled fixed buffer with heap OOB.
@@ -774,6 +775,7 @@ Moved out of [`dts_bug_types.md`](./dts_bug_types.md) (that file is now the dete
 | `DTS2026080754676` | [ARK-2026-BUF-002](../content/issues/ARK-2026-BUF-002.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `arkcompiler_runtime_core` |
 | `DTS2026080810178` | [ARK-2026-BUF-003](../content/issues/ARK-2026-BUF-003.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `arkcompiler_runtime_core` |
 | `DTS2026080810367` | [ARK-2026-BUF-004](../content/issues/ARK-2026-BUF-004.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `arkcompiler_runtime_core` |
+| `DTS2026080812034` | [ARK-2026-INT-004](../content/issues/ARK-2026-INT-004.md) | Arithmetic — Integer Overflow / Underflow | MEDIUM | `arkcompiler_runtime_core` |
 | `DTS2026071809730` | [OH-2026-ABILITY-002](../content/issues/OH-2026-ABILITY-002.md) | Input Validation — Improper Checks | MEDIUM | `ability_ability_runtime` |
 | `DTS2026073012747` | [OH-2026-PB-002](../content/issues/OH-2026-PB-002.md) | State / Lifecycle — Incomplete Cleanup or Stuck State | HIGH | `distributeddatamgr_pasteboard` |
 | `DTS2026072011242` | [OH-2026-CAM-004](../content/issues/OH-2026-CAM-004.md) | Arithmetic — Divide by Zero | MEDIUM | `multimedia_camera_framework` |
@@ -833,6 +835,7 @@ Wraparound from overflow/underflow produces wrong bounds, IDs, or ranges (often 
 |-----|----|----------|-----|------------------|-------|
 | `DTS2026060814531` | [OH-2026-DHFWK-001](../content/issues/OH-2026-DHFWK-001.md) | MEDIUM | CWE-190 (Integer Overflow or Wraparound) | `dh_utils_tool` · `distributedhardware_distributed_hardware_fwk` | cJSON uint validators accept values that overflow the destination type due to wrap-around in static_cast |
 | `DTS2026062915131` | [ARK-2026-INT-002](../content/issues/ARK-2026-INT-002.md) | MEDIUM | CWE-191 (Integer Underflow (Wrap or Wraparound)) | `static_core/verification/util/range.h` · `arkcompiler_runtime_core` | Range(empty container) underflows to SIZE_MAX, reporting it contains every point |
+| `DTS2026080812034` | [ARK-2026-INT-004](../content/issues/ARK-2026-INT-004.md) | MEDIUM | CWE-191 (Integer Underflow (Wrap or Wraparound)) | `static_core/libarkfile/file.h` · `arkcompiler_runtime_core` | File::GetSpanFromId offset past fileSize → size_t underflow |
 | `DTS2026062916398` | [ARK-2026-INT-001](../content/issues/ARK-2026-INT-001.md) | MEDIUM | CWE-190 (Integer Overflow or Wraparound) | `static_core/verification/util/str.h` · `arkcompiler_runtime_core` | NumToStr(INT_MIN) triggers signed-overflow undefined behaviour in verifier diagnostic formatter |
 | `DTS2026072347788` | [OH-2026-WM-001](../content/issues/OH-2026-WM-001.md) | MEDIUM | CWE-191 (Integer Underflow (Wrap or Wraparound)) | `utils/include/window_helper.h` · `window_window_manager` | IsAspectRatioSatisfiedWithSizeLimits decor uint32 underflow rejects valid ratios |
 | `DTS2026072438019` | [OH-2026-AVCODEC-001](../content/issues/OH-2026-AVCODEC-001.md) | MEDIUM | CWE-190 (Integer Overflow or Wraparound) | `services/media_engine/plugins/source/http_source/hls/hls_segment_manager.cpp` · `multimedia_av_codec` | HLS segment byterange offset_+length_-1 wraps in uint32_t → dropped / wrong range |
@@ -1237,7 +1240,7 @@ Masking/redaction fails; secrets or addresses reach logs.
 | CWE-125 | Out-of-bounds Read | 11 |
 | CWE-190 | Integer Overflow or Wraparound | 7 |
 | CWE-670 | Always-Incorrect Control Flow Implementation | 4 |
-| CWE-191 | Integer Underflow (Wrap or Wraparound) | 4 |
+| CWE-191 | Integer Underflow (Wrap or Wraparound) | 5 |
 | CWE-369 | Divide By Zero | 3 |
 | CWE-835 | Loop with Unreachable Exit Condition ('Infinite Loop') | 3 |
 | CWE-193 | Off-by-one Error | 2 |
