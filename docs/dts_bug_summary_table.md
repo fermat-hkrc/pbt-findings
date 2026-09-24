@@ -86,7 +86,7 @@
 | 82 | graphic_graphic_2d | Matrix3::IsNearEqual compares only 8 of 9 elements (data_ + 8) | Off-by-One | `rosen/modules/render_service_base/include/common/rs_matrix3.h` | Confirmed and Fixed |  | DTS2026080528903 |
 | 83 | graphic_graphic_2d | CubicResampler::Dump writes cubicCoffB into the cubicCoffC field | Incorrect Calculation | `rosen/modules/2d_graphics/include/utils/sampling_options.h` | Confirmed and Fixed |  | DTS2026080530843 |
 | 84 | communication_netmanager_base | GetIp4AndMask uint32 step wrap → infinite loop when range ends at 255.255.255.255 | Infinite Loop / Hang | `services/netmanagernative/bpf/src/bitmap_manager.cpp` | Confirmed and Fixed |  | DTS2026080608464 |
-| 85 | arkcompiler_runtime_core | Static helpers::Read<WIDTH> short span → OOB read + size_t underflow | Buffer / OOB Access | `static_core/libarkfile/helpers.h` | Submitted |  | DTS2026080754676 |
+| 85 | arkcompiler_runtime_core | Static helpers::Read<WIDTH> short span → OOB read + size_t underflow | Buffer / OOB Access | `static_core/libarkfile/helpers.h` | Confirmed and Fixed |  | DTS2026080754676 |
 | 86 | filemanagement_dfs_service | CloudDisk digit gate + bare std::stoi on xattr / userId paths throws | Uncaught Exception / Crash on Bad Input | `services/clouddisk_database/src/clouddisk_rdbstore.cpp` | Submitted |  | DTS2026080808589 |
 | 87 | filemanagement_dfs_service | MessageHandler ctor sizes send buffer from uncapped URI length | Integer Overflow / Underflow | `services/cloudsyncservice/src/transport/message_handler.cpp` | Submitted |  | DTS2026080809055 |
 | 88 | arkcompiler_runtime_core | Static EnumerateTaggedValues empty span sp[0] OOB | Buffer / OOB Access | `static_core/libarkfile/helpers.h` | Submitted |  | DTS2026080810178 |

@@ -86,7 +86,7 @@
 | 82 | graphic_graphic_2d | Matrix3::IsNearEqual 只比较 9 个元素中的 8 个（data_ + 8） | 差一 | `rosen/modules/render_service_base/include/common/rs_matrix3.h` | 已确认并修复 |  | DTS2026080528903 |
 | 83 | graphic_graphic_2d | CubicResampler::Dump 把 cubicCoffB 写入 cubicCoffC 字段 | 计算错误 | `rosen/modules/2d_graphics/include/utils/sampling_options.h` | 已确认并修复 |  | DTS2026080530843 |
 | 84 | communication_netmanager_base | GetIp4AndMask 的 uint32 步长回绕 → 范围止于 255.255.255.255 时死循环 | 死循环/挂起 | `services/netmanagernative/bpf/src/bitmap_manager.cpp` | 已确认并修复 |  | DTS2026080608464 |
-| 85 | arkcompiler_runtime_core | 静态 helpers::Read<WIDTH> 短 Span → 越界读 + size_t 下溢 | 缓冲区/越界访问 | `static_core/libarkfile/helpers.h` | 已提交 |  | DTS2026080754676 |
+| 85 | arkcompiler_runtime_core | 静态 helpers::Read<WIDTH> 短 Span → 越界读 + size_t 下溢 | 缓冲区/越界访问 | `static_core/libarkfile/helpers.h` | 已确认并修复 |  | DTS2026080754676 |
 | 86 | filemanagement_dfs_service | CloudDisk 数字门闸 + 裸 std::stoi（xattr / userId）抛异常 | 坏输入未捕获异常/崩溃 | `services/clouddisk_database/src/clouddisk_rdbstore.cpp` | 已提交 |  | DTS2026080808589 |
 | 87 | filemanagement_dfs_service | MessageHandler 构造按无上限 URI 长度计算发送缓冲 | 整数溢出/下溢 | `services/cloudsyncservice/src/transport/message_handler.cpp` | 已提交 |  | DTS2026080809055 |
 | 88 | arkcompiler_runtime_core | 静态 EnumerateTaggedValues 空 Span sp[0] 越界 | 缓冲区/越界访问 | `static_core/libarkfile/helpers.h` | 已提交 |  | DTS2026080810178 |
