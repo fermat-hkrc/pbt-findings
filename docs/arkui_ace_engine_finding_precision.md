@@ -20,24 +20,24 @@ Companion bug-type catalog: [arkui_ace_engine_dts_bug_types.md](./arkui_ace_engi
 **Sources**
 
 - `~/cloned/arkui_ace_engine/pbt-out/bug_reports/{fixed,confirmed,non-issue}/` and `~/testing/arkui_ace_engine/pbt-out/bug_reports/`
-- [`content/issues/OH-2026-ARKUI-*.md`](../content/issues/) (**20** = 12 fixed + 8 confirmed)
+- [`content/issues/OH-2026-ARKUI-*.md`](../content/issues/) (**19** = 12 fixed + 7 confirmed; plus 1 NON_ISSUE write-up)
 - Cross-repo context: [finding_precision_by_project.md](./finding_precision_by_project.md)
 
-- **Generated:** 2026-09-22
+- **Generated:** 2026-09-23
 
 ## Scoreboard (decided only)
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
 | FIXED | 12 | 48.0% |
-| CONFIRMED (awaiting fix) | 8 | 32.0% |
-| NON-ISSUE | 5 | 20.0% |
+| CONFIRMED (awaiting fix) | 7 | 28.0% |
+| NON-ISSUE | 6 | 24.0% |
 | **Total decided** | **25** | 100% |
 
-- **Precision:** **(12+8)/25 = 80.0%**
-- **False-positive rate:** **5/25 = 20.0%**
+- **Precision:** **(12+7)/25 = 76.0%**
+- **False-positive rate:** **6/25 = 24.0%**
 
-Compared with the cross-repo decided baseline (**85.2%** precision), arkui_ace_engine is **below** (80.0%).
+Compared with the cross-repo decided baseline (**84.6%** precision), arkui_ace_engine is **below** (76.0%).
 
 ## FIXED DTS
 
@@ -101,7 +101,6 @@ Under `~/cloned/arkui_ace_engine/pbt-out/bug_reports/fixed/`:
 | `DTS2026091029544` | [OH-2026-ARKUI-015](../content/issues/OH-2026-ARKUI-015.md) | MEDIUM | CWE-682 | Quaternion::Slerp at t=0 returns -this when from·to < 0 |
 | `DTS2026091412083` | [OH-2026-ARKUI-016](../content/issues/OH-2026-ARKUI-016.md) | HIGH | CWE-670 | MediaQueryer::MatchCondition never matches min-/max- features with an explicit px unit |
 | `DTS2026091425514` | [OH-2026-ARKUI-017](../content/issues/OH-2026-ARKUI-017.md) | MEDIUM | CWE-670 | GridLayoutInfo::FindEndIdx skips item 0 and falls back to {0,0,0} |
-| `DTS2026091437627` | [OH-2026-ARKUI-018](../content/issues/OH-2026-ARKUI-018.md) | MEDIUM | CWE-682 | LazyGridLayoutInfo::UpdatePosMap puts the whole body delta on adjustOffset.start when only gap changed |
 
 - **OH-2026-ARKUI-010** (`DTS2609150153371`): `CalculateStartCachedCountByIrregular` returns `budget * crossCount` when `diff >= budget * C`, ignoring a partial last regular line. Full-line model wants `rem + (budget-1)*C`. Extra preload above the viewport; confirmed, not fixed yet.
 - **OH-2026-ARKUI-012** (`DTS2609150153174`): Backward `GetTargetIndexInfoWithBenchMark` always seeds `lastLine+1` / `lastItem+1`. A leftover last matrix line still owns `lastItem+1`; `scrollToIndex` starts one main line too far down. Confirmed, not fixed yet.
@@ -117,8 +116,9 @@ Local reports: `~/cloned/arkui_ace_engine/pbt-out/bug_reports/confirmed/calculat
 | `DTS2026082235589` | Color::FromRGBO wraps out-of-range opacity instead of clamping | Caller-owned clamp (internal packer) |
 | `DTS2026082235533` | FindItemCount overcounts when the range starts on a multi-row continuation | Unreachable under live callers |
 | `DTS2026073119063` | GetDistanceToBottom returns LayoutInfinity when height map extends past endMainLineIndex_ | By-design irregular-span sentinel |
+| `DTS2026091437627` | UpdatePosMap gap-only body delta on adjustOffset.start | Isolated mid-pipeline helper / scroll compensation |
 
-**Reports:** `~/cloned/arkui_ace_engine/pbt-out/bug_reports/non-issue/GetTotalHeightOfItemsInView_NegMainGap.md`, `IsAllItemsMeasured_span_marker_false.md`, `fromrgbo_opacity_wrap.md`, `finditemcount_continuation_overcount.md`; `~/testing/arkui_ace_engine/pbt-out/bug_reports/non-issue/GetDistanceToBottom_prefetch_layout_infinity.md`
+**Reports:** `~/cloned/arkui_ace_engine/pbt-out/bug_reports/non-issue/GetTotalHeightOfItemsInView_NegMainGap.md`, `IsAllItemsMeasured_span_marker_false.md`, `fromrgbo_opacity_wrap.md`, `finditemcount_continuation_overcount.md`; `~/testing/arkui_ace_engine/pbt-out/bug_reports/non-issue/GetDistanceToBottom_prefetch_layout_infinity.md`, `update_pos_map_space_unmoved_top_start_adjust.md`
 
 ### Why closed
 
@@ -132,7 +132,9 @@ Local reports: `~/cloned/arkui_ace_engine/pbt-out/bug_reports/confirmed/calculat
 
 **`DTS2026073119063`:** `GetDistanceToBottom` third guard (`endMainLineIndex_ < lineHeightMap_.rbegin()->first` → `LayoutInfinity`) is the irregular/custom end sentinel: leftover span rows of the last in-view item still sit below the viewport. Maintainers: 有意为之; old callers (`offsetEnd_`, `IsOutOfEnd(irregular)`, `GetEndOffset`) treat ∞ / large positive as not at end. PBT’s extra-key witness is span remainder, not prefetch dirt (`PreloadItems` runs after `UpdateLayoutInfo`). Dropping the guard would mark a still-extending last item as at end.
 
-**Implication for future filings:** an algebraically odd empty-path return is not enough if it is the long-standing shared contract and callers couple to it. Prefer call-site impact / user-visible symptom before requesting a shared helper change. Also prove the matrix encoding under test is an input the live caller actually produces. Do not demand nearest-end clamp on an internal helper whose owners pin the domain on the caller — canvas already clamping is caller duty, not a missing helper clamp. Same `color.cpp` float→`uint8_t` class as LineColorTransition, but that one was a live decreasing-channel UB (FIXED). Do not feed irregular-filler `-idx` into `FindItemCount` / `IsAllItemsMeasured`. Do not treat extra `lineHeightMap_` keys past `endMainLineIndex_` as prefetch dirt — that is the irregular span-remainder signal.
+**`DTS2026091437627`:** Isolated `UpdatePosMap` after gap-only `SetSpace` puts the body delta on `adjustOffset.start`. PBT read item 0’s unmoved `startPos` as “top must not move ⇒ start==0.” Maintainers: that is scroll **compensation** with visible-item measure — normal logic; the test expected does not hold. Sibling packing fixes (`UpdatePosMapStart` spaceWidth, `SetSpace` window, `UpdatePosMapEnd` partial line) do not make every adjustOffset split a defect.
+
+**Implication for future filings:** an algebraically odd empty-path return is not enough if it is the long-standing shared contract and callers couple to it. Prefer call-site impact / user-visible symptom before requesting a shared helper change. Also prove the matrix encoding under test is an input the live caller actually produces. Do not demand nearest-end clamp on an internal helper whose owners pin the domain on the caller — canvas already clamping is caller duty, not a missing helper clamp. Same `color.cpp` float→`uint8_t` class as LineColorTransition, but that one was a live decreasing-channel UB (FIXED). Do not feed irregular-filler `-idx` into `FindItemCount` / `IsAllItemsMeasured`. Do not treat extra `lineHeightMap_` keys past `endMainLineIndex_` as prefetch dirt — that is the irregular span-remainder signal. Do not call mid-pipeline `UpdatePosMap` / `adjustOffset` in isolation and treat non-zero `start` as a top jump without the live measure + compensation frame.
 
 ## Component mix (FIXED only)
 
@@ -157,8 +159,8 @@ Local reports: `~/cloned/arkui_ace_engine/pbt-out/bug_reports/confirmed/calculat
 
 ## Takeaways
 
-1. **12 real bugs fixed** (+ 8 confirmed awaiting fix) across grid layout, lazy grid, media query, SVG alpha, quaternion slerp, matrix storage, color/asin geometry, and partial-last-line scroll/cache — strong confirmed yield for one UI engine repo.
-2. **Precision 80%** on decided tickets: five non-issues (stable empty-height formula; `-idx` encoding never seen by `IsAllItemsMeasured` / `FindItemCount`; FromRGBO caller-owned `[0, 1]` clamp; GetDistanceToBottom LayoutInfinity is the irregular last-item span sentinel) against twelve fixes and eight confirmed.
+1. **12 real bugs fixed** (+ 7 confirmed awaiting fix) across grid layout, lazy grid, media query, SVG alpha, quaternion slerp, matrix storage, color/asin geometry, and partial-last-line scroll/cache — strong confirmed yield for one UI engine repo.
+2. **Precision 76%** on decided tickets: six non-issues (stable empty-height formula; `-idx` encoding never seen by `IsAllItemsMeasured` / `FindItemCount`; FromRGBO caller-owned `[0, 1]` clamp; GetDistanceToBottom LayoutInfinity is the irregular last-item span sentinel; UpdatePosMap gap-only adjustOffset is isolated compensation) against twelve fixes and seven confirmed.
 3. Dominant failure modes: **incorrect calculation**, **wrong control-flow sentinels**, plus **div-by-zero**, **UB cast**, **OOB write**, and unguarded **`asin`**.
 4. Non-issue lessons are contract/call-graph sensitivity and production-domain encoding, not flaky reproduction — PBT still witnessed the raw returns as contract properties.
 

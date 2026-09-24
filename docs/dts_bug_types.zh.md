@@ -3,12 +3,12 @@
 对 [`content/issues/`](../content/issues/) 中带有 **DTS** 工单号（`internal_issue_id`）的发现所做的归类，按检出该工单的 **pi-pbt 性质（预言机）** 分组。CWE / 失效模式分组归档在 [`finding_precision_by_project.md`](finding_precision_by_project.md) 文末。
 
 - **已确认并修复（FIXED）**：**119** — `CONFIRMED_FIXED` 报告如下
-- **已确认（待修复）**：**8** — `CONFIRMED_REAL`（OH-2026-ARKUI-010、012–018）
-- **非问题（NON-ISSUE）**：**22** — [目录](#非问题)
-- **已判定**：**149** = 119 + 8 + 22
-- **精确率**：**85.2%** = `(119 + 8) / (119 + 8 + 22)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
-- **严重级别**（已修复 + 已确认）：HIGH=28，MEDIUM=96，LOW=3
-- **生成时间**：2026-09-22
+- **已确认（待修复）**：**7** — `CONFIRMED_REAL`（OH-2026-ARKUI-010、012–017）
+- **非问题（NON-ISSUE）**：**23** — [目录](#非问题)
+- **已判定**：**149** = 119 + 7 + 23
+- **精确率**：**84.6%** = `(119 + 7) / (119 + 7 + 23)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
+- **严重级别**（已修复 + 已确认）：HIGH=28，MEDIUM=95，LOW=3
+- **生成时间**：2026-09-23
 
 ## 概览
 
@@ -21,11 +21,11 @@
 | [差分](#差分) | 36 | 3 | 32 | 1 |
 | [代数 — 往返](#代数--往返) | 6 | 3 | 3 | 0 |
 | [代数 — 蜕变](#代数--蜕变) | 6 | 1 | 5 | 0 |
-| [代数 — 不变量](#代数--不变量) | 45 | 10 | 34 | 1 |
+| [代数 — 不变量](#代数--不变量) | 44 | 10 | 33 | 1 |
 | [否定 / 错误契约](#否定--错误契约) | 11 | 2 | 9 | 0 |
 | [参考](#参考) | 5 | 1 | 4 | 0 |
 | [仅崩溃](#仅崩溃) | 15 | 6 | 9 | 0 |
-| **合计** | **127** | **28** | **96** | **3** |
+| **合计** | **126** | **28** | **95** | **3** |
 
 强度顺序：状态机 ≻ 差分 ≻ 代数（往返 ≻ 幂等 ≻ 蜕变 ≻ 不变量 ≻ 否定/错误）≻ 参考 ≻ 仅崩溃。本集合中**幂等：0**。
 
@@ -39,7 +39,7 @@
 | `multimedia_image_framework` | 10 | 0 | 1 | 9 | 0 | 100% |
 | `communication_netmanager_base` | 11 | 2 | 3 | 8 | 0 | 85% |
 | `graphic_graphic_2d` | 10 | 0 | 3 | 6 | 1 | 100% |
-| `arkui_ace_engine` | 20 | 5 | 8 | 12 | 0 | 80% |
+| `arkui_ace_engine` | 19 | 6 | 8 | 11 | 0 | 76% |
 | `ability_ability_runtime` | 7 | 0 | 0 | 7 | 0 | 100% |
 | `arkcompiler_runtime_core` | 11 | 1 | 1 | 10 | 0 | 92% |
 | `multimedia_av_codec` | 6 | 0 | 0 | 5 | 1 | 100% |
@@ -62,7 +62,7 @@
 | `arkui_napi` | 3 | 0 | 0 | 3 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **合计** | **127** | **22** | **28** | **96** | **3** | **85%** |
+| **合计** | **126** | **23** | **28** | **95** | **3** | **85%** |
 
 ## DTS 索引
 
@@ -189,7 +189,6 @@
 | `DTS2026091029544` | [OH-2026-ARKUI-015](../content/issues/OH-2026-ARKUI-015.md) | 代数 — 蜕变 | MEDIUM | `arkui_ace_engine` |
 | `DTS2026091412083` | [OH-2026-ARKUI-016](../content/issues/OH-2026-ARKUI-016.md) | 代数 — 不变量 | HIGH | `arkui_ace_engine` |
 | `DTS2026091425514` | [OH-2026-ARKUI-017](../content/issues/OH-2026-ARKUI-017.md) | 代数 — 不变量 | MEDIUM | `arkui_ace_engine` |
-| `DTS2026091437627` | [OH-2026-ARKUI-018](../content/issues/OH-2026-ARKUI-018.md) | 代数 — 不变量 | MEDIUM | `arkui_ace_engine` |
 | `DTS2609150107715` | [OH-2026-ARKUI-019](../content/issues/OH-2026-ARKUI-019.md) | 代数 — 不变量 | MEDIUM | `arkui_ace_engine` |
 | `DTS2609150123188` | [OH-2026-ARKUI-020](../content/issues/OH-2026-ARKUI-020.md) | 代数 — 蜕变 | MEDIUM | `arkui_ace_engine` |
 | `DTS2609150153174` | [OH-2026-ARKUI-012](../content/issues/OH-2026-ARKUI-012.md) | 代数 — 蜕变 | MEDIUM | `arkui_ace_engine` |
@@ -335,7 +334,6 @@
 | `DTS2026090919800` | [OH-2026-ARKUI-013](../content/issues/OH-2026-ARKUI-013.md) | HIGH | (A)and(B)or(C) ≡ (A&&B)\|\|C |
 | `DTS2026091412083` | [OH-2026-ARKUI-016](../content/issues/OH-2026-ARKUI-016.md) | HIGH | (max-height:n px) ≡ h <= n |
 | `DTS2026091425514` | [OH-2026-ARKUI-017](../content/issues/OH-2026-ARKUI-017.md) | MEDIUM | 末 origin val>=0 在真实 (y,x)；未命中 → {-1,-1,-1} |
-| `DTS2026091437627` | [OH-2026-ARKUI-018](../content/issues/OH-2026-ARKUI-018.md) | MEDIUM | 只改 gap 且顶边未动 ⇒ start==0，end==Δtotal |
 | `DTS2609150107715` | [OH-2026-ARKUI-019](../content/issues/OH-2026-ARKUI-019.md) | MEDIUM | SetSpace 首键 startPos == (index/lanes)*(H+G) |
 | `DTS2026082129239` | [OH-2026-MF-002](../content/issues/OH-2026-MF-002.md) | MEDIUM | 移动后对 src 的 Put 不得改写 dst（唯一 meta_） |
 | `DTS2026082249247` | [OH-2026-IMG-011](../content/issues/OH-2026-IMG-011.md) | MEDIUM | 溢出或非正尺寸 ⇒ IsSizeSupportDma 为 false |
@@ -403,7 +401,7 @@
 
 维护者驳回的 DTS。只计入分母。
 
-**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(119 + 8) / (119 + 8 + 22) = 85.2%**。
+**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(119 + 7) / (119 + 7 + 23) = 84.6%**。
 
 | DTS | 项目 | 主题 | 为何非问题 |
 |-----|------|------|------------|
@@ -414,6 +412,7 @@
 | `DTS2026071809266` | `arkui_ace_engine` | GetTotalHeightOfItemsInView 空网格 → `-mainGap` | 稳定公式契约；共享 API 未改。 |
 | `DTS2026072522059` | `arkui_ace_engine` | 跨度标记末单元格时 IsAllItemsMeasured 为 false | 调用处不见 `-idx`；不规则布局走 GetIrregularHeight。 |
 | `DTS2026073119063` | `arkui_ace_engine` | GetDistanceToBottom 高度表超出 endMainLineIndex_ 返回 LayoutInfinity | 有意为之 — 不规则末 item 跨行未到底的哨兵；老调用依赖。 |
+| `DTS2026091437627` | `arkui_ace_engine` | UpdatePosMap 只改 gap 时 body 增量进 adjustOffset.start | 孤立中游辅助 — 真实路径是可见项测量+滚动补偿保位；非零 start 不是顶部跳动；`start=0` 预期被驳回。 |
 | `DTS2026082235533` | `arkui_ace_engine` | FindItemCount 在 continuation 起点多计 | 不是给跨行布局用的；无负 id；连续所以 max-min+1。不规则走 GetIrregularOffset/Height。 |
 | `DTS2026082235589` | `arkui_ace_engine` | Color::FromRGBO 对越界 opacity 回绕 | 调用方钳位 — 内部打包函数；定义域 `[0, 1]`；强制钳位是非兼容（`2` 今天 254，改后 255）。 |
 | `DTS2026072017450` | `communication_dsoftbus` | Hex 辅助函数未显式写 NUL | 调用方契约 — 零初始化的 `outBuf` 拥有终止符。 |
@@ -430,7 +429,7 @@
 | `DTS2026082549915` | `multimodalinput_input` | IsValidJsonPath `/data` 前缀伪造 | 不可达 — 门控在 `realpath` 之后；树内路径为常量 / `GetOneCfgFile` / 硬编码 `/data/service/…`；无提权；可选 `"/data/"` 加固。 |
 | `DTS2026072349266` | `multimodalinput_input` | StreamBuffer::Read(string) 经 `strchr` 使 `rPos_` 越过 `wPos_` | 无对象级越界（零填充 `MAX+1`）；`Write(string)` 带 NUL；多字段 `CHKRWER` fail-closed；链尾字符串归受信对端；可选 `memchr` 加固。**与** `DTS2026082549915` **免责来源不同**。 |
 
-来源：`~/cloned/*/pbt-out/bug_reports/non-issue/` 与 `~/testing/*/pbt-out/bug_reports/non-issue/`（22 个带 DTS 文件）。
+来源：`~/cloned/*/pbt-out/bug_reports/non-issue/` 与 `~/testing/*/pbt-out/bug_reports/non-issue/`（23 个带 DTS 文件）。
 
 ## 说明
 

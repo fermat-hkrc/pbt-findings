@@ -6,29 +6,29 @@ Scoped to this repo only. Companion precision report: [arkui_ace_engine_finding_
 
 - **Repo:** `arkui_ace_engine`
 - **Confirmed fixed (DTS + write-up):** **12** (`CONFIRMED_FIXED`)
-- **Confirmed awaiting fix:** **8** (`CONFIRMED_REAL` — OH-2026-ARKUI-010, 012–018)
-- **Status:** fixed tickets are `CONFIRMED_FIXED`; eight tickets are `CONFIRMED_REAL`
-- **Severity** (fixed + confirmed): HIGH=8, MEDIUM=12, LOW=0
+- **Confirmed awaiting fix:** **7** (`CONFIRMED_REAL` — OH-2026-ARKUI-010, 012–017)
+- **Status:** fixed tickets are `CONFIRMED_FIXED`; seven tickets are `CONFIRMED_REAL`
+- **Severity** (fixed + confirmed): HIGH=8, MEDIUM=11, LOW=0
 - **Sources:** [`content/issues/OH-2026-ARKUI-*.md`](../content/issues/), `~/cloned/arkui_ace_engine/pbt-out/bug_reports/fixed/`
-- **Generated:** 2026-09-21
+- **Generated:** 2026-09-23
 
 ## Overview
 
 | Bug type | Count | HIGH | MEDIUM | LOW |
 |----------|------:|-----:|-------:|----:|
-| [Arithmetic — Incorrect Calculation](#arithmetic-incorrect-calculation) | 10 | 2 | 8 | 0 |
+| [Arithmetic — Incorrect Calculation](#arithmetic-incorrect-calculation) | 9 | 2 | 7 | 0 |
 | [Arithmetic — Divide by Zero](#arithmetic-divide-by-zero) | 1 | 1 | 0 | 0 |
 | [Arithmetic — Off-by-One](#arithmetic--off-by-one) | 1 | 0 | 1 | 0 |
 | [Logic — Incorrect Control Flow](#logic-incorrect-control-flow) | 6 | 4 | 2 | 0 |
 | [Undefined Behavior](#undefined-behavior) | 1 | 0 | 1 | 0 |
 | [Memory — Buffer / OOB Access](#memory--buffer--oob-access) | 1 | 1 | 0 | 0 |
-| **Total** | **20** | **8** | **12** | **0** |
+| **Total** | **19** | **8** | **11** | **0** |
 
 ### By family
 
 | Family | Count |
 |--------|------:|
-| Arithmetic & Numeric | 12 |
+| Arithmetic & Numeric | 11 |
 | Logic | 6 |
 | Undefined Behavior | 1 |
 | Memory / Buffer | 1 |
@@ -53,7 +53,6 @@ Scoped to this repo only. Companion precision report: [arkui_ace_engine_finding_
 | `DTS2026091029544` | [OH-2026-ARKUI-015](../content/issues/OH-2026-ARKUI-015.md) | Arithmetic — Incorrect Calculation | MEDIUM | `frameworks/base/geometry/quaternion.cpp` |
 | `DTS2026091412083` | [OH-2026-ARKUI-016](../content/issues/OH-2026-ARKUI-016.md) | Logic — Incorrect Control Flow | HIGH | `frameworks/bridge/common/media_query/media_queryer.cpp` |
 | `DTS2026091425514` | [OH-2026-ARKUI-017](../content/issues/OH-2026-ARKUI-017.md) | Logic — Incorrect Control Flow | MEDIUM | `frameworks/core/components_ng/pattern/grid/grid_layout_info.cpp` |
-| `DTS2026091437627` | [OH-2026-ARKUI-018](../content/issues/OH-2026-ARKUI-018.md) | Arithmetic — Incorrect Calculation | MEDIUM | `frameworks/core/components_ng/pattern/lazy_grid_layout/lazy_grid_layout_info.cpp` |
 | `DTS2609150107715` | [OH-2026-ARKUI-019](../content/issues/OH-2026-ARKUI-019.md) | Arithmetic — Off-by-One | MEDIUM | `frameworks/core/components_ng/pattern/lazy_grid_layout/lazy_grid_layout_info.cpp` |
 | `DTS2609150123188` | [OH-2026-ARKUI-020](../content/issues/OH-2026-ARKUI-020.md) | Arithmetic — Incorrect Calculation | MEDIUM | `frameworks/core/components_ng/pattern/lazy_grid_layout/lazy_grid_layout_info.cpp` |
 | `DTS2609150153371` | [OH-2026-ARKUI-010](../content/issues/OH-2026-ARKUI-010.md) | Arithmetic — Incorrect Calculation | MEDIUM | `frameworks/core/components_ng/pattern/grid/grid_scroll/grid_scroll_with_options_layout_algorithm.cpp` |
@@ -154,7 +153,7 @@ Missing lower-bound index guard on a public `std::vector` writer → OOB write /
 
 | CWE | Name | Count |
 |-----|------|------:|
-| CWE-682 | Incorrect Calculation | 10 |
+| CWE-682 | Incorrect Calculation | 9 |
 | CWE-670 | Always-Incorrect Control Flow Implementation | 6 |
 | CWE-193 | Off-by-one Error | 1 |
 | CWE-369 | Divide By Zero | 1 |
@@ -164,7 +163,7 @@ Missing lower-bound index guard on a public `std::vector` writer → OOB write /
 ## Notes
 
 - Only **confirmed fixed** DTS with write-ups under `content/issues/OH-2026-ARKUI-*.md` are typed here.
-- The five arkui **NON-ISSUE** DTS tickets are covered in the [precision report](./arkui_ace_engine_finding_precision.md), not in this bug-type catalog.
+- The six arkui **NON-ISSUE** DTS tickets (including `DTS2026091437627` UpdatePosMap gap-only adjustOffset) are covered in the [precision report](./arkui_ace_engine_finding_precision.md), not in this bug-type catalog.
 - Open/submitted DTS (not yet dispositioned) are omitted.
 - Cross-repo taxonomy: [dts_bug_types.md](./dts_bug_types.md).
 

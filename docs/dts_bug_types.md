@@ -3,12 +3,12 @@
 Categorization of [`content/issues/`](../content/issues/) findings that carry a **DTS** ticket (`internal_issue_id`), grouped by the **pi-pbt property (oracle)** that found each ticket. CWE / failure-mode grouping is archived at the end of [`finding_precision_by_project.md`](finding_precision_by_project.md).
 
 - **Confirmed (FIXED)**: **119** — `CONFIRMED_FIXED` write-ups below
-- **Confirmed (awaiting fix)**: **8** — `CONFIRMED_REAL` (OH-2026-ARKUI-010, 012–018)
-- **Non-issue**: **22** — [catalog](#non-issues)
-- **Decided**: **149** = 119 + 8 + 22
-- **Precision**: **85.2%** = `(119 + 8) / (119 + 8 + 22)` = (fixed + confirmed) / (fixed + confirmed + non-issues)
-- **Severity** (fixed + confirmed): HIGH=28, MEDIUM=96, LOW=3
-- **Generated**: 2026-09-22
+- **Confirmed (awaiting fix)**: **7** — `CONFIRMED_REAL` (OH-2026-ARKUI-010, 012–017)
+- **Non-issue**: **23** — [catalog](#non-issues)
+- **Decided**: **149** = 119 + 7 + 23
+- **Precision**: **84.6%** = `(119 + 7) / (119 + 7 + 23)` = (fixed + confirmed) / (fixed + confirmed + non-issues)
+- **Severity** (fixed + confirmed): HIGH=28, MEDIUM=95, LOW=3
+- **Generated**: 2026-09-23
 
 ## Overview
 
@@ -21,11 +21,11 @@ Oracle taxonomy from [pi-pbt `docs/oracles.md`](https://github.com/fermat-hkrc/p
 | [Differential](#differential) | 36 | 3 | 32 | 1 |
 | [Algebraic — Round-trip](#algebraic--round-trip) | 6 | 3 | 3 | 0 |
 | [Algebraic — Metamorphic](#algebraic--metamorphic) | 6 | 1 | 5 | 0 |
-| [Algebraic — Invariant](#algebraic--invariant) | 45 | 10 | 34 | 1 |
+| [Algebraic — Invariant](#algebraic--invariant) | 44 | 10 | 33 | 1 |
 | [Negative / Error Contract](#negative--error-contract) | 11 | 2 | 9 | 0 |
 | [Reference](#reference) | 5 | 1 | 4 | 0 |
 | [Crash-Only](#crash-only) | 15 | 6 | 9 | 0 |
-| **Total** | **127** | **28** | **96** | **3** |
+| **Total** | **126** | **28** | **95** | **3** |
 
 Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Idempotence ≻ Metamorphic ≻ Invariant ≻ Negative/Error) ≻ Reference ≻ Crash-Only. **Idempotence: 0** in this set.
 
@@ -39,7 +39,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `multimedia_image_framework` | 10 | 0 | 1 | 9 | 0 | 100% |
 | `communication_netmanager_base` | 11 | 2 | 3 | 8 | 0 | 85% |
 | `graphic_graphic_2d` | 10 | 0 | 3 | 6 | 1 | 100% |
-| `arkui_ace_engine` | 20 | 5 | 8 | 12 | 0 | 80% |
+| `arkui_ace_engine` | 19 | 6 | 8 | 11 | 0 | 76% |
 | `ability_ability_runtime` | 7 | 0 | 0 | 7 | 0 | 100% |
 | `arkcompiler_runtime_core` | 11 | 1 | 1 | 10 | 0 | 92% |
 | `multimedia_av_codec` | 6 | 0 | 0 | 5 | 1 | 100% |
@@ -62,7 +62,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `arkui_napi` | 3 | 0 | 0 | 3 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **Total** | **127** | **22** | **28** | **96** | **3** | **85%** |
+| **Total** | **126** | **23** | **28** | **95** | **3** | **85%** |
 
 ## DTS index
 
@@ -189,7 +189,6 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `DTS2026091029544` | [OH-2026-ARKUI-015](../content/issues/OH-2026-ARKUI-015.md) | Algebraic — Metamorphic | MEDIUM | `arkui_ace_engine` |
 | `DTS2026091412083` | [OH-2026-ARKUI-016](../content/issues/OH-2026-ARKUI-016.md) | Algebraic — Invariant | HIGH | `arkui_ace_engine` |
 | `DTS2026091425514` | [OH-2026-ARKUI-017](../content/issues/OH-2026-ARKUI-017.md) | Algebraic — Invariant | MEDIUM | `arkui_ace_engine` |
-| `DTS2026091437627` | [OH-2026-ARKUI-018](../content/issues/OH-2026-ARKUI-018.md) | Algebraic — Invariant | MEDIUM | `arkui_ace_engine` |
 | `DTS2609150107715` | [OH-2026-ARKUI-019](../content/issues/OH-2026-ARKUI-019.md) | Algebraic — Invariant | MEDIUM | `arkui_ace_engine` |
 | `DTS2609150123188` | [OH-2026-ARKUI-020](../content/issues/OH-2026-ARKUI-020.md) | Algebraic — Metamorphic | MEDIUM | `arkui_ace_engine` |
 | `DTS2609150153174` | [OH-2026-ARKUI-012](../content/issues/OH-2026-ARKUI-012.md) | Algebraic — Metamorphic | MEDIUM | `arkui_ace_engine` |
@@ -335,7 +334,6 @@ A source-grounded input transform implies a relation on outputs (`a+b==b+a`, nam
 | `DTS2026090919800` | [OH-2026-ARKUI-013](../content/issues/OH-2026-ARKUI-013.md) | HIGH | (A)and(B)or(C) ≡ (A&&B)\|\|C |
 | `DTS2026091412083` | [OH-2026-ARKUI-016](../content/issues/OH-2026-ARKUI-016.md) | HIGH | (max-height:n px) ≡ h <= n |
 | `DTS2026091425514` | [OH-2026-ARKUI-017](../content/issues/OH-2026-ARKUI-017.md) | MEDIUM | last origin val>=0 at real (y,x); miss → {-1,-1,-1} |
-| `DTS2026091437627` | [OH-2026-ARKUI-018](../content/issues/OH-2026-ARKUI-018.md) | MEDIUM | gap-only unmoved top ⇒ start==0, end==Δtotal |
 | `DTS2609150107715` | [OH-2026-ARKUI-019](../content/issues/OH-2026-ARKUI-019.md) | MEDIUM | SetSpace first key startPos == (index/lanes)*(H+G) |
 | `DTS2026082129239` | [OH-2026-MF-002](../content/issues/OH-2026-MF-002.md) | MEDIUM | post-move Put on src does not rewrite dst (unique meta_) |
 | `DTS2026082249247` | [OH-2026-IMG-011](../content/issues/OH-2026-IMG-011.md) | MEDIUM | overflow or non-positive size ⇒ IsSizeSupportDma false |
@@ -403,7 +401,7 @@ Authoritative spec / stdlib / IEEE / Unicode / pinning contract that this SUT cl
 
 Maintainer-rejected DTS. Counted in the denominator only.
 
-**Precision** = (fixed + confirmed) / (fixed + confirmed + non-issues) = **(119 + 8) / (119 + 8 + 22) = 85.2%**.
+**Precision** = (fixed + confirmed) / (fixed + confirmed + non-issues) = **(119 + 7) / (119 + 7 + 23) = 84.6%**.
 
 | DTS | Project | Theme | Why non-issue |
 |-----|---------|-------|---------------|
@@ -414,6 +412,7 @@ Maintainer-rejected DTS. Counted in the denominator only.
 | `DTS2026071809266` | `arkui_ace_engine` | GetTotalHeightOfItemsInView empty → `-mainGap` | Stable formula contract; shared API unchanged. |
 | `DTS2026072522059` | `arkui_ace_engine` | IsAllItemsMeasured false on span-marker last cell | Callers never see `-idx`; irregular layout uses GetIrregularHeight. |
 | `DTS2026073119063` | `arkui_ace_engine` | GetDistanceToBottom → LayoutInfinity when map extends past endMainLineIndex_ | By design — irregular last-item leftover rows; ∞ is the not-at-end sentinel; old callers depend on it. |
+| `DTS2026091437627` | `arkui_ace_engine` | UpdatePosMap gap-only body delta on adjustOffset.start | Isolated mid-pipeline helper — live path is visible-item measure + scroll compensation; non-zero start keeps visible content put; `start=0` oracle rejected. |
 | `DTS2026082235533` | `arkui_ace_engine` | FindItemCount overcounts on continuation start | Not for irregular layout; no negative IDs; consecutive max-min+1. Irregular uses GetIrregularOffset/Height. |
 | `DTS2026082235589` | `arkui_ace_engine` | Color::FromRGBO wraps out-of-range opacity | Caller-owned clamp — internal packer; domain `[0, 1]`; forcing clamp is compat (`2` is 254 today, 255 after). |
 | `DTS2026072017450` | `communication_dsoftbus` | Hex helpers omit explicit NUL write | Caller-owned contract — zero-init `outBuf` owns the terminator. |
@@ -430,7 +429,7 @@ Maintainer-rejected DTS. Counted in the denominator only.
 | `DTS2026082549915` | `multimodalinput_input` | IsValidJsonPath `/data` prefix spoof | Unreachable — gate after `realpath`; in-tree paths are constants / `GetOneCfgFile` / hardcoded `/data/service/…`; no privesc; optional `"/data/"` hygiene only. |
 | `DTS2026072349266` | `multimodalinput_input` | StreamBuffer::Read(string) `rPos_` past `wPos_` via `strchr` | No object OOB (zero-fill `MAX+1`); `Write(string)` embeds NUL; multi-field decode fail-closes via `CHKRWER`; tail-string under trusted-peer; optional `memchr` hygiene. **Different free reason than** `DTS2026082549915`. |
 
-Sources: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (22 DTS-stamped).
+Sources: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (23 DTS-stamped).
 
 ## Notes
 
