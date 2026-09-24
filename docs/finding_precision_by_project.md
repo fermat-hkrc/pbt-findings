@@ -690,7 +690,7 @@ See also: [DTS tickets by detecting property](./dts_bug_types.md). Failure-mode 
 
 ## Takeaways
 
-1. **Overall precision is high (84.7%)** — PBT filings that reach a DTS decision are usually real defects.
+1. **Overall precision is high (84.8%)** — PBT filings that reach a DTS decision are usually real defects.
 2. **False positives cluster in a few patterns** (22 tickets): by-design helpers, dead/unreachable / dropped-from-trunk code, path-prefix gates with no live producer after `realpath`, framing residuals that are not object OOB and mostly fail-closed, caller-owned / split-API contracts, shipped CAPI / product omissions, flag-dependent crashes — not flaky reproduction.
 3. **Several large surfaces are clean so far** (e.g. `multimedia_camera_framework`, `multimedia_image_framework`, `graphic_graphic_2d` among high-volume FIXED with 0 NON-ISSUE).
 4. **Filing bar that non-issues imply:** prove a live production caller, state the product contract, and avoid “algebraic inconsistency across differently purposed APIs” without impact. Sibling slash-terminated roots + a one-char fix still need a product-domain hit. Do not equate logical cursor past `wPos_` inside a zero-filled fixed buffer with heap OOB.
