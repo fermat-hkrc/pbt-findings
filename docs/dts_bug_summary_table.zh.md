@@ -162,3 +162,4 @@
 | 158 | arkui_ace_engine | LazyGridLayoutInfo::UpdatePosMapEnd 在末行不完整时把 totalMainSize_ 留在上一行终点 | 计算错误 | `frameworks/core/components_ng/pattern/lazy_grid_layout/lazy_grid_layout_info.cpp` | 已确认并修复 |  | DTS2609150123188 |
 | 159 | arkui_ace_engine | 反向 GetTargetIndexInfoWithBenchMark 在未填满的末行之后另起一行 | 控制流错误 | `frameworks/core/components_ng/pattern/grid/grid_scroll/grid_scroll_with_options_layout_algorithm.cpp` | 已确认 |  | DTS2609150153174 |
 | 160 | arkui_ace_engine | CalculateStartCachedCount 在末条规则行未满时多计 | 计算错误 | `frameworks/core/components_ng/pattern/grid/grid_scroll/grid_scroll_with_options_layout_algorithm.cpp` | 已确认 |  | DTS2609150153371 |
+| 161 | window_window_manager | CalculateOriginPosition（Matrix4）经 uint32_t 转换把反投影负坐标置 0 或回绕 | 整数溢出/下溢 | `utils/include/window_helper.h` | 已提交 |  | DTS2026092573568 |

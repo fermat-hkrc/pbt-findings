@@ -10,7 +10,7 @@ A live dashboard tracking bugs and vulnerabilities discovered through **Property
 |--------|------:|
 | Confirmed and Fixed | 119 |
 | Confirmed (awaiting fix) | 7 |
-| Submitted | 10 |
+| Submitted | 11 |
 | Non-issue | 24 |
 
 **Precision** (decided DTS): **84.0%** = `(119 fixed + 7 confirmed) / (119 + 7 + 24)`
