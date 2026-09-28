@@ -2,8 +2,8 @@
 
 How often PBT-filed **DTS** tickets were accepted as real bugs versus closed as non-issues, broken down by project.
 
-- **Precision:** **84.0%** ((119 FIXED + 7 CONFIRMED) / 150 decided)
-- **False-positive rate:** **16.0%** (24 NON-ISSUE)
+- **Precision:** **84.1%** ((120 FIXED + 7 CONFIRMED) / 151 decided)
+- **False-positive rate:** **15.9%** (24 NON-ISSUE)
 
 Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS tickets are omitted — their outcome (bug vs non-issue) is not yet known.
 
@@ -22,7 +22,7 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 **Sources**
 
 - DTS inventory: [`dts_bug_types.md`](./dts_bug_types.md) + [`content/issues/`](../content/issues/)
-- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**126** = 119 `CONFIRMED_FIXED` + 7 `CONFIRMED_REAL`)
+- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**127** = 120 `CONFIRMED_FIXED` + 7 `CONFIRMED_REAL`)
 - Non-issue write-ups: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (**24** DTS-stamped)
 
 - **Generated:** 2026-09-24
@@ -31,13 +31,13 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 119 | 79.3% |
-| CONFIRMED (awaiting fix) | 7 | 4.7% |
-| NON-ISSUE | 24 | 16.0% |
-| **Total decided** | **150** | 100% |
+| FIXED | 120 | 79.5% |
+| CONFIRMED (awaiting fix) | 7 | 4.6% |
+| NON-ISSUE | 24 | 15.9% |
+| **Total decided** | **151** | 100% |
 
-- **Precision:** **(119+7)/150 = 84.0%** — about five in six closed tickets were real bugs.
-- **False-positive rate:** **24/150 = 16.0%**.
+- **Precision:** **(120+7)/151 = 84.1%** — about five in six closed tickets were real bugs.
+- **False-positive rate:** **24/151 = 15.9%**.
 
 > Precision means *maintainer-accepted defect rate among dispositioned DTS* (fixed **or** confirmed-unfixed), not static-analysis alert rate. Open/submitted tickets are out of scope until closed.
 
@@ -48,7 +48,7 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | Project | FIXED | CONFIRMED | NON-ISSUE | Decided | Precision |
 |---------|------:|----------:|----------:|--------:|----------:|
 | [`multimedia_camera_framework`](#multimedia-camera-framework) | 15 | 0 | 0 | 15 | 100% |
-| [`communication_netmanager_base`](#communication-netmanager-base) | 11 | 0 | 2 | 13 | 85% |
+| [`communication_netmanager_base`](#communication-netmanager-base) | 12 | 0 | 2 | 14 | 86% |
 | [`graphic_graphic_2d`](#graphic-graphic-2d) | 10 | 0 | 0 | 10 | 100% |
 | [`arkui_ace_engine`](#arkui-ace-engine) | 12 | 7 | 6 | 25 | 76% |
 | [`multimedia_image_framework`](#multimedia-image-framework) | 10 | 0 | 0 | 10 | 100% |
@@ -74,7 +74,7 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`telephony_core_service`](#telephony-core-service) | 1 | 0 | 0 | 1 | 100% |
 | [`multimedia_audio_framework`](#multimedia-audio-framework) | 1 | 0 | 1 | 2 | 50% |
 | [`multimodalinput_input`](#multimodalinput-input) | 0 | 0 | 2 | 2 | 0% |
-| **Total** | **119** | **7** | **24** | **150** | **84%** |
+| **Total** | **120** | **7** | **24** | **151** | **84%** |
 
 ## Precision tiers
 
@@ -90,7 +90,7 @@ These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 |---------|------:|----------:|----------:|----------------------|
 | `arkui_ace_engine` | 12 fixed + 7 confirmed | 6 | 76% | Empty-grid `-mainGap` is stable formula; IsAllItemsMeasured / FindItemCount `-idx` is irregular-only encoding never seen by those helpers; FromRGBO out-of-range wrap is caller-owned clamp on an internal packer; GetDistanceToBottom LayoutInfinity is the irregular last-item span sentinel; UpdatePosMap gap-only adjustOffset.start is isolated mid-pipeline compensation (not top jump); real layout/math/OOB/asin bugs still fixed/confirmed. |
 | `arkcompiler_runtime_core` | 11 | 1 | 92% | SkipULeb128 empty/truncated is by-design (void helper, no error channel); real buffer/loop bugs still fixed. |
-| `communication_netmanager_base` | 11 | 2 | 85% | Helper semantics (ForkExec) and API role split (zoned IPv6) ≠ bugs; firewall/IP/mask defects accepted. |
+| `communication_netmanager_base` | 12 | 2 | 86% | Helper semantics (ForkExec) and API role split (zoned IPv6) ≠ bugs; firewall/IP/mask defects accepted. |
 | `distributedhardware_device_manager` | 2 | 2 | 50% | cJSON int64 round-trip and ConvertStrToInt are dead/unshipped; PIN/rand bugs still fixed. |
 | `multimedia_av_session` | 2 | 1 | 67% | Call-type JSON omission = product policy; OOB crash in `GetAnonyTitle` still fixed. |
 | `multimedia_media_library` | 5 | 1 | 83% | Incomplete consume is the IsValidInteger contract (compat 1.000); ConvertToInt is the full-consume sibling; GetTimeIdFromUri / GetFileIdStr / GetDateAddedMs / IsFileTablePath / GetVirtualPath still fixed. |
@@ -223,10 +223,10 @@ Mixed outcomes: maintainers accepted **19** (12 fixed + 7 confirmed) and rejecte
 
 | Metric | Value |
 |--------|------:|
-| FIXED | 11 |
+| FIXED | 12 |
 | NON-ISSUE | 2 |
-| Decided | 13 |
-| Precision | 84.6% |
+| Decided | 14 |
+| Precision | 85.7% |
 
 **FIXED DTS**
 
@@ -241,13 +241,14 @@ Mixed outcomes: maintainers accepted **19** (12 fixed + 7 confirmed) and rejecte
 - `DTS2026081136698` — [OH-2026-NET-006](../content/issues/OH-2026-NET-006.md): Ip6RuleMap::GetNetworkAddress OOB on prefixLen > 128
 - `DTS2026071727288` — [OH-2026-NET-010](../content/issues/OH-2026-NET-010.md): Ip4RuleMap::GetNetworkAddress(/0) is UB and does not yield 0.0.0.0
 - `DTS2026083109843` — [OH-2026-NET-011](../content/issues/OH-2026-NET-011.md): GetMtu passes sysfs "1500\n" to StrToInt → always -1
+- `DTS2026090525146` — [OH-2026-NET-012](../content/issues/OH-2026-NET-012.md): ToAnonymousIp leaves IPv6 CIDR with prefix 0, 109, or 119 unredacted
 
 **NON-ISSUE DTS**
 
 - `DTS2026071725399` — ForkExec SUCCESS on non-zero child exit. *By design — SUCCESS means child created.*
 - `DTS2026072720774` — GetAddrFamily rejects zoned IPv6. *Different API jobs, not inconsistency.*
 
-Mixed outcomes: maintainers accepted **11** and rejected **2**. Net precision **85%**.
+Mixed outcomes: maintainers accepted **12** and rejected **2**. Net precision **86%**.
 
 ### `multimedia_camera_framework`
 
@@ -744,8 +745,8 @@ Moved out of [`dts_bug_types.md`](./dts_bug_types.md) (that file is now the dete
 | [Input Validation — Encoding / Unicode](#input-validation-encoding-unicode) | 2 | 0 | 2 | 0 |
 | [Security — Authorization / Access Control](#security-authorization-access-control) | 3 | 1 | 2 | 0 |
 | [Security — Certificate Validation](#security-certificate-validation) | 1 | 1 | 0 | 0 |
-| [Security — Information Leakage](#security-information-leakage) | 1 | 0 | 1 | 0 |
-| **Total** | **76** | **16** | **58** | **2** |
+| [Security — Information Leakage](#security-information-leakage) | 2 | 0 | 2 | 0 |
+| **Total** | **77** | **16** | **59** | **2** |
 
 ## DTS index (bug type)
 
@@ -831,6 +832,7 @@ Moved out of [`dts_bug_types.md`](./dts_bug_types.md) (that file is now the dete
 | `DTS2026081713997` | [OH-2026-AVCODEC-003](../content/issues/OH-2026-AVCODEC-003.md) | Arithmetic — Incorrect Calculation | MEDIUM | `multimedia_av_codec` |
 | `DTS2026082023118` | [OH-2026-DSOFTBUS-001](../content/issues/OH-2026-DSOFTBUS-001.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `communication_dsoftbus` |
 | `DTS2026083116823` | [OH-2026-DSOFTBUS-002](../content/issues/OH-2026-DSOFTBUS-002.md) | Input Validation — Improper Checks | MEDIUM | `communication_dsoftbus` |
+| `DTS2026090525146` | [OH-2026-NET-012](../content/issues/OH-2026-NET-012.md) | Security — Information Leakage | MEDIUM | `communication_netmanager_base` |
 | `DTS2609150153371` | [OH-2026-ARKUI-010](../content/issues/OH-2026-ARKUI-010.md) | Arithmetic — Incorrect Calculation | MEDIUM | `arkui_ace_engine` |
 
 
@@ -1235,10 +1237,12 @@ Masking/redaction fails; secrets or addresses reach logs.
 | DTS | ID | Severity | CWE | Component / repo | Title |
 |-----|----|----------|-----|------------------|-------|
 | `DTS2026062926934` | [OH-2026-NET-001](../content/issues/OH-2026-NET-001.md) | MEDIUM | CWE-212 (Improper Removal of Sensitive Information Before Storage or Transfer) | `utils/common_utils/src/netmanager_base_common_utils.cpp` · `communication_netmanager_base` | ToAnonymousIp(maskMiddle=true) leaks compressed IPv6 addresses to logs unmasked |
+| `DTS2026090525146` | [OH-2026-NET-012](../content/issues/OH-2026-NET-012.md) | MEDIUM | CWE-212 (Improper Removal of Sensitive Information Before Storage or Transfer) | `utils/common_utils/src/netmanager_base_common_utils.cpp` · `communication_netmanager_base` | ToAnonymousIp leaves IPv6 CIDR with prefix 0, 109, or 119 unredacted |
 
 <details><summary>Summaries</summary>
 
 - **OH-2026-NET-001** (`DTS2026062926934`): `MaskIpMiddle` is the helper that `ToAnonymousIp(input, true)` delegates to for the production log path. It finds the first and last occurrence of the delimiter and masks every character between them. For IPv6 addresses written with `::`...
+- **OH-2026-NET-012** (`DTS2026090525146`): `IPV6_MASK_PATTERN` prefix `1[0-2][0-8]|[1-9]\d|[1-9]` misses 0, 109, 119. `ToAnonymousIp` returns unmatched CIDR unchanged; IPv6 default-route `/0` is logged in full on `%{public}s`.
 
 </details>
 
@@ -1261,7 +1265,7 @@ Masking/redaction fails; secrets or addresses reach logs.
 | CWE-176 | Improper Handling of Unicode Encoding | 2 |
 | CWE-193 | Off-by-One Error | 1 |
 | CWE-20 | Improper Input Validation | 1 |
-| CWE-212 | Improper Removal of Sensitive Information Before Storage or Transfer | 1 |
+| CWE-212 | Improper Removal of Sensitive Information Before Storage or Transfer | 2 |
 | CWE-22 | Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal') | 1 |
 | CWE-252 | Unchecked Return Value | 1 |
 | CWE-285 | Improper Authorization | 1 |
