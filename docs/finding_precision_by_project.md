@@ -140,7 +140,7 @@ All **25** maintainer-rejected tickets. Useful as negative examples for future f
 
 | Class | Count | Implication for future PBT filings |
 |------:|------:|--------------------------------------|
-| By-design / product policy / stable contract | 9 | Validate *product* intent and call-graph impact, not only algebraic oddity |
+| By-design / product policy / stable contract | 10 | Validate *product* intent and call-graph impact, not only algebraic oddity |
 | Unreachable invariant / dead code | 8 | Constrain generators to **production domain**; prove a live caller (incl. path gates after `realpath`) |
 | Caller-owned or split-API contract | 5 | Read in-tree callers and sibling APIs before claiming inconsistency |
 | Framing residual / no object OOB + fail-closed | 1 | Distinguish logical cursor past write-head inside a fixed zero-filled buffer from heap OOB; check `CHKRWER` recovery and trusted-peer assumptions before High |
@@ -208,11 +208,11 @@ High-confidence project: **10** accepted fixes and **no** rejected DTS.
 **CONFIRMED DTS** (accepted; not fixed yet)
 
 - `DTS2026092958405` — [OH-2026-ARKUI-018](../content/issues/OH-2026-ARKUI-018.md): SpanString::DecodeTlvExt custom-marshall range end over-reads ExtSpan user data. *Iterator UB on last-section ExtSpan; awaiting fix.*
-- `DTS2026091029544` — Quaternion::Slerp at t=0 returns -this when from·to < 0. *Chromium-port consistency: from/−from not product-visible, not returned to developers; stays aligned with upstream chromium `quaternion.cc`.*
 
 **NON-ISSUE DTS**
 
 - `DTS2026071809266` — GetTotalHeightOfItemsInView empty → -mainGap. *Long-standing formula contract; shared API unchanged.*
+- `DTS2026091029544` — Quaternion::Slerp at t=0 returns -this when from·to < 0. *Chromium-port consistency: from/−from not product-visible, not returned to developers; stays aligned with upstream chromium `quaternion.cc`.*
 - `DTS2026072522059` — IsAllItemsMeasured false on span-marker last cell. *Callers never see `-idx`; irregular layout uses GetIrregularHeight.*
 - `DTS2026082235589` — Color::FromRGBO wraps out-of-range opacity. *Internal packer; domain `[0, 1]`; clamp is caller-owned; forcing clamp is compat (`2` is 254 today, 255 after).*
 - `DTS2026082235533` — FindItemCount overcounts on continuation start. *Not for irregular layout; no negative IDs; consecutive max-min+1; irregular uses GetIrregularOffset/Height.*
