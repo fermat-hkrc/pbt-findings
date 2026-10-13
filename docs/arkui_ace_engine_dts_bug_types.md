@@ -77,7 +77,7 @@ Wrong formula, operand, or matrix/layout math that breaks geometric or color inv
 - **OH-2026-ARKUI-003** (`DTS2026062427183`): `Matrix4::SetEntry(row, col, value)` writes to `matrix4x4_[row][col]`, but `Matrix4::Get(row, col)` and `Matrix4::Set(row, col, value)` read/write `matrix4x4_[col][row]`. Off-diagonal writes therefore do not round-trip: a value written t...
 - **OH-2026-ARKUI-008** (`DTS2026073116282`): `DataPanelModifier::GetPaintPath()` computes circle-cap angle as `asin(thickness*0.5/(radius-thickness*0.5))` with no domain guard. Stroke at or above half the min side drives `radius <= 0` → `|sine| > 1` / `0/0` → NaN `circleAngle` that poisons the arc.
 - **OH-2026-ARKUI-011** (`DTS2026090922585`): `GetP2` calls `asin(r/side)` with no `|r| < |side|` guard. JS-legal tiny arrows (`1×1` vs production `r=2`) yield NaN P2 / clip path. Same class as DataPanel above.
-- **OH-2026-ARKUI-010** (`DTS2609150153371`): `CalculateStartCachedCountByIrregular` returns `budget * crossCount` on a partial last regular line; full-line model wants `rem + (budget-1)*C`. Confirmed, not fixed yet.
+- **OH-2026-ARKUI-010** (`DTS2609150153371`): `CalculateStartCachedCountByIrregular` returns `budget * crossCount` on a partial last regular line; full-line model wants `rem + (budget-1)*C`. Fixed upstream in `354381fc6d7`.
 
 </details>
 
@@ -117,7 +117,7 @@ Wrong branch, sentinel, or iterator selection that returns success/identity inco
 
 - **OH-2026-ARKUI-002** (`DTS2026061512035`): `GridLayoutInfo::FindInMatrix(0)` unconditionally returns `gridMatrix_.begin()` instead of searching for item `0`. When the matrix is non-empty but starts at a row index greater than `0`, `begin()` points to a row that does not contain i...
 - **OH-2026-ARKUI-004** (`DTS2026062427889`): `GridItemDragManager::FindAvailableColumn(matrix, row, colSpan, crossCount)` returns the first free column for an item of width `colSpan` within a grid of `crossCount` columns. When the target `row` is absent from the matrix, the functio...
-- **OH-2026-ARKUI-012** (`DTS2609150153174`): Backward `GetTargetIndexInfoWithBenchMark` always seeds `lastLine+1` / `lastItem+1`. A leftover last matrix line still owns `lastItem+1`; `scrollToIndex` starts one main line too far down. Confirmed, not fixed yet.
+- **OH-2026-ARKUI-012** (`DTS2609150153174`): Backward `GetTargetIndexInfoWithBenchMark` always seeds `lastLine+1` / `lastItem+1`. A leftover last matrix line still owns `lastItem+1`; `scrollToIndex` starts one main line too far down. Fixed upstream in `9a981bf125c`.
 
 </details>
 
