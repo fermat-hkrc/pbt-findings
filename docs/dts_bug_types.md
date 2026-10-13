@@ -2,12 +2,12 @@
 
 Categorization of [`content/issues/`](../content/issues/) findings that carry a **DTS** ticket (`internal_issue_id`), grouped by the **pi-pbt property (oracle)** that found each ticket. CWE / failure-mode grouping is archived at the end of [`finding_precision_by_project.md`](finding_precision_by_project.md).
 
-- **Confirmed (FIXED)**: **120** — `CONFIRMED_FIXED` write-ups below
+- **Confirmed (FIXED)**: **121** — `CONFIRMED_FIXED` write-ups below
 - **Confirmed (awaiting fix)**: **7** — `CONFIRMED_REAL` (OH-2026-ARKUI-010, 012–017)
 - **Non-issue**: **24** — [catalog](#non-issues)
-- **Decided**: **151** = 120 + 7 + 24
-- **Precision**: **84.1%** = `(120 + 7) / (120 + 7 + 24)` = (fixed + confirmed) / (fixed + confirmed + non-issues)
-- **Severity** (fixed + confirmed): HIGH=28, MEDIUM=96, LOW=3
+- **Decided**: **152** = 121 + 7 + 24
+- **Precision**: **84.2%** = `(121 + 7) / (121 + 7 + 24)` = (fixed + confirmed) / (fixed + confirmed + non-issues)
+- **Severity** (fixed + confirmed): HIGH=28, MEDIUM=97, LOW=3
 - **Generated**: 2026-09-24
 
 ## Overview
@@ -21,11 +21,11 @@ Oracle taxonomy from [pi-pbt `docs/oracles.md`](https://github.com/fermat-hkrc/p
 | [Differential](#differential) | 36 | 3 | 32 | 1 |
 | [Algebraic — Round-trip](#algebraic--round-trip) | 6 | 3 | 3 | 0 |
 | [Algebraic — Metamorphic](#algebraic--metamorphic) | 6 | 1 | 5 | 0 |
-| [Algebraic — Invariant](#algebraic--invariant) | 45 | 10 | 34 | 1 |
+| [Algebraic — Invariant](#algebraic--invariant) | 46 | 10 | 35 | 1 |
 | [Negative / Error Contract](#negative--error-contract) | 11 | 2 | 9 | 0 |
 | [Reference](#reference) | 5 | 1 | 4 | 0 |
 | [Crash-Only](#crash-only) | 15 | 6 | 9 | 0 |
-| **Total** | **127** | **28** | **96** | **3** |
+| **Total** | **128** | **28** | **97** | **3** |
 
 Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Idempotence ≻ Metamorphic ≻ Invariant ≻ Negative/Error) ≻ Reference ≻ Crash-Only. **Idempotence: 0** in this set.
 
@@ -37,7 +37,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 |--------|------:|---:|-----:|-------:|----:|----------:|
 | `multimedia_camera_framework` | 15 | 0 | 0 | 14 | 1 | 100% |
 | `multimedia_image_framework` | 10 | 0 | 1 | 9 | 0 | 100% |
-| `communication_netmanager_base` | 12 | 2 | 3 | 9 | 0 | 86% |
+| `communication_netmanager_base` | 13 | 2 | 3 | 10 | 0 | 87% |
 | `graphic_graphic_2d` | 10 | 0 | 3 | 6 | 1 | 100% |
 | `arkui_ace_engine` | 19 | 6 | 8 | 11 | 0 | 76% |
 | `ability_ability_runtime` | 7 | 0 | 0 | 7 | 0 | 100% |
@@ -62,7 +62,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `arkui_napi` | 3 | 0 | 0 | 3 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **Total** | **127** | **24** | **28** | **96** | **3** | **84%** |
+| **Total** | **128** | **24** | **28** | **97** | **3** | **84%** |
 
 ## DTS index
 
@@ -190,6 +190,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `DTS2026091029544` | [OH-2026-ARKUI-015](../content/issues/OH-2026-ARKUI-015.md) | Algebraic — Metamorphic | MEDIUM | `arkui_ace_engine` |
 | `DTS2026091412083` | [OH-2026-ARKUI-016](../content/issues/OH-2026-ARKUI-016.md) | Algebraic — Invariant | HIGH | `arkui_ace_engine` |
 | `DTS2026091425514` | [OH-2026-ARKUI-017](../content/issues/OH-2026-ARKUI-017.md) | Algebraic — Invariant | MEDIUM | `arkui_ace_engine` |
+| `DTS2026091437628` | [OH-2026-NET-013](../content/issues/OH-2026-NET-013.md) | Algebraic — Invariant | MEDIUM | `communication_netmanager_base` |
 | `DTS2609150107715` | [OH-2026-ARKUI-019](../content/issues/OH-2026-ARKUI-019.md) | Algebraic — Invariant | MEDIUM | `arkui_ace_engine` |
 | `DTS2609150123188` | [OH-2026-ARKUI-020](../content/issues/OH-2026-ARKUI-020.md) | Algebraic — Metamorphic | MEDIUM | `arkui_ace_engine` |
 | `DTS2609150153174` | [OH-2026-ARKUI-012](../content/issues/OH-2026-ARKUI-012.md) | Algebraic — Metamorphic | MEDIUM | `arkui_ace_engine` |
@@ -336,6 +337,7 @@ A source-grounded input transform implies a relation on outputs (`a+b==b+a`, nam
 | `DTS2026090919800` | [OH-2026-ARKUI-013](../content/issues/OH-2026-ARKUI-013.md) | HIGH | (A)and(B)or(C) ≡ (A&&B)\|\|C |
 | `DTS2026091412083` | [OH-2026-ARKUI-016](../content/issues/OH-2026-ARKUI-016.md) | HIGH | (max-height:n px) ≡ h <= n |
 | `DTS2026091425514` | [OH-2026-ARKUI-017](../content/issues/OH-2026-ARKUI-017.md) | MEDIUM | last origin val>=0 at real (y,x); miss → {-1,-1,-1} |
+| `DTS2026091437628` | [OH-2026-NET-013](../content/issues/OH-2026-NET-013.md) | MEDIUM | scheme://host:port/path → host (:port stripped for DNS node) |
 | `DTS2609150107715` | [OH-2026-ARKUI-019](../content/issues/OH-2026-ARKUI-019.md) | MEDIUM | SetSpace first key startPos == (index/lanes)*(H+G) |
 | `DTS2026082129239` | [OH-2026-MF-002](../content/issues/OH-2026-MF-002.md) | MEDIUM | post-move Put on src does not rewrite dst (unique meta_) |
 | `DTS2026082249247` | [OH-2026-IMG-011](../content/issues/OH-2026-IMG-011.md) | MEDIUM | overflow or non-positive size ⇒ IsSizeSupportDma false |
@@ -403,7 +405,7 @@ Authoritative spec / stdlib / IEEE / Unicode / pinning contract that this SUT cl
 
 Maintainer-rejected DTS. Counted in the denominator only.
 
-**Precision** = (fixed + confirmed) / (fixed + confirmed + non-issues) = **(120 + 7) / (120 + 7 + 24) = 84.1%**.
+**Precision** = (fixed + confirmed) / (fixed + confirmed + non-issues) = **(121 + 7) / (121 + 7 + 24) = 84.2%**.
 
 | DTS | Project | Theme | Why non-issue |
 |-----|---------|-------|---------------|

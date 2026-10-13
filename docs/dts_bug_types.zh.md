@@ -2,12 +2,12 @@
 
 对 [`content/issues/`](../content/issues/) 中带有 **DTS** 工单号（`internal_issue_id`）的发现所做的归类，按检出该工单的 **pi-pbt 性质（预言机）** 分组。CWE / 失效模式分组归档在 [`finding_precision_by_project.md`](finding_precision_by_project.md) 文末。
 
-- **已确认并修复（FIXED）**：**120** — `CONFIRMED_FIXED` 报告如下
+- **已确认并修复（FIXED）**：**121** — `CONFIRMED_FIXED` 报告如下
 - **已确认（待修复）**：**7** — `CONFIRMED_REAL`（OH-2026-ARKUI-010、012–017）
 - **非问题（NON-ISSUE）**：**24** — [目录](#非问题)
-- **已判定**：**151** = 120 + 7 + 24
-- **精确率**：**84.1%** = `(120 + 7) / (120 + 7 + 24)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
-- **严重级别**（已修复 + 已确认）：HIGH=28，MEDIUM=96，LOW=3
+- **已判定**：**152** = 121 + 7 + 24
+- **精确率**：**84.2%** = `(121 + 7) / (121 + 7 + 24)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
+- **严重级别**（已修复 + 已确认）：HIGH=28，MEDIUM=97，LOW=3
 - **生成时间**：2026-09-24
 
 ## 概览
@@ -21,11 +21,11 @@
 | [差分](#差分) | 36 | 3 | 32 | 1 |
 | [代数 — 往返](#代数--往返) | 6 | 3 | 3 | 0 |
 | [代数 — 蜕变](#代数--蜕变) | 6 | 1 | 5 | 0 |
-| [代数 — 不变量](#代数--不变量) | 45 | 10 | 34 | 1 |
+| [代数 — 不变量](#代数--不变量) | 46 | 10 | 35 | 1 |
 | [否定 / 错误契约](#否定--错误契约) | 11 | 2 | 9 | 0 |
 | [参考](#参考) | 5 | 1 | 4 | 0 |
 | [仅崩溃](#仅崩溃) | 15 | 6 | 9 | 0 |
-| **合计** | **127** | **28** | **96** | **3** |
+| **合计** | **128** | **28** | **97** | **3** |
 
 强度顺序：状态机 ≻ 差分 ≻ 代数（往返 ≻ 幂等 ≻ 蜕变 ≻ 不变量 ≻ 否定/错误）≻ 参考 ≻ 仅崩溃。本集合中**幂等：0**。
 
@@ -37,7 +37,7 @@
 |--------|------:|---:|-----:|-------:|----:|----------:|
 | `multimedia_camera_framework` | 15 | 0 | 0 | 14 | 1 | 100% |
 | `multimedia_image_framework` | 10 | 0 | 1 | 9 | 0 | 100% |
-| `communication_netmanager_base` | 12 | 2 | 3 | 9 | 0 | 86% |
+| `communication_netmanager_base` | 13 | 2 | 3 | 10 | 0 | 87% |
 | `graphic_graphic_2d` | 10 | 0 | 3 | 6 | 1 | 100% |
 | `arkui_ace_engine` | 19 | 6 | 8 | 11 | 0 | 76% |
 | `ability_ability_runtime` | 7 | 0 | 0 | 7 | 0 | 100% |
@@ -62,7 +62,7 @@
 | `arkui_napi` | 3 | 0 | 0 | 3 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **合计** | **127** | **24** | **28** | **96** | **3** | **84%** |
+| **合计** | **128** | **24** | **28** | **97** | **3** | **84%** |
 
 ## DTS 索引
 
@@ -190,6 +190,7 @@
 | `DTS2026091029544` | [OH-2026-ARKUI-015](../content/issues/OH-2026-ARKUI-015.md) | 代数 — 蜕变 | MEDIUM | `arkui_ace_engine` |
 | `DTS2026091412083` | [OH-2026-ARKUI-016](../content/issues/OH-2026-ARKUI-016.md) | 代数 — 不变量 | HIGH | `arkui_ace_engine` |
 | `DTS2026091425514` | [OH-2026-ARKUI-017](../content/issues/OH-2026-ARKUI-017.md) | 代数 — 不变量 | MEDIUM | `arkui_ace_engine` |
+| `DTS2026091437628` | [OH-2026-NET-013](../content/issues/OH-2026-NET-013.md) | 代数 — 不变量 | MEDIUM | `communication_netmanager_base` |
 | `DTS2609150107715` | [OH-2026-ARKUI-019](../content/issues/OH-2026-ARKUI-019.md) | 代数 — 不变量 | MEDIUM | `arkui_ace_engine` |
 | `DTS2609150123188` | [OH-2026-ARKUI-020](../content/issues/OH-2026-ARKUI-020.md) | 代数 — 蜕变 | MEDIUM | `arkui_ace_engine` |
 | `DTS2609150153174` | [OH-2026-ARKUI-012](../content/issues/OH-2026-ARKUI-012.md) | 代数 — 蜕变 | MEDIUM | `arkui_ace_engine` |
@@ -336,6 +337,7 @@
 | `DTS2026090919800` | [OH-2026-ARKUI-013](../content/issues/OH-2026-ARKUI-013.md) | HIGH | (A)and(B)or(C) ≡ (A&&B)\|\|C |
 | `DTS2026091412083` | [OH-2026-ARKUI-016](../content/issues/OH-2026-ARKUI-016.md) | HIGH | (max-height:n px) ≡ h <= n |
 | `DTS2026091425514` | [OH-2026-ARKUI-017](../content/issues/OH-2026-ARKUI-017.md) | MEDIUM | 末 origin val>=0 在真实 (y,x)；未命中 → {-1,-1,-1} |
+| `DTS2026091437628` | [OH-2026-NET-013](../content/issues/OH-2026-NET-013.md) | MEDIUM | scheme://host:port/path → host（剥掉 :port，供 DNS 节点使用） |
 | `DTS2609150107715` | [OH-2026-ARKUI-019](../content/issues/OH-2026-ARKUI-019.md) | MEDIUM | SetSpace 首键 startPos == (index/lanes)*(H+G) |
 | `DTS2026082129239` | [OH-2026-MF-002](../content/issues/OH-2026-MF-002.md) | MEDIUM | 移动后对 src 的 Put 不得改写 dst（唯一 meta_） |
 | `DTS2026082249247` | [OH-2026-IMG-011](../content/issues/OH-2026-IMG-011.md) | MEDIUM | 溢出或非正尺寸 ⇒ IsSizeSupportDma 为 false |
@@ -403,7 +405,7 @@
 
 维护者驳回的 DTS。只计入分母。
 
-**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(120 + 7) / (120 + 7 + 24) = 84.1%**。
+**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(121 + 7) / (121 + 7 + 24) = 84.2%**。
 
 | DTS | 项目 | 主题 | 为何非问题 |
 |-----|------|------|------------|

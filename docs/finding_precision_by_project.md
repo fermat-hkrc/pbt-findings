@@ -2,8 +2,8 @@
 
 How often PBT-filed **DTS** tickets were accepted as real bugs versus closed as non-issues, broken down by project.
 
-- **Precision:** **84.1%** ((120 FIXED + 7 CONFIRMED) / 151 decided)
-- **False-positive rate:** **15.9%** (24 NON-ISSUE)
+- **Precision:** **84.2%** ((121 FIXED + 7 CONFIRMED) / 152 decided)
+- **False-positive rate:** **15.8%** (24 NON-ISSUE)
 
 Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS tickets are omitted — their outcome (bug vs non-issue) is not yet known.
 
@@ -22,7 +22,7 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 **Sources**
 
 - DTS inventory: [`dts_bug_types.md`](./dts_bug_types.md) + [`content/issues/`](../content/issues/)
-- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**127** = 120 `CONFIRMED_FIXED` + 7 `CONFIRMED_REAL`)
+- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**128** = 121 `CONFIRMED_FIXED` + 7 `CONFIRMED_REAL`)
 - Non-issue write-ups: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (**24** DTS-stamped)
 
 - **Generated:** 2026-09-24
@@ -31,13 +31,13 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 120 | 79.5% |
+| FIXED | 121 | 79.6% |
 | CONFIRMED (awaiting fix) | 7 | 4.6% |
-| NON-ISSUE | 24 | 15.9% |
-| **Total decided** | **151** | 100% |
+| NON-ISSUE | 24 | 15.8% |
+| **Total decided** | **152** | 100% |
 
-- **Precision:** **(120+7)/151 = 84.1%** — about five in six closed tickets were real bugs.
-- **False-positive rate:** **24/151 = 15.9%**.
+- **Precision:** **(121+7)/152 = 84.2%** — about five in six closed tickets were real bugs.
+- **False-positive rate:** **24/152 = 15.8%**.
 
 > Precision means *maintainer-accepted defect rate among dispositioned DTS* (fixed **or** confirmed-unfixed), not static-analysis alert rate. Open/submitted tickets are out of scope until closed.
 
@@ -48,7 +48,7 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | Project | FIXED | CONFIRMED | NON-ISSUE | Decided | Precision |
 |---------|------:|----------:|----------:|--------:|----------:|
 | [`multimedia_camera_framework`](#multimedia-camera-framework) | 15 | 0 | 0 | 15 | 100% |
-| [`communication_netmanager_base`](#communication-netmanager-base) | 12 | 0 | 2 | 14 | 86% |
+| [`communication_netmanager_base`](#communication-netmanager-base) | 13 | 0 | 2 | 15 | 87% |
 | [`graphic_graphic_2d`](#graphic-graphic-2d) | 10 | 0 | 0 | 10 | 100% |
 | [`arkui_ace_engine`](#arkui-ace-engine) | 12 | 7 | 6 | 25 | 76% |
 | [`multimedia_image_framework`](#multimedia-image-framework) | 10 | 0 | 0 | 10 | 100% |
@@ -90,7 +90,7 @@ These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 |---------|------:|----------:|----------:|----------------------|
 | `arkui_ace_engine` | 12 fixed + 7 confirmed | 6 | 76% | Empty-grid `-mainGap` is stable formula; IsAllItemsMeasured / FindItemCount `-idx` is irregular-only encoding never seen by those helpers; FromRGBO out-of-range wrap is caller-owned clamp on an internal packer; GetDistanceToBottom LayoutInfinity is the irregular last-item span sentinel; UpdatePosMap gap-only adjustOffset.start is isolated mid-pipeline compensation (not top jump); real layout/math/OOB/asin bugs still fixed/confirmed. |
 | `arkcompiler_runtime_core` | 11 | 1 | 92% | SkipULeb128 empty/truncated is by-design (void helper, no error channel); real buffer/loop bugs still fixed. |
-| `communication_netmanager_base` | 12 | 2 | 86% | Helper semantics (ForkExec) and API role split (zoned IPv6) ≠ bugs; firewall/IP/mask defects accepted. |
+| `communication_netmanager_base` | 13 | 2 | 87% | Helper semantics (ForkExec) and API role split (zoned IPv6) ≠ bugs; firewall/IP/mask defects accepted. |
 | `distributedhardware_device_manager` | 2 | 2 | 50% | cJSON int64 round-trip and ConvertStrToInt are dead/unshipped; PIN/rand bugs still fixed. |
 | `multimedia_av_session` | 2 | 1 | 67% | Call-type JSON omission = product policy; OOB crash in `GetAnonyTitle` still fixed. |
 | `multimedia_media_library` | 5 | 1 | 83% | Incomplete consume is the IsValidInteger contract (compat 1.000); ConvertToInt is the full-consume sibling; GetTimeIdFromUri / GetFileIdStr / GetDateAddedMs / IsFileTablePath / GetVirtualPath still fixed. |
@@ -223,10 +223,10 @@ Mixed outcomes: maintainers accepted **19** (12 fixed + 7 confirmed) and rejecte
 
 | Metric | Value |
 |--------|------:|
-| FIXED | 12 |
+| FIXED | 13 |
 | NON-ISSUE | 2 |
-| Decided | 14 |
-| Precision | 85.7% |
+| Decided | 15 |
+| Precision | 86.7% |
 
 **FIXED DTS**
 
@@ -242,13 +242,14 @@ Mixed outcomes: maintainers accepted **19** (12 fixed + 7 confirmed) and rejecte
 - `DTS2026071727288` — [OH-2026-NET-010](../content/issues/OH-2026-NET-010.md): Ip4RuleMap::GetNetworkAddress(/0) is UB and does not yield 0.0.0.0
 - `DTS2026083109843` — [OH-2026-NET-011](../content/issues/OH-2026-NET-011.md): GetMtu passes sysfs "1500\n" to StrToInt → always -1
 - `DTS2026090525146` — [OH-2026-NET-012](../content/issues/OH-2026-NET-012.md): ToAnonymousIp leaves IPv6 CIDR with prefix 0, 109, or 119 unredacted
+- `DTS2026091437628` — [OH-2026-NET-013](../content/issues/OH-2026-NET-013.md): ExtractDomainFormUrl leaves :port in the DNS domain, breaking dual-stack probes
 
 **NON-ISSUE DTS**
 
 - `DTS2026071725399` — ForkExec SUCCESS on non-zero child exit. *By design — SUCCESS means child created.*
 - `DTS2026072720774` — GetAddrFamily rejects zoned IPv6. *Different API jobs, not inconsistency.*
 
-Mixed outcomes: maintainers accepted **12** and rejected **2**. Net precision **86%**.
+Mixed outcomes: maintainers accepted **13** and rejected **2**. Net precision **87%**.
 
 ### `multimedia_camera_framework`
 
@@ -685,16 +686,16 @@ No FIXED DTS yet among dispositioned tickets.
 
 ## Relation to `content/issues/` write-ups
 
-This repo’s [`content/issues/`](../content/issues/) currently carries **127** DTS-linked reports (**119** `CONFIRMED_FIXED` + **8** `CONFIRMED_REAL`).
+This repo’s [`content/issues/`](../content/issues/) currently carries **128** DTS-linked reports (**120** `CONFIRMED_FIXED` + **8** `CONFIRMED_REAL`).
 `CONFIRMED_FIXED` is the **FIXED** count; `CONFIRMED_REAL` is **CONFIRMED** (awaiting fix). Non-issues come from `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/`.
 
 | Population | Count | Role |
 |------------|------:|------|
-| Decided DTS (FIXED + CONFIRMED + NON-ISSUE) | 149 | Ground truth for precision |
-| FIXED | 119 | Maintainer-accepted and fixed |
+| Decided DTS (FIXED + CONFIRMED + NON-ISSUE) | 150 | Ground truth for precision |
+| FIXED | 120 | Maintainer-accepted and fixed |
 | CONFIRMED | 8 | Maintainer-accepted, not fixed yet |
 | NON-ISSUE | 22 | Maintainer-rejected (cloned + testing inventory) |
-| Write-ups in `content/issues` with DTS | 127 | Published confirmed bugs (fixed or awaiting fix) |
+| Write-ups in `content/issues` with DTS | 128 | Published confirmed bugs (fixed or awaiting fix) |
 
 **Do not** compute precision from `content/issues` alone — it omits non-issues by design. Use this document (or dispositioned rows in `BUG_REPORTS.md`) for acceptance rate.
 
@@ -734,7 +735,7 @@ Moved out of [`dts_bug_types.md`](./dts_bug_types.md) (that file is now the dete
 | [Memory Safety — Null Pointer Dereference](#memory-safety-null-pointer-dereference) | 1 | 1 | 0 | 0 |
 | [Memory Safety — Double Free](#memory-safety-double-free) | 1 | 0 | 1 | 0 |
 | [Control Flow — Infinite Loop / Hang](#control-flow-infinite-loop-hang) | 3 | 0 | 3 | 0 |
-| [Logic — Incorrect Control Flow](#logic-incorrect-control-flow) | 6 | 2 | 4 | 0 |
+| [Logic — Incorrect Control Flow](#logic-incorrect-control-flow) | 7 | 2 | 5 | 0 |
 | [Logic — Incorrect Operator / Predicate](#logic-incorrect-operator-predicate) | 1 | 1 | 0 | 0 |
 | [Logic — Unchecked Return Value](#logic-unchecked-return-value) | 1 | 0 | 1 | 0 |
 | [Undefined Behavior](#undefined-behavior) | 2 | 1 | 1 | 0 |
@@ -746,7 +747,7 @@ Moved out of [`dts_bug_types.md`](./dts_bug_types.md) (that file is now the dete
 | [Security — Authorization / Access Control](#security-authorization-access-control) | 3 | 1 | 2 | 0 |
 | [Security — Certificate Validation](#security-certificate-validation) | 1 | 1 | 0 | 0 |
 | [Security — Information Leakage](#security-information-leakage) | 2 | 0 | 2 | 0 |
-| **Total** | **77** | **16** | **59** | **2** |
+| **Total** | **78** | **16** | **60** | **2** |
 
 ## DTS index (bug type)
 
@@ -833,6 +834,7 @@ Moved out of [`dts_bug_types.md`](./dts_bug_types.md) (that file is now the dete
 | `DTS2026082023118` | [OH-2026-DSOFTBUS-001](../content/issues/OH-2026-DSOFTBUS-001.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `communication_dsoftbus` |
 | `DTS2026083116823` | [OH-2026-DSOFTBUS-002](../content/issues/OH-2026-DSOFTBUS-002.md) | Input Validation — Improper Checks | MEDIUM | `communication_dsoftbus` |
 | `DTS2026090525146` | [OH-2026-NET-012](../content/issues/OH-2026-NET-012.md) | Security — Information Leakage | MEDIUM | `communication_netmanager_base` |
+| `DTS2026091437628` | [OH-2026-NET-013](../content/issues/OH-2026-NET-013.md) | Logic — Incorrect Control Flow | MEDIUM | `communication_netmanager_base` |
 | `DTS2609150153371` | [OH-2026-ARKUI-010](../content/issues/OH-2026-ARKUI-010.md) | Arithmetic — Incorrect Calculation | MEDIUM | `arkui_ace_engine` |
 
 
@@ -1055,6 +1057,7 @@ Wrong branch, sentinel, or iterator selection that returns success/identity inco
 | `DTS2026071544397` | [OH-2026-ABILITY-001](../content/issues/OH-2026-ABILITY-001.md) | MEDIUM | CWE-754 (Improper Check or Handling of Exceptional Conditions) | `frameworks/native/ability/native/ability_runtime/js_ui_ability.cpp` · `ability_ability_runtime` | Stage-model .abc path builder unguarded erase(rfind('.')) crashes app on extensionless srcEntrance |
 | `DTS2026073129863` | [OH-2026-GFX-006](../content/issues/OH-2026-GFX-006.md) | MEDIUM | CWE-670 (Always-Incorrect Control Flow Implementation) | `rosen/modules/2d_graphics/src/drawing/config/DrawingConfig.cpp` · `graphic_graphic_2d` | UpdateDrawingProperties permanent no-op (enum vs string list size) |
 | `DTS2026081128460` | [OH-2026-IMG-004](../content/issues/OH-2026-IMG-004.md) | MEDIUM | CWE-670 (Always-Incorrect Control Flow Implementation) | `frameworks/innerkitsimpl/utils/src/image_utils.cpp` · `multimedia_image_framework` | GetValidAlphaTypeByFormat missing RGBA_U16 case returns UNKNOWN |
+| `DTS2026091437628` | [OH-2026-NET-013](../content/issues/OH-2026-NET-013.md) | MEDIUM | CWE-670 (Always-Incorrect Control Flow Implementation) | `utils/common_utils/src/netmanager_base_common_utils.cpp` · `communication_netmanager_base` | ExtractDomainFormUrl includes :port in the DNS domain |
 | `DTS2026073112258` | [ARK-2026-STR-001](../content/issues/ARK-2026-STR-001.md) | MEDIUM | CWE-680 (Integer Overflow to Buffer Overflow) | `panda_guard/util/string_util.cpp` · `arkcompiler_runtime_core` | RemoveSlashFromBothEnds("/") empty pop_back() (UB / corrupt size) |
 
 <details><summary>Summaries</summary>
@@ -1253,7 +1256,7 @@ Masking/redaction fails; secrets or addresses reach logs.
 | CWE-682 | Incorrect Calculation | 15 |
 | CWE-125 | Out-of-bounds Read | 11 |
 | CWE-190 | Integer Overflow or Wraparound | 7 |
-| CWE-670 | Always-Incorrect Control Flow Implementation | 4 |
+| CWE-670 | Always-Incorrect Control Flow Implementation | 5 |
 | CWE-191 | Integer Underflow (Wrap or Wraparound) | 5 |
 | CWE-369 | Divide By Zero | 3 |
 | CWE-835 | Loop with Unreachable Exit Condition ('Infinite Loop') | 3 |
