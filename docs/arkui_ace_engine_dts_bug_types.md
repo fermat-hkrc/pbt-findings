@@ -6,9 +6,9 @@ Scoped to this repo only. Companion precision report: [arkui_ace_engine_finding_
 
 - **Repo:** `arkui_ace_engine`
 - **Confirmed fixed (DTS + write-up):** **12** (`CONFIRMED_FIXED`)
-- **Confirmed awaiting fix:** **7** (`CONFIRMED_REAL` — OH-2026-ARKUI-010, 012–017)
-- **Status:** fixed tickets are `CONFIRMED_FIXED`; seven tickets are `CONFIRMED_REAL`
-- **Severity** (fixed + confirmed): HIGH=8, MEDIUM=11, LOW=0
+- **Confirmed awaiting fix:** **8** (`CONFIRMED_REAL` — OH-2026-ARKUI-010, 012–018)
+- **Status:** fixed tickets are `CONFIRMED_FIXED`; eight tickets are `CONFIRMED_REAL`
+- **Severity** (fixed + confirmed): HIGH=8, MEDIUM=12, LOW=0
 - **Sources:** [`content/issues/OH-2026-ARKUI-*.md`](../content/issues/), `~/cloned/arkui_ace_engine/pbt-out/bug_reports/fixed/`
 - **Generated:** 2026-09-23
 
@@ -21,8 +21,8 @@ Scoped to this repo only. Companion precision report: [arkui_ace_engine_finding_
 | [Arithmetic — Off-by-One](#arithmetic--off-by-one) | 1 | 0 | 1 | 0 |
 | [Logic — Incorrect Control Flow](#logic-incorrect-control-flow) | 6 | 4 | 2 | 0 |
 | [Undefined Behavior](#undefined-behavior) | 1 | 0 | 1 | 0 |
-| [Memory — Buffer / OOB Access](#memory--buffer--oob-access) | 1 | 1 | 0 | 0 |
-| **Total** | **19** | **8** | **11** | **0** |
+| [Memory — Buffer / OOB Access](#memory--buffer--oob-access) | 2 | 1 | 1 | 0 |
+| **Total** | **20** | **8** | **12** | **0** |
 
 ### By family
 
@@ -31,7 +31,7 @@ Scoped to this repo only. Companion precision report: [arkui_ace_engine_finding_
 | Arithmetic & Numeric | 11 |
 | Logic | 6 |
 | Undefined Behavior | 1 |
-| Memory / Buffer | 1 |
+| Memory / Buffer | 2 |
 
 ## DTS index
 
@@ -53,6 +53,7 @@ Scoped to this repo only. Companion precision report: [arkui_ace_engine_finding_
 | `DTS2026091029544` | [OH-2026-ARKUI-015](../content/issues/OH-2026-ARKUI-015.md) | Arithmetic — Incorrect Calculation | MEDIUM | `frameworks/base/geometry/quaternion.cpp` |
 | `DTS2026091412083` | [OH-2026-ARKUI-016](../content/issues/OH-2026-ARKUI-016.md) | Logic — Incorrect Control Flow | HIGH | `frameworks/bridge/common/media_query/media_queryer.cpp` |
 | `DTS2026091425514` | [OH-2026-ARKUI-017](../content/issues/OH-2026-ARKUI-017.md) | Logic — Incorrect Control Flow | MEDIUM | `frameworks/core/components_ng/pattern/grid/grid_layout_info.cpp` |
+| `DTS2026092958405` | [OH-2026-ARKUI-018](../content/issues/OH-2026-ARKUI-018.md) | Memory — Buffer / OOB Access | MEDIUM | `frameworks/core/components_ng/pattern/text/span/span_string.cpp` |
 | `DTS2609150107715` | [OH-2026-ARKUI-019](../content/issues/OH-2026-ARKUI-019.md) | Arithmetic — Off-by-One | MEDIUM | `frameworks/core/components_ng/pattern/lazy_grid_layout/lazy_grid_layout_info.cpp` |
 | `DTS2609150123188` | [OH-2026-ARKUI-020](../content/issues/OH-2026-ARKUI-020.md) | Arithmetic — Incorrect Calculation | MEDIUM | `frameworks/core/components_ng/pattern/lazy_grid_layout/lazy_grid_layout_info.cpp` |
 | `DTS2609150153371` | [OH-2026-ARKUI-010](../content/issues/OH-2026-ARKUI-010.md) | Arithmetic — Incorrect Calculation | MEDIUM | `frameworks/core/components_ng/pattern/grid/grid_scroll/grid_scroll_with_options_layout_algorithm.cpp` |
@@ -137,15 +138,17 @@ Relies on UB (e.g. out-of-range cast) with environment-dependent fallout.
 
 ## Memory — Buffer / OOB Access
 
-Missing lower-bound index guard on a public `std::vector` writer → OOB write / crash.
+Missing bounds/index guards on vector writers and TLV range slicing → OOB read/write / crash.
 
 | DTS | ID | Severity | CWE | Component | Title |
 |-----|----|----------|-----|-----------|-------|
 | `DTS2026091012206` | [OH-2026-ARKUI-009](../content/issues/OH-2026-ARKUI-009.md) | HIGH | CWE-787 (Out-of-bounds Write) | `frameworks/base/geometry/matrix3.cpp` | Matrix3N::SetEntry / MatrixN3::SetEntry missing negative-index guard (OOB write / crash) |
+| `DTS2026092958405` | [OH-2026-ARKUI-018](../content/issues/OH-2026-ARKUI-018.md) | MEDIUM | CWE-125 (Out-of-bounds Read) | `frameworks/core/components_ng/pattern/text/span/span_string.cpp` | SpanString::DecodeTlvExt custom-marshall range end over-reads ExtSpan user data (iterator UB / crash) |
 
 <details><summary>Summaries</summary>
 
 - **OH-2026-ARKUI-009** (`DTS2026091012206`): `Matrix3N::SetEntry` / `MatrixN3::SetEntry` reject only `row/col >= bound`. Negative `int32_t` becomes a huge `size_t` subscript → SIGSEGV / heap abort. Same-file `Matrix3` and 4×N / N×4 siblings already reject negatives.
+- **OH-2026-ARKUI-018** (`DTS2026092958405`): `DecodeTlvExt` `TLV_CUSTOM_MARSHALL_BUFFER_START` end = `buffLength + cursor + cursor - lastCursor` = section end + 16; `std::vector` range ctor over-reads 16 bytes (past `buff.end()` → UB/crash when the custom section is last). Confirmed, not fixed yet.
 
 </details>
 
@@ -159,6 +162,7 @@ Missing lower-bound index guard on a public `std::vector` writer → OOB write /
 | CWE-369 | Divide By Zero | 1 |
 | CWE-758 | Reliance on Undefined, Unspecified, or Implementation-Defined Behavior | 1 |
 | CWE-787 | Out-of-bounds Write | 1 |
+| CWE-125 | Out-of-bounds Read | 1 |
 
 ## Notes
 

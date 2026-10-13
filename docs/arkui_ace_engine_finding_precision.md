@@ -20,7 +20,7 @@ Companion bug-type catalog: [arkui_ace_engine_dts_bug_types.md](./arkui_ace_engi
 **Sources**
 
 - `~/cloned/arkui_ace_engine/pbt-out/bug_reports/{fixed,confirmed,non-issue}/` and `~/testing/arkui_ace_engine/pbt-out/bug_reports/`
-- [`content/issues/OH-2026-ARKUI-*.md`](../content/issues/) (**19** = 12 fixed + 7 confirmed; plus 1 NON_ISSUE write-up)
+- [`content/issues/OH-2026-ARKUI-*.md`](../content/issues/) (**20** = 12 fixed + 8 confirmed; plus 1 NON_ISSUE write-up)
 - Cross-repo context: [finding_precision_by_project.md](./finding_precision_by_project.md)
 
 - **Generated:** 2026-09-23
@@ -29,15 +29,15 @@ Companion bug-type catalog: [arkui_ace_engine_dts_bug_types.md](./arkui_ace_engi
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 12 | 48.0% |
-| CONFIRMED (awaiting fix) | 7 | 28.0% |
-| NON-ISSUE | 6 | 24.0% |
-| **Total decided** | **25** | 100% |
+| FIXED | 12 | 46.2% |
+| CONFIRMED (awaiting fix) | 8 | 30.8% |
+| NON-ISSUE | 6 | 23.1% |
+| **Total decided** | **26** | 100% |
 
-- **Precision:** **(12+7)/25 = 76.0%**
-- **False-positive rate:** **6/25 = 24.0%**
+- **Precision:** **(12+8)/26 = 76.9%**
+- **False-positive rate:** **6/26 = 23.1%**
 
-Compared with the cross-repo decided baseline (**84.1%** precision), arkui_ace_engine is **below** (76.0%).
+Compared with the cross-repo decided baseline (**84.3%** precision), arkui_ace_engine is **below** (76.9%).
 
 ## FIXED DTS
 
@@ -101,9 +101,11 @@ Under `~/cloned/arkui_ace_engine/pbt-out/bug_reports/fixed/`:
 | `DTS2026091029544` | [OH-2026-ARKUI-015](../content/issues/OH-2026-ARKUI-015.md) | MEDIUM | CWE-682 | Quaternion::Slerp at t=0 returns -this when from·to < 0 |
 | `DTS2026091412083` | [OH-2026-ARKUI-016](../content/issues/OH-2026-ARKUI-016.md) | HIGH | CWE-670 | MediaQueryer::MatchCondition never matches min-/max- features with an explicit px unit |
 | `DTS2026091425514` | [OH-2026-ARKUI-017](../content/issues/OH-2026-ARKUI-017.md) | MEDIUM | CWE-670 | GridLayoutInfo::FindEndIdx skips item 0 and falls back to {0,0,0} |
+| `DTS2026092958405` | [OH-2026-ARKUI-018](../content/issues/OH-2026-ARKUI-018.md) | MEDIUM | CWE-125 | SpanString::DecodeTlvExt custom-marshall range end over-reads ExtSpan user data (iterator UB / crash) |
 
 - **OH-2026-ARKUI-010** (`DTS2609150153371`): `CalculateStartCachedCountByIrregular` returns `budget * crossCount` when `diff >= budget * C`, ignoring a partial last regular line. Full-line model wants `rem + (budget-1)*C`. Extra preload above the viewport; confirmed, not fixed yet.
 - **OH-2026-ARKUI-012** (`DTS2609150153174`): Backward `GetTargetIndexInfoWithBenchMark` always seeds `lastLine+1` / `lastItem+1`. A leftover last matrix line still owns `lastItem+1`; `scrollToIndex` starts one main line too far down. Confirmed, not fixed yet.
+- **OH-2026-ARKUI-018** (`DTS2026092958405`): `DecodeTlvExt` computes the custom-marshall user-data end as `buffLength + cursor + cursor - lastCursor` (`lastCursor + buffLength + 16`) — the `std::vector` range ctor reads 16 bytes past the section end; past `buff.end()` (iterator UB / crash) when the custom section is last. Confirmed, not fixed yet.
 
 Local reports: `~/cloned/arkui_ace_engine/pbt-out/bug_reports/confirmed/calculate_start_cached_count_partial_last_line.md`, `get_target_index_info_backward_partial_last_line.md`
 
@@ -159,9 +161,9 @@ Local reports: `~/cloned/arkui_ace_engine/pbt-out/bug_reports/confirmed/calculat
 
 ## Takeaways
 
-1. **12 real bugs fixed** (+ 7 confirmed awaiting fix) across grid layout, lazy grid, media query, SVG alpha, quaternion slerp, matrix storage, color/asin geometry, and partial-last-line scroll/cache — strong confirmed yield for one UI engine repo.
-2. **Precision 76%** on decided tickets: six non-issues (stable empty-height formula; `-idx` encoding never seen by `IsAllItemsMeasured` / `FindItemCount`; FromRGBO caller-owned `[0, 1]` clamp; GetDistanceToBottom LayoutInfinity is the irregular last-item span sentinel; UpdatePosMap gap-only adjustOffset is isolated compensation) against twelve fixes and seven confirmed.
-3. Dominant failure modes: **incorrect calculation**, **wrong control-flow sentinels**, plus **div-by-zero**, **UB cast**, **OOB write**, and unguarded **`asin`**.
+1. **12 real bugs fixed** (+ 8 confirmed awaiting fix) across grid layout, lazy grid, media query, SVG alpha, quaternion slerp, matrix storage, color/asin geometry, partial-last-line scroll/cache, and styled-string TLV decoding — strong confirmed yield for one UI engine repo.
+2. **Precision 77%** on decided tickets: six non-issues (stable empty-height formula; `-idx` encoding never seen by `IsAllItemsMeasured` / `FindItemCount`; FromRGBO caller-owned `[0, 1]` clamp; GetDistanceToBottom LayoutInfinity is the irregular last-item span sentinel; UpdatePosMap gap-only adjustOffset is isolated compensation) against twelve fixes and eight confirmed.
+3. Dominant failure modes: **incorrect calculation**, **wrong control-flow sentinels**, plus **div-by-zero**, **UB cast**, **OOB write / read**, and unguarded **`asin`**.
 4. Non-issue lessons are contract/call-graph sensitivity and production-domain encoding, not flaky reproduction — PBT still witnessed the raw returns as contract properties.
 
 ## Methodology notes

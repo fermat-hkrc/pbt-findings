@@ -2,8 +2,8 @@
 
 How often PBT-filed **DTS** tickets were accepted as real bugs versus closed as non-issues, broken down by project.
 
-- **Precision:** **84.2%** ((121 FIXED + 7 CONFIRMED) / 152 decided)
-- **False-positive rate:** **15.8%** (24 NON-ISSUE)
+- **Precision:** **84.3%** ((121 FIXED + 8 CONFIRMED) / 153 decided)
+- **False-positive rate:** **15.7%** (24 NON-ISSUE)
 
 Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS tickets are omitted — their outcome (bug vs non-issue) is not yet known.
 
@@ -22,7 +22,7 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 **Sources**
 
 - DTS inventory: [`dts_bug_types.md`](./dts_bug_types.md) + [`content/issues/`](../content/issues/)
-- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**128** = 121 `CONFIRMED_FIXED` + 7 `CONFIRMED_REAL`)
+- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**129** = 121 `CONFIRMED_FIXED` + 8 `CONFIRMED_REAL`)
 - Non-issue write-ups: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (**24** DTS-stamped)
 
 - **Generated:** 2026-09-24
@@ -31,13 +31,13 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 121 | 79.6% |
-| CONFIRMED (awaiting fix) | 7 | 4.6% |
-| NON-ISSUE | 24 | 15.8% |
-| **Total decided** | **152** | 100% |
+| FIXED | 121 | 79.1% |
+| CONFIRMED (awaiting fix) | 8 | 5.2% |
+| NON-ISSUE | 24 | 15.7% |
+| **Total decided** | **153** | 100% |
 
-- **Precision:** **(121+7)/152 = 84.2%** — about five in six closed tickets were real bugs.
-- **False-positive rate:** **24/152 = 15.8%**.
+- **Precision:** **(121+8)/153 = 84.3%** — about five in six closed tickets were real bugs.
+- **False-positive rate:** **24/153 = 15.7%**.
 
 > Precision means *maintainer-accepted defect rate among dispositioned DTS* (fixed **or** confirmed-unfixed), not static-analysis alert rate. Open/submitted tickets are out of scope until closed.
 
@@ -50,7 +50,7 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`multimedia_camera_framework`](#multimedia-camera-framework) | 15 | 0 | 0 | 15 | 100% |
 | [`communication_netmanager_base`](#communication-netmanager-base) | 13 | 0 | 2 | 15 | 87% |
 | [`graphic_graphic_2d`](#graphic-graphic-2d) | 10 | 0 | 0 | 10 | 100% |
-| [`arkui_ace_engine`](#arkui-ace-engine) | 12 | 7 | 6 | 25 | 76% |
+| [`arkui_ace_engine`](#arkui-ace-engine) | 12 | 8 | 6 | 26 | 77% |
 | [`multimedia_image_framework`](#multimedia-image-framework) | 10 | 0 | 0 | 10 | 100% |
 | [`arkcompiler_runtime_core`](#arkcompiler-runtime-core) | 11 | 0 | 1 | 12 | 92% |
 | [`ability_ability_runtime`](#ability-ability-runtime) | 7 | 0 | 0 | 7 | 100% |
@@ -74,7 +74,7 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`telephony_core_service`](#telephony-core-service) | 1 | 0 | 0 | 1 | 100% |
 | [`multimedia_audio_framework`](#multimedia-audio-framework) | 1 | 0 | 1 | 2 | 50% |
 | [`multimodalinput_input`](#multimodalinput-input) | 0 | 0 | 2 | 2 | 0% |
-| **Total** | **121** | **7** | **24** | **152** | **84%** |
+| **Total** | **121** | **8** | **24** | **153** | **84%** |
 
 ## Precision tiers
 
@@ -88,7 +88,7 @@ These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 
 | Project | FIXED | NON-ISSUE | Precision | What non-issues teach |
 |---------|------:|----------:|----------:|----------------------|
-| `arkui_ace_engine` | 12 fixed + 7 confirmed | 6 | 76% | Empty-grid `-mainGap` is stable formula; IsAllItemsMeasured / FindItemCount `-idx` is irregular-only encoding never seen by those helpers; FromRGBO out-of-range wrap is caller-owned clamp on an internal packer; GetDistanceToBottom LayoutInfinity is the irregular last-item span sentinel; UpdatePosMap gap-only adjustOffset.start is isolated mid-pipeline compensation (not top jump); real layout/math/OOB/asin bugs still fixed/confirmed. |
+| `arkui_ace_engine` | 12 fixed + 8 confirmed | 6 | 77% | Empty-grid `-mainGap` is stable formula; IsAllItemsMeasured / FindItemCount `-idx` is irregular-only encoding never seen by those helpers; FromRGBO out-of-range wrap is caller-owned clamp on an internal packer; GetDistanceToBottom LayoutInfinity is the irregular last-item span sentinel; UpdatePosMap gap-only adjustOffset.start is isolated mid-pipeline compensation (not top jump); real layout/math/OOB/asin bugs still fixed/confirmed. |
 | `arkcompiler_runtime_core` | 11 | 1 | 92% | SkipULeb128 empty/truncated is by-design (void helper, no error channel); real buffer/loop bugs still fixed. |
 | `communication_netmanager_base` | 13 | 2 | 87% | Helper semantics (ForkExec) and API role split (zoned IPv6) ≠ bugs; firewall/IP/mask defects accepted. |
 | `distributedhardware_device_manager` | 2 | 2 | 50% | cJSON int64 round-trip and ConvertStrToInt are dead/unshipped; PIN/rand bugs still fixed. |
@@ -178,10 +178,10 @@ High-confidence project: **10** accepted fixes and **no** rejected DTS.
 | Metric | Value |
 |--------|------:|
 | FIXED | 12 |
-| CONFIRMED (awaiting fix) | 7 |
+| CONFIRMED (awaiting fix) | 8 |
 | NON-ISSUE | 6 |
-| Decided | 25 |
-| Precision | 76.0% |
+| Decided | 26 |
+| Precision | 76.9% |
 
 **FIXED DTS**
 
@@ -207,6 +207,7 @@ High-confidence project: **10** accepted fixes and **no** rejected DTS.
 - `DTS2026091029544` — [OH-2026-ARKUI-015](../content/issues/OH-2026-ARKUI-015.md): Quaternion::Slerp at t=0 returns -this when from·to < 0
 - `DTS2026091412083` — [OH-2026-ARKUI-016](../content/issues/OH-2026-ARKUI-016.md): MediaQueryer::MatchCondition never matches min-/max- features with an explicit px unit
 - `DTS2026091425514` — [OH-2026-ARKUI-017](../content/issues/OH-2026-ARKUI-017.md): GridLayoutInfo::FindEndIdx skips item 0 and falls back to {0,0,0}
+- `DTS2026092958405` — [OH-2026-ARKUI-018](../content/issues/OH-2026-ARKUI-018.md): SpanString::DecodeTlvExt custom-marshall range end over-reads ExtSpan user data
 
 **NON-ISSUE DTS**
 
@@ -217,7 +218,7 @@ High-confidence project: **10** accepted fixes and **no** rejected DTS.
 - `DTS2026073119063` — GetDistanceToBottom → LayoutInfinity when map extends past endMainLineIndex_. *Irregular last-item leftover rows; ∞ is the intentional not-at-end sentinel; old callers depend on it.*
 - `DTS2026091437627` — UpdatePosMap gap-only body delta on adjustOffset.start. *Isolated helper; live path is measure + scroll compensation; `start=0` oracle rejected.*
 
-Mixed outcomes: maintainers accepted **19** (12 fixed + 7 confirmed) and rejected **6**. Net precision **76%**.
+Mixed outcomes: maintainers accepted **20** (12 fixed + 8 confirmed) and rejected **6**. Net precision **77%**.
 
 ### `communication_netmanager_base`
 
@@ -686,16 +687,16 @@ No FIXED DTS yet among dispositioned tickets.
 
 ## Relation to `content/issues/` write-ups
 
-This repo’s [`content/issues/`](../content/issues/) currently carries **128** DTS-linked reports (**120** `CONFIRMED_FIXED` + **8** `CONFIRMED_REAL`).
+This repo’s [`content/issues/`](../content/issues/) currently carries **129** DTS-linked reports (**121** `CONFIRMED_FIXED` + **8** `CONFIRMED_REAL`).
 `CONFIRMED_FIXED` is the **FIXED** count; `CONFIRMED_REAL` is **CONFIRMED** (awaiting fix). Non-issues come from `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/`.
 
 | Population | Count | Role |
 |------------|------:|------|
-| Decided DTS (FIXED + CONFIRMED + NON-ISSUE) | 150 | Ground truth for precision |
-| FIXED | 120 | Maintainer-accepted and fixed |
+| Decided DTS (FIXED + CONFIRMED + NON-ISSUE) | 151 | Ground truth for precision |
+| FIXED | 121 | Maintainer-accepted and fixed |
 | CONFIRMED | 8 | Maintainer-accepted, not fixed yet |
 | NON-ISSUE | 22 | Maintainer-rejected (cloned + testing inventory) |
-| Write-ups in `content/issues` with DTS | 128 | Published confirmed bugs (fixed or awaiting fix) |
+| Write-ups in `content/issues` with DTS | 129 | Published confirmed bugs (fixed or awaiting fix) |
 
 **Do not** compute precision from `content/issues` alone — it omits non-issues by design. Use this document (or dispositioned rows in `BUG_REPORTS.md`) for acceptance rate.
 
@@ -731,7 +732,7 @@ Moved out of [`dts_bug_types.md`](./dts_bug_types.md) (that file is now the dete
 | [Arithmetic — Incorrect Calculation](#arithmetic-incorrect-calculation) | 16 | 3 | 12 | 1 |
 | [Arithmetic — Divide by Zero](#arithmetic-divide-by-zero) | 3 | 1 | 2 | 0 |
 | [Arithmetic — Off-by-One](#arithmetic-off-by-one) | 3 | 1 | 2 | 0 |
-| [Memory Safety — Buffer / OOB Access](#memory-safety-buffer-oob-access) | 13 | 1 | 12 | 0 |
+| [Memory Safety — Buffer / OOB Access](#memory-safety-buffer-oob-access) | 14 | 1 | 13 | 0 |
 | [Memory Safety — Null Pointer Dereference](#memory-safety-null-pointer-dereference) | 1 | 1 | 0 | 0 |
 | [Memory Safety — Double Free](#memory-safety-double-free) | 1 | 0 | 1 | 0 |
 | [Control Flow — Infinite Loop / Hang](#control-flow-infinite-loop-hang) | 3 | 0 | 3 | 0 |
@@ -747,7 +748,7 @@ Moved out of [`dts_bug_types.md`](./dts_bug_types.md) (that file is now the dete
 | [Security — Authorization / Access Control](#security-authorization-access-control) | 3 | 1 | 2 | 0 |
 | [Security — Certificate Validation](#security-certificate-validation) | 1 | 1 | 0 | 0 |
 | [Security — Information Leakage](#security-information-leakage) | 2 | 0 | 2 | 0 |
-| **Total** | **78** | **16** | **60** | **2** |
+| **Total** | **79** | **16** | **61** | **2** |
 
 ## DTS index (bug type)
 
@@ -835,6 +836,7 @@ Moved out of [`dts_bug_types.md`](./dts_bug_types.md) (that file is now the dete
 | `DTS2026083116823` | [OH-2026-DSOFTBUS-002](../content/issues/OH-2026-DSOFTBUS-002.md) | Input Validation — Improper Checks | MEDIUM | `communication_dsoftbus` |
 | `DTS2026090525146` | [OH-2026-NET-012](../content/issues/OH-2026-NET-012.md) | Security — Information Leakage | MEDIUM | `communication_netmanager_base` |
 | `DTS2026091437628` | [OH-2026-NET-013](../content/issues/OH-2026-NET-013.md) | Logic — Incorrect Control Flow | MEDIUM | `communication_netmanager_base` |
+| `DTS2026092958405` | [OH-2026-ARKUI-018](../content/issues/OH-2026-ARKUI-018.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `arkui_ace_engine` |
 | `DTS2609150153371` | [OH-2026-ARKUI-010](../content/issues/OH-2026-ARKUI-010.md) | Arithmetic — Incorrect Calculation | MEDIUM | `arkui_ace_engine` |
 
 
@@ -970,6 +972,7 @@ Reads/writes past buffer limits; can crash (`SEGV`) or corrupt adjacent state.
 | `DTS2026080810178` | [ARK-2026-BUF-003](../content/issues/ARK-2026-BUF-003.md) | MEDIUM | CWE-125 (Out-of-bounds Read) | `static_core/libarkfile/helpers.h` · `arkcompiler_runtime_core` | Static EnumerateTaggedValues empty span sp[0] OOB |
 | `DTS2026080810367` | [ARK-2026-BUF-004](../content/issues/ARK-2026-BUF-004.md) | MEDIUM | CWE-125 (Out-of-bounds Read) | `static_core/libarkfile/helpers.h` · `arkcompiler_runtime_core` | Static GetOptionalTaggedValue empty span sp[0] OOB |
 | `DTS2026072717921` | [OH-2026-CAM-005](../content/issues/OH-2026-CAM-005.md) | MEDIUM | CWE-125 (Out-of-bounds Read) | `frameworks/native/camera/base/src/output/photo_output.cpp` · `multimedia_camera_framework` | CAPTURE_MIRROR_SUPPORTED pair walk OOB on odd item.count |
+| `DTS2026092958405` | [OH-2026-ARKUI-018](../content/issues/OH-2026-ARKUI-018.md) | MEDIUM | CWE-125 (Out-of-bounds Read) | `frameworks/core/components_ng/pattern/text/span/span_string.cpp` · `arkui_ace_engine` | SpanString::DecodeTlvExt custom-marshall range end over-reads ExtSpan user data (iterator UB / crash) |
 | `DTS2026072514260` | [OH-2026-ABILITY-003](../content/issues/OH-2026-ABILITY-003.md) | MEDIUM | CWE-125 (Out-of-bounds Read) | `services/abilitymgr/src/dialog_session/dialog_session_info.cpp` · `ability_ability_runtime` | ParseURI catch indexes uriVec past the end after last-field stoi failure |
 | `DTS2026081136698` | [OH-2026-NET-006](../content/issues/OH-2026-NET-006.md) | MEDIUM | CWE-125 (Out-of-bounds Read) | `services/netmanagernative/bpf/include/bitmap_manager.h` · `communication_netmanager_base` | Ip6RuleMap::GetNetworkAddress OOB on prefixLen > 128 |
 | `DTS2026081135903` | [OH-2026-NET-007](../content/issues/OH-2026-NET-007.md) | MEDIUM | CWE-125 (Out-of-bounds Read) | `services/netconnmanager/src/pac_functions.cpp` · `communication_netmanager_base` | CheckIpv6InNet missing prefix bounds — match-all on negative / OOB on /129+ |
@@ -1254,7 +1257,7 @@ Masking/redaction fails; secrets or addresses reach logs.
 | CWE | Name | Count |
 |-----|------|------:|
 | CWE-682 | Incorrect Calculation | 15 |
-| CWE-125 | Out-of-bounds Read | 11 |
+| CWE-125 | Out-of-bounds Read | 12 |
 | CWE-190 | Integer Overflow or Wraparound | 7 |
 | CWE-670 | Always-Incorrect Control Flow Implementation | 5 |
 | CWE-191 | Integer Underflow (Wrap or Wraparound) | 5 |
