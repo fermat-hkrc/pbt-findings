@@ -3,11 +3,11 @@
 对 [`content/issues/`](../content/issues/) 中带有 **DTS** 工单号（`internal_issue_id`）的发现所做的归类，按检出该工单的 **pi-pbt 性质（预言机）** 分组。CWE / 失效模式分组归档在 [`finding_precision_by_project.md`](finding_precision_by_project.md) 文末。
 
 - **已确认并修复（FIXED）**：**123** — `CONFIRMED_FIXED` 报告如下
-- **已确认（待修复）**：**6** — `CONFIRMED_REAL`（OH-2026-ARKUI-010、012、014–015、017–018）
-- **非问题（NON-ISSUE）**：**24** — [目录](#非问题)
-- **已判定**：**153** = 123 + 6 + 24
-- **精确率**：**84.3%** = `(123 + 6) / (123 + 6 + 24)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
-- **严重级别**（已修复 + 已确认）：HIGH=28，MEDIUM=98，LOW=3
+- **已确认（待修复）**：**5** — `CONFIRMED_REAL`（OH-2026-ARKUI-010、012、014、017–018）
+- **非问题（NON-ISSUE）**：**25** — [目录](#非问题)
+- **已判定**：**153** = 123 + 5 + 25
+- **精确率**：**83.7%** = `(123 + 5) / (123 + 5 + 25)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
+- **严重级别**（已修复 + 已确认）：HIGH=28，MEDIUM=97，LOW=3
 - **生成时间**：2026-09-24
 
 ## 概览
@@ -20,12 +20,12 @@
 | [状态机](#状态机) | 3 | 2 | 0 | 1 |
 | [差分](#差分) | 36 | 3 | 32 | 1 |
 | [代数 — 往返](#代数--往返) | 7 | 3 | 4 | 0 |
-| [代数 — 蜕变](#代数--蜕变) | 6 | 1 | 5 | 0 |
+| [代数 — 蜕变](#代数--蜕变) | 5 | 1 | 4 | 0 |
 | [代数 — 不变量](#代数--不变量) | 46 | 10 | 35 | 1 |
 | [否定 / 错误契约](#否定--错误契约) | 11 | 2 | 9 | 0 |
 | [参考](#参考) | 5 | 1 | 4 | 0 |
 | [仅崩溃](#仅崩溃) | 15 | 6 | 9 | 0 |
-| **合计** | **129** | **28** | **98** | **3** |
+| **合计** | **128** | **28** | **97** | **3** |
 
 强度顺序：状态机 ≻ 差分 ≻ 代数（往返 ≻ 幂等 ≻ 蜕变 ≻ 不变量 ≻ 否定/错误）≻ 参考 ≻ 仅崩溃。本集合中**幂等：0**。
 
@@ -39,7 +39,7 @@
 | `multimedia_image_framework` | 10 | 0 | 1 | 9 | 0 | 100% |
 | `communication_netmanager_base` | 13 | 2 | 3 | 10 | 0 | 87% |
 | `graphic_graphic_2d` | 10 | 0 | 3 | 6 | 1 | 100% |
-| `arkui_ace_engine` | 20 | 6 | 8 | 12 | 0 | 77% |
+| `arkui_ace_engine` | 19 | 7 | 8 | 11 | 0 | 73% |
 | `ability_ability_runtime` | 7 | 0 | 0 | 7 | 0 | 100% |
 | `arkcompiler_runtime_core` | 11 | 1 | 1 | 10 | 0 | 92% |
 | `multimedia_av_codec` | 6 | 0 | 0 | 5 | 1 | 100% |
@@ -62,7 +62,7 @@
 | `arkui_napi` | 3 | 0 | 0 | 3 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **合计** | **129** | **24** | **28** | **98** | **3** | **84%** |
+| **合计** | **128** | **25** | **28** | **97** | **3** | **84%** |
 
 ## DTS 索引
 
@@ -187,7 +187,6 @@
 | `DTS2026090920220` | [OH-2026-ARKUI-014](../content/issues/OH-2026-ARKUI-014.md) | 差分 | HIGH | `arkui_ace_engine` |
 | `DTS2026090922585` | [OH-2026-ARKUI-011](../content/issues/OH-2026-ARKUI-011.md) | 代数 — 不变量 | MEDIUM | `arkui_ace_engine` |
 | `DTS2026091012206` | [OH-2026-ARKUI-009](../content/issues/OH-2026-ARKUI-009.md) | 状态机 | HIGH | `arkui_ace_engine` |
-| `DTS2026091029544` | [OH-2026-ARKUI-015](../content/issues/OH-2026-ARKUI-015.md) | 代数 — 蜕变 | MEDIUM | `arkui_ace_engine` |
 | `DTS2026091412083` | [OH-2026-ARKUI-016](../content/issues/OH-2026-ARKUI-016.md) | 代数 — 不变量 | HIGH | `arkui_ace_engine` |
 | `DTS2026091425514` | [OH-2026-ARKUI-017](../content/issues/OH-2026-ARKUI-017.md) | 代数 — 不变量 | MEDIUM | `arkui_ace_engine` |
 | `DTS2026091437628` | [OH-2026-NET-013](../content/issues/OH-2026-NET-013.md) | 代数 — 不变量 | MEDIUM | `communication_netmanager_base` |
@@ -286,7 +285,6 @@
 | `DTS2026062430430` | [OH-2026-GFX-001](../content/issues/OH-2026-GFX-001.md) | HIGH | Point3 加法交换律：a+b == b+a |
 | `DTS2026071430826` | [OH-2026-GFX-004](../content/issues/OH-2026-GFX-004.md) | MEDIUM | (p*s).xyz == p.xyz*s；p/=s 与 p/s 一致 |
 | `DTS2026081318473` | [OH-2026-PLAYER-002](../content/issues/OH-2026-PLAYER-002.md) | MEDIUM | 复用器 START/STOP 映射名与编码器族对称 |
-| `DTS2026091029544` | [OH-2026-ARKUI-015](../content/issues/OH-2026-ARKUI-015.md) | MEDIUM | Slerp(from, to, 0) == from（即使 from·to < 0） |
 | `DTS2609150123188` | [OH-2026-ARKUI-020](../content/issues/OH-2026-ARKUI-020.md) | MEDIUM | 覆盖 totalMainSize_ ≡ last.endPos（≡ UpdateTotalMainSize） |
 | `DTS2609150153174` | [OH-2026-ARKUI-012](../content/issues/OH-2026-ARKUI-012.md) | MEDIUM | 反向种子 ≡ 从 0 填格（未满末行） |
 
@@ -407,7 +405,7 @@
 
 维护者驳回的 DTS。只计入分母。
 
-**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(123 + 6) / (123 + 6 + 24) = 84.3%**。
+**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(123 + 5) / (123 + 5 + 25) = 83.7%**。
 
 | DTS | 项目 | 主题 | 为何非问题 |
 |-----|------|------|------------|
@@ -416,6 +414,7 @@
 | `DTS2026071719364` | `multimedia_media_foundation` | CopyAVMemory 缺少 offset+size 守卫 | 不可达 — 产品侧 src offset 恒为 0。 |
 | `DTS2026071725399` | `communication_netmanager_base` | 子进程非零退出时 ForkExec 仍 SUCCESS | 设计如此 — SUCCESS 表示子进程已创建。 |
 | `DTS2026071809266` | `arkui_ace_engine` | GetTotalHeightOfItemsInView 空网格 → `-mainGap` | 稳定公式契约；共享 API 未改。 |
+| `DTS2026091029544` | `arkui_ace_engine` | Quaternion::Slerp t=0 负点积时返回 -from | 与 chromium 移植实现保持一致 — 无产品可见影响；跟随上游 chromium quaternion.cc。 |
 | `DTS2026072522059` | `arkui_ace_engine` | 跨度标记末单元格时 IsAllItemsMeasured 为 false | 调用处不见 `-idx`；不规则布局走 GetIrregularHeight。 |
 | `DTS2026073119063` | `arkui_ace_engine` | GetDistanceToBottom 高度表超出 endMainLineIndex_ 返回 LayoutInfinity | 有意为之 — 不规则末 item 跨行未到底的哨兵；老调用依赖。 |
 | `DTS2026091437627` | `arkui_ace_engine` | UpdatePosMap 只改 gap 时 body 增量进 adjustOffset.start | 孤立中游辅助 — 真实路径是可见项测量+滚动补偿保位；非零 start 不是顶部跳动；`start=0` 预期被驳回。 |

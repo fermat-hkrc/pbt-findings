@@ -20,7 +20,7 @@ Companion bug-type catalog: [arkui_ace_engine_dts_bug_types.md](./arkui_ace_engi
 **Sources**
 
 - `~/cloned/arkui_ace_engine/pbt-out/bug_reports/{fixed,confirmed,non-issue}/` and `~/testing/arkui_ace_engine/pbt-out/bug_reports/`
-- [`content/issues/OH-2026-ARKUI-*.md`](../content/issues/) (**20** = 14 fixed + 6 confirmed; plus 1 NON_ISSUE write-up)
+- [`content/issues/OH-2026-ARKUI-*.md`](../content/issues/) (**19** = 14 fixed + 5 confirmed; plus 1 NON_ISSUE write-up)
 - Cross-repo context: [finding_precision_by_project.md](./finding_precision_by_project.md)
 
 - **Generated:** 2026-09-23
@@ -30,14 +30,14 @@ Companion bug-type catalog: [arkui_ace_engine_dts_bug_types.md](./arkui_ace_engi
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
 | FIXED | 14 | 53.8% |
-| CONFIRMED (awaiting fix) | 6 | 23.1% |
-| NON-ISSUE | 6 | 23.1% |
+| CONFIRMED (awaiting fix) | 5 | 19.2% |
+| NON-ISSUE | 7 | 26.9% |
 | **Total decided** | **26** | 100% |
 
-- **Precision:** **(14+6)/26 = 76.9%**
-- **False-positive rate:** **6/26 = 23.1%**
+- **Precision:** **(14+5)/26 = 73.1%**
+- **False-positive rate:** **7/26 = 26.9%**
 
-Compared with the cross-repo decided baseline (**84.3%** precision), arkui_ace_engine is **below** (76.9%).
+Compared with the cross-repo decided baseline (**83.7%** precision), arkui_ace_engine is **below** (73.1%).
 
 ## FIXED DTS
 
@@ -103,7 +103,6 @@ Under `~/cloned/arkui_ace_engine/pbt-out/bug_reports/fixed/`:
 | `DTS2609150153371` | [OH-2026-ARKUI-010](../content/issues/OH-2026-ARKUI-010.md) | MEDIUM | CWE-682 | CalculateStartCachedCount overcounts when the last regular line is partial |
 | `DTS2609150153174` | [OH-2026-ARKUI-012](../content/issues/OH-2026-ARKUI-012.md) | MEDIUM | CWE-670 | Backward GetTargetIndexInfoWithBenchMark starts a new line after a partial last matrix line |
 | `DTS2026090920220` | [OH-2026-ARKUI-014](../content/issues/OH-2026-ARKUI-014.md) | HIGH | CWE-682 | CheckColorAlpha casts unit alpha to uint8_t before scaling to 255 |
-| `DTS2026091029544` | [OH-2026-ARKUI-015](../content/issues/OH-2026-ARKUI-015.md) | MEDIUM | CWE-682 | Quaternion::Slerp at t=0 returns -this when from·to < 0 |
 | `DTS2026091425514` | [OH-2026-ARKUI-017](../content/issues/OH-2026-ARKUI-017.md) | MEDIUM | CWE-670 | GridLayoutInfo::FindEndIdx skips item 0 and falls back to {0,0,0} |
 | `DTS2026092958405` | [OH-2026-ARKUI-018](../content/issues/OH-2026-ARKUI-018.md) | MEDIUM | CWE-125 | SpanString::DecodeTlvExt custom-marshall range end over-reads ExtSpan user data (iterator UB / crash) |
 
@@ -123,8 +122,9 @@ Local reports: `~/cloned/arkui_ace_engine/pbt-out/bug_reports/confirmed/calculat
 | `DTS2026082235533` | FindItemCount overcounts when the range starts on a multi-row continuation | Unreachable under live callers |
 | `DTS2026073119063` | GetDistanceToBottom returns LayoutInfinity when height map extends past endMainLineIndex_ | By-design irregular-span sentinel |
 | `DTS2026091437627` | UpdatePosMap gap-only body delta on adjustOffset.start | Isolated mid-pipeline helper / scroll compensation |
+| `DTS2026091029544` | Quaternion::Slerp at t=0 returns -this when from·to < 0 | Chromium-port consistency (not product-visible) |
 
-**Reports:** `~/cloned/arkui_ace_engine/pbt-out/bug_reports/non-issue/GetTotalHeightOfItemsInView_NegMainGap.md`, `IsAllItemsMeasured_span_marker_false.md`, `fromrgbo_opacity_wrap.md`, `finditemcount_continuation_overcount.md`; `~/testing/arkui_ace_engine/pbt-out/bug_reports/non-issue/GetDistanceToBottom_prefetch_layout_infinity.md`, `update_pos_map_space_unmoved_top_start_adjust.md`
+**Reports:** `~/cloned/arkui_ace_engine/pbt-out/bug_reports/non-issue/GetTotalHeightOfItemsInView_NegMainGap.md`, `IsAllItemsMeasured_span_marker_false.md`, `fromrgbo_opacity_wrap.md`, `finditemcount_continuation_overcount.md`; `~/testing/arkui_ace_engine/pbt-out/bug_reports/non-issue/GetDistanceToBottom_prefetch_layout_infinity.md`, `update_pos_map_space_unmoved_top_start_adjust.md`, `Quaternion_Slerp_t0_flips_from.md`
 
 ### Why closed
 
@@ -139,6 +139,8 @@ Local reports: `~/cloned/arkui_ace_engine/pbt-out/bug_reports/confirmed/calculat
 **`DTS2026073119063`:** `GetDistanceToBottom` third guard (`endMainLineIndex_ < lineHeightMap_.rbegin()->first` → `LayoutInfinity`) is the irregular/custom end sentinel: leftover span rows of the last in-view item still sit below the viewport. Maintainers: 有意为之; old callers (`offsetEnd_`, `IsOutOfEnd(irregular)`, `GetEndOffset`) treat ∞ / large positive as not at end. PBT’s extra-key witness is span remainder, not prefetch dirt (`PreloadItems` runs after `UpdateLayoutInfo`). Dropping the guard would mark a still-extending last item as at end.
 
 **`DTS2026091437627`:** Isolated `UpdatePosMap` after gap-only `SetSpace` puts the body delta on `adjustOffset.start`. PBT read item 0’s unmoved `startPos` as “top must not move ⇒ start==0.” Maintainers: that is scroll **compensation** with visible-item measure — normal logic; the test expected does not hold. Sibling packing fixes (`UpdatePosMapStart` spaceWidth, `SetSpace` window, `UpdatePosMapEnd` partial line) do not make every adjustOffset split a defect.
+
+**`DTS2026091029544`:** Maintainers: (1) `from` / `−from` results do not affect display and the 4-vector is not returned to developers; (2) the code is ported from Chromium's `quaternion.cc` and intentionally kept consistent, following Chromium upgrades. `q`/`−q` rotation equivalence holds (`TZeroSameRotation` passes; sole caller is the internal blend path), so the endpoint flip is not product-visible; divergence from the port source is rejected as policy. The `Slerp(from, to, 0) == from` property remains a faithful Chromium-port oracle — it fails on upstream Chromium too.
 
 **Implication for future filings:** an algebraically odd empty-path return is not enough if it is the long-standing shared contract and callers couple to it. Prefer call-site impact / user-visible symptom before requesting a shared helper change. Also prove the matrix encoding under test is an input the live caller actually produces. Do not demand nearest-end clamp on an internal helper whose owners pin the domain on the caller — canvas already clamping is caller duty, not a missing helper clamp. Same `color.cpp` float→`uint8_t` class as LineColorTransition, but that one was a live decreasing-channel UB (FIXED). Do not feed irregular-filler `-idx` into `FindItemCount` / `IsAllItemsMeasured`. Do not treat extra `lineHeightMap_` keys past `endMainLineIndex_` as prefetch dirt — that is the irregular span-remainder signal. Do not call mid-pipeline `UpdatePosMap` / `adjustOffset` in isolation and treat non-zero `start` as a top jump without the live measure + compensation frame.
 
@@ -166,8 +168,8 @@ Local reports: `~/cloned/arkui_ace_engine/pbt-out/bug_reports/confirmed/calculat
 
 ## Takeaways
 
-1. **14 real bugs fixed** (+ 6 confirmed awaiting fix) across grid layout, lazy grid, media query, SVG alpha, quaternion slerp, matrix storage, color/asin geometry, partial-last-line scroll/cache, and styled-string TLV decoding — strong confirmed yield for one UI engine repo.
-2. **Precision 77%** on decided tickets: six non-issues (stable empty-height formula; `-idx` encoding never seen by `IsAllItemsMeasured` / `FindItemCount`; FromRGBO caller-owned `[0, 1]` clamp; GetDistanceToBottom LayoutInfinity is the irregular last-item span sentinel; UpdatePosMap gap-only adjustOffset is isolated compensation) against fourteen fixes and six confirmed.
+1. **14 real bugs fixed** (+ 5 confirmed awaiting fix) across grid layout, lazy grid, media query, SVG alpha, matrix storage, color/asin geometry, partial-last-line scroll/cache, and styled-string TLV decoding — strong confirmed yield for one UI engine repo.
+2. **Precision 73%** on decided tickets: seven non-issues (stable empty-height formula; `-idx` encoding never seen by `IsAllItemsMeasured` / `FindItemCount`; FromRGBO caller-owned `[0, 1]` clamp; GetDistanceToBottom LayoutInfinity is the irregular last-item span sentinel; UpdatePosMap gap-only adjustOffset is isolated compensation; Quaternion Slerp `−from` at t=0 is chromium-port consistency) against fourteen fixes and five confirmed.
 3. Dominant failure modes: **incorrect calculation**, **wrong control-flow sentinels**, plus **div-by-zero**, **UB cast**, **OOB write / read**, and unguarded **`asin`**.
 4. Non-issue lessons are contract/call-graph sensitivity and production-domain encoding, not flaky reproduction — PBT still witnessed the raw returns as contract properties.
 

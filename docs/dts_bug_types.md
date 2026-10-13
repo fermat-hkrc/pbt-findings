@@ -3,11 +3,11 @@
 Categorization of [`content/issues/`](../content/issues/) findings that carry a **DTS** ticket (`internal_issue_id`), grouped by the **pi-pbt property (oracle)** that found each ticket. CWE / failure-mode grouping is archived at the end of [`finding_precision_by_project.md`](finding_precision_by_project.md).
 
 - **Confirmed (FIXED)**: **123** — `CONFIRMED_FIXED` write-ups below
-- **Confirmed (awaiting fix)**: **6** — `CONFIRMED_REAL` (OH-2026-ARKUI-010, 012, 014–015, 017–018)
-- **Non-issue**: **24** — [catalog](#non-issues)
-- **Decided**: **153** = 123 + 6 + 24
-- **Precision**: **84.3%** = `(123 + 6) / (123 + 6 + 24)` = (fixed + confirmed) / (fixed + confirmed + non-issues)
-- **Severity** (fixed + confirmed): HIGH=28, MEDIUM=98, LOW=3
+- **Confirmed (awaiting fix)**: **5** — `CONFIRMED_REAL` (OH-2026-ARKUI-010, 012, 014, 017–018)
+- **Non-issue**: **25** — [catalog](#non-issues)
+- **Decided**: **153** = 123 + 5 + 25
+- **Precision**: **83.7%** = `(123 + 5) / (123 + 5 + 25)` = (fixed + confirmed) / (fixed + confirmed + non-issues)
+- **Severity** (fixed + confirmed): HIGH=28, MEDIUM=97, LOW=3
 - **Generated**: 2026-09-24
 
 ## Overview
@@ -20,12 +20,12 @@ Oracle taxonomy from [pi-pbt `docs/oracles.md`](https://github.com/fermat-hkrc/p
 | [State Machine](#state-machine) | 3 | 2 | 0 | 1 |
 | [Differential](#differential) | 36 | 3 | 32 | 1 |
 | [Algebraic — Round-trip](#algebraic--round-trip) | 7 | 3 | 4 | 0 |
-| [Algebraic — Metamorphic](#algebraic--metamorphic) | 6 | 1 | 5 | 0 |
+| [Algebraic — Metamorphic](#algebraic--metamorphic) | 5 | 1 | 4 | 0 |
 | [Algebraic — Invariant](#algebraic--invariant) | 46 | 10 | 35 | 1 |
 | [Negative / Error Contract](#negative--error-contract) | 11 | 2 | 9 | 0 |
 | [Reference](#reference) | 5 | 1 | 4 | 0 |
 | [Crash-Only](#crash-only) | 15 | 6 | 9 | 0 |
-| **Total** | **129** | **28** | **98** | **3** |
+| **Total** | **128** | **28** | **97** | **3** |
 
 Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Idempotence ≻ Metamorphic ≻ Invariant ≻ Negative/Error) ≻ Reference ≻ Crash-Only. **Idempotence: 0** in this set.
 
@@ -39,7 +39,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `multimedia_image_framework` | 10 | 0 | 1 | 9 | 0 | 100% |
 | `communication_netmanager_base` | 13 | 2 | 3 | 10 | 0 | 87% |
 | `graphic_graphic_2d` | 10 | 0 | 3 | 6 | 1 | 100% |
-| `arkui_ace_engine` | 20 | 6 | 8 | 12 | 0 | 77% |
+| `arkui_ace_engine` | 19 | 7 | 8 | 11 | 0 | 73% |
 | `ability_ability_runtime` | 7 | 0 | 0 | 7 | 0 | 100% |
 | `arkcompiler_runtime_core` | 11 | 1 | 1 | 10 | 0 | 92% |
 | `multimedia_av_codec` | 6 | 0 | 0 | 5 | 1 | 100% |
@@ -62,7 +62,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `arkui_napi` | 3 | 0 | 0 | 3 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **Total** | **129** | **24** | **28** | **98** | **3** | **84%** |
+| **Total** | **128** | **25** | **28** | **97** | **3** | **84%** |
 
 ## DTS index
 
@@ -187,7 +187,6 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `DTS2026090920220` | [OH-2026-ARKUI-014](../content/issues/OH-2026-ARKUI-014.md) | Differential | HIGH | `arkui_ace_engine` |
 | `DTS2026090922585` | [OH-2026-ARKUI-011](../content/issues/OH-2026-ARKUI-011.md) | Algebraic — Invariant | MEDIUM | `arkui_ace_engine` |
 | `DTS2026091012206` | [OH-2026-ARKUI-009](../content/issues/OH-2026-ARKUI-009.md) | State Machine | HIGH | `arkui_ace_engine` |
-| `DTS2026091029544` | [OH-2026-ARKUI-015](../content/issues/OH-2026-ARKUI-015.md) | Algebraic — Metamorphic | MEDIUM | `arkui_ace_engine` |
 | `DTS2026091412083` | [OH-2026-ARKUI-016](../content/issues/OH-2026-ARKUI-016.md) | Algebraic — Invariant | HIGH | `arkui_ace_engine` |
 | `DTS2026091425514` | [OH-2026-ARKUI-017](../content/issues/OH-2026-ARKUI-017.md) | Algebraic — Invariant | MEDIUM | `arkui_ace_engine` |
 | `DTS2026091437628` | [OH-2026-NET-013](../content/issues/OH-2026-NET-013.md) | Algebraic — Invariant | MEDIUM | `communication_netmanager_base` |
@@ -286,7 +285,6 @@ A source-grounded input transform implies a relation on outputs (`a+b==b+a`, nam
 | `DTS2026062430430` | [OH-2026-GFX-001](../content/issues/OH-2026-GFX-001.md) | HIGH | Point3 addition is commutative: a+b == b+a |
 | `DTS2026071430826` | [OH-2026-GFX-004](../content/issues/OH-2026-GFX-004.md) | MEDIUM | (p*s).xyz == p.xyz*s; p/=s agrees with p/s |
 | `DTS2026081318473` | [OH-2026-PLAYER-002](../content/issues/OH-2026-PLAYER-002.md) | MEDIUM | muxer START/STOP map names match encoder-family symmetry |
-| `DTS2026091029544` | [OH-2026-ARKUI-015](../content/issues/OH-2026-ARKUI-015.md) | MEDIUM | Slerp(from, to, 0) == from (even when from·to < 0) |
 | `DTS2609150123188` | [OH-2026-ARKUI-020](../content/issues/OH-2026-ARKUI-020.md) | MEDIUM | covering totalMainSize_ ≡ last.endPos (≡ UpdateTotalMainSize) |
 | `DTS2609150153174` | [OH-2026-ARKUI-012](../content/issues/OH-2026-ARKUI-012.md) | MEDIUM | backward seed ≡ pack-from-0 (partial last matrix line) |
 
@@ -407,11 +405,12 @@ Authoritative spec / stdlib / IEEE / Unicode / pinning contract that this SUT cl
 
 Maintainer-rejected DTS. Counted in the denominator only.
 
-**Precision** = (fixed + confirmed) / (fixed + confirmed + non-issues) = **(123 + 6) / (123 + 6 + 24) = 84.3%**.
+**Precision** = (fixed + confirmed) / (fixed + confirmed + non-issues) = **(123 + 5) / (123 + 5 + 25) = 83.7%**.
 
 | DTS | Project | Theme | Why non-issue |
 |-----|---------|-------|---------------|
 | `DTS2026070145311` | `multimedia_av_session` | ConvertSessionType drops call types | Product policy — no call-type remote-cast requirement. |
+| `DTS2026091029544` | `arkui_ace_engine` | Quaternion::Slerp t=0 returns -from on negative dot | Chromium-port consistency — not product-visible; follows upstream chromium quaternion.cc. |
 | `DTS2026070663477` | `distributedhardware_device_manager` | JsonObject cJSON int64 round-trip loss | Dead backend — production uses nlohmann_json (`use_nlohmann_json = true`). |
 | `DTS2026071719364` | `multimedia_media_foundation` | CopyAVMemory missing offset+size guard | Unreachable — product src offset is always 0. |
 | `DTS2026071725399` | `communication_netmanager_base` | ForkExec SUCCESS on non-zero child exit | By design — SUCCESS means the child was created. |
