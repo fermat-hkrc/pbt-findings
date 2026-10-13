@@ -5,9 +5,9 @@ Categorization of **confirmed fixed** DTS findings in `arkui_ace_engine`, groupe
 Scoped to this repo only. Companion precision report: [arkui_ace_engine_finding_precision.md](./arkui_ace_engine_finding_precision.md).
 
 - **Repo:** `arkui_ace_engine`
-- **Confirmed fixed (DTS + write-up):** **14** (`CONFIRMED_FIXED`)
-- **Confirmed awaiting fix:** **5** (`CONFIRMED_REAL` — OH-2026-ARKUI-010, 012, 014, 017–018)
-- **Status:** fixed tickets are `CONFIRMED_FIXED`; five tickets are `CONFIRMED_REAL`
+- **Confirmed fixed (DTS + write-up):** **18** (`CONFIRMED_FIXED`)
+- **Confirmed awaiting fix:** **1** (`CONFIRMED_REAL` — OH-2026-ARKUI-018)
+- **Status:** fixed tickets are `CONFIRMED_FIXED`; one ticket is `CONFIRMED_REAL`
 - **Severity** (fixed + confirmed): HIGH=8, MEDIUM=11, LOW=0
 - **Sources:** [`content/issues/OH-2026-ARKUI-*.md`](../content/issues/), `~/cloned/arkui_ace_engine/pbt-out/bug_reports/fixed/`
 - **Generated:** 2026-09-23

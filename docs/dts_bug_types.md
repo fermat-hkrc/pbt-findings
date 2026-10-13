@@ -2,11 +2,11 @@
 
 Categorization of [`content/issues/`](../content/issues/) findings that carry a **DTS** ticket (`internal_issue_id`), grouped by the **pi-pbt property (oracle)** that found each ticket. CWE / failure-mode grouping is archived at the end of [`finding_precision_by_project.md`](finding_precision_by_project.md).
 
-- **Confirmed (FIXED)**: **123** — `CONFIRMED_FIXED` write-ups below
-- **Confirmed (awaiting fix)**: **5** — `CONFIRMED_REAL` (OH-2026-ARKUI-010, 012, 014, 017–018)
+- **Confirmed (FIXED)**: **127** — `CONFIRMED_FIXED` write-ups below
+- **Confirmed (awaiting fix)**: **1** — `CONFIRMED_REAL` (OH-2026-ARKUI-018)
 - **Non-issue**: **25** — [catalog](#non-issues)
-- **Decided**: **153** = 123 + 5 + 25
-- **Precision**: **83.7%** = `(123 + 5) / (123 + 5 + 25)` = (fixed + confirmed) / (fixed + confirmed + non-issues)
+- **Decided**: **153** = 127 + 1 + 25
+- **Precision**: **83.7%** = `(127 + 1) / (127 + 1 + 25)` = (fixed + confirmed) / (fixed + confirmed + non-issues)
 - **Severity** (fixed + confirmed): HIGH=28, MEDIUM=97, LOW=3
 - **Generated**: 2026-09-24
 
@@ -405,7 +405,7 @@ Authoritative spec / stdlib / IEEE / Unicode / pinning contract that this SUT cl
 
 Maintainer-rejected DTS. Counted in the denominator only.
 
-**Precision** = (fixed + confirmed) / (fixed + confirmed + non-issues) = **(123 + 5) / (123 + 5 + 25) = 83.7%**.
+**Precision** = (fixed + confirmed) / (fixed + confirmed + non-issues) = **(127 + 1) / (127 + 1 + 25) = 83.7%**.
 
 | DTS | Project | Theme | Why non-issue |
 |-----|---------|-------|---------------|

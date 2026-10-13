@@ -20,7 +20,7 @@ Companion bug-type catalog: [arkui_ace_engine_dts_bug_types.md](./arkui_ace_engi
 **Sources**
 
 - `~/cloned/arkui_ace_engine/pbt-out/bug_reports/{fixed,confirmed,non-issue}/` and `~/testing/arkui_ace_engine/pbt-out/bug_reports/`
-- [`content/issues/OH-2026-ARKUI-*.md`](../content/issues/) (**19** = 14 fixed + 5 confirmed; plus 1 NON_ISSUE write-up)
+- [`content/issues/OH-2026-ARKUI-*.md`](../content/issues/) (**19** = 18 fixed + 1 confirmed; plus 1 NON_ISSUE write-up)
 - Cross-repo context: [finding_precision_by_project.md](./finding_precision_by_project.md)
 
 - **Generated:** 2026-09-23
@@ -29,12 +29,12 @@ Companion bug-type catalog: [arkui_ace_engine_dts_bug_types.md](./arkui_ace_engi
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 14 | 53.8% |
-| CONFIRMED (awaiting fix) | 5 | 19.2% |
+| FIXED | 18 | 69.2% |
+| CONFIRMED (awaiting fix) | 1 | 3.8% |
 | NON-ISSUE | 7 | 26.9% |
 | **Total decided** | **26** | 100% |
 
-- **Precision:** **(14+5)/26 = 73.1%**
+- **Precision:** **(18+1)/26 = 73.1%**
 - **False-positive rate:** **7/26 = 26.9%**
 
 Compared with the cross-repo decided baseline (**83.7%** precision), arkui_ace_engine is **below** (73.1%).
@@ -52,11 +52,15 @@ Compared with the cross-repo decided baseline (**83.7%** precision), arkui_ace_e
 | `DTS2026072325132` | [OH-2026-ARKUI-007](../content/issues/OH-2026-ARKUI-007.md) | HIGH | CWE-369 | GetIrregularHeight divides by zero → +inf content height when itemRatio == 0 |
 | `DTS2026073116282` | [OH-2026-ARKUI-008](../content/issues/OH-2026-ARKUI-008.md) | MEDIUM | CWE-682 | DataPanel GetPaintPath computes NaN circleAngle via unguarded asin when stroke collapses radius |
 | `DTS2026090919800` | [OH-2026-ARKUI-013](../content/issues/OH-2026-ARKUI-013.md) | HIGH | CWE-670 | MediaQueryer::MatchCondition drops AND-group when it is not the last OR-clause |
+| `DTS2026090920220` | [OH-2026-ARKUI-014](../content/issues/OH-2026-ARKUI-014.md) | HIGH | CWE-682 | CheckColorAlpha casts unit alpha to uint8_t before scaling to 255 |
 | `DTS2026091012206` | [OH-2026-ARKUI-009](../content/issues/OH-2026-ARKUI-009.md) | HIGH | CWE-787 | Matrix3N::SetEntry / MatrixN3::SetEntry missing negative-index guard (OOB write / crash) |
 | `DTS2026090922585` | [OH-2026-ARKUI-011](../content/issues/OH-2026-ARKUI-011.md) | MEDIUM | CWE-682 | BubbleLayoutAlgorithm::GetP2 asin domain break → NaN arrow clip path |
 | `DTS2026091412083` | [OH-2026-ARKUI-016](../content/issues/OH-2026-ARKUI-016.md) | HIGH | CWE-670 | MediaQueryer::MatchCondition never matches min-/max- features with an explicit px unit |
+| `DTS2026091425514` | [OH-2026-ARKUI-017](../content/issues/OH-2026-ARKUI-017.md) | MEDIUM | CWE-670 | GridLayoutInfo::FindEndIdx skips item 0 and falls back to {0,0,0} |
 | `DTS2609150107715` | [OH-2026-ARKUI-019](../content/issues/OH-2026-ARKUI-019.md) | MEDIUM | CWE-193 | LazyGridLayoutInfo::SetSpace places a scrolled window one line too high when lanes > 1 |
 | `DTS2609150123188` | [OH-2026-ARKUI-020](../content/issues/OH-2026-ARKUI-020.md) | MEDIUM | CWE-682 | LazyGridLayoutInfo::UpdatePosMapEnd leaves totalMainSize_ at the previous line end when the last line is partial |
+| `DTS2609150153174` | [OH-2026-ARKUI-012](../content/issues/OH-2026-ARKUI-012.md) | MEDIUM | CWE-670 | Backward GetTargetIndexInfoWithBenchMark starts a new line after a partial last matrix line |
+| `DTS2609150153371` | [OH-2026-ARKUI-010](../content/issues/OH-2026-ARKUI-010.md) | MEDIUM | CWE-682 | CalculateStartCachedCount overcounts when the last regular line is partial |
 
 <details><summary>Summaries</summary>
 
@@ -90,27 +94,27 @@ Under `~/cloned/arkui_ace_engine/pbt-out/bug_reports/fixed/`:
 - `DTS2026072325132` — `fixed/GetIrregularHeight_itemRatio_div_zero_inf.md`
 - `DTS2026073116282` — `fixed/data_panel_circle_angle_asin_nan.md`
 - `DTS2026090919800` — `fixed/MatchCondition_and_or_and_clause_ignored.md`
+- `DTS2026090920220` — `fixed/check_color_alpha_cast_before_scale.md`
 - `DTS2026091012206` — `fixed/Matrix3N_SetEntry_negative_index.md`
 - `DTS2026091412083` — `fixed/MatchCondition_minmax_px_unit_unparsed.md`
+- `DTS2026091425514` — `fixed/FindEndIdx_item_zero_position.md`
 - `DTS2026090922585` — `fixed/getp2_asin_nan_tiny_arrow.md`
 - `DTS2609150107715` — `fixed/set_space_scrolled_window_off_by_one_line.md`
 - `DTS2609150123188` — `fixed/update_pos_map_end_partial_last_line_total.md`
+- `DTS2609150153174` — `fixed/get_target_index_info_backward_partial_last_line.md`
+- `DTS2609150153371` — `fixed/calculate_start_cached_count_partial_last_line.md`
 
 ## CONFIRMED DTS (awaiting fix)
 
 | DTS | Issue ID | Severity | CWE | Title |
 |-----|----------|----------|-----|-------|
-| `DTS2609150153371` | [OH-2026-ARKUI-010](../content/issues/OH-2026-ARKUI-010.md) | MEDIUM | CWE-682 | CalculateStartCachedCount overcounts when the last regular line is partial |
-| `DTS2609150153174` | [OH-2026-ARKUI-012](../content/issues/OH-2026-ARKUI-012.md) | MEDIUM | CWE-670 | Backward GetTargetIndexInfoWithBenchMark starts a new line after a partial last matrix line |
-| `DTS2026090920220` | [OH-2026-ARKUI-014](../content/issues/OH-2026-ARKUI-014.md) | HIGH | CWE-682 | CheckColorAlpha casts unit alpha to uint8_t before scaling to 255 |
-| `DTS2026091425514` | [OH-2026-ARKUI-017](../content/issues/OH-2026-ARKUI-017.md) | MEDIUM | CWE-670 | GridLayoutInfo::FindEndIdx skips item 0 and falls back to {0,0,0} |
 | `DTS2026092958405` | [OH-2026-ARKUI-018](../content/issues/OH-2026-ARKUI-018.md) | MEDIUM | CWE-125 | SpanString::DecodeTlvExt custom-marshall range end over-reads ExtSpan user data (iterator UB / crash) |
 
-- **OH-2026-ARKUI-010** (`DTS2609150153371`): `CalculateStartCachedCountByIrregular` returns `budget * crossCount` when `diff >= budget * C`, ignoring a partial last regular line. Full-line model wants `rem + (budget-1)*C`. Extra preload above the viewport; confirmed, not fixed yet.
-- **OH-2026-ARKUI-012** (`DTS2609150153174`): Backward `GetTargetIndexInfoWithBenchMark` always seeds `lastLine+1` / `lastItem+1`. A leftover last matrix line still owns `lastItem+1`; `scrollToIndex` starts one main line too far down. Confirmed, not fixed yet.
+- **OH-2026-ARKUI-010** (`DTS2609150153371`): `CalculateStartCachedCountByIrregular` returns `budget * crossCount` when `diff >= budget * C`, ignoring a partial last regular line. Full-line model wants `rem + (budget-1)*C`. Extra preload above the viewport; fixed upstream in `354381fc6d7` (moved to FIXED).
+- **OH-2026-ARKUI-012** (`DTS2609150153174`): Backward `GetTargetIndexInfoWithBenchMark` always seeds `lastLine+1` / `lastItem+1`. A leftover last matrix line still owns `lastItem+1`; `scrollToIndex` starts one main line too far down. Fixed upstream in `9a981bf125c` (moved to FIXED).
 - **OH-2026-ARKUI-018** (`DTS2026092958405`): `DecodeTlvExt` computes the custom-marshall user-data end as `buffLength + cursor + cursor - lastCursor` (`lastCursor + buffLength + 16`) — the `std::vector` range ctor reads 16 bytes past the section end; past `buff.end()` (iterator UB / crash) when the custom section is last. Confirmed, not fixed yet.
 
-Local reports: `~/cloned/arkui_ace_engine/pbt-out/bug_reports/confirmed/calculate_start_cached_count_partial_last_line.md`, `get_target_index_info_backward_partial_last_line.md`
+Local reports: `~/testing/arkui_ace_engine/pbt-out/bug_reports/fixed/` (ARKUI-010 / ARKUI-012 moved from `confirmed/`); no local report for `DTS2026092958405`
 
 ## NON-ISSUE DTS
 
@@ -148,7 +152,7 @@ Local reports: `~/cloned/arkui_ace_engine/pbt-out/bug_reports/confirmed/calculat
 
 | Component | Count |
 |-----------|------:|
-| `frameworks/core/components_ng/pattern/grid/grid_layout_info.cpp` | 3 |
+| `frameworks/core/components_ng/pattern/grid/grid_layout_info.cpp` | 4 |
 | `frameworks/base/geometry/matrix4.cpp` | 1 |
 | `frameworks/base/geometry/matrix3.cpp` | 1 |
 | `frameworks/core/components/common/properties/color.cpp` | 1 |
@@ -156,20 +160,22 @@ Local reports: `~/cloned/arkui_ace_engine/pbt-out/bug_reports/confirmed/calculat
 | `frameworks/core/components_ng/pattern/bubble/bubble_layout_algorithm.cpp` | 1 |
 | `frameworks/core/components_ng/pattern/grid/grid_item_drag_manager.cpp` | 1 |
 | `frameworks/bridge/common/media_query/media_queryer.cpp` | 2 |
+| `frameworks/core/components_ng/svg/parse/svg_attributes_parser.cpp` | 1 |
+| `frameworks/core/components_ng/pattern/grid/grid_scroll/grid_scroll_with_options_layout_algorithm.cpp` | 2 |
 | `frameworks/core/components_ng/pattern/lazy_grid_layout/lazy_grid_layout_info.cpp` | 3 |
 
 ## Severity mix (FIXED only)
 
 | Severity | Count |
 |----------|------:|
-| HIGH | 7 |
-| MEDIUM | 7 |
+| HIGH | 8 |
+| MEDIUM | 10 |
 | LOW | 0 |
 
 ## Takeaways
 
-1. **14 real bugs fixed** (+ 5 confirmed awaiting fix) across grid layout, lazy grid, media query, SVG alpha, matrix storage, color/asin geometry, partial-last-line scroll/cache, and styled-string TLV decoding — strong confirmed yield for one UI engine repo.
-2. **Precision 73%** on decided tickets: seven non-issues (stable empty-height formula; `-idx` encoding never seen by `IsAllItemsMeasured` / `FindItemCount`; FromRGBO caller-owned `[0, 1]` clamp; GetDistanceToBottom LayoutInfinity is the irregular last-item span sentinel; UpdatePosMap gap-only adjustOffset is isolated compensation; Quaternion Slerp `−from` at t=0 is chromium-port consistency) against fourteen fixes and five confirmed.
+1. **18 real bugs fixed** (+ 1 confirmed awaiting fix) across grid layout, lazy grid, media query, SVG alpha, matrix storage, color/asin geometry, partial-last-line scroll/cache, and styled-string TLV decoding — strong confirmed yield for one UI engine repo.
+2. **Precision 73%** on decided tickets: seven non-issues (stable empty-height formula; `-idx` encoding never seen by `IsAllItemsMeasured` / `FindItemCount`; FromRGBO caller-owned `[0, 1]` clamp; GetDistanceToBottom LayoutInfinity is the irregular last-item span sentinel; UpdatePosMap gap-only adjustOffset is isolated compensation; Quaternion Slerp `−from` at t=0 is chromium-port consistency) against eighteen fixes and one confirmed.
 3. Dominant failure modes: **incorrect calculation**, **wrong control-flow sentinels**, plus **div-by-zero**, **UB cast**, **OOB write / read**, and unguarded **`asin`**.
 4. Non-issue lessons are contract/call-graph sensitivity and production-domain encoding, not flaky reproduction — PBT still witnessed the raw returns as contract properties.
 
