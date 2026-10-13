@@ -2,7 +2,7 @@
 
 How often PBT-filed **DTS** tickets were accepted as real bugs versus closed as non-issues, broken down by project.
 
-- **Precision:** **84.3%** ((122 FIXED + 7 CONFIRMED) / 153 decided)
+- **Precision:** **84.3%** ((123 FIXED + 6 CONFIRMED) / 153 decided)
 - **False-positive rate:** **15.7%** (24 NON-ISSUE)
 
 Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS tickets are omitted — their outcome (bug vs non-issue) is not yet known.
@@ -22,7 +22,7 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 **Sources**
 
 - DTS inventory: [`dts_bug_types.md`](./dts_bug_types.md) + [`content/issues/`](../content/issues/)
-- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**129** = 122 `CONFIRMED_FIXED` + 7 `CONFIRMED_REAL`)
+- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**129** = 123 `CONFIRMED_FIXED` + 6 `CONFIRMED_REAL`)
 - Non-issue write-ups: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (**24** DTS-stamped)
 
 - **Generated:** 2026-09-24
@@ -31,12 +31,12 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 122 | 79.7% |
-| CONFIRMED (awaiting fix) | 7 | 4.6% |
+| FIXED | 123 | 80.4% |
+| CONFIRMED (awaiting fix) | 6 | 3.9% |
 | NON-ISSUE | 24 | 15.7% |
 | **Total decided** | **153** | 100% |
 
-- **Precision:** **(122+7)/153 = 84.3%** — about five in six closed tickets were real bugs.
+- **Precision:** **(123+6)/153 = 84.3%** — about five in six closed tickets were real bugs.
 - **False-positive rate:** **24/153 = 15.7%**.
 
 > Precision means *maintainer-accepted defect rate among dispositioned DTS* (fixed **or** confirmed-unfixed), not static-analysis alert rate. Open/submitted tickets are out of scope until closed.
@@ -50,7 +50,7 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`multimedia_camera_framework`](#multimedia-camera-framework) | 15 | 0 | 0 | 15 | 100% |
 | [`communication_netmanager_base`](#communication-netmanager-base) | 13 | 0 | 2 | 15 | 87% |
 | [`graphic_graphic_2d`](#graphic-graphic-2d) | 10 | 0 | 0 | 10 | 100% |
-| [`arkui_ace_engine`](#arkui-ace-engine) | 13 | 7 | 6 | 26 | 77% |
+| [`arkui_ace_engine`](#arkui-ace-engine) | 14 | 6 | 6 | 26 | 77% |
 | [`multimedia_image_framework`](#multimedia-image-framework) | 10 | 0 | 0 | 10 | 100% |
 | [`arkcompiler_runtime_core`](#arkcompiler-runtime-core) | 11 | 0 | 1 | 12 | 92% |
 | [`ability_ability_runtime`](#ability-ability-runtime) | 7 | 0 | 0 | 7 | 100% |
@@ -74,7 +74,7 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`telephony_core_service`](#telephony-core-service) | 1 | 0 | 0 | 1 | 100% |
 | [`multimedia_audio_framework`](#multimedia-audio-framework) | 1 | 0 | 1 | 2 | 50% |
 | [`multimodalinput_input`](#multimodalinput-input) | 0 | 0 | 2 | 2 | 0% |
-| **Total** | **122** | **7** | **24** | **153** | **84%** |
+| **Total** | **123** | **6** | **24** | **153** | **84%** |
 
 ## Precision tiers
 
@@ -88,7 +88,7 @@ These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 
 | Project | FIXED | NON-ISSUE | Precision | What non-issues teach |
 |---------|------:|----------:|----------:|----------------------|
-| `arkui_ace_engine` | 13 fixed + 7 confirmed | 6 | 77% | Empty-grid `-mainGap` is stable formula; IsAllItemsMeasured / FindItemCount `-idx` is irregular-only encoding never seen by those helpers; FromRGBO out-of-range wrap is caller-owned clamp on an internal packer; GetDistanceToBottom LayoutInfinity is the irregular last-item span sentinel; UpdatePosMap gap-only adjustOffset.start is isolated mid-pipeline compensation (not top jump); real layout/math/OOB/asin bugs still fixed/confirmed. |
+| `arkui_ace_engine` | 14 fixed + 6 confirmed | 6 | 77% | Empty-grid `-mainGap` is stable formula; IsAllItemsMeasured / FindItemCount `-idx` is irregular-only encoding never seen by those helpers; FromRGBO out-of-range wrap is caller-owned clamp on an internal packer; GetDistanceToBottom LayoutInfinity is the irregular last-item span sentinel; UpdatePosMap gap-only adjustOffset.start is isolated mid-pipeline compensation (not top jump); real layout/math/OOB/asin bugs still fixed/confirmed. |
 | `arkcompiler_runtime_core` | 11 | 1 | 92% | SkipULeb128 empty/truncated is by-design (void helper, no error channel); real buffer/loop bugs still fixed. |
 | `communication_netmanager_base` | 13 | 2 | 87% | Helper semantics (ForkExec) and API role split (zoned IPv6) ≠ bugs; firewall/IP/mask defects accepted. |
 | `distributedhardware_device_manager` | 2 | 2 | 50% | cJSON int64 round-trip and ConvertStrToInt are dead/unshipped; PIN/rand bugs still fixed. |
@@ -177,8 +177,8 @@ High-confidence project: **10** accepted fixes and **no** rejected DTS.
 
 | Metric | Value |
 |--------|------:|
-| FIXED | 13 |
-| CONFIRMED (awaiting fix) | 7 |
+| FIXED | 14 |
+| CONFIRMED (awaiting fix) | 6 |
 | NON-ISSUE | 6 |
 | Decided | 26 |
 | Precision | 76.9% |
@@ -196,6 +196,7 @@ High-confidence project: **10** accepted fixes and **no** rejected DTS.
 - `DTS2026091012206` — [OH-2026-ARKUI-009](../content/issues/OH-2026-ARKUI-009.md): Matrix3N::SetEntry / MatrixN3::SetEntry missing negative-index guard (OOB write / crash)
 - `DTS2026090922585` — [OH-2026-ARKUI-011](../content/issues/OH-2026-ARKUI-011.md): BubbleLayoutAlgorithm::GetP2 asin domain break → NaN arrow clip path
 - `DTS2026090919800` — [OH-2026-ARKUI-013](../content/issues/OH-2026-ARKUI-013.md): MediaQueryer::MatchCondition drops AND-group when it is not the last OR-clause
+- `DTS2026091412083` — [OH-2026-ARKUI-016](../content/issues/OH-2026-ARKUI-016.md): MediaQueryer::MatchCondition never matches min-/max- features with an explicit px unit
 - `DTS2609150107715` — [OH-2026-ARKUI-019](../content/issues/OH-2026-ARKUI-019.md): LazyGridLayoutInfo::SetSpace places a scrolled window one line too high when lanes > 1
 - `DTS2609150123188` — [OH-2026-ARKUI-020](../content/issues/OH-2026-ARKUI-020.md): LazyGridLayoutInfo::UpdatePosMapEnd leaves totalMainSize_ at the previous line end when the last line is partial
 
@@ -205,7 +206,6 @@ High-confidence project: **10** accepted fixes and **no** rejected DTS.
 - `DTS2609150153174` — [OH-2026-ARKUI-012](../content/issues/OH-2026-ARKUI-012.md): Backward GetTargetIndexInfoWithBenchMark starts a new line after a partial last matrix line
 - `DTS2026090920220` — [OH-2026-ARKUI-014](../content/issues/OH-2026-ARKUI-014.md): CheckColorAlpha casts unit alpha to uint8_t before scaling to 255
 - `DTS2026091029544` — [OH-2026-ARKUI-015](../content/issues/OH-2026-ARKUI-015.md): Quaternion::Slerp at t=0 returns -this when from·to < 0
-- `DTS2026091412083` — [OH-2026-ARKUI-016](../content/issues/OH-2026-ARKUI-016.md): MediaQueryer::MatchCondition never matches min-/max- features with an explicit px unit
 - `DTS2026091425514` — [OH-2026-ARKUI-017](../content/issues/OH-2026-ARKUI-017.md): GridLayoutInfo::FindEndIdx skips item 0 and falls back to {0,0,0}
 - `DTS2026092958405` — [OH-2026-ARKUI-018](../content/issues/OH-2026-ARKUI-018.md): SpanString::DecodeTlvExt custom-marshall range end over-reads ExtSpan user data
 
@@ -218,7 +218,7 @@ High-confidence project: **10** accepted fixes and **no** rejected DTS.
 - `DTS2026073119063` — GetDistanceToBottom → LayoutInfinity when map extends past endMainLineIndex_. *Irregular last-item leftover rows; ∞ is the intentional not-at-end sentinel; old callers depend on it.*
 - `DTS2026091437627` — UpdatePosMap gap-only body delta on adjustOffset.start. *Isolated helper; live path is measure + scroll compensation; `start=0` oracle rejected.*
 
-Mixed outcomes: maintainers accepted **20** (13 fixed + 7 confirmed) and rejected **6**. Net precision **77%**.
+Mixed outcomes: maintainers accepted **20** (14 fixed + 6 confirmed) and rejected **6**. Net precision **77%**.
 
 ### `communication_netmanager_base`
 
@@ -687,14 +687,14 @@ No FIXED DTS yet among dispositioned tickets.
 
 ## Relation to `content/issues/` write-ups
 
-This repo’s [`content/issues/`](../content/issues/) currently carries **129** DTS-linked reports (**122** `CONFIRMED_FIXED` + **7** `CONFIRMED_REAL`).
+This repo’s [`content/issues/`](../content/issues/) currently carries **129** DTS-linked reports (**123** `CONFIRMED_FIXED` + **6** `CONFIRMED_REAL`).
 `CONFIRMED_FIXED` is the **FIXED** count; `CONFIRMED_REAL` is **CONFIRMED** (awaiting fix). Non-issues come from `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/`.
 
 | Population | Count | Role |
 |------------|------:|------|
 | Decided DTS (FIXED + CONFIRMED + NON-ISSUE) | 151 | Ground truth for precision |
-| FIXED | 122 | Maintainer-accepted and fixed |
-| CONFIRMED | 7 | Maintainer-accepted, not fixed yet |
+| FIXED | 123 | Maintainer-accepted and fixed |
+| CONFIRMED | 6 | Maintainer-accepted, not fixed yet |
 | NON-ISSUE | 22 | Maintainer-rejected (cloned + testing inventory) |
 | Write-ups in `content/issues` with DTS | 129 | Published confirmed bugs (fixed or awaiting fix) |
 
