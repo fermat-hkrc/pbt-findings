@@ -20,7 +20,7 @@ Companion bug-type catalog: [arkui_ace_engine_dts_bug_types.md](./arkui_ace_engi
 **Sources**
 
 - `~/cloned/arkui_ace_engine/pbt-out/bug_reports/{fixed,confirmed,non-issue}/` and `~/testing/arkui_ace_engine/pbt-out/bug_reports/`
-- [`content/issues/OH-2026-ARKUI-*.md`](../content/issues/) (**20** = 12 fixed + 8 confirmed; plus 1 NON_ISSUE write-up)
+- [`content/issues/OH-2026-ARKUI-*.md`](../content/issues/) (**20** = 13 fixed + 7 confirmed; plus 1 NON_ISSUE write-up)
 - Cross-repo context: [finding_precision_by_project.md](./finding_precision_by_project.md)
 
 - **Generated:** 2026-09-23
@@ -29,12 +29,12 @@ Companion bug-type catalog: [arkui_ace_engine_dts_bug_types.md](./arkui_ace_engi
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 12 | 46.2% |
-| CONFIRMED (awaiting fix) | 8 | 30.8% |
+| FIXED | 13 | 50.0% |
+| CONFIRMED (awaiting fix) | 7 | 26.9% |
 | NON-ISSUE | 6 | 23.1% |
 | **Total decided** | **26** | 100% |
 
-- **Precision:** **(12+8)/26 = 76.9%**
+- **Precision:** **(13+7)/26 = 76.9%**
 - **False-positive rate:** **6/26 = 23.1%**
 
 Compared with the cross-repo decided baseline (**84.3%** precision), arkui_ace_engine is **below** (76.9%).
@@ -51,6 +51,7 @@ Compared with the cross-repo decided baseline (**84.3%** precision), arkui_ace_e
 | `DTS2026070856858` | [OH-2026-ARKUI-006](../content/issues/OH-2026-ARKUI-006.md) | MEDIUM | CWE-758 | Color::LineColorTransition UB cast on decreasing channel (legacy DataPanel gradient) |
 | `DTS2026072325132` | [OH-2026-ARKUI-007](../content/issues/OH-2026-ARKUI-007.md) | HIGH | CWE-369 | GetIrregularHeight divides by zero → +inf content height when itemRatio == 0 |
 | `DTS2026073116282` | [OH-2026-ARKUI-008](../content/issues/OH-2026-ARKUI-008.md) | MEDIUM | CWE-682 | DataPanel GetPaintPath computes NaN circleAngle via unguarded asin when stroke collapses radius |
+| `DTS2026090919800` | [OH-2026-ARKUI-013](../content/issues/OH-2026-ARKUI-013.md) | HIGH | CWE-670 | MediaQueryer::MatchCondition drops AND-group when it is not the last OR-clause |
 | `DTS2026091012206` | [OH-2026-ARKUI-009](../content/issues/OH-2026-ARKUI-009.md) | HIGH | CWE-787 | Matrix3N::SetEntry / MatrixN3::SetEntry missing negative-index guard (OOB write / crash) |
 | `DTS2026090922585` | [OH-2026-ARKUI-011](../content/issues/OH-2026-ARKUI-011.md) | MEDIUM | CWE-682 | BubbleLayoutAlgorithm::GetP2 asin domain break → NaN arrow clip path |
 | `DTS2609150107715` | [OH-2026-ARKUI-019](../content/issues/OH-2026-ARKUI-019.md) | MEDIUM | CWE-193 | LazyGridLayoutInfo::SetSpace places a scrolled window one line too high when lanes > 1 |
@@ -68,6 +69,7 @@ Compared with the cross-repo decided baseline (**84.3%** precision), arkui_ace_e
 - **OH-2026-ARKUI-008** (`DTS2026073116282`): `DataPanelModifier::GetPaintPath()` computes circle-cap angle as unguarded `asin(thickness*0.5/(radius-thickness*0.5))`. Stroke at or above half the min side drives `radius <= 0` → NaN `circleAngle`.
 - **OH-2026-ARKUI-009** (`DTS2026091012206`): `Matrix3N::SetEntry` / `MatrixN3::SetEntry` reject only `row/col >= bound`. Negative `int32_t` becomes a huge `size_t` subscript → SIGSEGV / heap abort. Same-file `Matrix3` and 4×N / N×4 siblings already reject negatives.
 - **OH-2026-ARKUI-011** (`DTS2026090922585`): `GetP2` calls `asin(r/side)` with no `|r| < |side|` guard. JS-legal tiny arrows (`1×1` vs production `r=2`) yield NaN P2 / clip path. Same class as DataPanel `DTS2026073116282`.
+- **OH-2026-ARKUI-013** (`DTS2026090919800`): `DoMatchCondition` returns early only for the **last** OR-clause's AND-group; a true mid-clause `(A)and(B)` is silently dropped. Fixed upstream in `de7a973a118` (`if (result) return !inverse;`).
 - **OH-2026-ARKUI-019** (`DTS2609150107715`): `SetSpace` seeds `prevIndex=-1` / `prevPos=0`; `LanesFloor(-1)` undercounts one line when `lanes>1`.
 - **OH-2026-ARKUI-020** (`DTS2609150123188`): covering `totalMainSize_` uses the line-packing cursor, so a partial last line leaves the scroll range one line short.
 
@@ -85,6 +87,7 @@ Under `~/cloned/arkui_ace_engine/pbt-out/bug_reports/fixed/`:
 - `DTS2026070856858` — `fixed/line_color_transition_no_clamp.md`
 - `DTS2026072325132` — `fixed/GetIrregularHeight_itemRatio_div_zero_inf.md`
 - `DTS2026073116282` — `fixed/data_panel_circle_angle_asin_nan.md`
+- `DTS2026090919800` — `fixed/MatchCondition_and_or_and_clause_ignored.md`
 - `DTS2026091012206` — `fixed/Matrix3N_SetEntry_negative_index.md`
 - `DTS2026090922585` — `fixed/getp2_asin_nan_tiny_arrow.md`
 - `DTS2609150107715` — `fixed/set_space_scrolled_window_off_by_one_line.md`
@@ -96,7 +99,6 @@ Under `~/cloned/arkui_ace_engine/pbt-out/bug_reports/fixed/`:
 |-----|----------|----------|-----|-------|
 | `DTS2609150153371` | [OH-2026-ARKUI-010](../content/issues/OH-2026-ARKUI-010.md) | MEDIUM | CWE-682 | CalculateStartCachedCount overcounts when the last regular line is partial |
 | `DTS2609150153174` | [OH-2026-ARKUI-012](../content/issues/OH-2026-ARKUI-012.md) | MEDIUM | CWE-670 | Backward GetTargetIndexInfoWithBenchMark starts a new line after a partial last matrix line |
-| `DTS2026090919800` | [OH-2026-ARKUI-013](../content/issues/OH-2026-ARKUI-013.md) | HIGH | CWE-670 | MediaQueryer::MatchCondition drops AND-group when it is not the last OR-clause |
 | `DTS2026090920220` | [OH-2026-ARKUI-014](../content/issues/OH-2026-ARKUI-014.md) | HIGH | CWE-682 | CheckColorAlpha casts unit alpha to uint8_t before scaling to 255 |
 | `DTS2026091029544` | [OH-2026-ARKUI-015](../content/issues/OH-2026-ARKUI-015.md) | MEDIUM | CWE-682 | Quaternion::Slerp at t=0 returns -this when from·to < 0 |
 | `DTS2026091412083` | [OH-2026-ARKUI-016](../content/issues/OH-2026-ARKUI-016.md) | HIGH | CWE-670 | MediaQueryer::MatchCondition never matches min-/max- features with an explicit px unit |
@@ -149,20 +151,21 @@ Local reports: `~/cloned/arkui_ace_engine/pbt-out/bug_reports/confirmed/calculat
 | `frameworks/core/components_ng/pattern/data_panel/data_panel_modifier.cpp` | 1 |
 | `frameworks/core/components_ng/pattern/bubble/bubble_layout_algorithm.cpp` | 1 |
 | `frameworks/core/components_ng/pattern/grid/grid_item_drag_manager.cpp` | 1 |
+| `frameworks/bridge/common/media_query/media_queryer.cpp` | 1 |
 | `frameworks/core/components_ng/pattern/lazy_grid_layout/lazy_grid_layout_info.cpp` | 3 |
 
 ## Severity mix (FIXED only)
 
 | Severity | Count |
 |----------|------:|
-| HIGH | 5 |
+| HIGH | 6 |
 | MEDIUM | 7 |
 | LOW | 0 |
 
 ## Takeaways
 
-1. **12 real bugs fixed** (+ 8 confirmed awaiting fix) across grid layout, lazy grid, media query, SVG alpha, quaternion slerp, matrix storage, color/asin geometry, partial-last-line scroll/cache, and styled-string TLV decoding — strong confirmed yield for one UI engine repo.
-2. **Precision 77%** on decided tickets: six non-issues (stable empty-height formula; `-idx` encoding never seen by `IsAllItemsMeasured` / `FindItemCount`; FromRGBO caller-owned `[0, 1]` clamp; GetDistanceToBottom LayoutInfinity is the irregular last-item span sentinel; UpdatePosMap gap-only adjustOffset is isolated compensation) against twelve fixes and eight confirmed.
+1. **13 real bugs fixed** (+ 7 confirmed awaiting fix) across grid layout, lazy grid, media query, SVG alpha, quaternion slerp, matrix storage, color/asin geometry, partial-last-line scroll/cache, and styled-string TLV decoding — strong confirmed yield for one UI engine repo.
+2. **Precision 77%** on decided tickets: six non-issues (stable empty-height formula; `-idx` encoding never seen by `IsAllItemsMeasured` / `FindItemCount`; FromRGBO caller-owned `[0, 1]` clamp; GetDistanceToBottom LayoutInfinity is the irregular last-item span sentinel; UpdatePosMap gap-only adjustOffset is isolated compensation) against thirteen fixes and seven confirmed.
 3. Dominant failure modes: **incorrect calculation**, **wrong control-flow sentinels**, plus **div-by-zero**, **UB cast**, **OOB write / read**, and unguarded **`asin`**.
 4. Non-issue lessons are contract/call-graph sensitivity and production-domain encoding, not flaky reproduction — PBT still witnessed the raw returns as contract properties.
 
