@@ -2,12 +2,12 @@
 
 对 [`content/issues/`](../content/issues/) 中带有 **DTS** 工单号（`internal_issue_id`）的发现所做的归类，按检出该工单的 **pi-pbt 性质（预言机）** 分组。CWE / 失效模式分组归档在 [`finding_precision_by_project.md`](finding_precision_by_project.md) 文末。
 
-- **已确认并修复（FIXED）**：**128** — `CONFIRMED_FIXED` 报告如下
+- **已确认并修复（FIXED）**：**129** — `CONFIRMED_FIXED` 报告如下
 - **已确认（待修复）**：**1** — `CONFIRMED_REAL`（OH-2026-ARKUI-018）
 - **非问题（NON-ISSUE）**：**25** — [目录](#非问题)
-- **已判定**：**154** = 128 + 1 + 25
-- **精确率**：**83.8%** = `(128 + 1) / (128 + 1 + 25)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
-- **严重级别**（已修复 + 已确认）：HIGH=28，MEDIUM=98，LOW=3
+- **已判定**：**155** = 129 + 1 + 25
+- **精确率**：**83.9%** = `(129 + 1) / (129 + 1 + 25)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
+- **严重级别**（已修复 + 已确认）：HIGH=29，MEDIUM=98，LOW=3
 - **生成时间**：2026-09-24
 
 ## 概览
@@ -24,8 +24,8 @@
 | [代数 — 不变量](#代数--不变量) | 47 | 10 | 36 | 1 |
 | [否定 / 错误契约](#否定--错误契约) | 11 | 2 | 9 | 0 |
 | [参考](#参考) | 5 | 1 | 4 | 0 |
-| [仅崩溃](#仅崩溃) | 15 | 6 | 9 | 0 |
-| **合计** | **129** | **28** | **98** | **3** |
+| [仅崩溃](#仅崩溃) | 16 | 7 | 9 | 0 |
+| **合计** | **130** | **29** | **98** | **3** |
 
 强度顺序：状态机 ≻ 差分 ≻ 代数（往返 ≻ 幂等 ≻ 蜕变 ≻ 不变量 ≻ 否定/错误）≻ 参考 ≻ 仅崩溃。本集合中**幂等：0**。
 
@@ -58,11 +58,11 @@
 | `filemanagement_dfs_service` | 1 | 0 | 0 | 1 | 0 | 100% |
 | `filemanagement_storage_service` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `multimedia_media_foundation` | 2 | 5 | 1 | 1 | 0 | 29% |
-| `telephony_core_service` | 2 | 0 | 1 | 1 | 0 | 100% |
+| `telephony_core_service` | 3 | 0 | 2 | 1 | 0 | 100% |
 | `arkui_napi` | 3 | 0 | 0 | 3 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **合计** | **129** | **25** | **28** | **98** | **3** | **84%** |
+| **合计** | **130** | **25** | **29** | **98** | **3** | **84%** |
 
 ## DTS 索引
 
@@ -181,6 +181,7 @@
 | `DTS2026083109843` | [OH-2026-NET-011](../content/issues/OH-2026-NET-011.md) | 差分 | MEDIUM | `communication_netmanager_base` |
 | `DTS2026083116823` | [OH-2026-DSOFTBUS-002](../content/issues/OH-2026-DSOFTBUS-002.md) | 否定 / 错误契约 | MEDIUM | `communication_dsoftbus` |
 | `DTS2026090130983` | [OH-2026-AVCODEC-006](../content/issues/OH-2026-AVCODEC-006.md) | 代数 — 不变量 | MEDIUM | `multimedia_av_codec` |
+| `DTS2026090326272` | [OH-2026-TEL-003](../content/issues/OH-2026-TEL-003.md) | 仅崩溃 | HIGH | `telephony_core_service` |
 | `DTS2026090525146` | [OH-2026-NET-012](../content/issues/OH-2026-NET-012.md) | 代数 — 不变量 | MEDIUM | `communication_netmanager_base` |
 | `DTS2026090526221` | [OH-2026-TEL-002](../content/issues/OH-2026-TEL-002.md) | 代数 — 不变量 | MEDIUM | `telephony_core_service` |
 | `DTS2026090527401` | [OH-2026-GFX-010](../content/issues/OH-2026-GFX-010.md) | 差分 | HIGH | `graphic_graphic_2d` |
@@ -402,12 +403,13 @@
 | `DTS2026080813420` | [OH-2026-CAM-007](../content/issues/OH-2026-CAM-007.md) | MEDIUM | 短/奇数 HIGH_QUALITY_SUPPORT 不越界 |
 | `DTS2026082564627` | [OH-2026-TEL-001](../content/issues/OH-2026-TEL-001.md) | HIGH | offset+length 绕回不得 SIGSEGV |
 | `DTS2608260052510` | [OH-2026-MEDIALIB-005](../content/issues/OH-2026-MEDIALIB-005.md) | HIGH | 空 relativePath 上 GetVirtualPath 不越界 |
+| `DTS2026090326272` | [OH-2026-TEL-003](../content/issues/OH-2026-TEL-003.md) | HIGH | offset+dataLen 绕回不得 bad_alloc（返回 nullptr） |
 
 ## 非问题
 
 维护者驳回的 DTS。只计入分母。
 
-**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(128 + 1) / (128 + 1 + 25) = 83.8%**。
+**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(129 + 1) / (129 + 1 + 25) = 83.9%**。
 
 | DTS | 项目 | 主题 | 为何非问题 |
 |-----|------|------|------------|

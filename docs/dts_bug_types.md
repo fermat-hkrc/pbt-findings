@@ -2,12 +2,12 @@
 
 Categorization of [`content/issues/`](../content/issues/) findings that carry a **DTS** ticket (`internal_issue_id`), grouped by the **pi-pbt property (oracle)** that found each ticket. CWE / failure-mode grouping is archived at the end of [`finding_precision_by_project.md`](finding_precision_by_project.md).
 
-- **Confirmed (FIXED)**: **128** — `CONFIRMED_FIXED` write-ups below
+- **Confirmed (FIXED)**: **129** — `CONFIRMED_FIXED` write-ups below
 - **Confirmed (awaiting fix)**: **1** — `CONFIRMED_REAL` (OH-2026-ARKUI-018)
 - **Non-issue**: **25** — [catalog](#non-issues)
-- **Decided**: **154** = 128 + 1 + 25
-- **Precision**: **83.8%** = `(128 + 1) / (128 + 1 + 25)` = (fixed + confirmed) / (fixed + confirmed + non-issues)
-- **Severity** (fixed + confirmed): HIGH=28, MEDIUM=98, LOW=3
+- **Decided**: **155** = 129 + 1 + 25
+- **Precision**: **83.9%** = `(129 + 1) / (129 + 1 + 25)` = (fixed + confirmed) / (fixed + confirmed + non-issues)
+- **Severity** (fixed + confirmed): HIGH=29, MEDIUM=98, LOW=3
 - **Generated**: 2026-09-24
 
 ## Overview
@@ -24,8 +24,8 @@ Oracle taxonomy from [pi-pbt `docs/oracles.md`](https://github.com/fermat-hkrc/p
 | [Algebraic — Invariant](#algebraic--invariant) | 47 | 10 | 36 | 1 |
 | [Negative / Error Contract](#negative--error-contract) | 11 | 2 | 9 | 0 |
 | [Reference](#reference) | 5 | 1 | 4 | 0 |
-| [Crash-Only](#crash-only) | 15 | 6 | 9 | 0 |
-| **Total** | **129** | **28** | **98** | **3** |
+| [Crash-Only](#crash-only) | 16 | 7 | 9 | 0 |
+| **Total** | **130** | **29** | **98** | **3** |
 
 Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Idempotence ≻ Metamorphic ≻ Invariant ≻ Negative/Error) ≻ Reference ≻ Crash-Only. **Idempotence: 0** in this set.
 
@@ -58,11 +58,11 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `filemanagement_dfs_service` | 1 | 0 | 0 | 1 | 0 | 100% |
 | `filemanagement_storage_service` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `multimedia_media_foundation` | 2 | 5 | 1 | 1 | 0 | 29% |
-| `telephony_core_service` | 2 | 0 | 1 | 1 | 0 | 100% |
+| `telephony_core_service` | 3 | 0 | 2 | 1 | 0 | 100% |
 | `arkui_napi` | 3 | 0 | 0 | 3 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **Total** | **129** | **25** | **28** | **98** | **3** | **84%** |
+| **Total** | **130** | **25** | **29** | **98** | **3** | **84%** |
 
 ## DTS index
 
@@ -181,6 +181,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `DTS2026083109843` | [OH-2026-NET-011](../content/issues/OH-2026-NET-011.md) | Differential | MEDIUM | `communication_netmanager_base` |
 | `DTS2026083116823` | [OH-2026-DSOFTBUS-002](../content/issues/OH-2026-DSOFTBUS-002.md) | Negative / Error Contract | MEDIUM | `communication_dsoftbus` |
 | `DTS2026090130983` | [OH-2026-AVCODEC-006](../content/issues/OH-2026-AVCODEC-006.md) | Algebraic — Invariant | MEDIUM | `multimedia_av_codec` |
+| `DTS2026090326272` | [OH-2026-TEL-003](../content/issues/OH-2026-TEL-003.md) | Crash-Only | HIGH | `telephony_core_service` |
 | `DTS2026090525146` | [OH-2026-NET-012](../content/issues/OH-2026-NET-012.md) | Algebraic — Invariant | MEDIUM | `communication_netmanager_base` |
 | `DTS2026090526221` | [OH-2026-TEL-002](../content/issues/OH-2026-TEL-002.md) | Algebraic — Invariant | MEDIUM | `telephony_core_service` |
 | `DTS2026090527401` | [OH-2026-GFX-010](../content/issues/OH-2026-GFX-010.md) | Differential | HIGH | `graphic_graphic_2d` |
@@ -402,12 +403,13 @@ Authoritative spec / stdlib / IEEE / Unicode / pinning contract that this SUT cl
 | `DTS2026080813420` | [OH-2026-CAM-007](../content/issues/OH-2026-CAM-007.md) | MEDIUM | short/odd HIGH_QUALITY_SUPPORT must not OOB |
 | `DTS2026082564627` | [OH-2026-TEL-001](../content/issues/OH-2026-TEL-001.md) | HIGH | wrapping offset+length must not SEGV |
 | `DTS2608260052510` | [OH-2026-MEDIALIB-005](../content/issues/OH-2026-MEDIALIB-005.md) | HIGH | GetVirtualPath never OOB on empty relativePath |
+| `DTS2026090326272` | [OH-2026-TEL-003](../content/issues/OH-2026-TEL-003.md) | HIGH | wrapping offset+dataLen must not bad_alloc (return nullptr) |
 
 ## Non-issues
 
 Maintainer-rejected DTS. Counted in the denominator only.
 
-**Precision** = (fixed + confirmed) / (fixed + confirmed + non-issues) = **(128 + 1) / (128 + 1 + 25) = 83.8%**.
+**Precision** = (fixed + confirmed) / (fixed + confirmed + non-issues) = **(129 + 1) / (129 + 1 + 25) = 83.9%**.
 
 | DTS | Project | Theme | Why non-issue |
 |-----|---------|-------|---------------|
