@@ -2,8 +2,8 @@
 
 How often PBT-filed **DTS** tickets were accepted as real bugs versus closed as non-issues, broken down by project.
 
-- **Precision:** **83.7%** ((127 FIXED + 1 CONFIRMED) / 153 decided)
-- **False-positive rate:** **16.3%** (25 NON-ISSUE)
+- **Precision:** **83.8%** ((128 FIXED + 1 CONFIRMED) / 154 decided)
+- **False-positive rate:** **16.2%** (25 NON-ISSUE)
 
 Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS tickets are omitted — their outcome (bug vs non-issue) is not yet known.
 
@@ -22,7 +22,7 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 **Sources**
 
 - DTS inventory: [`dts_bug_types.md`](./dts_bug_types.md) + [`content/issues/`](../content/issues/)
-- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**128** = 127 `CONFIRMED_FIXED` + 1 `CONFIRMED_REAL`)
+- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**129** = 128 `CONFIRMED_FIXED` + 1 `CONFIRMED_REAL`)
 - Non-issue write-ups: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (**24** DTS-stamped)
 
 - **Generated:** 2026-09-24
@@ -31,13 +31,13 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 127 | 83.0% |
-| CONFIRMED (awaiting fix) | 1 | 0.7% |
-| NON-ISSUE | 25 | 16.3% |
-| **Total decided** | **153** | 100% |
+| FIXED | 128 | 83.1% |
+| CONFIRMED (awaiting fix) | 1 | 0.6% |
+| NON-ISSUE | 25 | 16.2% |
+| **Total decided** | **154** | 100% |
 
-- **Precision:** **(127+1)/153 = 83.7%** — about five in six closed tickets were real bugs.
-- **False-positive rate:** **25/153 = 16.3%**.
+- **Precision:** **(128+1)/154 = 83.8%** — about five in six closed tickets were real bugs.
+- **False-positive rate:** **25/154 = 16.2%**.
 
 > Precision means *maintainer-accepted defect rate among dispositioned DTS* (fixed **or** confirmed-unfixed), not static-analysis alert rate. Open/submitted tickets are out of scope until closed.
 
@@ -71,16 +71,16 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`distributedhardware_distributed_hardware_fwk`](#distributedhardware-distributed-hardware-fwk) | 1 | 0 | 0 | 1 | 100% |
 | [`filemanagement_dfs_service`](#filemanagement-dfs-service) | 1 | 0 | 0 | 1 | 100% |
 | [`filemanagement_storage_service`](#filemanagement-storage-service) | 2 | 0 | 0 | 2 | 100% |
-| [`telephony_core_service`](#telephony-core-service) | 1 | 0 | 0 | 1 | 100% |
+| [`telephony_core_service`](#telephony-core-service) | 2 | 0 | 0 | 2 | 100% |
 | [`multimedia_audio_framework`](#multimedia-audio-framework) | 1 | 0 | 1 | 2 | 50% |
 | [`multimodalinput_input`](#multimodalinput-input) | 0 | 0 | 2 | 2 | 0% |
-| **Total** | **127** | **1** | **25** | **153** | **84%** |
+| **Total** | **128** | **1** | **25** | **154** | **84%** |
 
 ## Precision tiers
 
 ### Tier A — Perfect precision (100%, ≥1 FIXED, 0 NON-ISSUE)
 
-`multimedia_camera_framework` (15 fixed), `graphic_graphic_2d` (10 fixed), `multimedia_image_framework` (10 fixed), `ability_ability_runtime` (7 fixed), `multimedia_av_codec` (6 fixed), `window_window_manager` (3 fixed), `arkui_napi` (3 fixed), `communication_bluetooth_service` (2 fixed), `communication_wifi` (2 fixed), `distributeddatamgr_pasteboard` (2 fixed), `filemanagement_storage_service` (2 fixed), `commonlibrary_rust_ylong_http` (1 fixed), `distributedhardware_distributed_hardware_fwk` (1 fixed), `filemanagement_dfs_service` (1 fixed), `telephony_core_service` (1 fixed)
+`multimedia_camera_framework` (15 fixed), `graphic_graphic_2d` (10 fixed), `multimedia_image_framework` (10 fixed), `ability_ability_runtime` (7 fixed), `multimedia_av_codec` (6 fixed), `window_window_manager` (3 fixed), `arkui_napi` (3 fixed), `communication_bluetooth_service` (2 fixed), `communication_wifi` (2 fixed), `distributeddatamgr_pasteboard` (2 fixed), `filemanagement_storage_service` (2 fixed), `telephony_core_service` (2 fixed), `commonlibrary_rust_ylong_http` (1 fixed), `distributedhardware_distributed_hardware_fwk` (1 fixed), `filemanagement_dfs_service` (1 fixed)
 
 These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 
@@ -629,14 +629,15 @@ High-confidence project: **2** accepted fixes and **no** rejected DTS.
 
 | Metric | Value |
 |--------|------:|
-| FIXED | 1 |
+| FIXED | 2 |
 | NON-ISSUE | 0 |
-| Decided | 1 |
+| Decided | 2 |
 | Precision | 100.0% |
 
 **FIXED DTS**
 
 - `DTS2026082564627` — [OH-2026-TEL-001](../content/issues/OH-2026-TEL-001.md): Asn1Utils::BytesToInt segfaults when offset+length wraps uint32
+- `DTS2026090526221` — [OH-2026-TEL-002](../content/issues/OH-2026-TEL-002.md): CountTrailingZeros is wrong when more than one bit is set
 
 ### `arkui_napi`
 
@@ -688,16 +689,16 @@ No FIXED DTS yet among dispositioned tickets.
 
 ## Relation to `content/issues/` write-ups
 
-This repo’s [`content/issues/`](../content/issues/) currently carries **128** DTS-linked reports (**127** `CONFIRMED_FIXED` + **1** `CONFIRMED_REAL`).
+This repo’s [`content/issues/`](../content/issues/) currently carries **129** DTS-linked reports (**128** `CONFIRMED_FIXED` + **1** `CONFIRMED_REAL`).
 `CONFIRMED_FIXED` is the **FIXED** count; `CONFIRMED_REAL` is **CONFIRMED** (awaiting fix). Non-issues come from `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/`.
 
 | Population | Count | Role |
 |------------|------:|------|
-| Decided DTS (FIXED + CONFIRMED + NON-ISSUE) | 151 | Ground truth for precision |
-| FIXED | 127 | Maintainer-accepted and fixed |
+| Decided DTS (FIXED + CONFIRMED + NON-ISSUE) | 154 | Ground truth for precision |
+| FIXED | 128 | Maintainer-accepted and fixed |
 | CONFIRMED | 1 | Maintainer-accepted, not fixed yet |
-| NON-ISSUE | 23 | Maintainer-rejected (cloned + testing inventory) |
-| Write-ups in `content/issues` with DTS | 128 | Published confirmed bugs (fixed or awaiting fix) |
+| NON-ISSUE | 25 | Maintainer-rejected (cloned + testing inventory) |
+| Write-ups in `content/issues` with DTS | 129 | Published confirmed bugs (fixed or awaiting fix) |
 
 **Do not** compute precision from `content/issues` alone — it omits non-issues by design. Use this document (or dispositioned rows in `BUG_REPORTS.md`) for acceptance rate.
 
@@ -730,7 +731,7 @@ Moved out of [`dts_bug_types.md`](./dts_bug_types.md) (that file is now the dete
 | Bug type | Count | HIGH | MEDIUM | LOW |
 |----------|------:|-----:|-------:|----:|
 | [Arithmetic — Integer Overflow / Underflow](#arithmetic-integer-overflow-underflow) | 11 | 1 | 10 | 0 |
-| [Arithmetic — Incorrect Calculation](#arithmetic-incorrect-calculation) | 16 | 3 | 12 | 1 |
+| [Arithmetic — Incorrect Calculation](#arithmetic-incorrect-calculation) | 17 | 3 | 13 | 1 |
 | [Arithmetic — Divide by Zero](#arithmetic-divide-by-zero) | 3 | 1 | 2 | 0 |
 | [Arithmetic — Off-by-One](#arithmetic-off-by-one) | 3 | 1 | 2 | 0 |
 | [Memory Safety — Buffer / OOB Access](#memory-safety-buffer-oob-access) | 14 | 1 | 13 | 0 |
@@ -749,7 +750,7 @@ Moved out of [`dts_bug_types.md`](./dts_bug_types.md) (that file is now the dete
 | [Security — Authorization / Access Control](#security-authorization-access-control) | 3 | 1 | 2 | 0 |
 | [Security — Certificate Validation](#security-certificate-validation) | 1 | 1 | 0 | 0 |
 | [Security — Information Leakage](#security-information-leakage) | 2 | 0 | 2 | 0 |
-| **Total** | **79** | **16** | **61** | **2** |
+| **Total** | **80** | **16** | **62** | **2** |
 
 ## DTS index (bug type)
 
@@ -836,6 +837,7 @@ Moved out of [`dts_bug_types.md`](./dts_bug_types.md) (that file is now the dete
 | `DTS2026082023118` | [OH-2026-DSOFTBUS-001](../content/issues/OH-2026-DSOFTBUS-001.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `communication_dsoftbus` |
 | `DTS2026083116823` | [OH-2026-DSOFTBUS-002](../content/issues/OH-2026-DSOFTBUS-002.md) | Input Validation — Improper Checks | MEDIUM | `communication_dsoftbus` |
 | `DTS2026090525146` | [OH-2026-NET-012](../content/issues/OH-2026-NET-012.md) | Security — Information Leakage | MEDIUM | `communication_netmanager_base` |
+| `DTS2026090526221` | [OH-2026-TEL-002](../content/issues/OH-2026-TEL-002.md) | Arithmetic — Incorrect Calculation | MEDIUM | `telephony_core_service` |
 | `DTS2026091437628` | [OH-2026-NET-013](../content/issues/OH-2026-NET-013.md) | Logic — Incorrect Control Flow | MEDIUM | `communication_netmanager_base` |
 | `DTS2026092958405` | [OH-2026-ARKUI-018](../content/issues/OH-2026-ARKUI-018.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `arkui_ace_engine` |
 | `DTS2609150153371` | [OH-2026-ARKUI-010](../content/issues/OH-2026-ARKUI-010.md) | Arithmetic — Incorrect Calculation | MEDIUM | `arkui_ace_engine` |
@@ -900,6 +902,7 @@ Wrong formula, operand, rounding, or matrix/color/geometry math that breaks inva
 | `DTS2026081713997` | [OH-2026-AVCODEC-003](../content/issues/OH-2026-AVCODEC-003.md) | MEDIUM | CWE-682 (Incorrect Calculation) | `services/media_engine/plugins/source/http_source/hls/hls_tags.cpp` · `multimedia_av_codec` | ValuesListTag::ParseAttributes TITLE includes the leading comma |
 | `DTS2026073116282` | [OH-2026-ARKUI-008](../content/issues/OH-2026-ARKUI-008.md) | MEDIUM | CWE-682 (Incorrect Calculation) | `frameworks/core/components_ng/pattern/data_panel/data_panel_modifier.cpp` · `arkui_ace_engine` | DataPanel GetPaintPath unguarded asin → NaN circleAngle when stroke collapses radius |
 | `DTS2609150153371` | [OH-2026-ARKUI-010](../content/issues/OH-2026-ARKUI-010.md) | MEDIUM | CWE-682 (Incorrect Calculation) | `frameworks/core/components_ng/pattern/grid/grid_scroll/grid_scroll_with_options_layout_algorithm.cpp` · `arkui_ace_engine` | CalculateStartCachedCount overcounts when the last regular line is partial |
+| `DTS2026090526221` | [OH-2026-TEL-002](../content/issues/OH-2026-TEL-002.md) | MEDIUM | CWE-682 (Incorrect Calculation) | `utils/codec/src/asn1_utils.cpp` · `telephony_core_service` | CountTrailingZeros is wrong when more than one bit is set |
 
 <details><summary>Summaries</summary>
 
@@ -919,6 +922,7 @@ Wrong formula, operand, rounding, or matrix/color/geometry math that breaks inva
 - **OH-2026-AVCODEC-003** (`DTS2026081713997`): `ValuesListTag::ParseAttributes` splits HLS `#EXTINF:duration,title`. DURATION uses `substr(0, pos)` (excludes comma); TITLE uses `substr(pos)` (includes comma) → every titled segment TITLE starts with `,`.
 - **OH-2026-ARKUI-008** (`DTS2026073116282`): `DataPanelModifier::GetPaintPath` computes `circleAngle` via unguarded `asin(thickness/2 / (radius - thickness/2))`. Stroke ≥ half min-side drives `radius <= 0` → NaN angle / broken arcs.
 - **OH-2026-ARKUI-010** (`DTS2609150153371`): `CalculateStartCachedCountByIrregular` returns `budget * crossCount` when `diff >= budget * C`, ignoring a partial last regular line (`diff % C != 0`). Full-line model wants `rem + (budget-1)*C`. Confirmed, not fixed yet.
+- **OH-2026-TEL-002** (`DTS2026090526221`): `Asn1Utils::CountTrailingZeros` probes `0x0F`/`0x33`/`0x55` without isolating the lowest set bit. Mixed bytes (e.g. `6`) return too few trailing zeros; `Asn1AddChildAsBits` writes a wrong BIT STRING unused-bits octet.
 
 </details>
 
@@ -1257,7 +1261,7 @@ Masking/redaction fails; secrets or addresses reach logs.
 
 | CWE | Name | Count |
 |-----|------|------:|
-| CWE-682 | Incorrect Calculation | 15 |
+| CWE-682 | Incorrect Calculation | 16 |
 | CWE-125 | Out-of-bounds Read | 12 |
 | CWE-190 | Integer Overflow or Wraparound | 7 |
 | CWE-670 | Always-Incorrect Control Flow Implementation | 5 |

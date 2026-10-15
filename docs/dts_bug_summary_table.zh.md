@@ -148,7 +148,7 @@
 | 144 | communication_dsoftbus | ConvertBtMacToBinary 忽略 strtoul 残留与 uint8 溢出 | 检查不当 | `core/common/utils/softbus_utils.c` | 已确认并修复 |  | DTS2026083116823 |
 | 145 | multimedia_av_codec | DashStrToNonNegativeDouble 接受 NaN（`result < 0` 漏掉无序比较） | 运算符/谓词错误 | `services/media_engine/plugins/source/http_source/dash/mpd_parser/dash_mpd_util.cpp` | 已确认并修复 |  | DTS2026090130983 |
 | 146 | communication_netmanager_base | ToAnonymousIp 对前缀为 0、109、119 的 IPv6 CIDR 不脱敏 | 信息泄漏 | `utils/common_utils/src/netmanager_base_common_utils.cpp` | 已确认并修复 |  | DTS2026090525146 |
-| 147 | telephony_core_service | CountTrailingZeros 在多于一个比特置位时算错 | 计算错误 | `utils/codec/src/asn1_utils.cpp` | 已提交 |  | DTS2026090526221 |
+| 147 | telephony_core_service | CountTrailingZeros 在多于一个比特置位时算错 | 计算错误 | `utils/codec/src/asn1_utils.cpp` | 已确认并修复 |  | DTS2026090526221 |
 | 148 | graphic_graphic_2d | DrawPixelMapMeshBuilderProcess 把网格的列和行对调了 | 计算错误 | `rosen/modules/2d_graphics/drawing_ndk/drawing_utils/drawing_canvas_utils.cpp` | 已确认并修复 |  | DTS2026090527401 |
 | 149 | arkui_ace_engine | MediaQueryer::MatchCondition 在 AND 组不是最后一个 OR 子句时丢弃该 AND 组 | 控制流错误 | `frameworks/bridge/common/media_query/media_queryer.cpp` | 已确认并修复 |  | DTS2026090919800 |
 | 150 | arkui_ace_engine | CheckColorAlpha 在缩放到 255 之前把单位 alpha 转成 uint8_t | 计算错误 | `frameworks/core/components_ng/svg/parse/svg_attributes_parser.cpp` | 已确认并修复 |  | DTS2026090920220 |
