@@ -126,7 +126,7 @@
 | 122 | multimedia_media_foundation | Format 移动构造/赋值共享 meta_ 而非转移所有权 | 控制流错误 | `src/meta/format.cpp` | 已确认并修复 |  | DTS2026082129239 |
 | 123 | arkui_ace_engine | GridLayoutInfo::FindItemCount 在区间起点落在跨行 continuation 时多计 | 计算错误 | `frameworks/core/components_ng/pattern/grid/grid_layout_info.cpp` | 非问题 | 不是给跨行布局用的；无负 id；连续所以 max-min+1；不规则走 GetIrregularOffset/Height | DTS2026082235533 |
 | 124 | arkui_ace_engine | Color::FromRGBO 对越界 opacity 做回绕而非钳位 | 整数溢出/下溢 | `frameworks/core/components/common/properties/color.cpp` | 非问题 | 内部打包函数；定义域 [0, 1]；钳位由调用方负责；强制钳位是非兼容（2 今天 254，改后 255） | DTS2026082235589 |
-| 125 | arkui_napi | napi_get_value_string_latin1 向 buf[bufsize] 多写一字节 | 差一 | `native_engine/native_api.cpp` | 已提交 |  | DTS2026082238400 |
+| 125 | arkui_napi | napi_get_value_string_latin1 向 buf[bufsize] 多写一字节 | 差一 | `native_engine/native_api.cpp` | 已确认并修复 |  | DTS2026082238400 |
 | 126 | arkui_napi | napi_check_object_type_tag 对 upper == 0 的标签误判为不匹配 | 运算符/谓词错误 | `native_engine/native_api.cpp` | 已确认并修复 |  | DTS2026082239182 |
 | 127 | multimedia_camera_framework | IsUint8Regex 对超出 int32 的数字串抛异常 | 坏输入未捕获异常/崩溃 | `services/camera_service/src/camera_util.cpp` | 已确认并修复 |  | DTS2026082239652 |
 | 128 | multimedia_image_framework | IsSizeSupportDma 接受面积不是合法 int32 乘积的尺寸 | 整数溢出/下溢 | `frameworks/innerkitsimpl/utils/src/image_utils.cpp` | 已确认并修复 |  | DTS2026082249247 |

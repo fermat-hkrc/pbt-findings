@@ -2,8 +2,8 @@
 
 How often PBT-filed **DTS** tickets were accepted as real bugs versus closed as non-issues, broken down by project.
 
-- **Precision:** **84.1%** ((131 FIXED + 1 CONFIRMED) / 157 decided)
-- **False-positive rate:** **15.9%** (25 NON-ISSUE)
+- **Precision:** **84.2%** ((132 FIXED + 1 CONFIRMED) / 158 decided)
+- **False-positive rate:** **15.8%** (25 NON-ISSUE)
 
 Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS tickets are omitted — their outcome (bug vs non-issue) is not yet known.
 
@@ -22,7 +22,7 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 **Sources**
 
 - DTS inventory: [`dts_bug_types.md`](./dts_bug_types.md) + [`content/issues/`](../content/issues/)
-- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**132** = 131 `CONFIRMED_FIXED` + 1 `CONFIRMED_REAL`)
+- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**133** = 132 `CONFIRMED_FIXED` + 1 `CONFIRMED_REAL`)
 - Non-issue write-ups: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (**24** DTS-stamped)
 
 - **Generated:** 2026-09-24
@@ -31,13 +31,13 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 131 | 83.4% |
+| FIXED | 132 | 83.5% |
 | CONFIRMED (awaiting fix) | 1 | 0.6% |
-| NON-ISSUE | 25 | 15.9% |
-| **Total decided** | **157** | 100% |
+| NON-ISSUE | 25 | 15.8% |
+| **Total decided** | **158** | 100% |
 
-- **Precision:** **(131+1)/157 = 84.1%** — about five in six closed tickets were real bugs.
-- **False-positive rate:** **25/157 = 15.9%**.
+- **Precision:** **(132+1)/158 = 84.2%** — about five in six closed tickets were real bugs.
+- **False-positive rate:** **25/158 = 15.8%**.
 
 > Precision means *maintainer-accepted defect rate among dispositioned DTS* (fixed **or** confirmed-unfixed), not static-analysis alert rate. Open/submitted tickets are out of scope until closed.
 
@@ -64,7 +64,7 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`communication_wifi`](#communication-wifi) | 4 | 0 | 0 | 4 | 100% |
 | [`distributeddatamgr_pasteboard`](#distributeddatamgr-pasteboard) | 2 | 0 | 0 | 2 | 100% |
 | [`window_window_manager`](#window-window-manager) | 3 | 0 | 0 | 3 | 100% |
-| [`arkui_napi`](#arkui-napi) | 3 | 0 | 0 | 3 | 100% |
+| [`arkui_napi`](#arkui-napi) | 4 | 0 | 0 | 4 | 100% |
 | [`communication_dsoftbus`](#communication-dsoftbus) | 2 | 0 | 1 | 3 | 67% |
 | [`distributeddatamgr_datamgr_service`](#distributeddatamgr-datamgr-service) | 1 | 0 | 1 | 2 | 50% |
 | [`commonlibrary_rust_ylong_http`](#commonlibrary-rust-ylong-http) | 1 | 0 | 0 | 1 | 100% |
@@ -74,13 +74,13 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`telephony_core_service`](#telephony-core-service) | 3 | 0 | 0 | 3 | 100% |
 | [`multimedia_audio_framework`](#multimedia-audio-framework) | 1 | 0 | 1 | 2 | 50% |
 | [`multimodalinput_input`](#multimodalinput-input) | 0 | 0 | 2 | 2 | 0% |
-| **Total** | **131** | **1** | **25** | **157** | **84%** |
+| **Total** | **132** | **1** | **25** | **158** | **84%** |
 
 ## Precision tiers
 
 ### Tier A — Perfect precision (100%, ≥1 FIXED, 0 NON-ISSUE)
 
-`multimedia_camera_framework` (15 fixed), `graphic_graphic_2d` (10 fixed), `multimedia_image_framework` (10 fixed), `ability_ability_runtime` (7 fixed), `multimedia_av_codec` (6 fixed), `window_window_manager` (3 fixed), `arkui_napi` (3 fixed), `communication_bluetooth_service` (2 fixed), `communication_wifi` (4 fixed), `distributeddatamgr_pasteboard` (2 fixed), `filemanagement_storage_service` (2 fixed), `telephony_core_service` (3 fixed), `commonlibrary_rust_ylong_http` (1 fixed), `distributedhardware_distributed_hardware_fwk` (1 fixed), `filemanagement_dfs_service` (1 fixed)
+`multimedia_camera_framework` (15 fixed), `graphic_graphic_2d` (10 fixed), `multimedia_image_framework` (10 fixed), `ability_ability_runtime` (7 fixed), `multimedia_av_codec` (6 fixed), `window_window_manager` (3 fixed), `arkui_napi` (4 fixed), `communication_bluetooth_service` (2 fixed), `communication_wifi` (4 fixed), `distributeddatamgr_pasteboard` (2 fixed), `filemanagement_storage_service` (2 fixed), `telephony_core_service` (3 fixed), `commonlibrary_rust_ylong_http` (1 fixed), `distributedhardware_distributed_hardware_fwk` (1 fixed), `filemanagement_dfs_service` (1 fixed)
 
 These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 
@@ -646,15 +646,16 @@ High-confidence project: **2** accepted fixes and **no** rejected DTS.
 
 | Metric | Value |
 |--------|------:|
-| FIXED | 3 |
+| FIXED | 4 |
 | NON-ISSUE | 0 |
-| Decided | 3 |
+| Decided | 4 |
 | Precision | 100.0% |
 
 **FIXED DTS**
 
 - `DTS2026081440197` — [OH-2026-NAPI-003](../content/issues/OH-2026-NAPI-003.md): NativeCallbackScopeManager::Close decrements depth on nullptr → size_t underflow
 - `DTS2026081506434` — [OH-2026-NAPI-001](../content/issues/OH-2026-NAPI-001.md): RuntimeType::IsType inverted strcmp — accepts unrelated types, rejects TypeBase→TypeBase
+- `DTS2026082238400` — [OH-2026-NAPI-004](../content/issues/OH-2026-NAPI-004.md): napi_get_value_string_latin1 writes one byte past buf[bufsize-1]
 - `DTS2026082239182` — [OH-2026-NAPI-002](../content/issues/OH-2026-NAPI-002.md): napi_check_object_type_tag false-mismatches tags with upper == 0
 
 ### `multimedia_audio_framework`
@@ -692,16 +693,16 @@ No FIXED DTS yet among dispositioned tickets.
 
 ## Relation to `content/issues/` write-ups
 
-This repo’s [`content/issues/`](../content/issues/) currently carries **132** DTS-linked reports (**131** `CONFIRMED_FIXED` + **1** `CONFIRMED_REAL`).
+This repo’s [`content/issues/`](../content/issues/) currently carries **133** DTS-linked reports (**132** `CONFIRMED_FIXED` + **1** `CONFIRMED_REAL`).
 `CONFIRMED_FIXED` is the **FIXED** count; `CONFIRMED_REAL` is **CONFIRMED** (awaiting fix). Non-issues come from `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/`.
 
 | Population | Count | Role |
 |------------|------:|------|
-| Decided DTS (FIXED + CONFIRMED + NON-ISSUE) | 157 | Ground truth for precision |
-| FIXED | 131 | Maintainer-accepted and fixed |
+| Decided DTS (FIXED + CONFIRMED + NON-ISSUE) | 158 | Ground truth for precision |
+| FIXED | 132 | Maintainer-accepted and fixed |
 | CONFIRMED | 1 | Maintainer-accepted, not fixed yet |
 | NON-ISSUE | 25 | Maintainer-rejected (cloned + testing inventory) |
-| Write-ups in `content/issues` with DTS | 132 | Published confirmed bugs (fixed or awaiting fix) |
+| Write-ups in `content/issues` with DTS | 133 | Published confirmed bugs (fixed or awaiting fix) |
 
 **Do not** compute precision from `content/issues` alone — it omits non-issues by design. Use this document (or dispositioned rows in `BUG_REPORTS.md`) for acceptance rate.
 
@@ -709,7 +710,7 @@ See also: [DTS tickets by detecting property](./dts_bug_types.md). Failure-mode 
 
 ## Takeaways
 
-1. **Overall precision is high (85.2%)** — PBT filings that reach a DTS decision are usually real defects.
+1. **Overall precision is high (84.2%)** — PBT filings that reach a DTS decision are usually real defects.
 2. **False positives cluster in a few patterns** (22 tickets): by-design helpers, dead/unreachable / dropped-from-trunk code, path-prefix gates with no live producer after `realpath`, framing residuals that are not object OOB and mostly fail-closed, caller-owned / split-API contracts, shipped CAPI / product omissions, flag-dependent crashes — not flaky reproduction.
 3. **Several large surfaces are clean so far** (e.g. `multimedia_camera_framework`, `multimedia_image_framework`, `graphic_graphic_2d` among high-volume FIXED with 0 NON-ISSUE).
 4. **Filing bar that non-issues imply:** prove a live production caller, state the product contract, and avoid “algebraic inconsistency across differently purposed APIs” without impact. Sibling slash-terminated roots + a one-char fix still need a product-domain hit. Do not equate logical cursor past `wPos_` inside a zero-filled fixed buffer with heap OOB.
@@ -737,7 +738,7 @@ Moved out of [`dts_bug_types.md`](./dts_bug_types.md) (that file is now the dete
 | [Arithmetic — Incorrect Calculation](#arithmetic-incorrect-calculation) | 17 | 3 | 13 | 1 |
 | [Arithmetic — Divide by Zero](#arithmetic-divide-by-zero) | 3 | 1 | 2 | 0 |
 | [Arithmetic — Off-by-One](#arithmetic-off-by-one) | 3 | 1 | 2 | 0 |
-| [Memory Safety — Buffer / OOB Access](#memory-safety-buffer-oob-access) | 14 | 1 | 13 | 0 |
+| [Memory Safety — Buffer / OOB Access](#memory-safety-buffer-oob-access) | 15 | 2 | 13 | 0 |
 | [Memory Safety — Null Pointer Dereference](#memory-safety-null-pointer-dereference) | 1 | 1 | 0 | 0 |
 | [Memory Safety — Double Free](#memory-safety-double-free) | 1 | 0 | 1 | 0 |
 | [Control Flow — Infinite Loop / Hang](#control-flow-infinite-loop-hang) | 3 | 0 | 3 | 0 |
@@ -753,7 +754,7 @@ Moved out of [`dts_bug_types.md`](./dts_bug_types.md) (that file is now the dete
 | [Security — Authorization / Access Control](#security-authorization-access-control) | 3 | 1 | 2 | 0 |
 | [Security — Certificate Validation](#security-certificate-validation) | 1 | 1 | 0 | 0 |
 | [Security — Information Leakage](#security-information-leakage) | 2 | 0 | 2 | 0 |
-| **Total** | **81** | **17** | **62** | **2** |
+| **Total** | **82** | **18** | **62** | **2** |
 
 ## DTS index (bug type)
 
@@ -838,6 +839,7 @@ Moved out of [`dts_bug_types.md`](./dts_bug_types.md) (that file is now the dete
 | `DTS2026081424330` | [OH-2026-IMG-006](../content/issues/OH-2026-IMG-006.md) | Arithmetic — Incorrect Calculation | MEDIUM | `multimedia_image_framework` |
 | `DTS2026081713997` | [OH-2026-AVCODEC-003](../content/issues/OH-2026-AVCODEC-003.md) | Arithmetic — Incorrect Calculation | MEDIUM | `multimedia_av_codec` |
 | `DTS2026082023118` | [OH-2026-DSOFTBUS-001](../content/issues/OH-2026-DSOFTBUS-001.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `communication_dsoftbus` |
+| `DTS2026082238400` | [OH-2026-NAPI-004](../content/issues/OH-2026-NAPI-004.md) | Memory Safety — Buffer / OOB Access | HIGH | `arkui_napi` |
 | `DTS2026083116823` | [OH-2026-DSOFTBUS-002](../content/issues/OH-2026-DSOFTBUS-002.md) | Input Validation — Improper Checks | MEDIUM | `communication_dsoftbus` |
 | `DTS2026090326272` | [OH-2026-TEL-003](../content/issues/OH-2026-TEL-003.md) | Arithmetic — Integer Overflow / Underflow | HIGH | `telephony_core_service` |
 | `DTS2026090525146` | [OH-2026-NET-012](../content/issues/OH-2026-NET-012.md) | Security — Information Leakage | MEDIUM | `communication_netmanager_base` |
@@ -993,6 +995,7 @@ Reads/writes past buffer limits; can crash (`SEGV`) or corrupt adjacent state.
 | `DTS2026080813827` | [OH-2026-CAM-010](../content/issues/OH-2026-CAM-010.md) | MEDIUM | CWE-125 (Out-of-bounds Read) | `services/camera_service/src/hcapture_session.cpp` · `multimedia_camera_framework` | QueryZoomPerformance TLV walk OOB (mode / num / points) |
 | `DTS2026080813868` | [OH-2026-CAM-011](../content/issues/OH-2026-CAM-011.md) | MEDIUM | CWE-125 (Out-of-bounds Read) | `frameworks/native/camera/base/src/input/camera_manager.cpp` · `multimedia_camera_framework` | ParsingCameraConcurrentLimted length-prefix OOB |
 | `DTS2026082023118` | [OH-2026-DSOFTBUS-001](../content/issues/OH-2026-DSOFTBUS-001.md) | MEDIUM | CWE-125 (Out-of-bounds Read) | `core/connection/wifi_direct_cpp/processor/p2p_v1_processor.cpp` · `communication_dsoftbus` | ConnectGroup off-by-one guard reads configs[3] on a 3-token group config |
+| `DTS2026082238400` | [OH-2026-NAPI-004](../content/issues/OH-2026-NAPI-004.md) | HIGH | CWE-787 (Out-of-bounds Write) | `native_engine/native_api.cpp` · `arkui_napi` | napi_get_value_string_latin1 writes one byte past buf[bufsize-1] |
 
 <details><summary>Summaries</summary>
 
@@ -1009,6 +1012,7 @@ Reads/writes past buffer limits; can crash (`SEGV`) or corrupt adjacent state.
 - **OH-2026-CAM-010** (`DTS2026080813827`): `QueryZoomPerformance` trusts TLV `num` with no remaining-length check, then `GetCrossZoomAndTime` stride-3 has no tail guard. Short/lying-`num` → OOB.
 - **OH-2026-CAM-011** (`DTS2026080813868`): `ParsingCameraConcurrentLimted` reads length-prefix `originInfo[i+1]` then payload with no `i+1 < count` / `i+2+length <= count`. Helpers loop `k < length` blindly.
 - **OH-2026-DSOFTBUS-001** (`DTS2026082023118`): `ConnectGroup` guards `configs.size() < INDEX_FREQ` (3) then reads `configs[3]`. A 3-token peer group config passes and OOB. Sibling `P2pConnectGroup` requires `size >= INDEX_MODE` (4).
+- **OH-2026-NAPI-004** (`DTS2026082238400`): `napi_get_value_string_latin1` passes full `bufsize` to `WriteLatin1WithoutSwitchState`, then writes `buf[copied] = '\0'`. When `|s| >= bufsize`, that NUL is one past the caller buffer. Utf8/utf16 siblings pass `bufsize - 1`.
 
 </details>
 
@@ -1293,7 +1297,7 @@ Masking/redaction fails; secrets or addresses reach logs.
 | CWE-480 | Use of Incorrect Operator | 1 |
 | CWE-680 | Integer Overflow to Buffer Overflow | 1 |
 | CWE-754 | Improper Check or Handling of Exceptional Conditions | 1 |
-| CWE-787 | Out-of-bounds Write | 1 |
+| CWE-787 | Out-of-bounds Write | 2 |
 | CWE-787 | Out-of-bounds Read | 1 |
 | CWE-862 | Missing Authorization | 1 |
 | CWE-863 | Incorrect Authorization | 1 |

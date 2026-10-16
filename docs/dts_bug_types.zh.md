@@ -2,12 +2,12 @@
 
 对 [`content/issues/`](../content/issues/) 中带有 **DTS** 工单号（`internal_issue_id`）的发现所做的归类，按检出该工单的 **pi-pbt 性质（预言机）** 分组。CWE / 失效模式分组归档在 [`finding_precision_by_project.md`](finding_precision_by_project.md) 文末。
 
-- **已确认并修复（FIXED）**：**131** — `CONFIRMED_FIXED` 报告如下
+- **已确认并修复（FIXED）**：**132** — `CONFIRMED_FIXED` 报告如下
 - **已确认（待修复）**：**1** — `CONFIRMED_REAL`（OH-2026-ARKUI-018）
 - **非问题（NON-ISSUE）**：**25** — [目录](#非问题)
-- **已判定**：**157** = 131 + 1 + 25
-- **精确率**：**84.1%** = `(131 + 1) / (131 + 1 + 25)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
-- **严重级别**（已修复 + 已确认）：HIGH=30，MEDIUM=99，LOW=3
+- **已判定**：**158** = 132 + 1 + 25
+- **精确率**：**84.2%** = `(132 + 1) / (132 + 1 + 25)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
+- **严重级别**（已修复 + 已确认）：HIGH=31，MEDIUM=99，LOW=3
 - **生成时间**：2026-09-24
 
 ## 概览
@@ -21,11 +21,11 @@
 | [差分](#差分) | 36 | 3 | 32 | 1 |
 | [代数 — 往返](#代数--往返) | 7 | 3 | 4 | 0 |
 | [代数 — 蜕变](#代数--蜕变) | 5 | 1 | 4 | 0 |
-| [代数 — 不变量](#代数--不变量) | 48 | 10 | 37 | 1 |
+| [代数 — 不变量](#代数--不变量) | 49 | 11 | 37 | 1 |
 | [否定 / 错误契约](#否定--错误契约) | 11 | 2 | 9 | 0 |
 | [参考](#参考) | 5 | 1 | 4 | 0 |
 | [仅崩溃](#仅崩溃) | 16 | 7 | 9 | 0 |
-| **合计** | **132** | **30** | **99** | **3** |
+| **合计** | **133** | **31** | **99** | **3** |
 
 强度顺序：状态机 ≻ 差分 ≻ 代数（往返 ≻ 幂等 ≻ 蜕变 ≻ 不变量 ≻ 否定/错误）≻ 参考 ≻ 仅崩溃。本集合中**幂等：0**。
 
@@ -59,10 +59,10 @@
 | `filemanagement_storage_service` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `multimedia_media_foundation` | 2 | 5 | 1 | 1 | 0 | 29% |
 | `telephony_core_service` | 3 | 0 | 2 | 1 | 0 | 100% |
-| `arkui_napi` | 3 | 0 | 0 | 3 | 0 | 100% |
+| `arkui_napi` | 4 | 0 | 1 | 3 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **合计** | **132** | **25** | **30** | **99** | **3** | **84%** |
+| **合计** | **133** | **25** | **31** | **99** | **3** | **84%** |
 
 ## DTS 索引
 
@@ -171,6 +171,7 @@
 | `DTS2026082012348` | [OH-2026-MEDIALIB-004](../content/issues/OH-2026-MEDIALIB-004.md) | 差分 | MEDIUM | `multimedia_media_library` |
 | `DTS2026082023118` | [OH-2026-DSOFTBUS-001](../content/issues/OH-2026-DSOFTBUS-001.md) | 差分 | MEDIUM | `communication_dsoftbus` |
 | `DTS2026082129239` | [OH-2026-MF-002](../content/issues/OH-2026-MF-002.md) | 代数 — 不变量 | MEDIUM | `multimedia_media_foundation` |
+| `DTS2026082238400` | [OH-2026-NAPI-004](../content/issues/OH-2026-NAPI-004.md) | 代数 — 不变量 | HIGH | `arkui_napi` |
 | `DTS2026082239182` | [OH-2026-NAPI-002](../content/issues/OH-2026-NAPI-002.md) | 代数 — 往返 | MEDIUM | `arkui_napi` |
 | `DTS2026082239652` | [OH-2026-CAM-012](../content/issues/OH-2026-CAM-012.md) | 差分 | MEDIUM | `multimedia_camera_framework` |
 | `DTS2026082249247` | [OH-2026-IMG-011](../content/issues/OH-2026-IMG-011.md) | 代数 — 不变量 | MEDIUM | `multimedia_image_framework` |
@@ -349,6 +350,7 @@
 | `DTS2026082129239` | [OH-2026-MF-002](../content/issues/OH-2026-MF-002.md) | MEDIUM | 移动后对 src 的 Put 不得改写 dst（唯一 meta_） |
 | `DTS2026082249247` | [OH-2026-IMG-011](../content/issues/OH-2026-IMG-011.md) | MEDIUM | 溢出或非正尺寸 ⇒ IsSizeSupportDma 为 false |
 | `DTS2026081440197` | [OH-2026-NAPI-003](../content/issues/OH-2026-NAPI-003.md) | MEDIUM | Close(nullptr) 不改 depth（无 size_t 下溢） |
+| `DTS2026082238400` | [OH-2026-NAPI-004](../content/issues/OH-2026-NAPI-004.md) | HIGH | copied == min(|s|, bufsize-1)；不写 buf[bufsize] |
 
 <a id="否定--错误契约"></a>
 
@@ -413,7 +415,7 @@
 
 维护者驳回的 DTS。只计入分母。
 
-**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(131 + 1) / (131 + 1 + 25) = 84.1%**。
+**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(132 + 1) / (132 + 1 + 25) = 84.2%**。
 
 | DTS | 项目 | 主题 | 为何非问题 |
 |-----|------|------|------------|
