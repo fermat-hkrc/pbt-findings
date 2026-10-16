@@ -2,12 +2,12 @@
 
 对 [`content/issues/`](../content/issues/) 中带有 **DTS** 工单号（`internal_issue_id`）的发现所做的归类，按检出该工单的 **pi-pbt 性质（预言机）** 分组。CWE / 失效模式分组归档在 [`finding_precision_by_project.md`](finding_precision_by_project.md) 文末。
 
-- **已确认并修复（FIXED）**：**130** — `CONFIRMED_FIXED` 报告如下
+- **已确认并修复（FIXED）**：**131** — `CONFIRMED_FIXED` 报告如下
 - **已确认（待修复）**：**1** — `CONFIRMED_REAL`（OH-2026-ARKUI-018）
 - **非问题（NON-ISSUE）**：**25** — [目录](#非问题)
-- **已判定**：**156** = 130 + 1 + 25
-- **精确率**：**84.0%** = `(130 + 1) / (130 + 1 + 25)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
-- **严重级别**（已修复 + 已确认）：HIGH=29，MEDIUM=99，LOW=3
+- **已判定**：**157** = 131 + 1 + 25
+- **精确率**：**84.1%** = `(131 + 1) / (131 + 1 + 25)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
+- **严重级别**（已修复 + 已确认）：HIGH=30，MEDIUM=99，LOW=3
 - **生成时间**：2026-09-24
 
 ## 概览
@@ -17,7 +17,7 @@
 
 | 性质（预言机） | 数量 | HIGH | MEDIUM | LOW |
 |----------|------:|-----:|-------:|----:|
-| [状态机](#状态机) | 3 | 2 | 0 | 1 |
+| [状态机](#状态机) | 4 | 3 | 0 | 1 |
 | [差分](#差分) | 36 | 3 | 32 | 1 |
 | [代数 — 往返](#代数--往返) | 7 | 3 | 4 | 0 |
 | [代数 — 蜕变](#代数--蜕变) | 5 | 1 | 4 | 0 |
@@ -25,7 +25,7 @@
 | [否定 / 错误契约](#否定--错误契约) | 11 | 2 | 9 | 0 |
 | [参考](#参考) | 5 | 1 | 4 | 0 |
 | [仅崩溃](#仅崩溃) | 16 | 7 | 9 | 0 |
-| **合计** | **131** | **29** | **99** | **3** |
+| **合计** | **132** | **30** | **99** | **3** |
 
 强度顺序：状态机 ≻ 差分 ≻ 代数（往返 ≻ 幂等 ≻ 蜕变 ≻ 不变量 ≻ 否定/错误）≻ 参考 ≻ 仅崩溃。本集合中**幂等：0**。
 
@@ -45,7 +45,7 @@
 | `multimedia_av_codec` | 6 | 0 | 0 | 5 | 1 | 100% |
 | `multimedia_player_framework` | 4 | 1 | 0 | 4 | 0 | 80% |
 | `communication_bluetooth_service` | 2 | 0 | 2 | 0 | 0 | 100% |
-| `communication_wifi` | 3 | 0 | 1 | 2 | 0 | 100% |
+| `communication_wifi` | 4 | 0 | 2 | 2 | 0 | 100% |
 | `distributeddatamgr_pasteboard` | 2 | 0 | 1 | 1 | 0 | 100% |
 | `distributedhardware_device_manager` | 2 | 2 | 2 | 0 | 0 | 50% |
 | `multimedia_av_session` | 2 | 1 | 1 | 1 | 0 | 67% |
@@ -62,7 +62,7 @@
 | `arkui_napi` | 3 | 0 | 0 | 3 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **合计** | **131** | **25** | **29** | **99** | **3** | **84%** |
+| **合计** | **132** | **25** | **30** | **99** | **3** | **84%** |
 
 ## DTS 索引
 
@@ -86,6 +86,7 @@
 | `DTS2026063027223` | [OH-2026-BT-002](../content/issues/OH-2026-BT-002.md) | 否定 / 错误契约 | HIGH | `communication_bluetooth_service` |
 | `DTS2026070238028` | [OH-2026-CAM-001](../content/issues/OH-2026-CAM-001.md) | 状态机 | LOW | `multimedia_camera_framework` |
 | `DTS2026070318488` | [OH-2026-ARKUI-005](../content/issues/OH-2026-ARKUI-005.md) | 代数 — 不变量 | HIGH | `arkui_ace_engine` |
+| `DTS2607070006622` | [OH-2026-WIFI-004](../content/issues/OH-2026-WIFI-004.md) | 状态机 | HIGH | `communication_wifi` |
 | `DTS2026070722498` | [OH-2026-AVSESSION-001](../content/issues/OH-2026-AVSESSION-001.md) | 仅崩溃 | HIGH | `multimedia_av_session` |
 | `DTS2026070856858` | [OH-2026-ARKUI-006](../content/issues/OH-2026-ARKUI-006.md) | 代数 — 不变量 | MEDIUM | `arkui_ace_engine` |
 | `DTS2026070856960` | [OH-2026-NET-002](../content/issues/OH-2026-NET-002.md) | 代数 — 不变量 | HIGH | `communication_netmanager_base` |
@@ -213,6 +214,7 @@
 | DTS | ID | 严重级别 | 失败的性质 |
 |-----|----|----------|------------------|
 | `DTS2026070238028` | [OH-2026-CAM-001](../content/issues/OH-2026-CAM-001.md) | LOW | FixedSizeList ≡ 有界 FIFO 模型（add/remove 序列） |
+| `DTS2607070006622` | [OH-2026-WIFI-004](../content/issues/OH-2026-WIFI-004.md) | HIGH | 按名删除 ≡ 模型擦除全部同名节点 |
 | `DTS2026073012747` | [OH-2026-PB-002](../content/issues/OH-2026-PB-002.md) | HIGH | 任意 worker 停止（含超时）清除 isRunning |
 | `DTS2026091012206` | [OH-2026-ARKUI-009](../content/issues/OH-2026-ARKUI-009.md) | HIGH | SetEntry 序列 ≡ 3×N / N×3 模型（拒绝负数，不写入） |
 
@@ -411,7 +413,7 @@
 
 维护者驳回的 DTS。只计入分母。
 
-**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(130 + 1) / (130 + 1 + 25) = 84.0%**。
+**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(131 + 1) / (131 + 1 + 25) = 84.1%**。
 
 | DTS | 项目 | 主题 | 为何非问题 |
 |-----|------|------|------------|

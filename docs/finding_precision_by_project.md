@@ -2,8 +2,8 @@
 
 How often PBT-filed **DTS** tickets were accepted as real bugs versus closed as non-issues, broken down by project.
 
-- **Precision:** **84.0%** ((130 FIXED + 1 CONFIRMED) / 156 decided)
-- **False-positive rate:** **16.0%** (25 NON-ISSUE)
+- **Precision:** **84.1%** ((131 FIXED + 1 CONFIRMED) / 157 decided)
+- **False-positive rate:** **15.9%** (25 NON-ISSUE)
 
 Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS tickets are omitted — their outcome (bug vs non-issue) is not yet known.
 
@@ -22,7 +22,7 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 **Sources**
 
 - DTS inventory: [`dts_bug_types.md`](./dts_bug_types.md) + [`content/issues/`](../content/issues/)
-- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**131** = 130 `CONFIRMED_FIXED` + 1 `CONFIRMED_REAL`)
+- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**132** = 131 `CONFIRMED_FIXED` + 1 `CONFIRMED_REAL`)
 - Non-issue write-ups: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (**24** DTS-stamped)
 
 - **Generated:** 2026-09-24
@@ -31,13 +31,13 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 130 | 83.3% |
+| FIXED | 131 | 83.4% |
 | CONFIRMED (awaiting fix) | 1 | 0.6% |
-| NON-ISSUE | 25 | 16.0% |
-| **Total decided** | **156** | 100% |
+| NON-ISSUE | 25 | 15.9% |
+| **Total decided** | **157** | 100% |
 
-- **Precision:** **(130+1)/156 = 84.0%** — about five in six closed tickets were real bugs.
-- **False-positive rate:** **25/156 = 16.0%**.
+- **Precision:** **(131+1)/157 = 84.1%** — about five in six closed tickets were real bugs.
+- **False-positive rate:** **25/157 = 15.9%**.
 
 > Precision means *maintainer-accepted defect rate among dispositioned DTS* (fixed **or** confirmed-unfixed), not static-analysis alert rate. Open/submitted tickets are out of scope until closed.
 
@@ -61,7 +61,7 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`multimedia_av_session`](#multimedia-av-session) | 2 | 0 | 1 | 3 | 67% |
 | [`multimedia_media_library`](#multimedia-media-library) | 5 | 0 | 1 | 6 | 83% |
 | [`communication_bluetooth_service`](#communication-bluetooth-service) | 2 | 0 | 0 | 2 | 100% |
-| [`communication_wifi`](#communication-wifi) | 3 | 0 | 0 | 3 | 100% |
+| [`communication_wifi`](#communication-wifi) | 4 | 0 | 0 | 4 | 100% |
 | [`distributeddatamgr_pasteboard`](#distributeddatamgr-pasteboard) | 2 | 0 | 0 | 2 | 100% |
 | [`window_window_manager`](#window-window-manager) | 3 | 0 | 0 | 3 | 100% |
 | [`arkui_napi`](#arkui-napi) | 3 | 0 | 0 | 3 | 100% |
@@ -74,13 +74,13 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`telephony_core_service`](#telephony-core-service) | 3 | 0 | 0 | 3 | 100% |
 | [`multimedia_audio_framework`](#multimedia-audio-framework) | 1 | 0 | 1 | 2 | 50% |
 | [`multimodalinput_input`](#multimodalinput-input) | 0 | 0 | 2 | 2 | 0% |
-| **Total** | **130** | **1** | **25** | **156** | **84%** |
+| **Total** | **131** | **1** | **25** | **157** | **84%** |
 
 ## Precision tiers
 
 ### Tier A — Perfect precision (100%, ≥1 FIXED, 0 NON-ISSUE)
 
-`multimedia_camera_framework` (15 fixed), `graphic_graphic_2d` (10 fixed), `multimedia_image_framework` (10 fixed), `ability_ability_runtime` (7 fixed), `multimedia_av_codec` (6 fixed), `window_window_manager` (3 fixed), `arkui_napi` (3 fixed), `communication_bluetooth_service` (2 fixed), `communication_wifi` (3 fixed), `distributeddatamgr_pasteboard` (2 fixed), `filemanagement_storage_service` (2 fixed), `telephony_core_service` (3 fixed), `commonlibrary_rust_ylong_http` (1 fixed), `distributedhardware_distributed_hardware_fwk` (1 fixed), `filemanagement_dfs_service` (1 fixed)
+`multimedia_camera_framework` (15 fixed), `graphic_graphic_2d` (10 fixed), `multimedia_image_framework` (10 fixed), `ability_ability_runtime` (7 fixed), `multimedia_av_codec` (6 fixed), `window_window_manager` (3 fixed), `arkui_napi` (3 fixed), `communication_bluetooth_service` (2 fixed), `communication_wifi` (4 fixed), `distributeddatamgr_pasteboard` (2 fixed), `filemanagement_storage_service` (2 fixed), `telephony_core_service` (3 fixed), `commonlibrary_rust_ylong_http` (1 fixed), `distributedhardware_distributed_hardware_fwk` (1 fixed), `filemanagement_dfs_service` (1 fixed)
 
 These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 
@@ -434,13 +434,14 @@ Mixed outcomes: maintainers accepted **2** and rejected **1**. Net precision **6
 
 | Metric | Value |
 |--------|------:|
-| FIXED | 3 |
+| FIXED | 4 |
 | NON-ISSUE | 0 |
-| Decided | 3 |
+| Decided | 4 |
 | Precision | 100.0% |
 
 **FIXED DTS**
 
+- `DTS2607070006622` — [OH-2026-WIFI-004](../content/issues/OH-2026-WIFI-004.md): DeleteMessageFromQueue skips the next node after a delete
 - `DTS2026071806709` — [OH-2026-WIFI-001](../content/issues/OH-2026-WIFI-001.md): HexString2Byte missing null checks and source bounds — OOB read + null deref
 - `DTS2026072818599` — [OH-2026-WIFI-003](../content/issues/OH-2026-WIFI-003.md): StrSafeCopy(dst, 0, src) writes dst[0] past zero-length capacity
 - `DTS2026073028465` — [OH-2026-WIFI-002](../content/issues/OH-2026-WIFI-002.md): GetCurStateName OOB-reads empty mStateVector — SEGV on mStateVector[-1]
@@ -691,16 +692,16 @@ No FIXED DTS yet among dispositioned tickets.
 
 ## Relation to `content/issues/` write-ups
 
-This repo’s [`content/issues/`](../content/issues/) currently carries **131** DTS-linked reports (**130** `CONFIRMED_FIXED` + **1** `CONFIRMED_REAL`).
+This repo’s [`content/issues/`](../content/issues/) currently carries **132** DTS-linked reports (**131** `CONFIRMED_FIXED` + **1** `CONFIRMED_REAL`).
 `CONFIRMED_FIXED` is the **FIXED** count; `CONFIRMED_REAL` is **CONFIRMED** (awaiting fix). Non-issues come from `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/`.
 
 | Population | Count | Role |
 |------------|------:|------|
-| Decided DTS (FIXED + CONFIRMED + NON-ISSUE) | 156 | Ground truth for precision |
-| FIXED | 130 | Maintainer-accepted and fixed |
+| Decided DTS (FIXED + CONFIRMED + NON-ISSUE) | 157 | Ground truth for precision |
+| FIXED | 131 | Maintainer-accepted and fixed |
 | CONFIRMED | 1 | Maintainer-accepted, not fixed yet |
 | NON-ISSUE | 25 | Maintainer-rejected (cloned + testing inventory) |
-| Write-ups in `content/issues` with DTS | 131 | Published confirmed bugs (fixed or awaiting fix) |
+| Write-ups in `content/issues` with DTS | 132 | Published confirmed bugs (fixed or awaiting fix) |
 
 **Do not** compute precision from `content/issues` alone — it omits non-issues by design. Use this document (or dispositioned rows in `BUG_REPORTS.md`) for acceptance rate.
 

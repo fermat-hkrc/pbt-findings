@@ -22,7 +22,7 @@
 | 18 | multimedia_camera_framework | FixedSizeList::remove_at 回绕后破坏环形缓冲，丢失仍存活元素 | 检查不当 | `common/utils/fixed_size_list.h` | 已确认并修复 |  | DTS2026070238028 |
 | 19 | arkui_ace_engine | LazyGridLayoutInfo::UpdatePosMapStart 从非零 start 重定时漏掉 spaceWidth_ | 计算错误 | `frameworks/core/components_ng/pattern/lazy_grid_layout/lazy_grid_layout_info.cpp` | 已确认并修复 |  | DTS2026070318488 |
 | 20 | distributedhardware_device_manager | JsonObject cJSON 后端 64 位整数往返精度损失 | 计算错误 | `json/src/json_object_cjson.cpp` | 非问题 | 生产 use_nlohmann_json=true；cJSON 分支未走；已知限制，延后处理 | DTS2026070663477 |
-| 21 | communication_wifi | DeleteMessageFromQueue 删除后跳过下一个节点 | 控制流错误 | `wifi/base/state_machine/src/message_queue.cpp` | 已提交 |  | DTS2607070006622 |
+| 21 | communication_wifi | DeleteMessageFromQueue 删除后跳过下一个节点 | 控制流错误 | `wifi/base/state_machine/src/message_queue.cpp` | 已确认并修复 |  | DTS2607070006622 |
 | 22 | multimedia_av_session | GetAnonyTitle 对全连续字节媒体标题经空向量越界读崩溃（SEGV） | 缓冲区/越界访问 | `utils/include/avsession_utils.h` | 已确认并修复 |  | DTS2026070722498 |
 | 23 | arkui_ace_engine | Color::LineColorTransition 在通道递减时 UB 转型（旧 DataPanel 渐变） | 未定义行为 | `frameworks/core/components/common/properties/color.cpp` | 已确认并修复 |  | DTS2026070856858 |
 | 24 | communication_netmanager_base | CheckIpv4InNet 的 /0 CIDR 掩码经未定义行为（1<<32），静默绕过 PAC 全匹配代理规则 | 未定义行为 | `services/netconnmanager/src/pac_functions.cpp` | 已确认并修复 |  | DTS2026070856960 |

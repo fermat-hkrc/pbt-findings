@@ -2,12 +2,12 @@
 
 Categorization of [`content/issues/`](../content/issues/) findings that carry a **DTS** ticket (`internal_issue_id`), grouped by the **pi-pbt property (oracle)** that found each ticket. CWE / failure-mode grouping is archived at the end of [`finding_precision_by_project.md`](finding_precision_by_project.md).
 
-- **Confirmed (FIXED)**: **130** — `CONFIRMED_FIXED` write-ups below
+- **Confirmed (FIXED)**: **131** — `CONFIRMED_FIXED` write-ups below
 - **Confirmed (awaiting fix)**: **1** — `CONFIRMED_REAL` (OH-2026-ARKUI-018)
 - **Non-issue**: **25** — [catalog](#non-issues)
-- **Decided**: **156** = 130 + 1 + 25
-- **Precision**: **84.0%** = `(130 + 1) / (130 + 1 + 25)` = (fixed + confirmed) / (fixed + confirmed + non-issues)
-- **Severity** (fixed + confirmed): HIGH=29, MEDIUM=99, LOW=3
+- **Decided**: **157** = 131 + 1 + 25
+- **Precision**: **84.1%** = `(131 + 1) / (131 + 1 + 25)` = (fixed + confirmed) / (fixed + confirmed + non-issues)
+- **Severity** (fixed + confirmed): HIGH=30, MEDIUM=99, LOW=3
 - **Generated**: 2026-09-24
 
 ## Overview
@@ -17,7 +17,7 @@ Oracle taxonomy from [pi-pbt `docs/oracles.md`](https://github.com/fermat-hkrc/p
 
 | Property (oracle) | Count | HIGH | MEDIUM | LOW |
 |----------|------:|-----:|-------:|----:|
-| [State Machine](#state-machine) | 3 | 2 | 0 | 1 |
+| [State Machine](#state-machine) | 4 | 3 | 0 | 1 |
 | [Differential](#differential) | 36 | 3 | 32 | 1 |
 | [Algebraic — Round-trip](#algebraic--round-trip) | 7 | 3 | 4 | 0 |
 | [Algebraic — Metamorphic](#algebraic--metamorphic) | 5 | 1 | 4 | 0 |
@@ -25,7 +25,7 @@ Oracle taxonomy from [pi-pbt `docs/oracles.md`](https://github.com/fermat-hkrc/p
 | [Negative / Error Contract](#negative--error-contract) | 11 | 2 | 9 | 0 |
 | [Reference](#reference) | 5 | 1 | 4 | 0 |
 | [Crash-Only](#crash-only) | 16 | 7 | 9 | 0 |
-| **Total** | **131** | **29** | **99** | **3** |
+| **Total** | **132** | **30** | **99** | **3** |
 
 Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Idempotence ≻ Metamorphic ≻ Invariant ≻ Negative/Error) ≻ Reference ≻ Crash-Only. **Idempotence: 0** in this set.
 
@@ -45,7 +45,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `multimedia_av_codec` | 6 | 0 | 0 | 5 | 1 | 100% |
 | `multimedia_player_framework` | 4 | 1 | 0 | 4 | 0 | 80% |
 | `communication_bluetooth_service` | 2 | 0 | 2 | 0 | 0 | 100% |
-| `communication_wifi` | 3 | 0 | 1 | 2 | 0 | 100% |
+| `communication_wifi` | 4 | 0 | 2 | 2 | 0 | 100% |
 | `distributeddatamgr_pasteboard` | 2 | 0 | 1 | 1 | 0 | 100% |
 | `distributedhardware_device_manager` | 2 | 2 | 2 | 0 | 0 | 50% |
 | `multimedia_av_session` | 2 | 1 | 1 | 1 | 0 | 67% |
@@ -62,7 +62,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `arkui_napi` | 3 | 0 | 0 | 3 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **Total** | **131** | **25** | **29** | **99** | **3** | **84%** |
+| **Total** | **132** | **25** | **30** | **99** | **3** | **84%** |
 
 ## DTS index
 
@@ -86,6 +86,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `DTS2026063027223` | [OH-2026-BT-002](../content/issues/OH-2026-BT-002.md) | Negative / Error Contract | HIGH | `communication_bluetooth_service` |
 | `DTS2026070238028` | [OH-2026-CAM-001](../content/issues/OH-2026-CAM-001.md) | State Machine | LOW | `multimedia_camera_framework` |
 | `DTS2026070318488` | [OH-2026-ARKUI-005](../content/issues/OH-2026-ARKUI-005.md) | Algebraic — Invariant | HIGH | `arkui_ace_engine` |
+| `DTS2607070006622` | [OH-2026-WIFI-004](../content/issues/OH-2026-WIFI-004.md) | State Machine | HIGH | `communication_wifi` |
 | `DTS2026070722498` | [OH-2026-AVSESSION-001](../content/issues/OH-2026-AVSESSION-001.md) | Crash-Only | HIGH | `multimedia_av_session` |
 | `DTS2026070856858` | [OH-2026-ARKUI-006](../content/issues/OH-2026-ARKUI-006.md) | Algebraic — Invariant | MEDIUM | `arkui_ace_engine` |
 | `DTS2026070856960` | [OH-2026-NET-002](../content/issues/OH-2026-NET-002.md) | Algebraic — Invariant | HIGH | `communication_netmanager_base` |
@@ -213,6 +214,7 @@ Operation sequences vs an independent model (lifecycle / collection).
 | DTS | ID | Severity | Failing property |
 |-----|----|----------|------------------|
 | `DTS2026070238028` | [OH-2026-CAM-001](../content/issues/OH-2026-CAM-001.md) | LOW | FixedSizeList ≡ bounded FIFO model across add/remove |
+| `DTS2607070006622` | [OH-2026-WIFI-004](../content/issues/OH-2026-WIFI-004.md) | HIGH | delete-by-name ≡ model erase of every same-name node |
 | `DTS2026073012747` | [OH-2026-PB-002](../content/issues/OH-2026-PB-002.md) | HIGH | any worker stop (incl. timeout) clears isRunning |
 | `DTS2026091012206` | [OH-2026-ARKUI-009](../content/issues/OH-2026-ARKUI-009.md) | HIGH | SetEntry sequence ≡ 3×N / N×3 model (reject negatives, no write) |
 
@@ -411,7 +413,7 @@ Authoritative spec / stdlib / IEEE / Unicode / pinning contract that this SUT cl
 
 Maintainer-rejected DTS. Counted in the denominator only.
 
-**Precision** = (fixed + confirmed) / (fixed + confirmed + non-issues) = **(130 + 1) / (130 + 1 + 25) = 84.0%**.
+**Precision** = (fixed + confirmed) / (fixed + confirmed + non-issues) = **(131 + 1) / (131 + 1 + 25) = 84.1%**.
 
 | DTS | Project | Theme | Why non-issue |
 |-----|---------|-------|---------------|
