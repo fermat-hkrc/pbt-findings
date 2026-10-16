@@ -167,3 +167,4 @@
 | 163 | arkui_ace_engine | CalculateStartCachedCount 在末条规则行未满时多计 | 计算错误 | `frameworks/core/components_ng/pattern/grid/grid_scroll/grid_scroll_with_options_layout_algorithm.cpp` | 已确认并修复 |  | DTS2609150153371 |
 | 164 | window_window_manager | CalculateOriginPosition（Matrix4）经 uint32_t 转换把反投影负坐标置 0 或回绕 | 整数溢出/下溢 | `utils/include/window_helper.h` | 已提交 |  | DTS2026092573568 |
 | 165 | arkui_ace_engine | SpanString::DecodeTlvExt 自定义 marshall 区间末端多读 ExtSpan 用户数据（迭代器 UB / 崩溃） | 缓冲区/越界访问 | `frameworks/core/components_ng/pattern/text/span/span_string.cpp` | 已确认 |  | DTS2026092958405 |
+| 166 | graphic_graphic_2d | SrcRectScaleFit 把源空间窄条写入 dstRect，而不是窗口内的 letterbox 矩形 | 计算错误 | `rosen/modules/render_service/core/pipeline/render_thread/rs_uni_render_util.cpp` | 已提交 |  | DTS2026101648114 |
