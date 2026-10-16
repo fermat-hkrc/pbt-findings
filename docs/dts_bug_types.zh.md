@@ -2,12 +2,12 @@
 
 对 [`content/issues/`](../content/issues/) 中带有 **DTS** 工单号（`internal_issue_id`）的发现所做的归类，按检出该工单的 **pi-pbt 性质（预言机）** 分组。CWE / 失效模式分组归档在 [`finding_precision_by_project.md`](finding_precision_by_project.md) 文末。
 
-- **已确认并修复（FIXED）**：**129** — `CONFIRMED_FIXED` 报告如下
+- **已确认并修复（FIXED）**：**130** — `CONFIRMED_FIXED` 报告如下
 - **已确认（待修复）**：**1** — `CONFIRMED_REAL`（OH-2026-ARKUI-018）
 - **非问题（NON-ISSUE）**：**25** — [目录](#非问题)
-- **已判定**：**155** = 129 + 1 + 25
-- **精确率**：**83.9%** = `(129 + 1) / (129 + 1 + 25)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
-- **严重级别**（已修复 + 已确认）：HIGH=29，MEDIUM=98，LOW=3
+- **已判定**：**156** = 130 + 1 + 25
+- **精确率**：**84.0%** = `(130 + 1) / (130 + 1 + 25)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
+- **严重级别**（已修复 + 已确认）：HIGH=29，MEDIUM=99，LOW=3
 - **生成时间**：2026-09-24
 
 ## 概览
@@ -21,11 +21,11 @@
 | [差分](#差分) | 36 | 3 | 32 | 1 |
 | [代数 — 往返](#代数--往返) | 7 | 3 | 4 | 0 |
 | [代数 — 蜕变](#代数--蜕变) | 5 | 1 | 4 | 0 |
-| [代数 — 不变量](#代数--不变量) | 47 | 10 | 36 | 1 |
+| [代数 — 不变量](#代数--不变量) | 48 | 10 | 37 | 1 |
 | [否定 / 错误契约](#否定--错误契约) | 11 | 2 | 9 | 0 |
 | [参考](#参考) | 5 | 1 | 4 | 0 |
 | [仅崩溃](#仅崩溃) | 16 | 7 | 9 | 0 |
-| **合计** | **130** | **29** | **98** | **3** |
+| **合计** | **131** | **29** | **99** | **3** |
 
 强度顺序：状态机 ≻ 差分 ≻ 代数（往返 ≻ 幂等 ≻ 蜕变 ≻ 不变量 ≻ 否定/错误）≻ 参考 ≻ 仅崩溃。本集合中**幂等：0**。
 
@@ -45,7 +45,7 @@
 | `multimedia_av_codec` | 6 | 0 | 0 | 5 | 1 | 100% |
 | `multimedia_player_framework` | 4 | 1 | 0 | 4 | 0 | 80% |
 | `communication_bluetooth_service` | 2 | 0 | 2 | 0 | 0 | 100% |
-| `communication_wifi` | 2 | 0 | 1 | 1 | 0 | 100% |
+| `communication_wifi` | 3 | 0 | 1 | 2 | 0 | 100% |
 | `distributeddatamgr_pasteboard` | 2 | 0 | 1 | 1 | 0 | 100% |
 | `distributedhardware_device_manager` | 2 | 2 | 2 | 0 | 0 | 50% |
 | `multimedia_av_session` | 2 | 1 | 1 | 1 | 0 | 67% |
@@ -62,7 +62,7 @@
 | `arkui_napi` | 3 | 0 | 0 | 3 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **合计** | **130** | **25** | **29** | **98** | **3** | **84%** |
+| **合计** | **131** | **25** | **29** | **99** | **3** | **84%** |
 
 ## DTS 索引
 
@@ -122,6 +122,7 @@
 | `DTS2026072716582` | [OH-2026-CAM-014](../content/issues/OH-2026-CAM-014.md) | 仅崩溃 | MEDIUM | `multimedia_camera_framework` |
 | `DTS2026072717921` | [OH-2026-CAM-005](../content/issues/OH-2026-CAM-005.md) | 仅崩溃 | MEDIUM | `multimedia_camera_framework` |
 | `DTS2026072750511` | [OH-2026-NET-004](../content/issues/OH-2026-NET-004.md) | 代数 — 不变量 | MEDIUM | `communication_netmanager_base` |
+| `DTS2026072818599` | [OH-2026-WIFI-003](../content/issues/OH-2026-WIFI-003.md) | 代数 — 不变量 | MEDIUM | `communication_wifi` |
 | `DTS2026072832082` | [OH-2026-CAM-015](../content/issues/OH-2026-CAM-015.md) | 仅崩溃 | MEDIUM | `multimedia_camera_framework` |
 | `DTS2026072921166` | [OH-2026-WM-002](../content/issues/OH-2026-WM-002.md) | 差分 | MEDIUM | `window_window_manager` |
 | `DTS2026072924028` | [OH-2026-WM-003](../content/issues/OH-2026-WM-003.md) | 否定 / 错误契约 | HIGH | `window_window_manager` |
@@ -317,6 +318,7 @@
 | `DTS2026072438492` | [OH-2026-IMG-002](../content/issues/OH-2026-IMG-002.md) | MEDIUM | top+height / left+width 的 int32 溢出绝不是合法裁剪 |
 | `DTS2026072454808` | [OH-2026-MEDIALIB-001](../content/issues/OH-2026-MEDIALIB-001.md) | MEDIUM | 仅含 bucket 的 URI 没有 file id（不是 bucket 名） |
 | `DTS2026072750511` | [OH-2026-NET-004](../content/issues/OH-2026-NET-004.md) | MEDIUM | RfindIp6 对任意起止查询终止 |
+| `DTS2026072818599` | [OH-2026-WIFI-003](../content/issues/OH-2026-WIFI-003.md) | MEDIUM | 零容量 StrSafeCopy 不写 dst[0] |
 | `DTS2026073013382` | [OH-2026-IMG-009](../content/issues/OH-2026-IMG-009.md) | MEDIUM | width*bpp 溢出 ⇒ 过小 stride 被拒绝 |
 | `DTS2026073112258` | [ARK-2026-STR-001](../content/issues/ARK-2026-STR-001.md) | MEDIUM | "/" 剥离后 size() 不损坏 |
 | `DTS2026073116282` | [OH-2026-ARKUI-008](../content/issues/OH-2026-ARKUI-008.md) | MEDIUM | 任意描边下 circleAngle 有限 |
@@ -409,7 +411,7 @@
 
 维护者驳回的 DTS。只计入分母。
 
-**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(129 + 1) / (129 + 1 + 25) = 83.9%**。
+**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(130 + 1) / (130 + 1 + 25) = 84.0%**。
 
 | DTS | 项目 | 主题 | 为何非问题 |
 |-----|------|------|------------|

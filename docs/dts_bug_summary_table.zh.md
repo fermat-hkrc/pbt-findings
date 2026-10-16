@@ -65,7 +65,7 @@
 | 61 | multimedia_camera_framework | CAPTURE_MIRROR_SUPPORTED 成对遍历在奇数 item.count 时越界 | 缓冲区/越界访问 | `frameworks/native/camera/base/src/output/photo_output.cpp` | 已确认并修复 |  | DTS2026072717921 |
 | 62 | communication_netmanager_base | GetAddrFamily 不像兄弟 IsIPv6LinkLocal 那样剥离 IPv6 %scope | 控制流错误 | `utils/common_utils/src/netmanager_base_common_utils.cpp` | 非问题 | 职责不同 — 族判断按 inet_pton 严格；zone 在下游添加 | DTS2026072720774 |
 | 63 | communication_netmanager_base | RfindIp6 在 startBytes == 0 未命中时无符号下溢挂起/越界 | 死循环/挂起 | `services/netmanagernative/bpf/src/bitmap_manager.cpp` | 已确认并修复 |  | DTS2026072750511 |
-| 64 | communication_wifi | StrSafeCopy(dst, 0, src) 在零容量缓冲区上写入 dst[0] | 缓冲区/越界访问 | `wifi/relation_services/common/wifi_hal_common_func.c` | 已提交 |  | DTS2026072818599 |
+| 64 | communication_wifi | StrSafeCopy(dst, 0, src) 在零容量缓冲区上写入 dst[0] | 缓冲区/越界访问 | `wifi/relation_services/common/wifi_hal_common_func.c` | 已确认并修复 |  | DTS2026072818599 |
 | 65 | multimedia_camera_framework | OHOS_ABILITY_EQUIVALENT_FOCUS pair 遍历在奇数 item.count 上越界 | 缓冲区/越界访问 | `services/camera_service/src/hcapture_session.cpp` | 已确认并修复 |  | DTS2026072832082 |
 | 66 | ability_ability_runtime | PhotoEditor SaveEditedContent 在无扩展名时用整段 URI 当 MIME | 控制流错误 | `frameworks/native/ability/native/photo_editor_extension_ability/photo_editor_extension_context.cpp` | 已提交 |  | DTS2026072919806 |
 | 67 | window_window_manager | ComputeRectByAspectRatio 级联装饰条带 uint32 下溢 | 整数溢出/下溢 | `wmserver/src/window_layout_policy_cascade.cpp` | 已确认并修复 |  | DTS2026072921166 |
