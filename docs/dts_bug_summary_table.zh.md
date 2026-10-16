@@ -143,26 +143,27 @@
 | 139 | multimedia_media_library | GetVirtualPath / UpdateVirtualPath 空 relativePath 末字符未定义行为 | 未定义行为 | `frameworks/innerkitsimpl/medialibrary_data_extension/src/medialibrary_asset_operations.cpp` | 已确认并修复 |  | DTS2608260052510 |
 | 140 | distributeddatamgr_datamgr_service | DeviceMatrix::ConvertIndex 末尾 index-- 导致 uint16 回绕 | 差一 | `services/distributeddataservice/service/matrix/src/device_matrix.cpp` | 非问题 | index-- 适配旧版 dynamicApps_（少一位）；回绕不在现行 ConvertDynamic 路径 | DTS2026082738345 |
 | 141 | communication_wifi | RemoveData 拿整段缓冲区去和 key 切片比较 | 运算符/谓词错误 | `wifi/services/wifi_standard/wifi_framework/wifi_manage/wifi_p2p/wifi_p2p_dns_txt_record.cpp` | 已提交 |  | DTS2026082741568 |
-| 142 | communication_netmanager_base | StrToInt / StrToUint / StrToUint64 把前导零十进制当八进制解析 | 计算错误 | `utils/common_utils/src/netmanager_base_common_utils.cpp` | 已确认并修复 |  | DTS2026083107415 |
-| 143 | communication_netmanager_base | GetMtu 把 sysfs 的 "1500\n" 交给 StrToInt → 总是 -1 | 检查不当 | `services/netmanagernative/src/manager/interface_manager.cpp` | 已确认并修复 |  | DTS2026083109843 |
-| 144 | communication_dsoftbus | ConvertBtMacToBinary 忽略 strtoul 残留与 uint8 溢出 | 检查不当 | `core/common/utils/softbus_utils.c` | 已确认并修复 |  | DTS2026083116823 |
-| 145 | multimedia_av_codec | DashStrToNonNegativeDouble 接受 NaN（`result < 0` 漏掉无序比较） | 运算符/谓词错误 | `services/media_engine/plugins/source/http_source/dash/mpd_parser/dash_mpd_util.cpp` | 已确认并修复 |  | DTS2026090130983 |
-| 146 | telephony_core_service | Asn1Decoder::BuildAsn1Node 在 offset+dataLen 回绕 uint32 时抛 bad_alloc | 整数溢出/下溢 | `utils/codec/src/asn1_decoder.cpp` | 已确认并修复 |  | DTS2026090326272 |
-| 147 | communication_netmanager_base | ToAnonymousIp 对前缀为 0、109、119 的 IPv6 CIDR 不脱敏 | 信息泄漏 | `utils/common_utils/src/netmanager_base_common_utils.cpp` | 已确认并修复 |  | DTS2026090525146 |
-| 148 | telephony_core_service | CountTrailingZeros 在多于一个比特置位时算错 | 计算错误 | `utils/codec/src/asn1_utils.cpp` | 已确认并修复 |  | DTS2026090526221 |
-| 149 | graphic_graphic_2d | DrawPixelMapMeshBuilderProcess 把网格的列和行对调了 | 计算错误 | `rosen/modules/2d_graphics/drawing_ndk/drawing_utils/drawing_canvas_utils.cpp` | 已确认并修复 |  | DTS2026090527401 |
-| 150 | arkui_ace_engine | MediaQueryer::MatchCondition 在 AND 组不是最后一个 OR 子句时丢弃该 AND 组 | 控制流错误 | `frameworks/bridge/common/media_query/media_queryer.cpp` | 已确认并修复 |  | DTS2026090919800 |
-| 151 | arkui_ace_engine | CheckColorAlpha 在缩放到 255 之前把单位 alpha 转成 uint8_t | 计算错误 | `frameworks/core/components_ng/svg/parse/svg_attributes_parser.cpp` | 已确认并修复 |  | DTS2026090920220 |
-| 152 | arkui_ace_engine | BubbleLayoutAlgorithm::GetP2 asin 定义域破坏 → NaN 箭头裁剪路径 | 计算错误 | `frameworks/core/components_ng/pattern/bubble/bubble_layout_algorithm.cpp` | 已确认并修复 |  | DTS2026090922585 |
-| 153 | arkui_ace_engine | Matrix3N::SetEntry / MatrixN3::SetEntry 缺少负索引守卫（越界写 / 崩溃） | 缓冲区/越界访问 | `frameworks/base/geometry/matrix3.cpp` | 已确认并修复 |  | DTS2026091012206 |
-| 154 | arkui_ace_engine | Quaternion::Slerp 在 t=0 且 from·to < 0 时返回 -this | 计算错误 | `frameworks/base/geometry/quaternion.cpp` | 非问题 | 与 chromium 移植实现保持一致：from/−from 端点不影响显示、不返回给开发者 | DTS2026091029544 |
-| 155 | arkui_ace_engine | MediaQueryer::MatchCondition 对带显式 `px` 的 min-/max- 特征永远不匹配 | 控制流错误 | `frameworks/bridge/common/media_query/media_queryer.cpp` | 已确认并修复 |  | DTS2026091412083 |
-| 156 | arkui_ace_engine | GridLayoutInfo::FindEndIdx 跳过 item 0 并回落到 {0,0,0} | 控制流错误 | `frameworks/core/components_ng/pattern/grid/grid_layout_info.cpp` | 已确认并修复 |  | DTS2026091425514 |
-| 157 | arkui_ace_engine | LazyGridLayoutInfo::UpdatePosMap 在只改 gap 时把整段 body 增量写进 adjustOffset.start | 计算错误 | `frameworks/core/components_ng/pattern/lazy_grid_layout/lazy_grid_layout_info.cpp` | 非问题 | 孤立调用；真实路径是可见项测量+滚动补偿保位；`start=0` 预期不成立 | DTS2026091437627 |
-| 158 | communication_netmanager_base | ExtractDomainFormUrl 把 :port 留在 DNS 域名里 | 控制流错误 | `utils/common_utils/src/netmanager_base_common_utils.cpp` | 已确认并修复 |  | DTS2026091437628 |
-| 159 | arkui_ace_engine | LazyGridLayoutInfo::SetSpace 在 lanes > 1 时把已滚动窗口放高一行 | 差一 | `frameworks/core/components_ng/pattern/lazy_grid_layout/lazy_grid_layout_info.cpp` | 已确认并修复 |  | DTS2609150107715 |
-| 160 | arkui_ace_engine | LazyGridLayoutInfo::UpdatePosMapEnd 在末行不完整时把 totalMainSize_ 留在上一行终点 | 计算错误 | `frameworks/core/components_ng/pattern/lazy_grid_layout/lazy_grid_layout_info.cpp` | 已确认并修复 |  | DTS2609150123188 |
-| 161 | arkui_ace_engine | 反向 GetTargetIndexInfoWithBenchMark 在未填满的末行之后另起一行 | 控制流错误 | `frameworks/core/components_ng/pattern/grid/grid_scroll/grid_scroll_with_options_layout_algorithm.cpp` | 已确认并修复 |  | DTS2609150153174 |
-| 162 | arkui_ace_engine | CalculateStartCachedCount 在末条规则行未满时多计 | 计算错误 | `frameworks/core/components_ng/pattern/grid/grid_scroll/grid_scroll_with_options_layout_algorithm.cpp` | 已确认并修复 |  | DTS2609150153371 |
-| 163 | window_window_manager | CalculateOriginPosition（Matrix4）经 uint32_t 转换把反投影负坐标置 0 或回绕 | 整数溢出/下溢 | `utils/include/window_helper.h` | 已提交 |  | DTS2026092573568 |
-| 164 | arkui_ace_engine | SpanString::DecodeTlvExt 自定义 marshall 区间末端多读 ExtSpan 用户数据（迭代器 UB / 崩溃） | 缓冲区/越界访问 | `frameworks/core/components_ng/pattern/text/span/span_string.cpp` | 已确认 |  | DTS2026092958405 |
+| 142 | communication_netmanager_base | GetInterfaceTrafficByType 截断超过 8 字节的 sysfs 计数器 | 计算错误 | `services/netmanagernative/src/manager/traffic_manager.cpp` | 已确认并修复 |  | DTS2026083022516 |
+| 143 | communication_netmanager_base | StrToInt / StrToUint / StrToUint64 把前导零十进制当八进制解析 | 计算错误 | `utils/common_utils/src/netmanager_base_common_utils.cpp` | 已确认并修复 |  | DTS2026083107415 |
+| 144 | communication_netmanager_base | GetMtu 把 sysfs 的 "1500\n" 交给 StrToInt → 总是 -1 | 检查不当 | `services/netmanagernative/src/manager/interface_manager.cpp` | 已确认并修复 |  | DTS2026083109843 |
+| 145 | communication_dsoftbus | ConvertBtMacToBinary 忽略 strtoul 残留与 uint8 溢出 | 检查不当 | `core/common/utils/softbus_utils.c` | 已确认并修复 |  | DTS2026083116823 |
+| 146 | multimedia_av_codec | DashStrToNonNegativeDouble 接受 NaN（`result < 0` 漏掉无序比较） | 运算符/谓词错误 | `services/media_engine/plugins/source/http_source/dash/mpd_parser/dash_mpd_util.cpp` | 已确认并修复 |  | DTS2026090130983 |
+| 147 | telephony_core_service | Asn1Decoder::BuildAsn1Node 在 offset+dataLen 回绕 uint32 时抛 bad_alloc | 整数溢出/下溢 | `utils/codec/src/asn1_decoder.cpp` | 已确认并修复 |  | DTS2026090326272 |
+| 148 | communication_netmanager_base | ToAnonymousIp 对前缀为 0、109、119 的 IPv6 CIDR 不脱敏 | 信息泄漏 | `utils/common_utils/src/netmanager_base_common_utils.cpp` | 已确认并修复 |  | DTS2026090525146 |
+| 149 | telephony_core_service | CountTrailingZeros 在多于一个比特置位时算错 | 计算错误 | `utils/codec/src/asn1_utils.cpp` | 已确认并修复 |  | DTS2026090526221 |
+| 150 | graphic_graphic_2d | DrawPixelMapMeshBuilderProcess 把网格的列和行对调了 | 计算错误 | `rosen/modules/2d_graphics/drawing_ndk/drawing_utils/drawing_canvas_utils.cpp` | 已确认并修复 |  | DTS2026090527401 |
+| 151 | arkui_ace_engine | MediaQueryer::MatchCondition 在 AND 组不是最后一个 OR 子句时丢弃该 AND 组 | 控制流错误 | `frameworks/bridge/common/media_query/media_queryer.cpp` | 已确认并修复 |  | DTS2026090919800 |
+| 152 | arkui_ace_engine | CheckColorAlpha 在缩放到 255 之前把单位 alpha 转成 uint8_t | 计算错误 | `frameworks/core/components_ng/svg/parse/svg_attributes_parser.cpp` | 已确认并修复 |  | DTS2026090920220 |
+| 153 | arkui_ace_engine | BubbleLayoutAlgorithm::GetP2 asin 定义域破坏 → NaN 箭头裁剪路径 | 计算错误 | `frameworks/core/components_ng/pattern/bubble/bubble_layout_algorithm.cpp` | 已确认并修复 |  | DTS2026090922585 |
+| 154 | arkui_ace_engine | Matrix3N::SetEntry / MatrixN3::SetEntry 缺少负索引守卫（越界写 / 崩溃） | 缓冲区/越界访问 | `frameworks/base/geometry/matrix3.cpp` | 已确认并修复 |  | DTS2026091012206 |
+| 155 | arkui_ace_engine | Quaternion::Slerp 在 t=0 且 from·to < 0 时返回 -this | 计算错误 | `frameworks/base/geometry/quaternion.cpp` | 非问题 | 与 chromium 移植实现保持一致：from/−from 端点不影响显示、不返回给开发者 | DTS2026091029544 |
+| 156 | arkui_ace_engine | MediaQueryer::MatchCondition 对带显式 `px` 的 min-/max- 特征永远不匹配 | 控制流错误 | `frameworks/bridge/common/media_query/media_queryer.cpp` | 已确认并修复 |  | DTS2026091412083 |
+| 157 | arkui_ace_engine | GridLayoutInfo::FindEndIdx 跳过 item 0 并回落到 {0,0,0} | 控制流错误 | `frameworks/core/components_ng/pattern/grid/grid_layout_info.cpp` | 已确认并修复 |  | DTS2026091425514 |
+| 158 | arkui_ace_engine | LazyGridLayoutInfo::UpdatePosMap 在只改 gap 时把整段 body 增量写进 adjustOffset.start | 计算错误 | `frameworks/core/components_ng/pattern/lazy_grid_layout/lazy_grid_layout_info.cpp` | 非问题 | 孤立调用；真实路径是可见项测量+滚动补偿保位；`start=0` 预期不成立 | DTS2026091437627 |
+| 159 | communication_netmanager_base | ExtractDomainFormUrl 把 :port 留在 DNS 域名里 | 控制流错误 | `utils/common_utils/src/netmanager_base_common_utils.cpp` | 已确认并修复 |  | DTS2026091437628 |
+| 160 | arkui_ace_engine | LazyGridLayoutInfo::SetSpace 在 lanes > 1 时把已滚动窗口放高一行 | 差一 | `frameworks/core/components_ng/pattern/lazy_grid_layout/lazy_grid_layout_info.cpp` | 已确认并修复 |  | DTS2609150107715 |
+| 161 | arkui_ace_engine | LazyGridLayoutInfo::UpdatePosMapEnd 在末行不完整时把 totalMainSize_ 留在上一行终点 | 计算错误 | `frameworks/core/components_ng/pattern/lazy_grid_layout/lazy_grid_layout_info.cpp` | 已确认并修复 |  | DTS2609150123188 |
+| 162 | arkui_ace_engine | 反向 GetTargetIndexInfoWithBenchMark 在未填满的末行之后另起一行 | 控制流错误 | `frameworks/core/components_ng/pattern/grid/grid_scroll/grid_scroll_with_options_layout_algorithm.cpp` | 已确认并修复 |  | DTS2609150153174 |
+| 163 | arkui_ace_engine | CalculateStartCachedCount 在末条规则行未满时多计 | 计算错误 | `frameworks/core/components_ng/pattern/grid/grid_scroll/grid_scroll_with_options_layout_algorithm.cpp` | 已确认并修复 |  | DTS2609150153371 |
+| 164 | window_window_manager | CalculateOriginPosition（Matrix4）经 uint32_t 转换把反投影负坐标置 0 或回绕 | 整数溢出/下溢 | `utils/include/window_helper.h` | 已提交 |  | DTS2026092573568 |
+| 165 | arkui_ace_engine | SpanString::DecodeTlvExt 自定义 marshall 区间末端多读 ExtSpan 用户数据（迭代器 UB / 崩溃） | 缓冲区/越界访问 | `frameworks/core/components_ng/pattern/text/span/span_string.cpp` | 已确认 |  | DTS2026092958405 |

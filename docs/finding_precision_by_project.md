@@ -2,8 +2,8 @@
 
 How often PBT-filed **DTS** tickets were accepted as real bugs versus closed as non-issues, broken down by project.
 
-- **Precision:** **84.2%** ((132 FIXED + 1 CONFIRMED) / 158 decided)
-- **False-positive rate:** **15.8%** (25 NON-ISSUE)
+- **Precision:** **84.3%** ((133 FIXED + 1 CONFIRMED) / 159 decided)
+- **False-positive rate:** **15.7%** (25 NON-ISSUE)
 
 Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS tickets are omitted — their outcome (bug vs non-issue) is not yet known.
 
@@ -22,7 +22,7 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 **Sources**
 
 - DTS inventory: [`dts_bug_types.md`](./dts_bug_types.md) + [`content/issues/`](../content/issues/)
-- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**133** = 132 `CONFIRMED_FIXED` + 1 `CONFIRMED_REAL`)
+- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**134** = 133 `CONFIRMED_FIXED` + 1 `CONFIRMED_REAL`)
 - Non-issue write-ups: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (**24** DTS-stamped)
 
 - **Generated:** 2026-09-24
@@ -31,13 +31,13 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 132 | 83.5% |
+| FIXED | 133 | 83.6% |
 | CONFIRMED (awaiting fix) | 1 | 0.6% |
-| NON-ISSUE | 25 | 15.8% |
-| **Total decided** | **158** | 100% |
+| NON-ISSUE | 25 | 15.7% |
+| **Total decided** | **159** | 100% |
 
-- **Precision:** **(132+1)/158 = 84.2%** — about five in six closed tickets were real bugs.
-- **False-positive rate:** **25/158 = 15.8%**.
+- **Precision:** **(133+1)/159 = 84.3%** — about five in six closed tickets were real bugs.
+- **False-positive rate:** **25/159 = 15.7%**.
 
 > Precision means *maintainer-accepted defect rate among dispositioned DTS* (fixed **or** confirmed-unfixed), not static-analysis alert rate. Open/submitted tickets are out of scope until closed.
 
@@ -48,7 +48,7 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | Project | FIXED | CONFIRMED | NON-ISSUE | Decided | Precision |
 |---------|------:|----------:|----------:|--------:|----------:|
 | [`multimedia_camera_framework`](#multimedia-camera-framework) | 15 | 0 | 0 | 15 | 100% |
-| [`communication_netmanager_base`](#communication-netmanager-base) | 13 | 0 | 2 | 15 | 87% |
+| [`communication_netmanager_base`](#communication-netmanager-base) | 14 | 0 | 2 | 16 | 88% |
 | [`graphic_graphic_2d`](#graphic-graphic-2d) | 10 | 0 | 0 | 10 | 100% |
 | [`arkui_ace_engine`](#arkui-ace-engine) | 18 | 1 | 7 | 26 | 73% |
 | [`multimedia_image_framework`](#multimedia-image-framework) | 10 | 0 | 0 | 10 | 100% |
@@ -74,7 +74,7 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`telephony_core_service`](#telephony-core-service) | 3 | 0 | 0 | 3 | 100% |
 | [`multimedia_audio_framework`](#multimedia-audio-framework) | 1 | 0 | 1 | 2 | 50% |
 | [`multimodalinput_input`](#multimodalinput-input) | 0 | 0 | 2 | 2 | 0% |
-| **Total** | **132** | **1** | **25** | **158** | **84%** |
+| **Total** | **133** | **1** | **25** | **159** | **84%** |
 
 ## Precision tiers
 
@@ -90,7 +90,7 @@ These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 |---------|------:|----------:|----------:|----------------------|
 | `arkui_ace_engine` | 18 fixed + 1 confirmed | 7 | 73% | Empty-grid `-mainGap` is stable formula; IsAllItemsMeasured / FindItemCount `-idx` is irregular-only encoding never seen by those helpers; FromRGBO out-of-range wrap is caller-owned clamp on an internal packer; GetDistanceToBottom LayoutInfinity is the irregular last-item span sentinel; UpdatePosMap gap-only adjustOffset.start is isolated mid-pipeline compensation (not top jump); Quaternion Slerp `−from` at t=0 is chromium-port consistency (not product-visible); real layout/math/OOB/asin bugs still fixed/confirmed. |
 | `arkcompiler_runtime_core` | 11 | 1 | 92% | SkipULeb128 empty/truncated is by-design (void helper, no error channel); real buffer/loop bugs still fixed. |
-| `communication_netmanager_base` | 13 | 2 | 87% | Helper semantics (ForkExec) and API role split (zoned IPv6) ≠ bugs; firewall/IP/mask defects accepted. |
+| `communication_netmanager_base` | 14 | 2 | 88% | Helper semantics (ForkExec) and API role split (zoned IPv6) ≠ bugs; firewall/IP/mask defects accepted. |
 | `distributedhardware_device_manager` | 2 | 2 | 50% | cJSON int64 round-trip and ConvertStrToInt are dead/unshipped; PIN/rand bugs still fixed. |
 | `multimedia_av_session` | 2 | 1 | 67% | Call-type JSON omission = product policy; OOB crash in `GetAnonyTitle` still fixed. |
 | `multimedia_media_library` | 5 | 1 | 83% | Incomplete consume is the IsValidInteger contract (compat 1.000); ConvertToInt is the full-consume sibling; GetTimeIdFromUri / GetFileIdStr / GetDateAddedMs / IsFileTablePath / GetVirtualPath still fixed. |
@@ -225,10 +225,10 @@ Mixed outcomes: maintainers accepted **19** (18 fixed + 1 confirmed) and rejecte
 
 | Metric | Value |
 |--------|------:|
-| FIXED | 13 |
+| FIXED | 14 |
 | NON-ISSUE | 2 |
-| Decided | 15 |
-| Precision | 86.7% |
+| Decided | 16 |
+| Precision | 87.5% |
 
 **FIXED DTS**
 
@@ -242,6 +242,7 @@ Mixed outcomes: maintainers accepted **19** (18 fixed + 1 confirmed) and rejecte
 - `DTS2026081135903` — [OH-2026-NET-007](../content/issues/OH-2026-NET-007.md): CheckIpv6InNet missing prefix bounds — match-all on negative / OOB on /129+
 - `DTS2026081136698` — [OH-2026-NET-006](../content/issues/OH-2026-NET-006.md): Ip6RuleMap::GetNetworkAddress OOB on prefixLen > 128
 - `DTS2026071727288` — [OH-2026-NET-010](../content/issues/OH-2026-NET-010.md): Ip4RuleMap::GetNetworkAddress(/0) is UB and does not yield 0.0.0.0
+- `DTS2026083022516` — [OH-2026-NET-014](../content/issues/OH-2026-NET-014.md): GetInterfaceTrafficByType truncates sysfs counters longer than 8 bytes
 - `DTS2026083109843` — [OH-2026-NET-011](../content/issues/OH-2026-NET-011.md): GetMtu passes sysfs "1500\n" to StrToInt → always -1
 - `DTS2026090525146` — [OH-2026-NET-012](../content/issues/OH-2026-NET-012.md): ToAnonymousIp leaves IPv6 CIDR with prefix 0, 109, or 119 unredacted
 - `DTS2026091437628` — [OH-2026-NET-013](../content/issues/OH-2026-NET-013.md): ExtractDomainFormUrl leaves :port in the DNS domain, breaking dual-stack probes
@@ -251,7 +252,7 @@ Mixed outcomes: maintainers accepted **19** (18 fixed + 1 confirmed) and rejecte
 - `DTS2026071725399` — ForkExec SUCCESS on non-zero child exit. *By design — SUCCESS means child created.*
 - `DTS2026072720774` — GetAddrFamily rejects zoned IPv6. *Different API jobs, not inconsistency.*
 
-Mixed outcomes: maintainers accepted **13** and rejected **2**. Net precision **87%**.
+Mixed outcomes: maintainers accepted **14** and rejected **2**. Net precision **88%**.
 
 ### `multimedia_camera_framework`
 
@@ -693,16 +694,16 @@ No FIXED DTS yet among dispositioned tickets.
 
 ## Relation to `content/issues/` write-ups
 
-This repo’s [`content/issues/`](../content/issues/) currently carries **133** DTS-linked reports (**132** `CONFIRMED_FIXED` + **1** `CONFIRMED_REAL`).
+This repo’s [`content/issues/`](../content/issues/) currently carries **134** DTS-linked reports (**133** `CONFIRMED_FIXED` + **1** `CONFIRMED_REAL`).
 `CONFIRMED_FIXED` is the **FIXED** count; `CONFIRMED_REAL` is **CONFIRMED** (awaiting fix). Non-issues come from `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/`.
 
 | Population | Count | Role |
 |------------|------:|------|
-| Decided DTS (FIXED + CONFIRMED + NON-ISSUE) | 158 | Ground truth for precision |
-| FIXED | 132 | Maintainer-accepted and fixed |
+| Decided DTS (FIXED + CONFIRMED + NON-ISSUE) | 159 | Ground truth for precision |
+| FIXED | 133 | Maintainer-accepted and fixed |
 | CONFIRMED | 1 | Maintainer-accepted, not fixed yet |
 | NON-ISSUE | 25 | Maintainer-rejected (cloned + testing inventory) |
-| Write-ups in `content/issues` with DTS | 133 | Published confirmed bugs (fixed or awaiting fix) |
+| Write-ups in `content/issues` with DTS | 134 | Published confirmed bugs (fixed or awaiting fix) |
 
 **Do not** compute precision from `content/issues` alone — it omits non-issues by design. Use this document (or dispositioned rows in `BUG_REPORTS.md`) for acceptance rate.
 
@@ -710,7 +711,7 @@ See also: [DTS tickets by detecting property](./dts_bug_types.md). Failure-mode 
 
 ## Takeaways
 
-1. **Overall precision is high (84.2%)** — PBT filings that reach a DTS decision are usually real defects.
+1. **Overall precision is high (84.3%)** — PBT filings that reach a DTS decision are usually real defects.
 2. **False positives cluster in a few patterns** (22 tickets): by-design helpers, dead/unreachable / dropped-from-trunk code, path-prefix gates with no live producer after `realpath`, framing residuals that are not object OOB and mostly fail-closed, caller-owned / split-API contracts, shipped CAPI / product omissions, flag-dependent crashes — not flaky reproduction.
 3. **Several large surfaces are clean so far** (e.g. `multimedia_camera_framework`, `multimedia_image_framework`, `graphic_graphic_2d` among high-volume FIXED with 0 NON-ISSUE).
 4. **Filing bar that non-issues imply:** prove a live production caller, state the product contract, and avoid “algebraic inconsistency across differently purposed APIs” without impact. Sibling slash-terminated roots + a one-char fix still need a product-domain hit. Do not equate logical cursor past `wPos_` inside a zero-filled fixed buffer with heap OOB.
@@ -736,6 +737,7 @@ Moved out of [`dts_bug_types.md`](./dts_bug_types.md) (that file is now the dete
 |----------|------:|-----:|-------:|----:|
 | [Arithmetic — Integer Overflow / Underflow](#arithmetic-integer-overflow-underflow) | 12 | 2 | 10 | 0 |
 | [Arithmetic — Incorrect Calculation](#arithmetic-incorrect-calculation) | 17 | 3 | 13 | 1 |
+| [Arithmetic — Numeric Truncation](#arithmetic-numeric-truncation) | 1 | 1 | 0 | 0 |
 | [Arithmetic — Divide by Zero](#arithmetic-divide-by-zero) | 3 | 1 | 2 | 0 |
 | [Arithmetic — Off-by-One](#arithmetic-off-by-one) | 3 | 1 | 2 | 0 |
 | [Memory Safety — Buffer / OOB Access](#memory-safety-buffer-oob-access) | 15 | 2 | 13 | 0 |
@@ -840,6 +842,7 @@ Moved out of [`dts_bug_types.md`](./dts_bug_types.md) (that file is now the dete
 | `DTS2026081713997` | [OH-2026-AVCODEC-003](../content/issues/OH-2026-AVCODEC-003.md) | Arithmetic — Incorrect Calculation | MEDIUM | `multimedia_av_codec` |
 | `DTS2026082023118` | [OH-2026-DSOFTBUS-001](../content/issues/OH-2026-DSOFTBUS-001.md) | Memory Safety — Buffer / OOB Access | MEDIUM | `communication_dsoftbus` |
 | `DTS2026082238400` | [OH-2026-NAPI-004](../content/issues/OH-2026-NAPI-004.md) | Memory Safety — Buffer / OOB Access | HIGH | `arkui_napi` |
+| `DTS2026083022516` | [OH-2026-NET-014](../content/issues/OH-2026-NET-014.md) | Arithmetic — Numeric Truncation | HIGH | `communication_netmanager_base` |
 | `DTS2026083116823` | [OH-2026-DSOFTBUS-002](../content/issues/OH-2026-DSOFTBUS-002.md) | Input Validation — Improper Checks | MEDIUM | `communication_dsoftbus` |
 | `DTS2026090326272` | [OH-2026-TEL-003](../content/issues/OH-2026-TEL-003.md) | Arithmetic — Integer Overflow / Underflow | HIGH | `telephony_core_service` |
 | `DTS2026090525146` | [OH-2026-NET-012](../content/issues/OH-2026-NET-012.md) | Security — Information Leakage | MEDIUM | `communication_netmanager_base` |
@@ -1041,6 +1044,20 @@ Lifetime-owned pointer freed twice (e.g. explicit destroy + destructor).
 <details><summary>Summaries</summary>
 
 - **OH-2026-PLAYER-001** (`DTS2026072457284`): `XmlParser::Destroy` frees the libxml document via `xmlFreeDoc(mDoc_)` but does **not** clear `mDoc_`. The destructor **always** calls `Destroy()` again → second `xmlFreeDoc` on a dangling pointer → **double free / process abort**.
+
+</details>
+
+### Arithmetic — Numeric Truncation
+
+A short read drops high digits, so a successful parse returns a smaller integer.
+
+| DTS | ID | Severity | CWE | Component / repo | Title |
+|-----|----|----------|-----|------------------|-------|
+| `DTS2026083022516` | [OH-2026-NET-014](../content/issues/OH-2026-NET-014.md) | HIGH | CWE-197 (Numeric Truncation Error) | `services/netmanagernative/src/manager/traffic_manager.cpp` · `communication_netmanager_base` | GetInterfaceTrafficByType truncates sysfs counters longer than 8 bytes |
+
+<details><summary>Summaries</summary>
+
+- **OH-2026-NET-014** (`DTS2026083022516`): `GetInterfaceTrafficByType` reads a 100-byte buffer with `sizeof(long)` (8 on LP64). `atol` parses only that prefix, so `"100000000\n"` becomes `10000000`. Callers publish the short value as interface traffic. Fixed in !4736 (`e1e7b6b42`): `read(fd, buf, sizeof(buf) - 1)`.
 
 </details>
 
@@ -1272,6 +1289,7 @@ Masking/redaction fails; secrets or addresses reach logs.
 | CWE | Name | Count |
 |-----|------|------:|
 | CWE-682 | Incorrect Calculation | 16 |
+| CWE-197 | Numeric Truncation Error | 1 |
 | CWE-125 | Out-of-bounds Read | 12 |
 | CWE-190 | Integer Overflow or Wraparound | 8 |
 | CWE-670 | Always-Incorrect Control Flow Implementation | 5 |

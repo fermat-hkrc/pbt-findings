@@ -2,12 +2,12 @@
 
 对 [`content/issues/`](../content/issues/) 中带有 **DTS** 工单号（`internal_issue_id`）的发现所做的归类，按检出该工单的 **pi-pbt 性质（预言机）** 分组。CWE / 失效模式分组归档在 [`finding_precision_by_project.md`](finding_precision_by_project.md) 文末。
 
-- **已确认并修复（FIXED）**：**132** — `CONFIRMED_FIXED` 报告如下
+- **已确认并修复（FIXED）**：**133** — `CONFIRMED_FIXED` 报告如下
 - **已确认（待修复）**：**1** — `CONFIRMED_REAL`（OH-2026-ARKUI-018）
 - **非问题（NON-ISSUE）**：**25** — [目录](#非问题)
-- **已判定**：**158** = 132 + 1 + 25
-- **精确率**：**84.2%** = `(132 + 1) / (132 + 1 + 25)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
-- **严重级别**（已修复 + 已确认）：HIGH=31，MEDIUM=99，LOW=3
+- **已判定**：**159** = 133 + 1 + 25
+- **精确率**：**84.3%** = `(133 + 1) / (133 + 1 + 25)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
+- **严重级别**（已修复 + 已确认）：HIGH=32，MEDIUM=99，LOW=3
 - **生成时间**：2026-09-24
 
 ## 概览
@@ -18,14 +18,14 @@
 | 性质（预言机） | 数量 | HIGH | MEDIUM | LOW |
 |----------|------:|-----:|-------:|----:|
 | [状态机](#状态机) | 4 | 3 | 0 | 1 |
-| [差分](#差分) | 36 | 3 | 32 | 1 |
+| [差分](#差分) | 37 | 4 | 32 | 1 |
 | [代数 — 往返](#代数--往返) | 7 | 3 | 4 | 0 |
 | [代数 — 蜕变](#代数--蜕变) | 5 | 1 | 4 | 0 |
 | [代数 — 不变量](#代数--不变量) | 49 | 11 | 37 | 1 |
 | [否定 / 错误契约](#否定--错误契约) | 11 | 2 | 9 | 0 |
 | [参考](#参考) | 5 | 1 | 4 | 0 |
 | [仅崩溃](#仅崩溃) | 16 | 7 | 9 | 0 |
-| **合计** | **133** | **31** | **99** | **3** |
+| **合计** | **134** | **32** | **99** | **3** |
 
 强度顺序：状态机 ≻ 差分 ≻ 代数（往返 ≻ 幂等 ≻ 蜕变 ≻ 不变量 ≻ 否定/错误）≻ 参考 ≻ 仅崩溃。本集合中**幂等：0**。
 
@@ -37,7 +37,7 @@
 |--------|------:|---:|-----:|-------:|----:|----------:|
 | `multimedia_camera_framework` | 15 | 0 | 0 | 14 | 1 | 100% |
 | `multimedia_image_framework` | 10 | 0 | 1 | 9 | 0 | 100% |
-| `communication_netmanager_base` | 13 | 2 | 3 | 10 | 0 | 87% |
+| `communication_netmanager_base` | 14 | 2 | 4 | 10 | 0 | 88% |
 | `graphic_graphic_2d` | 10 | 0 | 3 | 6 | 1 | 100% |
 | `arkui_ace_engine` | 19 | 7 | 8 | 11 | 0 | 73% |
 | `ability_ability_runtime` | 7 | 0 | 0 | 7 | 0 | 100% |
@@ -62,7 +62,7 @@
 | `arkui_napi` | 4 | 0 | 1 | 3 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **合计** | **133** | **25** | **31** | **99** | **3** | **84%** |
+| **合计** | **134** | **25** | **32** | **99** | **3** | **84%** |
 
 ## DTS 索引
 
@@ -181,6 +181,7 @@
 | `DTS2026082563048` | [ARK-2026-INT-003](../content/issues/ARK-2026-INT-003.md) | 差分 | HIGH | `arkcompiler_runtime_core` |
 | `DTS2026082564627` | [OH-2026-TEL-001](../content/issues/OH-2026-TEL-001.md) | 仅崩溃 | HIGH | `telephony_core_service` |
 | `DTS2026082567022` | [OH-2026-CAM-013](../content/issues/OH-2026-CAM-013.md) | 否定 / 错误契约 | MEDIUM | `multimedia_camera_framework` |
+| `DTS2026083022516` | [OH-2026-NET-014](../content/issues/OH-2026-NET-014.md) | 差分 | HIGH | `communication_netmanager_base` |
 | `DTS2026083109843` | [OH-2026-NET-011](../content/issues/OH-2026-NET-011.md) | 差分 | MEDIUM | `communication_netmanager_base` |
 | `DTS2026083116823` | [OH-2026-DSOFTBUS-002](../content/issues/OH-2026-DSOFTBUS-002.md) | 否定 / 错误契约 | MEDIUM | `communication_dsoftbus` |
 | `DTS2026090130983` | [OH-2026-AVCODEC-006](../content/issues/OH-2026-AVCODEC-006.md) | 代数 — 不变量 | MEDIUM | `multimedia_av_codec` |
@@ -231,6 +232,7 @@
 | `DTS2026071303295` | [OH-2026-CAM-006](../content/issues/OH-2026-CAM-006.md) | MEDIUM | IsDoubleRegex 接受 ⇒ 调用方 std::stoi 不抛 |
 | `DTS2026071411883` | [OH-2026-CAM-003](../content/issues/OH-2026-CAM-003.md) | MEDIUM | isIntegerRegex 接受 ⇒ std::stoi 不抛 |
 | `DTS2026071412383` | [OH-2026-PB-001](../content/issues/OH-2026-PB-001.md) | MEDIUM | 仅在每条记录已授权时导出 URI（同类 include 规则） |
+| `DTS2026083022516` | [OH-2026-NET-014](../content/issues/OH-2026-NET-014.md) | HIGH | 写入的 sysfs 计数 ≡ 读回（姊妹读 sizeof(buf)，不是 sizeof(long)） |
 | `DTS2026083107415` | [OH-2026-NET-009](../content/issues/OH-2026-NET-009.md) | MEDIUM | StrToInt/Uint/Uint64 前导零十进制 ≡ ParseInt 十进制同类 |
 | `DTS2026083109843` | [OH-2026-NET-011](../content/issues/OH-2026-NET-011.md) | MEDIUM | GetMtu(sysfs 行) ≡ StrToInt(剥行尾后的十进制) |
 | `DTS2026072326318` | [OH-2026-DFS-001](../content/issues/OH-2026-DFS-001.md) | MEDIUM | 子项 ReadFromParcel 失败则拒绝，与 Marshalling 同类一致 |
@@ -415,7 +417,7 @@
 
 维护者驳回的 DTS。只计入分母。
 
-**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(132 + 1) / (132 + 1 + 25) = 84.2%**。
+**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(133 + 1) / (133 + 1 + 25) = 84.3%**。
 
 | DTS | 项目 | 主题 | 为何非问题 |
 |-----|------|------|------------|
