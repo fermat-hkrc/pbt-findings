@@ -2,8 +2,8 @@
 
 How often PBT-filed **DTS** tickets were accepted as real bugs versus closed as non-issues, broken down by project.
 
-- **Precision:** **83.8%** ((133 FIXED + 1 CONFIRMED) / 160 decided)
-- **False-positive rate:** **16.3%** (26 NON-ISSUE)
+- **Precision:** **83.2%** ((133 FIXED + 1 CONFIRMED) / 161 decided)
+- **False-positive rate:** **16.8%** (27 NON-ISSUE)
 
 Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS tickets are omitted — their outcome (bug vs non-issue) is not yet known.
 
@@ -23,7 +23,7 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 
 - DTS inventory: [`dts_bug_types.md`](./dts_bug_types.md) + [`content/issues/`](../content/issues/)
 - Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**134** = 133 `CONFIRMED_FIXED` + 1 `CONFIRMED_REAL`)
-- Non-issue write-ups: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (**26** DTS-stamped)
+- Non-issue write-ups: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (**27** DTS-stamped)
 
 - **Generated:** 2026-09-24
 
@@ -33,11 +33,11 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 |--------|------:|-----------------:|
 | FIXED | 133 | 83.1% |
 | CONFIRMED (awaiting fix) | 1 | 0.6% |
-| NON-ISSUE | 26 | 16.3% |
-| **Total decided** | **160** | 100% |
+| NON-ISSUE | 27 | 16.8% |
+| **Total decided** | **161** | 100% |
 
-- **Precision:** **(133+1)/160 = 83.8%** — about five in six closed tickets were real bugs.
-- **False-positive rate:** **26/160 = 16.3%**.
+- **Precision:** **(133+1)/161 = 83.2%** — about five in six closed tickets were real bugs.
+- **False-positive rate:** **27/161 = 16.8%**.
 
 > Precision means *maintainer-accepted defect rate among dispositioned DTS* (fixed **or** confirmed-unfixed), not static-analysis alert rate. Open/submitted tickets are out of scope until closed.
 
@@ -49,7 +49,7 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 |---------|------:|----------:|----------:|--------:|----------:|
 | [`multimedia_camera_framework`](#multimedia-camera-framework) | 15 | 0 | 0 | 15 | 100% |
 | [`communication_netmanager_base`](#communication-netmanager-base) | 14 | 0 | 2 | 16 | 88% |
-| [`graphic_graphic_2d`](#graphic-graphic-2d) | 10 | 0 | 0 | 10 | 100% |
+| [`graphic_graphic_2d`](#graphic-graphic-2d) | 10 | 0 | 1 | 11 | 91% |
 | [`arkui_ace_engine`](#arkui-ace-engine) | 18 | 1 | 7 | 26 | 73% |
 | [`multimedia_image_framework`](#multimedia-image-framework) | 10 | 0 | 0 | 10 | 100% |
 | [`arkcompiler_runtime_core`](#arkcompiler-runtime-core) | 11 | 0 | 1 | 12 | 92% |
@@ -74,13 +74,13 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`telephony_core_service`](#telephony-core-service) | 3 | 0 | 0 | 3 | 100% |
 | [`multimedia_audio_framework`](#multimedia-audio-framework) | 1 | 0 | 1 | 2 | 50% |
 | [`multimodalinput_input`](#multimodalinput-input) | 0 | 0 | 2 | 2 | 0% |
-| **Total** | **133** | **1** | **26** | **160** | **84%** |
+| **Total** | **133** | **1** | **27** | **161** | **83%** |
 
 ## Precision tiers
 
 ### Tier A — Perfect precision (100%, ≥1 FIXED, 0 NON-ISSUE)
 
-`multimedia_camera_framework` (15 fixed), `graphic_graphic_2d` (10 fixed), `multimedia_image_framework` (10 fixed), `ability_ability_runtime` (7 fixed), `multimedia_av_codec` (6 fixed), `window_window_manager` (3 fixed), `arkui_napi` (4 fixed), `communication_bluetooth_service` (2 fixed), `communication_wifi` (4 fixed), `distributeddatamgr_pasteboard` (2 fixed), `filemanagement_storage_service` (2 fixed), `telephony_core_service` (3 fixed), `commonlibrary_rust_ylong_http` (1 fixed), `distributedhardware_distributed_hardware_fwk` (1 fixed)
+`multimedia_camera_framework` (15 fixed), `multimedia_image_framework` (10 fixed), `ability_ability_runtime` (7 fixed), `multimedia_av_codec` (6 fixed), `window_window_manager` (3 fixed), `arkui_napi` (4 fixed), `communication_bluetooth_service` (2 fixed), `communication_wifi` (4 fixed), `distributeddatamgr_pasteboard` (2 fixed), `filemanagement_storage_service` (2 fixed), `telephony_core_service` (3 fixed), `commonlibrary_rust_ylong_http` (1 fixed), `distributedhardware_distributed_hardware_fwk` (1 fixed)
 
 These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 
@@ -89,6 +89,7 @@ These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 | Project | FIXED | NON-ISSUE | Precision | What non-issues teach |
 |---------|------:|----------:|----------:|----------------------|
 | `arkui_ace_engine` | 18 fixed + 1 confirmed | 7 | 73% | Empty-grid `-mainGap` is stable formula; IsAllItemsMeasured / FindItemCount `-idx` is irregular-only encoding never seen by those helpers; FromRGBO out-of-range wrap is caller-owned clamp on an internal packer; GetDistanceToBottom LayoutInfinity is the irregular last-item span sentinel; UpdatePosMap gap-only adjustOffset.start is isolated mid-pipeline compensation (not top jump); Quaternion Slerp `−from` at t=0 is chromium-port consistency (not product-visible); real layout/math/OOB/asin bugs still fixed/confirmed. |
+| `graphic_graphic_2d` | 10 | 1 | 91% | SrcRectScaleFit source-space dstRect is composed with Gravity::RESIZE fill; dstRect*matrix is the letterbox; algebraic Point3/mesh/color bugs still fixed. |
 | `arkcompiler_runtime_core` | 11 | 1 | 92% | SkipULeb128 empty/truncated is by-design (void helper, no error channel); real buffer/loop bugs still fixed. |
 | `communication_netmanager_base` | 14 | 2 | 88% | Helper semantics (ForkExec) and API role split (zoned IPv6) ≠ bugs; firewall/IP/mask defects accepted. |
 | `distributedhardware_device_manager` | 2 | 2 | 50% | cJSON int64 round-trip and ConvertStrToInt are dead/unshipped; PIN/rand bugs still fixed. |
@@ -107,7 +108,7 @@ These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 
 ## Non-issue DTS catalog (all projects)
 
-All **26** maintainer-rejected tickets. Useful as negative examples for future filing.
+All **27** maintainer-rejected tickets. Useful as negative examples for future filing.
 
 | DTS | Project | Report theme | Rejection class |
 |-----|---------|--------------|-----------------|
@@ -137,12 +138,13 @@ All **26** maintainer-rejected tickets. Useful as negative examples for future f
 | `DTS2026082549915` | `multimodalinput_input` | IsValidJsonPath `/data` prefix spoof | Unreachable under live callers |
 | `DTS2026072349266` | `multimodalinput_input` | StreamBuffer::Read(string) rPos past wPos via strchr | Framing residual / no object OOB + fail-closed |
 | `DTS2026080809055` | `filemanagement_dfs_service` | MessageHandler ctor sizes send buffer from uncapped URI | Caller-owned contract (privileged IPC; receive already caps) |
+| `DTS2026101648114` | `graphic_graphic_2d` | SrcRectScaleFit source-space dstRect | By-design / composed draw (gravity fill matrix) |
 
 ### Rejection classes (count)
 
 | Class | Count | Implication for future PBT filings |
 |------:|------:|--------------------------------------|
-| By-design / product policy / stable contract | 10 | Validate *product* intent and call-graph impact, not only algebraic oddity |
+| By-design / product policy / stable contract | 11 | Validate *product* intent and call-graph impact, not only algebraic oddity |
 | Unreachable invariant / dead code | 8 | Constrain generators to **production domain**; prove a live caller (incl. path gates after `realpath`) |
 | Caller-owned or split-API contract | 6 | Read in-tree callers and sibling APIs before claiming inconsistency |
 | Framing residual / no object OOB + fail-closed | 1 | Distinguish logical cursor past write-head inside a fixed zero-filled buffer from heap OOB; check `CHKRWER` recovery and trusted-peer assumptions before High |
@@ -157,9 +159,9 @@ For each project with decided DTS: outcome mix, precision, non-issue notes (if a
 | Metric | Value |
 |--------|------:|
 | FIXED | 10 |
-| NON-ISSUE | 0 |
-| Decided | 10 |
-| Precision | 100.0% |
+| NON-ISSUE | 1 |
+| Decided | 11 |
+| Precision | 90.9% |
 
 **FIXED DTS**
 
@@ -174,7 +176,11 @@ For each project with decided DTS: outcome mix, precision, non-issue notes (if a
 - `DTS2026082261311` — [OH-2026-GFX-009](../content/issues/OH-2026-GFX-009.md): RSColor::IsNearEqual compares BT2020 float16 bits, not channel counts
 - `DTS2026090527401` — [OH-2026-GFX-010](../content/issues/OH-2026-GFX-010.md): DrawPixelMapMeshBuilderProcess swaps mesh columns and rows
 
-High-confidence project: **10** accepted fixes and **no** rejected DTS.
+**NON-ISSUE DTS**
+
+- `DTS2026101648114` — SrcRectScaleFit writes source-space `dstRect`. *GPU path defaults `Gravity::RESIZE` fill in `params.matrix`; `dstRect*matrix` is the letterbox; report checked the helper in isolation. `GetScalingModeMatrix` is HWC, a different job.*
+
+High-confidence project: **10** accepted fixes and **1** rejected DTS.
 
 ### `arkui_ace_engine`
 
@@ -705,10 +711,10 @@ This repo’s [`content/issues/`](../content/issues/) currently carries **134** 
 
 | Population | Count | Role |
 |------------|------:|------|
-| Decided DTS (FIXED + CONFIRMED + NON-ISSUE) | 160 | Ground truth for precision |
+| Decided DTS (FIXED + CONFIRMED + NON-ISSUE) | 161 | Ground truth for precision |
 | FIXED | 133 | Maintainer-accepted and fixed |
 | CONFIRMED | 1 | Maintainer-accepted, not fixed yet |
-| NON-ISSUE | 26 | Maintainer-rejected (cloned + testing inventory) |
+| NON-ISSUE | 27 | Maintainer-rejected (cloned + testing inventory) |
 | Write-ups in `content/issues` with DTS | 134 | Published confirmed bugs (fixed or awaiting fix) |
 
 **Do not** compute precision from `content/issues` alone — it omits non-issues by design. Use this document (or dispositioned rows in `BUG_REPORTS.md`) for acceptance rate.
@@ -717,10 +723,10 @@ See also: [DTS tickets by detecting property](./dts_bug_types.md). Failure-mode 
 
 ## Takeaways
 
-1. **Overall precision is high (83.8%)** — PBT filings that reach a DTS decision are usually real defects.
-2. **False positives cluster in a few patterns** (26 tickets): by-design helpers, dead/unreachable / dropped-from-trunk code, path-prefix gates with no live producer after `realpath`, framing residuals that are not object OOB and mostly fail-closed, caller-owned / split-API contracts, shipped CAPI / product omissions, flag-dependent crashes — not flaky reproduction.
-3. **Several large surfaces are clean so far** (e.g. `multimedia_camera_framework`, `multimedia_image_framework`, `graphic_graphic_2d` among high-volume FIXED with 0 NON-ISSUE).
-4. **Filing bar that non-issues imply:** prove a live production caller, state the product contract, and avoid “algebraic inconsistency across differently purposed APIs” without impact. Sibling slash-terminated roots + a one-char fix still need a product-domain hit. Do not equate logical cursor past `wPos_` inside a zero-filled fixed buffer with heap OOB.
+1. **Overall precision is high (83.2%)** — PBT filings that reach a DTS decision are usually real defects.
+2. **False positives cluster in a few patterns** (27 tickets): by-design helpers, composed-draw / wrong output space, dead/unreachable / dropped-from-trunk code, path-prefix gates with no live producer after `realpath`, framing residuals that are not object OOB and mostly fail-closed, caller-owned / split-API contracts, shipped CAPI / product omissions, flag-dependent crashes — not flaky reproduction.
+3. **Several large surfaces are clean so far** (e.g. `multimedia_camera_framework`, `multimedia_image_framework` among high-volume FIXED with 0 NON-ISSUE). `graphic_graphic_2d` now has one composed-draw non-issue (`SrcRectScaleFit`) against 10 fixes.
+4. **Filing bar that non-issues imply:** prove a live production caller, state the product contract, and avoid “algebraic inconsistency across differently purposed APIs” without impact. Sibling slash-terminated roots + a one-char fix still need a product-domain hit. Do not equate logical cursor past `wPos_` inside a zero-filled fixed buffer with heap OOB. Do not assert a mid-pipeline rect in the consumer dest space when a gravity/fill matrix still maps it (`dstRect` vs `dstRect*matrix`).
 
 ## Methodology notes
 

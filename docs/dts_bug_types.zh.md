@@ -4,9 +4,9 @@
 
 - **已确认并修复（FIXED）**：**133** — `CONFIRMED_FIXED` 报告如下
 - **已确认（待修复）**：**1** — `CONFIRMED_REAL`（OH-2026-ARKUI-018）
-- **非问题（NON-ISSUE）**：**26** — [目录](#非问题)
-- **已判定**：**160** = 133 + 1 + 26
-- **精确率**：**83.8%** = `(133 + 1) / (133 + 1 + 26)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
+- **非问题（NON-ISSUE）**：**27** — [目录](#非问题)
+- **已判定**：**161** = 133 + 1 + 27
+- **精确率**：**83.2%** = `(133 + 1) / (133 + 1 + 27)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
 - **严重级别**（已修复 + 已确认）：HIGH=32，MEDIUM=99，LOW=3
 - **生成时间**：2026-09-24
 
@@ -38,7 +38,7 @@
 | `multimedia_camera_framework` | 15 | 0 | 0 | 14 | 1 | 100% |
 | `multimedia_image_framework` | 10 | 0 | 1 | 9 | 0 | 100% |
 | `communication_netmanager_base` | 14 | 2 | 4 | 10 | 0 | 88% |
-| `graphic_graphic_2d` | 10 | 0 | 3 | 6 | 1 | 100% |
+| `graphic_graphic_2d` | 10 | 1 | 3 | 6 | 1 | 91% |
 | `arkui_ace_engine` | 19 | 7 | 8 | 11 | 0 | 73% |
 | `ability_ability_runtime` | 7 | 0 | 0 | 7 | 0 | 100% |
 | `arkcompiler_runtime_core` | 11 | 1 | 1 | 10 | 0 | 92% |
@@ -62,7 +62,7 @@
 | `arkui_napi` | 4 | 0 | 1 | 3 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **合计** | **134** | **26** | **32** | **99** | **3** | **84%** |
+| **合计** | **134** | **27** | **32** | **99** | **3** | **83%** |
 
 ## DTS 索引
 
@@ -417,7 +417,7 @@
 
 维护者驳回的 DTS。只计入分母。
 
-**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(133 + 1) / (133 + 1 + 26) = 83.8%**。
+**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(133 + 1) / (133 + 1 + 27) = 83.2%**。
 
 | DTS | 项目 | 主题 | 为何非问题 |
 |-----|------|------|------------|
@@ -447,8 +447,9 @@
 | `DTS2026082549915` | `multimodalinput_input` | IsValidJsonPath `/data` 前缀伪造 | 不可达 — 门控在 `realpath` 之后；树内路径为常量 / `GetOneCfgFile` / 硬编码 `/data/service/…`；无提权；可选 `"/data/"` 加固。 |
 | `DTS2026072349266` | `multimodalinput_input` | StreamBuffer::Read(string) 经 `strchr` 使 `rPos_` 越过 `wPos_` | 无对象级越界（零填充 `MAX+1`）；`Write(string)` 带 NUL；多字段 `CHKRWER` fail-closed；链尾字符串归受信对端；可选 `memchr` 加固。**与** `DTS2026082549915` **免责来源不同**。 |
 | `DTS2026080809055` | `filemanagement_dfs_service` | MessageHandler 构造按无上限 URI 长度计算发送缓冲 | 接收侧已强制 `PATH_MAX`；唯一生产者是系统应用 + `CLOUDFILE_SYNC` IPC；对端丢弃更长 URI；历史构造保持原样（`dataSize_=0` 补丁不安全）。 |
+| `DTS2026101648114` | `graphic_graphic_2d` | SrcRectScaleFit 源空间 dstRect | 合成路径 — GPU 默认 `Gravity::RESIZE` 铺满在 `params.matrix`；`dstRect*matrix` 即 letterbox；报告只检查了助手局部计算。 |
 
-来源：`~/cloned/*/pbt-out/bug_reports/non-issue/` 与 `~/testing/*/pbt-out/bug_reports/non-issue/`（26 个带 DTS 文件）。
+来源：`~/cloned/*/pbt-out/bug_reports/non-issue/` 与 `~/testing/*/pbt-out/bug_reports/non-issue/`（27 个带 DTS 文件）。
 
 ## 说明
 

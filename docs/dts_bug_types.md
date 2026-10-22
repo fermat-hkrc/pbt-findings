@@ -4,9 +4,9 @@ Categorization of [`content/issues/`](../content/issues/) findings that carry a 
 
 - **Confirmed (FIXED)**: **133** — `CONFIRMED_FIXED` write-ups below
 - **Confirmed (awaiting fix)**: **1** — `CONFIRMED_REAL` (OH-2026-ARKUI-018)
-- **Non-issue**: **26** — [catalog](#non-issues)
-- **Decided**: **160** = 133 + 1 + 26
-- **Precision**: **83.8%** = `(133 + 1) / (133 + 1 + 26)` = (fixed + confirmed) / (fixed + confirmed + non-issues)
+- **Non-issue**: **27** — [catalog](#non-issues)
+- **Decided**: **161** = 133 + 1 + 27
+- **Precision**: **83.2%** = `(133 + 1) / (133 + 1 + 27)` = (fixed + confirmed) / (fixed + confirmed + non-issues)
 - **Severity** (fixed + confirmed): HIGH=32, MEDIUM=99, LOW=3
 - **Generated**: 2026-09-24
 
@@ -38,7 +38,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `multimedia_camera_framework` | 15 | 0 | 0 | 14 | 1 | 100% |
 | `multimedia_image_framework` | 10 | 0 | 1 | 9 | 0 | 100% |
 | `communication_netmanager_base` | 14 | 2 | 4 | 10 | 0 | 88% |
-| `graphic_graphic_2d` | 10 | 0 | 3 | 6 | 1 | 100% |
+| `graphic_graphic_2d` | 10 | 1 | 3 | 6 | 1 | 91% |
 | `arkui_ace_engine` | 19 | 7 | 8 | 11 | 0 | 73% |
 | `ability_ability_runtime` | 7 | 0 | 0 | 7 | 0 | 100% |
 | `arkcompiler_runtime_core` | 11 | 1 | 1 | 10 | 0 | 92% |
@@ -62,7 +62,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `arkui_napi` | 4 | 0 | 1 | 3 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **Total** | **134** | **26** | **32** | **99** | **3** | **84%** |
+| **Total** | **134** | **27** | **32** | **99** | **3** | **83%** |
 
 ## DTS index
 
@@ -417,7 +417,7 @@ Authoritative spec / stdlib / IEEE / Unicode / pinning contract that this SUT cl
 
 Maintainer-rejected DTS. Counted in the denominator only.
 
-**Precision** = (fixed + confirmed) / (fixed + confirmed + non-issues) = **(133 + 1) / (133 + 1 + 26) = 83.8%**.
+**Precision** = (fixed + confirmed) / (fixed + confirmed + non-issues) = **(133 + 1) / (133 + 1 + 27) = 83.2%**.
 
 | DTS | Project | Theme | Why non-issue |
 |-----|---------|-------|---------------|
@@ -447,8 +447,9 @@ Maintainer-rejected DTS. Counted in the denominator only.
 | `DTS2026082549915` | `multimodalinput_input` | IsValidJsonPath `/data` prefix spoof | Unreachable — gate after `realpath`; in-tree paths are constants / `GetOneCfgFile` / hardcoded `/data/service/…`; no privesc; optional `"/data/"` hygiene only. |
 | `DTS2026072349266` | `multimodalinput_input` | StreamBuffer::Read(string) `rPos_` past `wPos_` via `strchr` | No object OOB (zero-fill `MAX+1`); `Write(string)` embeds NUL; multi-field decode fail-closes via `CHKRWER`; tail-string under trusted-peer; optional `memchr` hygiene. **Different free reason than** `DTS2026082549915`. |
 | `DTS2026080809055` | `filemanagement_dfs_service` | MessageHandler ctor sizes send buffer from uncapped URI length | Receive path already enforces `PATH_MAX`; only producer is system-app + `CLOUDFILE_SYNC` IPC; peer drops longer URIs; legacy ctor left as-is (`dataSize_=0` patch is unsafe). |
+| `DTS2026101648114` | `graphic_graphic_2d` | SrcRectScaleFit source-space dstRect | Composed path — GPU defaults `Gravity::RESIZE` fill in `params.matrix`; `dstRect*matrix` is the letterbox; report checked the helper in isolation. |
 
-Sources: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (26 DTS-stamped).
+Sources: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (27 DTS-stamped).
 
 ## Notes
 
