@@ -4,9 +4,9 @@
 
 - **已确认并修复（FIXED）**：**133** — `CONFIRMED_FIXED` 报告如下
 - **已确认（待修复）**：**1** — `CONFIRMED_REAL`（OH-2026-ARKUI-018）
-- **非问题（NON-ISSUE）**：**25** — [目录](#非问题)
-- **已判定**：**159** = 133 + 1 + 25
-- **精确率**：**84.3%** = `(133 + 1) / (133 + 1 + 25)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
+- **非问题（NON-ISSUE）**：**26** — [目录](#非问题)
+- **已判定**：**160** = 133 + 1 + 26
+- **精确率**：**83.8%** = `(133 + 1) / (133 + 1 + 26)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
 - **严重级别**（已修复 + 已确认）：HIGH=32，MEDIUM=99，LOW=3
 - **生成时间**：2026-09-24
 
@@ -55,14 +55,14 @@
 | `communication_dsoftbus` | 2 | 1 | 0 | 2 | 0 | 67% |
 | `distributeddatamgr_datamgr_service` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `distributedhardware_distributed_hardware_fwk` | 1 | 0 | 0 | 1 | 0 | 100% |
-| `filemanagement_dfs_service` | 1 | 0 | 0 | 1 | 0 | 100% |
+| `filemanagement_dfs_service` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `filemanagement_storage_service` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `multimedia_media_foundation` | 2 | 5 | 1 | 1 | 0 | 29% |
 | `telephony_core_service` | 3 | 0 | 2 | 1 | 0 | 100% |
 | `arkui_napi` | 4 | 0 | 1 | 3 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **合计** | **134** | **25** | **32** | **99** | **3** | **84%** |
+| **合计** | **134** | **26** | **32** | **99** | **3** | **84%** |
 
 ## DTS 索引
 
@@ -417,7 +417,7 @@
 
 维护者驳回的 DTS。只计入分母。
 
-**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(133 + 1) / (133 + 1 + 25) = 84.3%**。
+**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(133 + 1) / (133 + 1 + 26) = 83.8%**。
 
 | DTS | 项目 | 主题 | 为何非问题 |
 |-----|------|------|------------|
@@ -446,8 +446,9 @@
 | `DTS2026081715017` | `multimedia_media_library` | IsValidInteger 接受部分解析 | 设计如此 — 不完全消费（兼容 1.000）；ConvertToInt 才是全消费兄弟。 |
 | `DTS2026082549915` | `multimodalinput_input` | IsValidJsonPath `/data` 前缀伪造 | 不可达 — 门控在 `realpath` 之后；树内路径为常量 / `GetOneCfgFile` / 硬编码 `/data/service/…`；无提权；可选 `"/data/"` 加固。 |
 | `DTS2026072349266` | `multimodalinput_input` | StreamBuffer::Read(string) 经 `strchr` 使 `rPos_` 越过 `wPos_` | 无对象级越界（零填充 `MAX+1`）；`Write(string)` 带 NUL；多字段 `CHKRWER` fail-closed；链尾字符串归受信对端；可选 `memchr` 加固。**与** `DTS2026082549915` **免责来源不同**。 |
+| `DTS2026080809055` | `filemanagement_dfs_service` | MessageHandler 构造按无上限 URI 长度计算发送缓冲 | 接收侧已强制 `PATH_MAX`；唯一生产者是系统应用 + `CLOUDFILE_SYNC` IPC；对端丢弃更长 URI；历史构造保持原样（`dataSize_=0` 补丁不安全）。 |
 
-来源：`~/cloned/*/pbt-out/bug_reports/non-issue/` 与 `~/testing/*/pbt-out/bug_reports/non-issue/`（24 个带 DTS 文件）。
+来源：`~/cloned/*/pbt-out/bug_reports/non-issue/` 与 `~/testing/*/pbt-out/bug_reports/non-issue/`（26 个带 DTS 文件）。
 
 ## 说明
 

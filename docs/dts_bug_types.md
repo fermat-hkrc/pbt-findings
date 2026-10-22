@@ -4,9 +4,9 @@ Categorization of [`content/issues/`](../content/issues/) findings that carry a 
 
 - **Confirmed (FIXED)**: **133** — `CONFIRMED_FIXED` write-ups below
 - **Confirmed (awaiting fix)**: **1** — `CONFIRMED_REAL` (OH-2026-ARKUI-018)
-- **Non-issue**: **25** — [catalog](#non-issues)
-- **Decided**: **159** = 133 + 1 + 25
-- **Precision**: **84.3%** = `(133 + 1) / (133 + 1 + 25)` = (fixed + confirmed) / (fixed + confirmed + non-issues)
+- **Non-issue**: **26** — [catalog](#non-issues)
+- **Decided**: **160** = 133 + 1 + 26
+- **Precision**: **83.8%** = `(133 + 1) / (133 + 1 + 26)` = (fixed + confirmed) / (fixed + confirmed + non-issues)
 - **Severity** (fixed + confirmed): HIGH=32, MEDIUM=99, LOW=3
 - **Generated**: 2026-09-24
 
@@ -55,14 +55,14 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `communication_dsoftbus` | 2 | 1 | 0 | 2 | 0 | 67% |
 | `distributeddatamgr_datamgr_service` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `distributedhardware_distributed_hardware_fwk` | 1 | 0 | 0 | 1 | 0 | 100% |
-| `filemanagement_dfs_service` | 1 | 0 | 0 | 1 | 0 | 100% |
+| `filemanagement_dfs_service` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `filemanagement_storage_service` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `multimedia_media_foundation` | 2 | 5 | 1 | 1 | 0 | 29% |
 | `telephony_core_service` | 3 | 0 | 2 | 1 | 0 | 100% |
 | `arkui_napi` | 4 | 0 | 1 | 3 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **Total** | **134** | **25** | **32** | **99** | **3** | **84%** |
+| **Total** | **134** | **26** | **32** | **99** | **3** | **84%** |
 
 ## DTS index
 
@@ -417,7 +417,7 @@ Authoritative spec / stdlib / IEEE / Unicode / pinning contract that this SUT cl
 
 Maintainer-rejected DTS. Counted in the denominator only.
 
-**Precision** = (fixed + confirmed) / (fixed + confirmed + non-issues) = **(133 + 1) / (133 + 1 + 25) = 84.3%**.
+**Precision** = (fixed + confirmed) / (fixed + confirmed + non-issues) = **(133 + 1) / (133 + 1 + 26) = 83.8%**.
 
 | DTS | Project | Theme | Why non-issue |
 |-----|---------|-------|---------------|
@@ -446,8 +446,9 @@ Maintainer-rejected DTS. Counted in the denominator only.
 | `DTS2026081715017` | `multimedia_media_library` | IsValidInteger accepts partial parses | By design — incomplete consume (compat 1.000); ConvertToInt is the full-consume sibling. |
 | `DTS2026082549915` | `multimodalinput_input` | IsValidJsonPath `/data` prefix spoof | Unreachable — gate after `realpath`; in-tree paths are constants / `GetOneCfgFile` / hardcoded `/data/service/…`; no privesc; optional `"/data/"` hygiene only. |
 | `DTS2026072349266` | `multimodalinput_input` | StreamBuffer::Read(string) `rPos_` past `wPos_` via `strchr` | No object OOB (zero-fill `MAX+1`); `Write(string)` embeds NUL; multi-field decode fail-closes via `CHKRWER`; tail-string under trusted-peer; optional `memchr` hygiene. **Different free reason than** `DTS2026082549915`. |
+| `DTS2026080809055` | `filemanagement_dfs_service` | MessageHandler ctor sizes send buffer from uncapped URI length | Receive path already enforces `PATH_MAX`; only producer is system-app + `CLOUDFILE_SYNC` IPC; peer drops longer URIs; legacy ctor left as-is (`dataSize_=0` patch is unsafe). |
 
-Sources: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (24 DTS-stamped).
+Sources: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (26 DTS-stamped).
 
 ## Notes
 
