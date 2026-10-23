@@ -5,9 +5,9 @@ Categorization of **confirmed fixed** DTS findings in `arkui_ace_engine`, groupe
 Scoped to this repo only. Companion precision report: [arkui_ace_engine_finding_precision.md](./arkui_ace_engine_finding_precision.md).
 
 - **Repo:** `arkui_ace_engine`
-- **Confirmed fixed (DTS + write-up):** **18** (`CONFIRMED_FIXED`)
-- **Confirmed awaiting fix:** **1** (`CONFIRMED_REAL` — OH-2026-ARKUI-018)
-- **Status:** fixed tickets are `CONFIRMED_FIXED`; one ticket is `CONFIRMED_REAL`
+- **Confirmed fixed (DTS + write-up):** **19** (`CONFIRMED_FIXED`)
+- **Confirmed awaiting fix:** **0** (none — every confirmed arkui DTS has been fixed)
+- **Status:** fixed tickets are `CONFIRMED_FIXED`; no `CONFIRMED_REAL` remains
 - **Severity** (fixed + confirmed): HIGH=8, MEDIUM=11, LOW=0
 - **Sources:** [`content/issues/OH-2026-ARKUI-*.md`](../content/issues/), `~/cloned/arkui_ace_engine/pbt-out/bug_reports/fixed/`
 - **Generated:** 2026-09-23
@@ -147,7 +147,7 @@ Missing bounds/index guards on vector writers and TLV range slicing → OOB read
 <details><summary>Summaries</summary>
 
 - **OH-2026-ARKUI-009** (`DTS2026091012206`): `Matrix3N::SetEntry` / `MatrixN3::SetEntry` reject only `row/col >= bound`. Negative `int32_t` becomes a huge `size_t` subscript → SIGSEGV / heap abort. Same-file `Matrix3` and 4×N / N×4 siblings already reject negatives.
-- **OH-2026-ARKUI-018** (`DTS2026092958405`): `DecodeTlvExt` `TLV_CUSTOM_MARSHALL_BUFFER_START` end = `buffLength + cursor + cursor - lastCursor` = section end + 16; `std::vector` range ctor over-reads 16 bytes (past `buff.end()` → UB/crash when the custom section is last). Confirmed, not fixed yet.
+- **OH-2026-ARKUI-018** (`DTS2026092958405`): `DecodeTlvExt` `TLV_CUSTOM_MARSHALL_BUFFER_START` end = `buffLength + cursor + cursor - lastCursor` = section end + 16; `std::vector` range ctor over-reads 16 bytes (past `buff.end()` → UB/crash when the custom section is last). Fixed upstream in `dedb49e4917` (`lastCursor + buffLength`).
 
 </details>
 
