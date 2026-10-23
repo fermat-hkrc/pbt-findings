@@ -2,12 +2,12 @@
 
 对 [`content/issues/`](../content/issues/) 中带有 **DTS** 工单号（`internal_issue_id`）的发现所做的归类，按检出该工单的 **pi-pbt 性质（预言机）** 分组。CWE / 失效模式分组归档在 [`finding_precision_by_project.md`](finding_precision_by_project.md) 文末。
 
-- **已确认并修复（FIXED）**：**135** — `CONFIRMED_FIXED` 报告如下
+- **已确认并修复（FIXED）**：**136** — `CONFIRMED_FIXED` 报告如下
 - **已确认（待修复）**：**0** — 当前没有；所有已受理的 DTS 均已修复
 - **非问题（NON-ISSUE）**：**27** — [目录](#非问题)
-- **已判定**：**162** = 135 + 0 + 27
-- **精确率**：**83.3%** = `(135 + 0) / (135 + 0 + 27)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
-- **严重级别**（已修复 + 已确认）：HIGH=32，MEDIUM=100，LOW=3
+- **已判定**：**163** = 136 + 0 + 27
+- **精确率**：**83.4%** = `(136 + 0) / (136 + 0 + 27)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
+- **严重级别**（已修复 + 已确认）：HIGH=32，MEDIUM=101，LOW=3
 - **生成时间**：2026-09-24
 
 ## 概览
@@ -22,10 +22,10 @@
 | [代数 — 往返](#代数--往返) | 7 | 3 | 4 | 0 |
 | [代数 — 蜕变](#代数--蜕变) | 5 | 1 | 4 | 0 |
 | [代数 — 不变量](#代数--不变量) | 50 | 11 | 38 | 1 |
-| [否定 / 错误契约](#否定--错误契约) | 11 | 2 | 9 | 0 |
+| [否定 / 错误契约](#否定--错误契约) | 12 | 2 | 10 | 0 |
 | [参考](#参考) | 5 | 1 | 4 | 0 |
 | [仅崩溃](#仅崩溃) | 16 | 7 | 9 | 0 |
-| **合计** | **135** | **32** | **100** | **3** |
+| **合计** | **136** | **32** | **101** | **3** |
 
 强度顺序：状态机 ≻ 差分 ≻ 代数（往返 ≻ 幂等 ≻ 蜕变 ≻ 不变量 ≻ 否定/错误）≻ 参考 ≻ 仅崩溃。本集合中**幂等：0**。
 
@@ -55,14 +55,14 @@
 | `communication_dsoftbus` | 2 | 1 | 0 | 2 | 0 | 67% |
 | `distributeddatamgr_datamgr_service` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `distributedhardware_distributed_hardware_fwk` | 1 | 0 | 0 | 1 | 0 | 100% |
-| `filemanagement_dfs_service` | 1 | 1 | 0 | 1 | 0 | 50% |
+| `filemanagement_dfs_service` | 2 | 1 | 0 | 2 | 0 | 67% |
 | `filemanagement_storage_service` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `multimedia_media_foundation` | 2 | 5 | 1 | 1 | 0 | 29% |
 | `telephony_core_service` | 3 | 0 | 2 | 1 | 0 | 100% |
 | `arkui_napi` | 4 | 0 | 1 | 3 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **合计** | **135** | **27** | **32** | **100** | **3** | **83%** |
+| **合计** | **136** | **27** | **32** | **101** | **3** | **83%** |
 
 ## DTS 索引
 
@@ -141,6 +141,7 @@
 | `DTS2026080530843` | [OH-2026-GFX-008](../content/issues/OH-2026-GFX-008.md) | 代数 — 不变量 | LOW | `graphic_graphic_2d` |
 | `DTS2026080608464` | [OH-2026-NET-005](../content/issues/OH-2026-NET-005.md) | 代数 — 不变量 | MEDIUM | `communication_netmanager_base` |
 | `DTS2026080754676` | [ARK-2026-BUF-002](../content/issues/ARK-2026-BUF-002.md) | 代数 — 不变量 | MEDIUM | `arkcompiler_runtime_core` |
+| `DTS2026080808589` | [OH-2026-DFS-002](../content/issues/OH-2026-DFS-002.md) | 否定 / 错误契约 | MEDIUM | `filemanagement_dfs_service` |
 | `DTS2026080810178` | [ARK-2026-BUF-003](../content/issues/ARK-2026-BUF-003.md) | 代数 — 不变量 | MEDIUM | `arkcompiler_runtime_core` |
 | `DTS2026080810367` | [ARK-2026-BUF-004](../content/issues/ARK-2026-BUF-004.md) | 代数 — 不变量 | MEDIUM | `arkcompiler_runtime_core` |
 | `DTS2026080812034` | [ARK-2026-INT-004](../content/issues/ARK-2026-INT-004.md) | 代数 — 不变量 | MEDIUM | `arkcompiler_runtime_core` |
@@ -367,6 +368,7 @@
 | `DTS2026063027223` | [OH-2026-BT-002](../content/issues/OH-2026-BT-002.md) | HIGH | 非 hex / 奇数长度 hex 被拒绝（不抛、无前缀解析） |
 | `DTS2026071428596` | [OH-2026-CAM-002](../content/issues/OH-2026-CAM-002.md) | MEDIUM | 单元素美颜范围返回 OK/INVALID_ARG，不 SIGFPE |
 | `DTS2026071727054` | [OH-2026-NET-008](../content/issues/OH-2026-NET-008.md) | MEDIUM | StrToUint64("-1") 返回 defaultErr（不绕成 UINT64_MAX） |
+| `DTS2026080808589` | [OH-2026-DFS-002](../content/issues/OH-2026-DFS-002.md) | MEDIUM | 活路径 xattr / userId 解析返回值或错误码——绝不抛异常（空串 / 超 INT_MAX 数字） |
 | `DTS2026071809730` | [OH-2026-ABILITY-002](../content/issues/OH-2026-ABILITY-002.md) | MEDIUM | IsNumber 拒绝浮点；GetId 不截断 |
 | `DTS2026072223098` | [OH-2026-DATAMGR-001](../content/issues/OH-2026-DATAMGR-001.md) | MEDIUM | IsValidPath 拒绝单独的 ".." |
 | `DTS2026072335866` | [OH-2026-STORAGE-001](../content/issues/OH-2026-STORAGE-001.md) | MEDIUM | 越界 userId 被拒绝（CheckUserIdRange） |
@@ -419,7 +421,7 @@
 
 维护者驳回的 DTS。只计入分母。
 
-**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(135 + 0) / (135 + 0 + 27) = 83.3%**。
+**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(136 + 0) / (136 + 0 + 27) = 83.4%**。
 
 | DTS | 项目 | 主题 | 为何非问题 |
 |-----|------|------|------------|

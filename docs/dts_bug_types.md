@@ -2,12 +2,12 @@
 
 Categorization of [`content/issues/`](../content/issues/) findings that carry a **DTS** ticket (`internal_issue_id`), grouped by the **pi-pbt property (oracle)** that found each ticket. CWE / failure-mode grouping is archived at the end of [`finding_precision_by_project.md`](finding_precision_by_project.md).
 
-- **Confirmed (FIXED)**: **135** — `CONFIRMED_FIXED` write-ups below
+- **Confirmed (FIXED)**: **136** — `CONFIRMED_FIXED` write-ups below
 - **Confirmed (awaiting fix)**: **0** — none currently; every accepted DTS has been fixed
 - **Non-issue**: **27** — [catalog](#non-issues)
-- **Decided**: **162** = 135 + 0 + 27
-- **Precision**: **83.3%** = `(135 + 0) / (135 + 0 + 27)` = (fixed + confirmed) / (fixed + confirmed + non-issues)
-- **Severity** (fixed + confirmed): HIGH=32, MEDIUM=100, LOW=3
+- **Decided**: **163** = 136 + 0 + 27
+- **Precision**: **83.4%** = `(136 + 0) / (136 + 0 + 27)` = (fixed + confirmed) / (fixed + confirmed + non-issues)
+- **Severity** (fixed + confirmed): HIGH=32, MEDIUM=101, LOW=3
 - **Generated**: 2026-09-24
 
 ## Overview
@@ -22,10 +22,10 @@ Oracle taxonomy from [pi-pbt `docs/oracles.md`](https://github.com/fermat-hkrc/p
 | [Algebraic — Round-trip](#algebraic--round-trip) | 7 | 3 | 4 | 0 |
 | [Algebraic — Metamorphic](#algebraic--metamorphic) | 5 | 1 | 4 | 0 |
 | [Algebraic — Invariant](#algebraic--invariant) | 50 | 11 | 38 | 1 |
-| [Negative / Error Contract](#negative--error-contract) | 11 | 2 | 9 | 0 |
+| [Negative / Error Contract](#negative--error-contract) | 12 | 2 | 10 | 0 |
 | [Reference](#reference) | 5 | 1 | 4 | 0 |
 | [Crash-Only](#crash-only) | 16 | 7 | 9 | 0 |
-| **Total** | **135** | **32** | **100** | **3** |
+| **Total** | **136** | **32** | **101** | **3** |
 
 Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Idempotence ≻ Metamorphic ≻ Invariant ≻ Negative/Error) ≻ Reference ≻ Crash-Only. **Idempotence: 0** in this set.
 
@@ -55,14 +55,14 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `communication_dsoftbus` | 2 | 1 | 0 | 2 | 0 | 67% |
 | `distributeddatamgr_datamgr_service` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `distributedhardware_distributed_hardware_fwk` | 1 | 0 | 0 | 1 | 0 | 100% |
-| `filemanagement_dfs_service` | 1 | 1 | 0 | 1 | 0 | 50% |
+| `filemanagement_dfs_service` | 2 | 1 | 0 | 2 | 0 | 67% |
 | `filemanagement_storage_service` | 2 | 0 | 0 | 2 | 0 | 100% |
 | `multimedia_media_foundation` | 2 | 5 | 1 | 1 | 0 | 29% |
 | `telephony_core_service` | 3 | 0 | 2 | 1 | 0 | 100% |
 | `arkui_napi` | 4 | 0 | 1 | 3 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **Total** | **135** | **27** | **32** | **100** | **3** | **83%** |
+| **Total** | **136** | **27** | **32** | **101** | **3** | **83%** |
 
 ## DTS index
 
@@ -141,6 +141,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `DTS2026080530843` | [OH-2026-GFX-008](../content/issues/OH-2026-GFX-008.md) | Algebraic — Invariant | LOW | `graphic_graphic_2d` |
 | `DTS2026080608464` | [OH-2026-NET-005](../content/issues/OH-2026-NET-005.md) | Algebraic — Invariant | MEDIUM | `communication_netmanager_base` |
 | `DTS2026080754676` | [ARK-2026-BUF-002](../content/issues/ARK-2026-BUF-002.md) | Algebraic — Invariant | MEDIUM | `arkcompiler_runtime_core` |
+| `DTS2026080808589` | [OH-2026-DFS-002](../content/issues/OH-2026-DFS-002.md) | Negative / Error Contract | MEDIUM | `filemanagement_dfs_service` |
 | `DTS2026080810178` | [ARK-2026-BUF-003](../content/issues/ARK-2026-BUF-003.md) | Algebraic — Invariant | MEDIUM | `arkcompiler_runtime_core` |
 | `DTS2026080810367` | [ARK-2026-BUF-004](../content/issues/ARK-2026-BUF-004.md) | Algebraic — Invariant | MEDIUM | `arkcompiler_runtime_core` |
 | `DTS2026080812034` | [ARK-2026-INT-004](../content/issues/ARK-2026-INT-004.md) | Algebraic — Invariant | MEDIUM | `arkcompiler_runtime_core` |
@@ -367,6 +368,7 @@ Inputs outside the valid domain are rejected as specified.
 | `DTS2026063027223` | [OH-2026-BT-002](../content/issues/OH-2026-BT-002.md) | HIGH | non-hex / odd-length hex is rejected (no throw, no prefix) |
 | `DTS2026071428596` | [OH-2026-CAM-002](../content/issues/OH-2026-CAM-002.md) | MEDIUM | single-element beauty range returns OK/INVALID_ARG, never SIGFPE |
 | `DTS2026071727054` | [OH-2026-NET-008](../content/issues/OH-2026-NET-008.md) | MEDIUM | StrToUint64("-1") returns defaultErr (no UINT64_MAX wrap) |
+| `DTS2026080808589` | [OH-2026-DFS-002](../content/issues/OH-2026-DFS-002.md) | MEDIUM | live xattr / userId parse returns a value or error code — never throws ("" / >INT_MAX digits) |
 | `DTS2026071809730` | [OH-2026-ABILITY-002](../content/issues/OH-2026-ABILITY-002.md) | MEDIUM | IsNumber rejects floats; GetId does not truncate |
 | `DTS2026072223098` | [OH-2026-DATAMGR-001](../content/issues/OH-2026-DATAMGR-001.md) | MEDIUM | IsValidPath rejects lone ".." |
 | `DTS2026072335866` | [OH-2026-STORAGE-001](../content/issues/OH-2026-STORAGE-001.md) | MEDIUM | out-of-range userId is rejected (CheckUserIdRange) |
@@ -419,7 +421,7 @@ Authoritative spec / stdlib / IEEE / Unicode / pinning contract that this SUT cl
 
 Maintainer-rejected DTS. Counted in the denominator only.
 
-**Precision** = (fixed + confirmed) / (fixed + confirmed + non-issues) = **(135 + 0) / (135 + 0 + 27) = 83.3%**.
+**Precision** = (fixed + confirmed) / (fixed + confirmed + non-issues) = **(136 + 0) / (136 + 0 + 27) = 83.4%**.
 
 | DTS | Project | Theme | Why non-issue |
 |-----|---------|-------|---------------|
