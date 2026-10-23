@@ -170,3 +170,4 @@
 | 166 | graphic_graphic_2d | SrcRectScaleFit 把源空间窄条写入 dstRect，而不是窗口内的 letterbox 矩形 | 计算错误 | `rosen/modules/render_service/core/pipeline/render_thread/rs_uni_render_util.cpp` | 非问题 | GPU 路径默认 Gravity::RESIZE 铺满；dstRect*matrix 即 letterbox；报告只看了助手局部计算 | DTS2026101648114 |
 | 167 | graphic_graphic_2d | GetMatrixByDegree 把非正方形硬光标反旋转到错误的轴（PreTranslate 用了另一条 bounds 轴） | 计算错误 | `rosen/modules/render_service/core/pipeline/render_thread/rs_uni_render_util.cpp` | 已确认并修复 |  | DTS2026101653039 |
 | 168 | ability_ability_runtime | JsRuntime::JsperfProfilerCommandParse 对正则接受的超 INT32_MAX 区间抛出未捕获的 std::stoi out_of_range | 坏输入未捕获异常/崩溃 | `frameworks/native/runtime/js_runtime.cpp` | 已提交 |  | DTS2026102338453 |
+| 169 | arkcompiler_runtime_core | 静态运行时 ParseInt 把 strtoll 溢出当成饱和 long long 接受（已修复 DTS2026082563048 的 Sta 孪生；inspector id 误接受） | 整数溢出/下溢 | `static_core/libarkbase/utils/string_helpers.h` | 已提交 |  | DTS2026102341877 |
