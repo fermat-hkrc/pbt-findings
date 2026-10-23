@@ -2,8 +2,8 @@
 
 How often PBT-filed **DTS** tickets were accepted as real bugs versus closed as non-issues, broken down by project.
 
-- **Precision:** **83.5%** ((137 FIXED + 0 CONFIRMED) / 164 decided)
-- **False-positive rate:** **16.5%** (27 NON-ISSUE)
+- **Precision:** **83.6%** ((138 FIXED + 0 CONFIRMED) / 165 decided)
+- **False-positive rate:** **16.4%** (27 NON-ISSUE)
 
 Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS tickets are omitted — their outcome (bug vs non-issue) is not yet known.
 
@@ -22,7 +22,7 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 **Sources**
 
 - DTS inventory: [`dts_bug_types.md`](./dts_bug_types.md) + [`content/issues/`](../content/issues/)
-- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**137** = 137 `CONFIRMED_FIXED` + 0 `CONFIRMED_REAL`)
+- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**138** = 138 `CONFIRMED_FIXED` + 0 `CONFIRMED_REAL`)
 - Non-issue write-ups: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (**27** DTS-stamped)
 
 - **Generated:** 2026-09-24
@@ -31,13 +31,13 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 137 | 83.5% |
+| FIXED | 138 | 83.6% |
 | CONFIRMED (awaiting fix) | 0 | 0.0% |
-| NON-ISSUE | 27 | 16.5% |
-| **Total decided** | **164** | 100% |
+| NON-ISSUE | 27 | 16.4% |
+| **Total decided** | **165** | 100% |
 
-- **Precision:** **(137+0)/164 = 83.5%** — about five in six closed tickets were real bugs.
-- **False-positive rate:** **27/164 = 16.5%**.
+- **Precision:** **(138+0)/165 = 83.6%** — about five in six closed tickets were real bugs.
+- **False-positive rate:** **27/165 = 16.4%**.
 
 > Precision means *maintainer-accepted defect rate among dispositioned DTS* (fixed **or** confirmed-unfixed), not static-analysis alert rate. Open/submitted tickets are out of scope until closed.
 
@@ -61,7 +61,7 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`multimedia_av_session`](#multimedia-av-session) | 2 | 0 | 1 | 3 | 67% |
 | [`multimedia_media_library`](#multimedia-media-library) | 5 | 0 | 1 | 6 | 83% |
 | [`communication_bluetooth_service`](#communication-bluetooth-service) | 2 | 0 | 0 | 2 | 100% |
-| [`communication_wifi`](#communication-wifi) | 4 | 0 | 0 | 4 | 100% |
+| [`communication_wifi`](#communication-wifi) | 5 | 0 | 0 | 5 | 100% |
 | [`distributeddatamgr_pasteboard`](#distributeddatamgr-pasteboard) | 2 | 0 | 0 | 2 | 100% |
 | [`window_window_manager`](#window-window-manager) | 3 | 0 | 0 | 3 | 100% |
 | [`arkui_napi`](#arkui-napi) | 4 | 0 | 0 | 4 | 100% |
@@ -74,13 +74,13 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`telephony_core_service`](#telephony-core-service) | 3 | 0 | 0 | 3 | 100% |
 | [`multimedia_audio_framework`](#multimedia-audio-framework) | 1 | 0 | 1 | 2 | 50% |
 | [`multimodalinput_input`](#multimodalinput-input) | 0 | 0 | 2 | 2 | 0% |
-| **Total** | **137** | **0** | **27** | **164** | **83%** |
+| **Total** | **138** | **0** | **27** | **165** | **83%** |
 
 ## Precision tiers
 
 ### Tier A — Perfect precision (100%, ≥1 FIXED, 0 NON-ISSUE)
 
-`multimedia_camera_framework` (15 fixed), `multimedia_image_framework` (10 fixed), `ability_ability_runtime` (8 fixed), `multimedia_av_codec` (6 fixed), `window_window_manager` (3 fixed), `arkui_napi` (4 fixed), `communication_bluetooth_service` (2 fixed), `communication_wifi` (4 fixed), `distributeddatamgr_pasteboard` (2 fixed), `filemanagement_storage_service` (2 fixed), `telephony_core_service` (3 fixed), `commonlibrary_rust_ylong_http` (1 fixed), `distributedhardware_distributed_hardware_fwk` (1 fixed)
+`multimedia_camera_framework` (15 fixed), `multimedia_image_framework` (10 fixed), `ability_ability_runtime` (8 fixed), `multimedia_av_codec` (6 fixed), `window_window_manager` (3 fixed), `arkui_napi` (4 fixed), `communication_bluetooth_service` (2 fixed), `communication_wifi` (5 fixed), `distributeddatamgr_pasteboard` (2 fixed), `filemanagement_storage_service` (2 fixed), `telephony_core_service` (3 fixed), `commonlibrary_rust_ylong_http` (1 fixed), `distributedhardware_distributed_hardware_fwk` (1 fixed)
 
 These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 
@@ -446,9 +446,9 @@ Mixed outcomes: maintainers accepted **2** and rejected **1**. Net precision **6
 
 | Metric | Value |
 |--------|------:|
-| FIXED | 4 |
+| FIXED | 5 |
 | NON-ISSUE | 0 |
-| Decided | 4 |
+| Decided | 5 |
 | Precision | 100.0% |
 
 **FIXED DTS**
@@ -456,6 +456,7 @@ Mixed outcomes: maintainers accepted **2** and rejected **1**. Net precision **6
 - `DTS2607070006622` — [OH-2026-WIFI-004](../content/issues/OH-2026-WIFI-004.md): DeleteMessageFromQueue skips the next node after a delete
 - `DTS2026071806709` — [OH-2026-WIFI-001](../content/issues/OH-2026-WIFI-001.md): HexString2Byte missing null checks and source bounds — OOB read + null deref
 - `DTS2026072818599` — [OH-2026-WIFI-003](../content/issues/OH-2026-WIFI-003.md): StrSafeCopy(dst, 0, src) writes dst[0] past zero-length capacity
+- `DTS2026082741568` — [OH-2026-WIFI-005](../content/issues/OH-2026-WIFI-005.md): RemoveData compares the whole buffer to the key slice — remove never matches, upsert duplicates
 - `DTS2026073028465` — [OH-2026-WIFI-002](../content/issues/OH-2026-WIFI-002.md): GetCurStateName OOB-reads empty mStateVector — SEGV on mStateVector[-1]
 
 ### `distributeddatamgr_datamgr_service`
@@ -710,16 +711,16 @@ No FIXED DTS yet among dispositioned tickets.
 
 ## Relation to `content/issues/` write-ups
 
-This repo’s [`content/issues/`](../content/issues/) currently carries **137** DTS-linked reports (**137** `CONFIRMED_FIXED` + **0** `CONFIRMED_REAL`).
+This repo’s [`content/issues/`](../content/issues/) currently carries **138** DTS-linked reports (**138** `CONFIRMED_FIXED` + **0** `CONFIRMED_REAL`).
 `CONFIRMED_FIXED` is the **FIXED** count; `CONFIRMED_REAL` is **CONFIRMED** (awaiting fix). Non-issues come from `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/`.
 
 | Population | Count | Role |
 |------------|------:|------|
-| Decided DTS (FIXED + CONFIRMED + NON-ISSUE) | 164 | Ground truth for precision |
-| FIXED | 137 | Maintainer-accepted and fixed |
+| Decided DTS (FIXED + CONFIRMED + NON-ISSUE) | 165 | Ground truth for precision |
+| FIXED | 138 | Maintainer-accepted and fixed |
 | CONFIRMED | 0 | Maintainer-accepted, not fixed yet |
 | NON-ISSUE | 27 | Maintainer-rejected (cloned + testing inventory) |
-| Write-ups in `content/issues` with DTS | 137 | Published confirmed bugs (fixed or awaiting fix) |
+| Write-ups in `content/issues` with DTS | 138 | Published confirmed bugs (fixed or awaiting fix) |
 
 **Do not** compute precision from `content/issues` alone — it omits non-issues by design. Use this document (or dispositioned rows in `BUG_REPORTS.md`) for acceptance rate.
 
@@ -727,7 +728,7 @@ See also: [DTS tickets by detecting property](./dts_bug_types.md). Failure-mode 
 
 ## Takeaways
 
-1. **Overall precision is high (83.5%)** — PBT filings that reach a DTS decision are usually real defects.
+1. **Overall precision is high (83.6%)** — PBT filings that reach a DTS decision are usually real defects.
 2. **False positives cluster in a few patterns** (27 tickets): by-design helpers, composed-draw / wrong output space, dead/unreachable / dropped-from-trunk code, path-prefix gates with no live producer after `realpath`, framing residuals that are not object OOB and mostly fail-closed, caller-owned / split-API contracts, shipped CAPI / product omissions, flag-dependent crashes — not flaky reproduction.
 3. **Several large surfaces are clean so far** (e.g. `multimedia_camera_framework`, `multimedia_image_framework` among high-volume FIXED with 0 NON-ISSUE). `graphic_graphic_2d` now has one composed-draw non-issue (`SrcRectScaleFit`) against 11 fixes.
 4. **Filing bar that non-issues imply:** prove a live production caller, state the product contract, and avoid “algebraic inconsistency across differently purposed APIs” without impact. Sibling slash-terminated roots + a one-char fix still need a product-domain hit. Do not equate logical cursor past `wPos_` inside a zero-filled fixed buffer with heap OOB. Do not assert a mid-pipeline rect in the consumer dest space when a gravity/fill matrix still maps it (`dstRect` vs `dstRect*matrix`).
@@ -761,7 +762,7 @@ Moved out of [`dts_bug_types.md`](./dts_bug_types.md) (that file is now the dete
 | [Memory Safety — Double Free](#memory-safety-double-free) | 1 | 0 | 1 | 0 |
 | [Control Flow — Infinite Loop / Hang](#control-flow-infinite-loop-hang) | 3 | 0 | 3 | 0 |
 | [Logic — Incorrect Control Flow](#logic-incorrect-control-flow) | 7 | 2 | 5 | 0 |
-| [Logic — Incorrect Operator / Predicate](#logic-incorrect-operator-predicate) | 1 | 1 | 0 | 0 |
+| [Logic — Incorrect Operator / Predicate](#logic-incorrect-operator-predicate) | 2 | 1 | 1 | 0 |
 | [Logic — Unchecked Return Value](#logic-unchecked-return-value) | 1 | 0 | 1 | 0 |
 | [Undefined Behavior](#undefined-behavior) | 2 | 1 | 1 | 0 |
 | [State / Lifecycle — Incomplete Cleanup or Stuck State](#state-lifecycle-incomplete-cleanup-or-stuck-state) | 1 | 1 | 0 | 0 |
@@ -832,6 +833,7 @@ Moved out of [`dts_bug_types.md`](./dts_bug_types.md) (that file is now the dete
 | `DTS2026072924028` | [OH-2026-WM-003](../content/issues/OH-2026-WM-003.md) | Input Validation — Uncaught Exception / Crash on Bad Input | HIGH | `window_window_manager` |
 | `DTS2026080808589` | [OH-2026-DFS-002](../content/issues/OH-2026-DFS-002.md) | Input Validation — Uncaught Exception / Crash on Bad Input | MEDIUM | `filemanagement_dfs_service` |
 | `DTS2026082252519` | [OH-2026-ABILITY-008](../content/issues/OH-2026-ABILITY-008.md) | Memory Safety — Null Pointer Dereference | MEDIUM | `ability_ability_runtime` |
+| `DTS2026082741568` | [OH-2026-WIFI-005](../content/issues/OH-2026-WIFI-005.md) | Logic — Incorrect Operator / Predicate | MEDIUM | `communication_wifi` |
 | `DTS2026072935286` | [OH-2026-AVCODEC-002](../content/issues/OH-2026-AVCODEC-002.md) | Arithmetic — Off-by-One | MEDIUM | `multimedia_av_codec` |
 | `DTS2026073013382` | [OH-2026-IMG-009](../content/issues/OH-2026-IMG-009.md) | Arithmetic — Integer Overflow / Underflow | MEDIUM | `multimedia_image_framework` |
 | `DTS2026073015200` | [OH-2026-IMG-003](../content/issues/OH-2026-IMG-003.md) | Logic — Incorrect Operator / Predicate | HIGH | `multimedia_image_framework` |
@@ -1001,6 +1003,7 @@ Reads/writes past buffer limits; can crash (`SEGV`) or corrupt adjacent state.
 |-----|----|----------|-----|------------------|-------|
 | `DTS2026070722498` | [OH-2026-AVSESSION-001](../content/issues/OH-2026-AVSESSION-001.md) | HIGH | CWE-787 (Out-of-bounds Read) | `utils/include/avsession_utils.h` · `multimedia_av_session` | GetAnonyTitle crashes (SEGV) on all-continuation-byte media titles via empty-vector OOB read |
 | `DTS2026071806709` | [OH-2026-WIFI-001](../content/issues/OH-2026-WIFI-001.md) | MEDIUM | CWE-125 (Out-of-bounds Read) | `wifi/utils/src/wifi_common_util.cpp` · `communication_wifi` | HexString2Byte missing null checks and source bounds — OOB read + null deref |
+| `DTS2026082741568` | [OH-2026-WIFI-005](../content/issues/OH-2026-WIFI-005.md) | MEDIUM | CWE-480 (Use of Incorrect Operator) | `wifi/services/wifi_standard/wifi_framework/wifi_manage/wifi_p2p/wifi_p2p_dns_txt_record.cpp` · `communication_wifi` | RemoveData compares the whole buffer to the key slice — never matches, upsert duplicates |
 | `DTS2026071807957` | [ARK-2026-BUF-001](../content/issues/ARK-2026-BUF-001.md) | MEDIUM | CWE-787 (Out-of-bounds Write) | `static_core/libarkfile/file_writer.cpp` · `arkcompiler_runtime_core` | MemoryBufferWriter WriteByte/WriteBytes/AppendRange past-capacity OOB write returns true |
 | `DTS2026080754676` | [ARK-2026-BUF-002](../content/issues/ARK-2026-BUF-002.md) | MEDIUM | CWE-125 (Out-of-bounds Read) | `static_core/libarkfile/helpers.h` · `arkcompiler_runtime_core` | Static helpers::Read<WIDTH> short span → OOB read + size_t underflow |
 | `DTS2026080810178` | [ARK-2026-BUF-003](../content/issues/ARK-2026-BUF-003.md) | MEDIUM | CWE-125 (Out-of-bounds Read) | `static_core/libarkfile/helpers.h` · `arkcompiler_runtime_core` | Static EnumerateTaggedValues empty span sp[0] OOB |
@@ -1332,7 +1335,7 @@ Masking/redaction fails; secrets or addresses reach logs.
 | CWE-415 | Double Free | 1 |
 | CWE-459 | Incomplete Cleanup | 1 |
 | CWE-476 | NULL Pointer Dereference | 2 |
-| CWE-480 | Use of Incorrect Operator | 1 |
+| CWE-480 | Use of Incorrect Operator | 2 |
 | CWE-680 | Integer Overflow to Buffer Overflow | 1 |
 | CWE-754 | Improper Check or Handling of Exceptional Conditions | 1 |
 | CWE-787 | Out-of-bounds Write | 2 |

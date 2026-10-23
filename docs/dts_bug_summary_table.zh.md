@@ -142,7 +142,7 @@
 | 138 | distributedhardware_device_manager | ConvertStrToInt 对溢出十进制返回正回绕值 | 整数溢出/下溢 | `common/src/dm_anonymous.cpp` | 非问题 | 死代码 / 无出货调用方 | DTS2026082568985 |
 | 139 | multimedia_media_library | GetVirtualPath / UpdateVirtualPath 空 relativePath 末字符未定义行为 | 未定义行为 | `frameworks/innerkitsimpl/medialibrary_data_extension/src/medialibrary_asset_operations.cpp` | 已确认并修复 |  | DTS2608260052510 |
 | 140 | distributeddatamgr_datamgr_service | DeviceMatrix::ConvertIndex 末尾 index-- 导致 uint16 回绕 | 差一 | `services/distributeddataservice/service/matrix/src/device_matrix.cpp` | 非问题 | index-- 适配旧版 dynamicApps_（少一位）；回绕不在现行 ConvertDynamic 路径 | DTS2026082738345 |
-| 141 | communication_wifi | RemoveData 拿整段缓冲区去和 key 切片比较 | 运算符/谓词错误 | `wifi/services/wifi_standard/wifi_framework/wifi_manage/wifi_p2p/wifi_p2p_dns_txt_record.cpp` | 已提交 |  | DTS2026082741568 |
+| 141 | communication_wifi | RemoveData 拿整段缓冲区去和 key 切片比较 | 运算符/谓词错误 | `wifi/services/wifi_standard/wifi_framework/wifi_manage/wifi_p2p/wifi_p2p_dns_txt_record.cpp` | 已确认并修复 |  | DTS2026082741568 |
 | 142 | communication_netmanager_base | GetInterfaceTrafficByType 截断超过 8 字节的 sysfs 计数器 | 计算错误 | `services/netmanagernative/src/manager/traffic_manager.cpp` | 已确认并修复 |  | DTS2026083022516 |
 | 143 | communication_netmanager_base | StrToInt / StrToUint / StrToUint64 把前导零十进制当八进制解析 | 计算错误 | `utils/common_utils/src/netmanager_base_common_utils.cpp` | 已确认并修复 |  | DTS2026083107415 |
 | 144 | communication_netmanager_base | GetMtu 把 sysfs 的 "1500\n" 交给 StrToInt → 总是 -1 | 检查不当 | `services/netmanagernative/src/manager/interface_manager.cpp` | 已确认并修复 |  | DTS2026083109843 |
