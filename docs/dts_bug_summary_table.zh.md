@@ -169,3 +169,4 @@
 | 165 | arkui_ace_engine | SpanString::DecodeTlvExt 自定义 marshall 区间末端多读 ExtSpan 用户数据（迭代器 UB / 崩溃） | 缓冲区/越界访问 | `frameworks/core/components_ng/pattern/text/span/span_string.cpp` | 已确认并修复 |  | DTS2026092958405 |
 | 166 | graphic_graphic_2d | SrcRectScaleFit 把源空间窄条写入 dstRect，而不是窗口内的 letterbox 矩形 | 计算错误 | `rosen/modules/render_service/core/pipeline/render_thread/rs_uni_render_util.cpp` | 非问题 | GPU 路径默认 Gravity::RESIZE 铺满；dstRect*matrix 即 letterbox；报告只看了助手局部计算 | DTS2026101648114 |
 | 167 | graphic_graphic_2d | GetMatrixByDegree 把非正方形硬光标反旋转到错误的轴（PreTranslate 用了另一条 bounds 轴） | 计算错误 | `rosen/modules/render_service/core/pipeline/render_thread/rs_uni_render_util.cpp` | 已确认并修复 |  | DTS2026101653039 |
+| 168 | ability_ability_runtime | JsRuntime::JsperfProfilerCommandParse 对正则接受的超 INT32_MAX 区间抛出未捕获的 std::stoi out_of_range | 坏输入未捕获异常/崩溃 | `frameworks/native/runtime/js_runtime.cpp` | 已提交 |  | DTS2026102338453 |
