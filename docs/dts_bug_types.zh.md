@@ -2,12 +2,12 @@
 
 对 [`content/issues/`](../content/issues/) 中带有 **DTS** 工单号（`internal_issue_id`）的发现所做的归类，按检出该工单的 **pi-pbt 性质（预言机）** 分组。CWE / 失效模式分组归档在 [`finding_precision_by_project.md`](finding_precision_by_project.md) 文末。
 
-- **已确认并修复（FIXED）**：**136** — `CONFIRMED_FIXED` 报告如下
+- **已确认并修复（FIXED）**：**137** — `CONFIRMED_FIXED` 报告如下
 - **已确认（待修复）**：**0** — 当前没有；所有已受理的 DTS 均已修复
 - **非问题（NON-ISSUE）**：**27** — [目录](#非问题)
-- **已判定**：**163** = 136 + 0 + 27
-- **精确率**：**83.4%** = `(136 + 0) / (136 + 0 + 27)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
-- **严重级别**（已修复 + 已确认）：HIGH=32，MEDIUM=101，LOW=3
+- **已判定**：**164** = 137 + 0 + 27
+- **精确率**：**83.5%** = `(137 + 0) / (137 + 0 + 27)` =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）
+- **严重级别**（已修复 + 已确认）：HIGH=32，MEDIUM=102，LOW=3
 - **生成时间**：2026-09-24
 
 ## 概览
@@ -23,9 +23,9 @@
 | [代数 — 蜕变](#代数--蜕变) | 5 | 1 | 4 | 0 |
 | [代数 — 不变量](#代数--不变量) | 50 | 11 | 38 | 1 |
 | [否定 / 错误契约](#否定--错误契约) | 12 | 2 | 10 | 0 |
-| [参考](#参考) | 5 | 1 | 4 | 0 |
+| [参考](#参考) | 6 | 1 | 5 | 0 |
 | [仅崩溃](#仅崩溃) | 16 | 7 | 9 | 0 |
-| **合计** | **136** | **32** | **101** | **3** |
+| **合计** | **137** | **32** | **102** | **3** |
 
 强度顺序：状态机 ≻ 差分 ≻ 代数（往返 ≻ 幂等 ≻ 蜕变 ≻ 不变量 ≻ 否定/错误）≻ 参考 ≻ 仅崩溃。本集合中**幂等：0**。
 
@@ -40,7 +40,7 @@
 | `communication_netmanager_base` | 14 | 2 | 4 | 10 | 0 | 88% |
 | `graphic_graphic_2d` | 11 | 1 | 3 | 7 | 1 | 92% |
 | `arkui_ace_engine` | 19 | 7 | 8 | 11 | 0 | 73% |
-| `ability_ability_runtime` | 7 | 0 | 0 | 7 | 0 | 100% |
+| `ability_ability_runtime` | 8 | 0 | 0 | 8 | 0 | 100% |
 | `arkcompiler_runtime_core` | 11 | 1 | 1 | 10 | 0 | 92% |
 | `multimedia_av_codec` | 6 | 0 | 0 | 5 | 1 | 100% |
 | `multimedia_player_framework` | 4 | 1 | 0 | 4 | 0 | 80% |
@@ -62,7 +62,7 @@
 | `arkui_napi` | 4 | 0 | 1 | 3 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **合计** | **136** | **27** | **32** | **101** | **3** | **83%** |
+| **合计** | **137** | **27** | **32** | **102** | **3** | **83%** |
 
 ## DTS 索引
 
@@ -176,6 +176,7 @@
 | `DTS2026082239182` | [OH-2026-NAPI-002](../content/issues/OH-2026-NAPI-002.md) | 代数 — 往返 | MEDIUM | `arkui_napi` |
 | `DTS2026082239652` | [OH-2026-CAM-012](../content/issues/OH-2026-CAM-012.md) | 差分 | MEDIUM | `multimedia_camera_framework` |
 | `DTS2026082249247` | [OH-2026-IMG-011](../content/issues/OH-2026-IMG-011.md) | 代数 — 不变量 | MEDIUM | `multimedia_image_framework` |
+| `DTS2026082252519` | [OH-2026-ABILITY-008](../content/issues/OH-2026-ABILITY-008.md) | 参考 | MEDIUM | `ability_ability_runtime` |
 | `DTS2026082254944` | [OH-2026-ABILITY-005](../content/issues/OH-2026-ABILITY-005.md) | 代数 — 不变量 | MEDIUM | `ability_ability_runtime` |
 | `DTS2026082261311` | [OH-2026-GFX-009](../content/issues/OH-2026-GFX-009.md) | 代数 — 不变量 | MEDIUM | `graphic_graphic_2d` |
 | `DTS2026082537775` | [OH-2026-STORAGE-002](../content/issues/OH-2026-STORAGE-002.md) | 差分 | MEDIUM | `filemanagement_storage_service` |
@@ -389,6 +390,7 @@
 | `DTS2026052810677` | [YLONG-2026-SSL-001](../content/issues/YLONG-2026-SSL-001.md) | HIGH | 配置证书真实 SPKI pin 的客户端能完成请求 |
 | `DTS2026062516469` | [OH-2026-GFX-003](../content/issues/OH-2026-GFX-003.md) | MEDIUM | RectF::Round 各边与 std::round 一致 |
 | `DTS2026072513315` | [OH-2026-GFX-005](../content/issues/OH-2026-GFX-005.md) | MEDIUM | IsUtf8 拒绝 UTF-8 代理项半区（Unicode） |
+| `DTS2026082252519` | [OH-2026-ABILITY-008](../content/issues/OH-2026-ABILITY-008.md) | MEDIUM | GetParameter 第 3 参数（调用方持有的输出缓冲）非空 |
 | `DTS2026081417372` | [OH-2026-IMG-010](../content/issues/OH-2026-IMG-010.md) | MEDIUM | FloatToHalf(±0) == IEEE half 零 |
 | `DTS2026081424330` | [OH-2026-IMG-006](../content/issues/OH-2026-IMG-006.md) | MEDIUM | HalfToFloat(+0) == 0.0f（IEEE half） |
 
@@ -421,7 +423,7 @@
 
 维护者驳回的 DTS。只计入分母。
 
-**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(136 + 0) / (136 + 0 + 27) = 83.4%**。
+**精确率** =（已修复 + 已确认）/（已修复 + 已确认 + 非问题）= **(137 + 0) / (137 + 0 + 27) = 83.5%**。
 
 | DTS | 项目 | 主题 | 为何非问题 |
 |-----|------|------|------------|

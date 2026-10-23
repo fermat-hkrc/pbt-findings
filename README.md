@@ -8,12 +8,12 @@ A live dashboard tracking bugs and vulnerabilities discovered through **Property
 
 | Status | Count |
 |--------|------:|
-| Confirmed and Fixed | 136 |
+| Confirmed and Fixed | 137 |
 | Confirmed (awaiting fix) | 0 |
-| Submitted | 4 |
+| Submitted | 3 |
 | Non-issue | 27 |
 
-**Precision** (decided DTS): **83.4%** = `(136 fixed + 0 confirmed) / (136 + 0 + 27)`
+**Precision** (decided DTS): **83.5%** = `(137 fixed + 0 confirmed) / (137 + 0 + 27)`
 
 ## What is this?
 

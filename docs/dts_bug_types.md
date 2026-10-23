@@ -2,12 +2,12 @@
 
 Categorization of [`content/issues/`](../content/issues/) findings that carry a **DTS** ticket (`internal_issue_id`), grouped by the **pi-pbt property (oracle)** that found each ticket. CWE / failure-mode grouping is archived at the end of [`finding_precision_by_project.md`](finding_precision_by_project.md).
 
-- **Confirmed (FIXED)**: **136** — `CONFIRMED_FIXED` write-ups below
+- **Confirmed (FIXED)**: **137** — `CONFIRMED_FIXED` write-ups below
 - **Confirmed (awaiting fix)**: **0** — none currently; every accepted DTS has been fixed
 - **Non-issue**: **27** — [catalog](#non-issues)
-- **Decided**: **163** = 136 + 0 + 27
-- **Precision**: **83.4%** = `(136 + 0) / (136 + 0 + 27)` = (fixed + confirmed) / (fixed + confirmed + non-issues)
-- **Severity** (fixed + confirmed): HIGH=32, MEDIUM=101, LOW=3
+- **Decided**: **164** = 137 + 0 + 27
+- **Precision**: **83.5%** = `(137 + 0) / (137 + 0 + 27)` = (fixed + confirmed) / (fixed + confirmed + non-issues)
+- **Severity** (fixed + confirmed): HIGH=32, MEDIUM=102, LOW=3
 - **Generated**: 2026-09-24
 
 ## Overview
@@ -23,9 +23,9 @@ Oracle taxonomy from [pi-pbt `docs/oracles.md`](https://github.com/fermat-hkrc/p
 | [Algebraic — Metamorphic](#algebraic--metamorphic) | 5 | 1 | 4 | 0 |
 | [Algebraic — Invariant](#algebraic--invariant) | 50 | 11 | 38 | 1 |
 | [Negative / Error Contract](#negative--error-contract) | 12 | 2 | 10 | 0 |
-| [Reference](#reference) | 5 | 1 | 4 | 0 |
+| [Reference](#reference) | 6 | 1 | 5 | 0 |
 | [Crash-Only](#crash-only) | 16 | 7 | 9 | 0 |
-| **Total** | **136** | **32** | **101** | **3** |
+| **Total** | **137** | **32** | **102** | **3** |
 
 Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Idempotence ≻ Metamorphic ≻ Invariant ≻ Negative/Error) ≻ Reference ≻ Crash-Only. **Idempotence: 0** in this set.
 
@@ -40,7 +40,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `communication_netmanager_base` | 14 | 2 | 4 | 10 | 0 | 88% |
 | `graphic_graphic_2d` | 11 | 1 | 3 | 7 | 1 | 92% |
 | `arkui_ace_engine` | 19 | 7 | 8 | 11 | 0 | 73% |
-| `ability_ability_runtime` | 7 | 0 | 0 | 7 | 0 | 100% |
+| `ability_ability_runtime` | 8 | 0 | 0 | 8 | 0 | 100% |
 | `arkcompiler_runtime_core` | 11 | 1 | 1 | 10 | 0 | 92% |
 | `multimedia_av_codec` | 6 | 0 | 0 | 5 | 1 | 100% |
 | `multimedia_player_framework` | 4 | 1 | 0 | 4 | 0 | 80% |
@@ -62,7 +62,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `arkui_napi` | 4 | 0 | 1 | 3 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **Total** | **136** | **27** | **32** | **101** | **3** | **83%** |
+| **Total** | **137** | **27** | **32** | **102** | **3** | **83%** |
 
 ## DTS index
 
@@ -176,6 +176,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `DTS2026082239182` | [OH-2026-NAPI-002](../content/issues/OH-2026-NAPI-002.md) | Algebraic — Round-trip | MEDIUM | `arkui_napi` |
 | `DTS2026082239652` | [OH-2026-CAM-012](../content/issues/OH-2026-CAM-012.md) | Differential | MEDIUM | `multimedia_camera_framework` |
 | `DTS2026082249247` | [OH-2026-IMG-011](../content/issues/OH-2026-IMG-011.md) | Algebraic — Invariant | MEDIUM | `multimedia_image_framework` |
+| `DTS2026082252519` | [OH-2026-ABILITY-008](../content/issues/OH-2026-ABILITY-008.md) | Reference | MEDIUM | `ability_ability_runtime` |
 | `DTS2026082254944` | [OH-2026-ABILITY-005](../content/issues/OH-2026-ABILITY-005.md) | Algebraic — Invariant | MEDIUM | `ability_ability_runtime` |
 | `DTS2026082261311` | [OH-2026-GFX-009](../content/issues/OH-2026-GFX-009.md) | Algebraic — Invariant | MEDIUM | `graphic_graphic_2d` |
 | `DTS2026082537775` | [OH-2026-STORAGE-002](../content/issues/OH-2026-STORAGE-002.md) | Differential | MEDIUM | `filemanagement_storage_service` |
@@ -389,6 +390,7 @@ Authoritative spec / stdlib / IEEE / Unicode / pinning contract that this SUT cl
 | `DTS2026052810677` | [YLONG-2026-SSL-001](../content/issues/YLONG-2026-SSL-001.md) | HIGH | client with the cert's real SPKI pin completes the request |
 | `DTS2026062516469` | [OH-2026-GFX-003](../content/issues/OH-2026-GFX-003.md) | MEDIUM | RectF::Round edge-wise matches std::round |
 | `DTS2026072513315` | [OH-2026-GFX-005](../content/issues/OH-2026-GFX-005.md) | MEDIUM | IsUtf8 rejects UTF-8 surrogate halves (Unicode) |
+| `DTS2026082252519` | [OH-2026-ABILITY-008](../content/issues/OH-2026-ABILITY-008.md) | MEDIUM | GetParameter 3rd argument (caller-owned out buffer) is not null |
 | `DTS2026081417372` | [OH-2026-IMG-010](../content/issues/OH-2026-IMG-010.md) | MEDIUM | FloatToHalf(±0) == IEEE half zero |
 | `DTS2026081424330` | [OH-2026-IMG-006](../content/issues/OH-2026-IMG-006.md) | MEDIUM | HalfToFloat(+0) == 0.0f (IEEE half) |
 
@@ -421,7 +423,7 @@ Authoritative spec / stdlib / IEEE / Unicode / pinning contract that this SUT cl
 
 Maintainer-rejected DTS. Counted in the denominator only.
 
-**Precision** = (fixed + confirmed) / (fixed + confirmed + non-issues) = **(136 + 0) / (136 + 0 + 27) = 83.4%**.
+**Precision** = (fixed + confirmed) / (fixed + confirmed + non-issues) = **(137 + 0) / (137 + 0 + 27) = 83.5%**.
 
 | DTS | Project | Theme | Why non-issue |
 |-----|---------|-------|---------------|

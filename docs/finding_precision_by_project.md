@@ -2,8 +2,8 @@
 
 How often PBT-filed **DTS** tickets were accepted as real bugs versus closed as non-issues, broken down by project.
 
-- **Precision:** **83.4%** ((136 FIXED + 0 CONFIRMED) / 163 decided)
-- **False-positive rate:** **16.6%** (27 NON-ISSUE)
+- **Precision:** **83.5%** ((137 FIXED + 0 CONFIRMED) / 164 decided)
+- **False-positive rate:** **16.5%** (27 NON-ISSUE)
 
 Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS tickets are omitted — their outcome (bug vs non-issue) is not yet known.
 
@@ -22,7 +22,7 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 **Sources**
 
 - DTS inventory: [`dts_bug_types.md`](./dts_bug_types.md) + [`content/issues/`](../content/issues/)
-- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**136** = 136 `CONFIRMED_FIXED` + 0 `CONFIRMED_REAL`)
+- Confirmed write-ups with DTS: [`content/issues/`](../content/issues/) (**137** = 137 `CONFIRMED_FIXED` + 0 `CONFIRMED_REAL`)
 - Non-issue write-ups: `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/` (**27** DTS-stamped)
 
 - **Generated:** 2026-09-24
@@ -31,13 +31,13 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 136 | 83.4% |
+| FIXED | 137 | 83.5% |
 | CONFIRMED (awaiting fix) | 0 | 0.0% |
-| NON-ISSUE | 27 | 16.6% |
-| **Total decided** | **163** | 100% |
+| NON-ISSUE | 27 | 16.5% |
+| **Total decided** | **164** | 100% |
 
-- **Precision:** **(136+0)/163 = 83.4%** — about five in six closed tickets were real bugs.
-- **False-positive rate:** **27/163 = 16.6%**.
+- **Precision:** **(137+0)/164 = 83.5%** — about five in six closed tickets were real bugs.
+- **False-positive rate:** **27/164 = 16.5%**.
 
 > Precision means *maintainer-accepted defect rate among dispositioned DTS* (fixed **or** confirmed-unfixed), not static-analysis alert rate. Open/submitted tickets are out of scope until closed.
 
@@ -53,7 +53,7 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`arkui_ace_engine`](#arkui-ace-engine) | 19 | 0 | 7 | 26 | 73% |
 | [`multimedia_image_framework`](#multimedia-image-framework) | 10 | 0 | 0 | 10 | 100% |
 | [`arkcompiler_runtime_core`](#arkcompiler-runtime-core) | 11 | 0 | 1 | 12 | 92% |
-| [`ability_ability_runtime`](#ability-ability-runtime) | 7 | 0 | 0 | 7 | 100% |
+| [`ability_ability_runtime`](#ability-ability-runtime) | 8 | 0 | 0 | 8 | 100% |
 | [`multimedia_av_codec`](#multimedia-av-codec) | 6 | 0 | 0 | 6 | 100% |
 | [`multimedia_media_foundation`](#multimedia-media-foundation) | 2 | 0 | 5 | 7 | 29% |
 | [`multimedia_player_framework`](#multimedia-player-framework) | 4 | 0 | 1 | 5 | 80% |
@@ -74,13 +74,13 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`telephony_core_service`](#telephony-core-service) | 3 | 0 | 0 | 3 | 100% |
 | [`multimedia_audio_framework`](#multimedia-audio-framework) | 1 | 0 | 1 | 2 | 50% |
 | [`multimodalinput_input`](#multimodalinput-input) | 0 | 0 | 2 | 2 | 0% |
-| **Total** | **136** | **0** | **27** | **163** | **83%** |
+| **Total** | **137** | **0** | **27** | **164** | **83%** |
 
 ## Precision tiers
 
 ### Tier A — Perfect precision (100%, ≥1 FIXED, 0 NON-ISSUE)
 
-`multimedia_camera_framework` (15 fixed), `multimedia_image_framework` (10 fixed), `ability_ability_runtime` (7 fixed), `multimedia_av_codec` (6 fixed), `window_window_manager` (3 fixed), `arkui_napi` (4 fixed), `communication_bluetooth_service` (2 fixed), `communication_wifi` (4 fixed), `distributeddatamgr_pasteboard` (2 fixed), `filemanagement_storage_service` (2 fixed), `telephony_core_service` (3 fixed), `commonlibrary_rust_ylong_http` (1 fixed), `distributedhardware_distributed_hardware_fwk` (1 fixed)
+`multimedia_camera_framework` (15 fixed), `multimedia_image_framework` (10 fixed), `ability_ability_runtime` (8 fixed), `multimedia_av_codec` (6 fixed), `window_window_manager` (3 fixed), `arkui_napi` (4 fixed), `communication_bluetooth_service` (2 fixed), `communication_wifi` (4 fixed), `distributeddatamgr_pasteboard` (2 fixed), `filemanagement_storage_service` (2 fixed), `telephony_core_service` (3 fixed), `commonlibrary_rust_ylong_http` (1 fixed), `distributedhardware_distributed_hardware_fwk` (1 fixed)
 
 These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 
@@ -350,9 +350,9 @@ High-confidence project: **10** accepted fixes and **no** rejected DTS.
 
 | Metric | Value |
 |--------|------:|
-| FIXED | 7 |
+| FIXED | 8 |
 | NON-ISSUE | 0 |
-| Decided | 7 |
+| Decided | 8 |
 | Precision | 100.0% |
 
 **FIXED DTS**
@@ -363,6 +363,7 @@ High-confidence project: **10** accepted fixes and **no** rejected DTS.
 - `DTS2026072515209` — [OH-2026-ABILITY-007](../content/issues/OH-2026-ABILITY-007.md): ParseNormalizedOhmUrl short import path substr throws std::out_of_range on preload-SO startup
 - `DTS2026073173354` — [OH-2026-ABILITY-004](../content/issues/OH-2026-ABILITY-004.md): CheckFileManagerUriPermission matches Download/Desktop/Documents prefix without '/' boundary
 - `DTS2026082254944` — [OH-2026-ABILITY-005](../content/issues/OH-2026-ABILITY-005.md): ConvertStringToUint32 parses with signed stoi (drops >INT_MAX, accepts "8a" and "-1")
+- `DTS2026082252519` — [OH-2026-ABILITY-008](../content/issues/OH-2026-ABILITY-008.md): GetAppMemorySize / IsRamConstrainedDevice pass a null buffer to GetParameter — product flags islowram / arkheaplimit dead
 - `DTS2026080812965` — [OH-2026-ABILITY-006](../content/issues/OH-2026-ABILITY-006.md): DataUriUtils::AttachId missing rfind npos guard — replace(npos+1) wraps to 0 and rewrites the URI from the start
 
 ### `distributeddatamgr_pasteboard`
@@ -709,16 +710,16 @@ No FIXED DTS yet among dispositioned tickets.
 
 ## Relation to `content/issues/` write-ups
 
-This repo’s [`content/issues/`](../content/issues/) currently carries **136** DTS-linked reports (**136** `CONFIRMED_FIXED` + **0** `CONFIRMED_REAL`).
+This repo’s [`content/issues/`](../content/issues/) currently carries **137** DTS-linked reports (**137** `CONFIRMED_FIXED` + **0** `CONFIRMED_REAL`).
 `CONFIRMED_FIXED` is the **FIXED** count; `CONFIRMED_REAL` is **CONFIRMED** (awaiting fix). Non-issues come from `~/cloned/*/pbt-out/bug_reports/non-issue/` and `~/testing/*/pbt-out/bug_reports/non-issue/`.
 
 | Population | Count | Role |
 |------------|------:|------|
-| Decided DTS (FIXED + CONFIRMED + NON-ISSUE) | 163 | Ground truth for precision |
-| FIXED | 136 | Maintainer-accepted and fixed |
+| Decided DTS (FIXED + CONFIRMED + NON-ISSUE) | 164 | Ground truth for precision |
+| FIXED | 137 | Maintainer-accepted and fixed |
 | CONFIRMED | 0 | Maintainer-accepted, not fixed yet |
 | NON-ISSUE | 27 | Maintainer-rejected (cloned + testing inventory) |
-| Write-ups in `content/issues` with DTS | 136 | Published confirmed bugs (fixed or awaiting fix) |
+| Write-ups in `content/issues` with DTS | 137 | Published confirmed bugs (fixed or awaiting fix) |
 
 **Do not** compute precision from `content/issues` alone — it omits non-issues by design. Use this document (or dispositioned rows in `BUG_REPORTS.md`) for acceptance rate.
 
@@ -726,7 +727,7 @@ See also: [DTS tickets by detecting property](./dts_bug_types.md). Failure-mode 
 
 ## Takeaways
 
-1. **Overall precision is high (83.4%)** — PBT filings that reach a DTS decision are usually real defects.
+1. **Overall precision is high (83.5%)** — PBT filings that reach a DTS decision are usually real defects.
 2. **False positives cluster in a few patterns** (27 tickets): by-design helpers, composed-draw / wrong output space, dead/unreachable / dropped-from-trunk code, path-prefix gates with no live producer after `realpath`, framing residuals that are not object OOB and mostly fail-closed, caller-owned / split-API contracts, shipped CAPI / product omissions, flag-dependent crashes — not flaky reproduction.
 3. **Several large surfaces are clean so far** (e.g. `multimedia_camera_framework`, `multimedia_image_framework` among high-volume FIXED with 0 NON-ISSUE). `graphic_graphic_2d` now has one composed-draw non-issue (`SrcRectScaleFit`) against 11 fixes.
 4. **Filing bar that non-issues imply:** prove a live production caller, state the product contract, and avoid “algebraic inconsistency across differently purposed APIs” without impact. Sibling slash-terminated roots + a one-char fix still need a product-domain hit. Do not equate logical cursor past `wPos_` inside a zero-filled fixed buffer with heap OOB. Do not assert a mid-pipeline rect in the consumer dest space when a gravity/fill matrix still maps it (`dstRect` vs `dstRect*matrix`).
@@ -756,7 +757,7 @@ Moved out of [`dts_bug_types.md`](./dts_bug_types.md) (that file is now the dete
 | [Arithmetic — Divide by Zero](#arithmetic-divide-by-zero) | 3 | 1 | 2 | 0 |
 | [Arithmetic — Off-by-One](#arithmetic-off-by-one) | 3 | 1 | 2 | 0 |
 | [Memory Safety — Buffer / OOB Access](#memory-safety-buffer-oob-access) | 15 | 2 | 13 | 0 |
-| [Memory Safety — Null Pointer Dereference](#memory-safety-null-pointer-dereference) | 1 | 1 | 0 | 0 |
+| [Memory Safety — Null Pointer Dereference](#memory-safety-null-pointer-dereference) | 2 | 1 | 1 | 0 |
 | [Memory Safety — Double Free](#memory-safety-double-free) | 1 | 0 | 1 | 0 |
 | [Control Flow — Infinite Loop / Hang](#control-flow-infinite-loop-hang) | 3 | 0 | 3 | 0 |
 | [Logic — Incorrect Control Flow](#logic-incorrect-control-flow) | 7 | 2 | 5 | 0 |
@@ -830,6 +831,7 @@ Moved out of [`dts_bug_types.md`](./dts_bug_types.md) (that file is now the dete
 | `DTS2026072921166` | [OH-2026-WM-002](../content/issues/OH-2026-WM-002.md) | Arithmetic — Integer Overflow / Underflow | MEDIUM | `window_window_manager` |
 | `DTS2026072924028` | [OH-2026-WM-003](../content/issues/OH-2026-WM-003.md) | Input Validation — Uncaught Exception / Crash on Bad Input | HIGH | `window_window_manager` |
 | `DTS2026080808589` | [OH-2026-DFS-002](../content/issues/OH-2026-DFS-002.md) | Input Validation — Uncaught Exception / Crash on Bad Input | MEDIUM | `filemanagement_dfs_service` |
+| `DTS2026082252519` | [OH-2026-ABILITY-008](../content/issues/OH-2026-ABILITY-008.md) | Memory Safety — Null Pointer Dereference | MEDIUM | `ability_ability_runtime` |
 | `DTS2026072935286` | [OH-2026-AVCODEC-002](../content/issues/OH-2026-AVCODEC-002.md) | Arithmetic — Off-by-One | MEDIUM | `multimedia_av_codec` |
 | `DTS2026073013382` | [OH-2026-IMG-009](../content/issues/OH-2026-IMG-009.md) | Arithmetic — Integer Overflow / Underflow | MEDIUM | `multimedia_image_framework` |
 | `DTS2026073015200` | [OH-2026-IMG-003](../content/issues/OH-2026-IMG-003.md) | Logic — Incorrect Operator / Predicate | HIGH | `multimedia_image_framework` |
@@ -1042,6 +1044,7 @@ Missing null checks on paths that still reach a dereference.
 | DTS | ID | Severity | CWE | Component / repo | Title |
 |-----|----|----------|-----|------------------|-------|
 | `DTS2026071309672` | [OH-2026-MF-001](../content/issues/OH-2026-MF-001.md) | HIGH | CWE-476 (NULL Pointer Dereference) | `src/meta/format.cpp` · `multimedia_media_foundation` | Format::Stringify null-dereferences (SIGSEGV) on a PutIntBuffer entry |
+| `DTS2026082252519` | [OH-2026-ABILITY-008](../content/issues/OH-2026-ABILITY-008.md) | MEDIUM | CWE-476 (NULL Pointer Dereference) | `services/abilitymgr/src/ability_manager_service.cpp` · `ability_ability_runtime` | GetAppMemorySize / IsRamConstrainedDevice pass a null buffer to GetParameter — product flags dead |
 
 <details><summary>Summaries</summary>
 
@@ -1328,7 +1331,7 @@ Masking/redaction fails; secrets or addresses reach logs.
 | CWE-295 | Improper Certificate Validation | 1 |
 | CWE-415 | Double Free | 1 |
 | CWE-459 | Incomplete Cleanup | 1 |
-| CWE-476 | NULL Pointer Dereference | 1 |
+| CWE-476 | NULL Pointer Dereference | 2 |
 | CWE-480 | Use of Incorrect Operator | 1 |
 | CWE-680 | Integer Overflow to Buffer Overflow | 1 |
 | CWE-754 | Improper Check or Handling of Exceptional Conditions | 1 |
