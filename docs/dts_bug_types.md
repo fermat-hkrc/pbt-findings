@@ -2,12 +2,12 @@
 
 Categorization of [`content/issues/`](../content/issues/) findings that carry a **DTS** ticket (`internal_issue_id`), grouped by the **pi-pbt property (oracle)** that found each ticket. CWE / failure-mode grouping is archived at the end of [`finding_precision_by_project.md`](finding_precision_by_project.md).
 
-- **Confirmed (FIXED)**: **133** — `CONFIRMED_FIXED` write-ups below
+- **Confirmed (FIXED)**: **134** — `CONFIRMED_FIXED` write-ups below
 - **Confirmed (awaiting fix)**: **1** — `CONFIRMED_REAL` (OH-2026-ARKUI-018)
 - **Non-issue**: **27** — [catalog](#non-issues)
-- **Decided**: **161** = 133 + 1 + 27
-- **Precision**: **83.2%** = `(133 + 1) / (133 + 1 + 27)` = (fixed + confirmed) / (fixed + confirmed + non-issues)
-- **Severity** (fixed + confirmed): HIGH=32, MEDIUM=99, LOW=3
+- **Decided**: **162** = 134 + 1 + 27
+- **Precision**: **83.3%** = `(134 + 1) / (134 + 1 + 27)` = (fixed + confirmed) / (fixed + confirmed + non-issues)
+- **Severity** (fixed + confirmed): HIGH=32, MEDIUM=100, LOW=3
 - **Generated**: 2026-09-24
 
 ## Overview
@@ -21,11 +21,11 @@ Oracle taxonomy from [pi-pbt `docs/oracles.md`](https://github.com/fermat-hkrc/p
 | [Differential](#differential) | 37 | 4 | 32 | 1 |
 | [Algebraic — Round-trip](#algebraic--round-trip) | 7 | 3 | 4 | 0 |
 | [Algebraic — Metamorphic](#algebraic--metamorphic) | 5 | 1 | 4 | 0 |
-| [Algebraic — Invariant](#algebraic--invariant) | 49 | 11 | 37 | 1 |
+| [Algebraic — Invariant](#algebraic--invariant) | 50 | 11 | 38 | 1 |
 | [Negative / Error Contract](#negative--error-contract) | 11 | 2 | 9 | 0 |
 | [Reference](#reference) | 5 | 1 | 4 | 0 |
 | [Crash-Only](#crash-only) | 16 | 7 | 9 | 0 |
-| **Total** | **134** | **32** | **99** | **3** |
+| **Total** | **135** | **32** | **100** | **3** |
 
 Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Idempotence ≻ Metamorphic ≻ Invariant ≻ Negative/Error) ≻ Reference ≻ Crash-Only. **Idempotence: 0** in this set.
 
@@ -38,7 +38,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `multimedia_camera_framework` | 15 | 0 | 0 | 14 | 1 | 100% |
 | `multimedia_image_framework` | 10 | 0 | 1 | 9 | 0 | 100% |
 | `communication_netmanager_base` | 14 | 2 | 4 | 10 | 0 | 88% |
-| `graphic_graphic_2d` | 10 | 1 | 3 | 6 | 1 | 91% |
+| `graphic_graphic_2d` | 11 | 1 | 3 | 7 | 1 | 92% |
 | `arkui_ace_engine` | 19 | 7 | 8 | 11 | 0 | 73% |
 | `ability_ability_runtime` | 7 | 0 | 0 | 7 | 0 | 100% |
 | `arkcompiler_runtime_core` | 11 | 1 | 1 | 10 | 0 | 92% |
@@ -62,7 +62,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `arkui_napi` | 4 | 0 | 1 | 3 | 0 | 100% |
 | `multimedia_audio_framework` | 1 | 1 | 0 | 1 | 0 | 50% |
 | `multimodalinput_input` | 0 | 2 | 0 | 0 | 0 | 0% |
-| **Total** | **134** | **27** | **32** | **99** | **3** | **83%** |
+| **Total** | **135** | **27** | **32** | **100** | **3** | **83%** |
 
 ## DTS index
 
@@ -202,6 +202,7 @@ Strength order: State Machine ≻ Differential ≻ Algebraic (Round-trip ≻ Ide
 | `DTS2609150153174` | [OH-2026-ARKUI-012](../content/issues/OH-2026-ARKUI-012.md) | Algebraic — Metamorphic | MEDIUM | `arkui_ace_engine` |
 | `DTS2609150153371` | [OH-2026-ARKUI-010](../content/issues/OH-2026-ARKUI-010.md) | Algebraic — Invariant | MEDIUM | `arkui_ace_engine` |
 | `DTS2608260052510` | [OH-2026-MEDIALIB-005](../content/issues/OH-2026-MEDIALIB-005.md) | Crash-Only | HIGH | `multimedia_media_library` |
+| `DTS2026101653039` | [OH-2026-GFX-011](../content/issues/OH-2026-GFX-011.md) | Algebraic — Invariant | MEDIUM | `graphic_graphic_2d` |
 
 ## Detecting property (oracle)
 
@@ -304,6 +305,7 @@ A source-grounded input transform implies a relation on outputs (`a+b==b+a`, nam
 
 | DTS | ID | Severity | Failing property |
 |-----|----|----------|------------------|
+| `DTS2026101653039` | [OH-2026-GFX-011](../content/issues/OH-2026-GFX-011.md) | MEDIUM | un-rotate maps the bounds back onto itself for every degree (non-square) |
 | `DTS2026050963138` | [OH-2026-NET-003](../content/issues/OH-2026-NET-003.md) | HIGH | match_loopback is true only for loopback endpoints |
 | `DTS2026052974442` | [OH-2026-DEVMGR-003](../content/issues/OH-2026-DEVMGR-003.md) | HIGH | GeneratePinCode length == requested pinLength |
 | `DTS2026060814531` | [OH-2026-DHFWK-001](../content/issues/OH-2026-DHFWK-001.md) | MEDIUM | uint validators accept only values that fit the destination type |
@@ -417,7 +419,7 @@ Authoritative spec / stdlib / IEEE / Unicode / pinning contract that this SUT cl
 
 Maintainer-rejected DTS. Counted in the denominator only.
 
-**Precision** = (fixed + confirmed) / (fixed + confirmed + non-issues) = **(133 + 1) / (133 + 1 + 27) = 83.2%**.
+**Precision** = (fixed + confirmed) / (fixed + confirmed + non-issues) = **(134 + 1) / (134 + 1 + 27) = 83.3%**.
 
 | DTS | Project | Theme | Why non-issue |
 |-----|---------|-------|---------------|

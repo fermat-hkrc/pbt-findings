@@ -2,8 +2,8 @@
 
 How often PBT-filed **DTS** tickets were accepted as real bugs versus closed as non-issues, broken down by project.
 
-- **Precision:** **83.2%** ((133 FIXED + 1 CONFIRMED) / 161 decided)
-- **False-positive rate:** **16.8%** (27 NON-ISSUE)
+- **Precision:** **83.3%** ((134 FIXED + 1 CONFIRMED) / 162 decided)
+- **False-positive rate:** **16.7%** (27 NON-ISSUE)
 
 Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS tickets are omitted — their outcome (bug vs non-issue) is not yet known.
 
@@ -31,13 +31,13 @@ Only **dispositioned** tickets are counted. Freshly submitted / still-open DTS t
 
 | Status | Count | Share of decided |
 |--------|------:|-----------------:|
-| FIXED | 133 | 83.1% |
+| FIXED | 134 | 82.7% |
 | CONFIRMED (awaiting fix) | 1 | 0.6% |
-| NON-ISSUE | 27 | 16.8% |
-| **Total decided** | **161** | 100% |
+| NON-ISSUE | 27 | 16.7% |
+| **Total decided** | **162** | 100% |
 
-- **Precision:** **(133+1)/161 = 83.2%** — about five in six closed tickets were real bugs.
-- **False-positive rate:** **27/161 = 16.8%**.
+- **Precision:** **(134+1)/162 = 83.3%** — about five in six closed tickets were real bugs.
+- **False-positive rate:** **27/162 = 16.7%**.
 
 > Precision means *maintainer-accepted defect rate among dispositioned DTS* (fixed **or** confirmed-unfixed), not static-analysis alert rate. Open/submitted tickets are out of scope until closed.
 
@@ -49,7 +49,7 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 |---------|------:|----------:|----------:|--------:|----------:|
 | [`multimedia_camera_framework`](#multimedia-camera-framework) | 15 | 0 | 0 | 15 | 100% |
 | [`communication_netmanager_base`](#communication-netmanager-base) | 14 | 0 | 2 | 16 | 88% |
-| [`graphic_graphic_2d`](#graphic-graphic-2d) | 10 | 0 | 1 | 11 | 91% |
+| [`graphic_graphic_2d`](#graphic-graphic-2d) | 11 | 0 | 1 | 12 | 92% |
 | [`arkui_ace_engine`](#arkui-ace-engine) | 18 | 1 | 7 | 26 | 73% |
 | [`multimedia_image_framework`](#multimedia-image-framework) | 10 | 0 | 0 | 10 | 100% |
 | [`arkcompiler_runtime_core`](#arkcompiler-runtime-core) | 11 | 0 | 1 | 12 | 92% |
@@ -74,7 +74,7 @@ Projects with at least one decided DTS, ordered by decided volume, then precisio
 | [`telephony_core_service`](#telephony-core-service) | 3 | 0 | 0 | 3 | 100% |
 | [`multimedia_audio_framework`](#multimedia-audio-framework) | 1 | 0 | 1 | 2 | 50% |
 | [`multimodalinput_input`](#multimodalinput-input) | 0 | 0 | 2 | 2 | 0% |
-| **Total** | **133** | **1** | **27** | **161** | **83%** |
+| **Total** | **134** | **1** | **27** | **162** | **83%** |
 
 ## Precision tiers
 
@@ -89,7 +89,7 @@ These projects have **no maintainer-rejected DTS** among dispositioned tickets.
 | Project | FIXED | NON-ISSUE | Precision | What non-issues teach |
 |---------|------:|----------:|----------:|----------------------|
 | `arkui_ace_engine` | 18 fixed + 1 confirmed | 7 | 73% | Empty-grid `-mainGap` is stable formula; IsAllItemsMeasured / FindItemCount `-idx` is irregular-only encoding never seen by those helpers; FromRGBO out-of-range wrap is caller-owned clamp on an internal packer; GetDistanceToBottom LayoutInfinity is the irregular last-item span sentinel; UpdatePosMap gap-only adjustOffset.start is isolated mid-pipeline compensation (not top jump); Quaternion Slerp `−from` at t=0 is chromium-port consistency (not product-visible); real layout/math/OOB/asin bugs still fixed/confirmed. |
-| `graphic_graphic_2d` | 10 | 1 | 91% | SrcRectScaleFit source-space dstRect is composed with Gravity::RESIZE fill; dstRect*matrix is the letterbox; algebraic Point3/mesh/color bugs still fixed. |
+| `graphic_graphic_2d` | 11 | 1 | 92% | SrcRectScaleFit source-space dstRect is composed with Gravity::RESIZE fill; dstRect*matrix is the letterbox; algebraic Point3/mesh/color/matrix bugs still fixed. |
 | `arkcompiler_runtime_core` | 11 | 1 | 92% | SkipULeb128 empty/truncated is by-design (void helper, no error channel); real buffer/loop bugs still fixed. |
 | `communication_netmanager_base` | 14 | 2 | 88% | Helper semantics (ForkExec) and API role split (zoned IPv6) ≠ bugs; firewall/IP/mask defects accepted. |
 | `distributedhardware_device_manager` | 2 | 2 | 50% | cJSON int64 round-trip and ConvertStrToInt are dead/unshipped; PIN/rand bugs still fixed. |
@@ -158,10 +158,10 @@ For each project with decided DTS: outcome mix, precision, non-issue notes (if a
 
 | Metric | Value |
 |--------|------:|
-| FIXED | 10 |
+| FIXED | 11 |
 | NON-ISSUE | 1 |
-| Decided | 11 |
-| Precision | 90.9% |
+| Decided | 12 |
+| Precision | 91.7% |
 
 **FIXED DTS**
 
@@ -175,12 +175,13 @@ For each project with decided DTS: outcome mix, precision, non-issue notes (if a
 - `DTS2026080530843` — [OH-2026-GFX-008](../content/issues/OH-2026-GFX-008.md): CubicResampler::Dump writes cubicCoffB into the cubicCoffC field
 - `DTS2026082261311` — [OH-2026-GFX-009](../content/issues/OH-2026-GFX-009.md): RSColor::IsNearEqual compares BT2020 float16 bits, not channel counts
 - `DTS2026090527401` — [OH-2026-GFX-010](../content/issues/OH-2026-GFX-010.md): DrawPixelMapMeshBuilderProcess swaps mesh columns and rows
+- `DTS2026101653039` — [OH-2026-GFX-011](../content/issues/OH-2026-GFX-011.md): GetMatrixByDegree un-rotates a non-square hard cursor onto the wrong axis (fixed upstream `d1115fc36d`)
 
 **NON-ISSUE DTS**
 
 - `DTS2026101648114` — SrcRectScaleFit writes source-space `dstRect`. *GPU path defaults `Gravity::RESIZE` fill in `params.matrix`; `dstRect*matrix` is the letterbox; report checked the helper in isolation. `GetScalingModeMatrix` is HWC, a different job.*
 
-High-confidence project: **10** accepted fixes and **1** rejected DTS.
+High-confidence project: **11** accepted fixes and **1** rejected DTS.
 
 ### `arkui_ace_engine`
 
@@ -711,11 +712,11 @@ This repo’s [`content/issues/`](../content/issues/) currently carries **134** 
 
 | Population | Count | Role |
 |------------|------:|------|
-| Decided DTS (FIXED + CONFIRMED + NON-ISSUE) | 161 | Ground truth for precision |
-| FIXED | 133 | Maintainer-accepted and fixed |
+| Decided DTS (FIXED + CONFIRMED + NON-ISSUE) | 162 | Ground truth for precision |
+| FIXED | 134 | Maintainer-accepted and fixed |
 | CONFIRMED | 1 | Maintainer-accepted, not fixed yet |
 | NON-ISSUE | 27 | Maintainer-rejected (cloned + testing inventory) |
-| Write-ups in `content/issues` with DTS | 134 | Published confirmed bugs (fixed or awaiting fix) |
+| Write-ups in `content/issues` with DTS | 135 | Published confirmed bugs (fixed or awaiting fix) |
 
 **Do not** compute precision from `content/issues` alone — it omits non-issues by design. Use this document (or dispositioned rows in `BUG_REPORTS.md`) for acceptance rate.
 
@@ -723,9 +724,9 @@ See also: [DTS tickets by detecting property](./dts_bug_types.md). Failure-mode 
 
 ## Takeaways
 
-1. **Overall precision is high (83.2%)** — PBT filings that reach a DTS decision are usually real defects.
+1. **Overall precision is high (83.3%)** — PBT filings that reach a DTS decision are usually real defects.
 2. **False positives cluster in a few patterns** (27 tickets): by-design helpers, composed-draw / wrong output space, dead/unreachable / dropped-from-trunk code, path-prefix gates with no live producer after `realpath`, framing residuals that are not object OOB and mostly fail-closed, caller-owned / split-API contracts, shipped CAPI / product omissions, flag-dependent crashes — not flaky reproduction.
-3. **Several large surfaces are clean so far** (e.g. `multimedia_camera_framework`, `multimedia_image_framework` among high-volume FIXED with 0 NON-ISSUE). `graphic_graphic_2d` now has one composed-draw non-issue (`SrcRectScaleFit`) against 10 fixes.
+3. **Several large surfaces are clean so far** (e.g. `multimedia_camera_framework`, `multimedia_image_framework` among high-volume FIXED with 0 NON-ISSUE). `graphic_graphic_2d` now has one composed-draw non-issue (`SrcRectScaleFit`) against 11 fixes.
 4. **Filing bar that non-issues imply:** prove a live production caller, state the product contract, and avoid “algebraic inconsistency across differently purposed APIs” without impact. Sibling slash-terminated roots + a one-char fix still need a product-domain hit. Do not equate logical cursor past `wPos_` inside a zero-filled fixed buffer with heap OOB. Do not assert a mid-pipeline rect in the consumer dest space when a gravity/fill matrix still maps it (`dstRect` vs `dstRect*matrix`).
 
 ## Methodology notes
